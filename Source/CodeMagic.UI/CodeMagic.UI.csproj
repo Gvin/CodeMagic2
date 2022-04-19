@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Version>2.1.0</Version>
+    <Authors>Gvin</Authors>
+    <PackageProjectUrl>https://github.com/Gvin/CodeMagic</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Gvin/CodeMagic</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeMagic.Core\CodeMagic.Core.csproj" />
+    <ProjectReference Include="..\CodeMagic.Game\CodeMagic.Game.csproj" />
+  </ItemGroup>
+
+</Project>
