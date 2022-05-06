@@ -24,73 +24,73 @@ namespace CodeMagic.UI.Presenters
 
         Player Player { set; }
 
-        InventoryStack[] Stacks { set; }
+        IInventoryStack[] Stacks { set; }
 
-        InventoryStack SelectedStack { get; }
+        IInventoryStack SelectedStack { get; }
 
         void Initialize();
     }
 
     public class PlayerInventoryPresenter : IPresenter
     {
-        private readonly IPlayerInventoryView view;
-        private readonly IEditSpellService editSpellService;
-        private GameCore<Player> game;
+        private readonly IPlayerInventoryView _view;
+        private readonly IEditSpellService _editSpellService;
+        private GameCore<Player> _game;
 
         public PlayerInventoryPresenter(IPlayerInventoryView view, IEditSpellService editSpellService)
         {
-            this.view = view;
-            this.editSpellService = editSpellService;
+            this._view = view;
+            this._editSpellService = editSpellService;
 
-            this.view.Exit += View_Exit;
-            this.view.UseItem += View_UseItem;
-            this.view.EquipItem += View_EquipItem;
-            this.view.EquipHoldableItemLeft += View_EquipHoldableItemLeft;
-            this.view.EquipHoldableItemRight += View_EquipHoldableItemRight;
-            this.view.DropItem += View_DropItem;
-            this.view.DropStack += View_DropStack;
-            this.view.TakeOffItem += View_TakeOffItem;
-            this.view.CheckScroll += View_CheckScroll;
+            this._view.Exit += View_Exit;
+            this._view.UseItem += View_UseItem;
+            this._view.EquipItem += View_EquipItem;
+            this._view.EquipHoldableItemLeft += View_EquipHoldableItemLeft;
+            this._view.EquipHoldableItemRight += View_EquipHoldableItemRight;
+            this._view.DropItem += View_DropItem;
+            this._view.DropStack += View_DropStack;
+            this._view.TakeOffItem += View_TakeOffItem;
+            this._view.CheckScroll += View_CheckScroll;
         }
 
         private void View_CheckScroll(object sender, EventArgs e)
         {
-            if (!(view.SelectedStack?.TopItem is ScrollBase selectedScroll))
+            if (!(_view.SelectedStack?.TopItem is ScrollBase selectedScroll))
                 return;
 
-            var code = selectedScroll.GetSpellCode();
-            var filePath = editSpellService.PrepareSpellTemplate(code);
-            editSpellService.LaunchSpellFileEditor(filePath);
+            var code = selectedScroll.GetSpellDisplayCode();
+            var filePath = _editSpellService.PrepareSpellTemplate(code);
+            _editSpellService.LaunchSpellFileEditor(filePath);
         }
 
         private void View_TakeOffItem(object sender, EventArgs e)
         {
-            if (!(view.SelectedStack?.TopItem is IEquipableItem equipableItem))
+            if (!(_view.SelectedStack?.TopItem is IEquipableItem equipableItem))
                 return;
 
-            if (!game.Player.Equipment.IsEquiped(equipableItem))
+            if (!_game.Player.Equipment.IsEquiped(equipableItem))
                 return;
 
-            game.PerformPlayerAction(new UnequipItemPlayerAction(equipableItem));
-            view.Close();
+            _game.PerformPlayerAction(new UnequipItemPlayerAction(equipableItem));
+            _view.Close();
         }
 
         private void View_DropStack(object sender, EventArgs e)
         {
-            if (view.SelectedStack == null)
+            if (_view.SelectedStack == null)
                 return;
 
-            game.PerformPlayerAction(new DropItemsPlayerAction(view.SelectedStack.Items));
-            view.Close();
+            _game.PerformPlayerAction(new DropItemsPlayerAction(_view.SelectedStack.Items));
+            _view.Close();
         }
 
         private void View_DropItem(object sender, EventArgs e)
         {
-            if (view.SelectedStack == null)
+            if (_view.SelectedStack == null)
                 return;
 
-            game.PerformPlayerAction(new DropItemsPlayerAction(view.SelectedStack.TopItem));
-            view.Close();
+            _game.PerformPlayerAction(new DropItemsPlayerAction(_view.SelectedStack.TopItem));
+            _view.Close();
         }
 
         private void View_EquipHoldableItemRight(object sender, EventArgs e)
@@ -105,56 +105,56 @@ namespace CodeMagic.UI.Presenters
 
         private void EquipSelectedHoldable(bool isRight)
         {
-            if (!(view.SelectedStack?.TopItem is IHoldableItem holdableItem))
+            if (!(_view.SelectedStack?.TopItem is IHoldableItem holdableItem))
                 return;
 
-            if (game.Player.Equipment.IsEquiped(holdableItem))
+            if (_game.Player.Equipment.IsEquiped(holdableItem))
                 return;
 
-            game.PerformPlayerAction(new EquipHoldablePlayerAction(holdableItem, isRight));
-            view.Close();
+            _game.PerformPlayerAction(new EquipHoldablePlayerAction(holdableItem, isRight));
+            _view.Close();
         }
 
         private void View_EquipItem(object sender, EventArgs e)
         {
-            if (!(view.SelectedStack?.TopItem is IEquipableItem equipableItem))
+            if (!(_view.SelectedStack?.TopItem is IEquipableItem equipableItem))
                 return;
 
-            if (game.Player.Equipment.IsEquiped(equipableItem))
+            if (_game.Player.Equipment.IsEquiped(equipableItem))
                 return;
 
             if (equipableItem is IHoldableItem)
                 return;
 
-            game.PerformPlayerAction(new EquipItemPlayerAction(equipableItem));
-            view.Close();
+            _game.PerformPlayerAction(new EquipItemPlayerAction(equipableItem));
+            _view.Close();
         }
 
         private void View_UseItem(object sender, EventArgs e)
         {
-            if (!(view.SelectedStack?.TopItem is IUsableItem usableItem))
+            if (!(_view.SelectedStack?.TopItem is IUsableItem usableItem))
                 return;
 
-            game.PerformPlayerAction(new UseItemPlayerAction(usableItem));
-            view.Close();
+            _game.PerformPlayerAction(new UseItemPlayerAction(usableItem));
+            _view.Close();
         }
 
         private void View_Exit(object sender, EventArgs e)
         {
-            view.Close();
+            _view.Close();
         }
 
         public void Run(GameCore<Player> currentGame)
         {
-            game = currentGame;
-            view.Player = game.Player;
-            view.Stacks = game.Player.Inventory.Stacks.OrderByDescending(stack => GetIfEquipped(game.Player, stack)).ToArray();
+            _game = currentGame;
+            _view.Player = _game.Player;
+            _view.Stacks = _game.Player.Inventory.Stacks.OrderByDescending(stack => GetIfEquipped(_game.Player, stack)).ToArray();
 
-            view.Initialize();
-            view.Show();
+            _view.Initialize();
+            _view.Show();
         }
 
-        private static bool GetIfEquipped(Player player, InventoryStack stack)
+        private static bool GetIfEquipped(Player player, IInventoryStack stack)
         {
             if (!(stack.TopItem is IEquipableItem equipable))
                 return false;

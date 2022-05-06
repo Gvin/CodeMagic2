@@ -4,6 +4,6 @@ namespace CodeMagic.Game
 {
     public interface IWorldImageProvider
     {
-        SymbolsImage GetWorldImage(IImagesStorage storage);
+        ISymbolsImage GetWorldImage(IImagesStorage storage);
     }
 }

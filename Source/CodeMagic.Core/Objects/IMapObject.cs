@@ -2,7 +2,7 @@
 
 namespace CodeMagic.Core.Objects
 {
-    public interface IMapObject : ISaveable
+    public interface IMapObject
     {
         string Name { get; }
 

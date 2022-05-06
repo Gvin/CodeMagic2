@@ -18,21 +18,23 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapGenerators
 
         private const int TorchChance = 10;
 
-        private readonly IMapObjectFactory mapObjectsFactory;
+        private readonly IMapObjectFactory _mapObjectsFactory;
+        private readonly IPerformanceMeter _performanceMeter;
 
-        public LabyrinthMapGenerator(IMapObjectFactory mapObjectsFactory)
+        public LabyrinthMapGenerator(IMapObjectFactory mapObjectsFactory, IPerformanceMeter performanceMeter)
         {
-            this.mapObjectsFactory = mapObjectsFactory;
+            _mapObjectsFactory = mapObjectsFactory;
+            _performanceMeter = performanceMeter;
         }
 
-        public IAreaMap Generate(int level, MapSize size, out Point playerPosition)
+        public (IAreaMap map, Point playerPosition) Generate(int level, MapSize size)
         {
             var mapSize = GetSize(size);
 
             var labyrinthWidth = (mapSize - 1) / 2;
             var labyrinthHeight = labyrinthWidth;
 
-            var roomsMap = GenerateLabyrinth(labyrinthWidth, labyrinthHeight, out playerPosition);
+            var (roomsMap, playerPosition) = GenerateLabyrinth(labyrinthWidth, labyrinthHeight);
 
             playerPosition.X = playerPosition.X * 2 + 1;
             playerPosition.Y = playerPosition.Y * 2 + 1;
@@ -41,10 +43,10 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapGenerators
 
             var endPosition = GetEndPosition(map, playerPosition);
 
-            map.AddObject(playerPosition, mapObjectsFactory.CreateStairs());
-            map.AddObject(endPosition, mapObjectsFactory.CreateTrapDoor());
+            map.AddObject(playerPosition, _mapObjectsFactory.CreateStairs());
+            map.AddObject(endPosition, _mapObjectsFactory.CreateTrapDoor());
 
-            return map;
+            return (map, playerPosition);
         }
 
         private Point GetEndPosition(IAreaMap map, Point playerPosition)
@@ -93,7 +95,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapGenerators
 
         private IAreaMap ConvertToAreaMap(int level, Room[][] roomsMap, int width, int height)
         {
-            var map = new AreaMap(level, () => new AreaMapCell(new GameEnvironment()), width, height);
+            var map = new AreaMap(level, () => new AreaMapCell(new GameEnvironment()), width, height, _performanceMeter);
 
             var currentMapY = 1;
             foreach (var row in roomsMap)
@@ -105,7 +107,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapGenerators
                     currentMapX++;
                     if (room.Walls[Direction.East])
                     {
-                        map.AddObject(currentMapX, currentMapY, mapObjectsFactory.CreateWall(TorchChance));
+                        map.AddObject(currentMapX, currentMapY, _mapObjectsFactory.CreateWall(TorchChance));
                     }
                     currentMapX++;
                 }
@@ -117,10 +119,10 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapGenerators
                 {
                     if (room.Walls[Direction.South])
                     {
-                        map.AddObject(currentMapX, currentMapY, mapObjectsFactory.CreateWall(TorchChance));
+                        map.AddObject(currentMapX, currentMapY, _mapObjectsFactory.CreateWall(TorchChance));
                     }
                     currentMapX++;
-                    map.AddObject(currentMapX, currentMapY, mapObjectsFactory.CreateWall(TorchChance));
+                    map.AddObject(currentMapX, currentMapY, _mapObjectsFactory.CreateWall(TorchChance));
                     currentMapX++;
                 }
 
@@ -129,36 +131,36 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapGenerators
 
             for (var y = 0; y < map.Height; y++)
             {
-                map.AddObject(0, y, mapObjectsFactory.CreateWall(TorchChance));
+                map.AddObject(0, y, _mapObjectsFactory.CreateWall(TorchChance));
             }
 
             for (var x = 0; x < map.Width; x++)
             {
-                map.AddObject(x, 0, mapObjectsFactory.CreateWall(TorchChance));
+                map.AddObject(x, 0, _mapObjectsFactory.CreateWall(TorchChance));
             }
 
             for (int y = 0; y < map.Height; y++)
             {
                 for (int x = 0; x < map.Width; x++)
                 {
-                    map.AddObject(x, y, mapObjectsFactory.CreateFloor());
+                    map.AddObject(x, y, _mapObjectsFactory.CreateFloor());
                 }
             }
 
             return map;
         }
 
-        private Room[][] GenerateLabyrinth(int width, int height, out Point startPosition)
+        private (Room[][] map, Point playerPosition) GenerateLabyrinth(int width, int height)
         {
             var map = GetInitialMap(width, height);
 
             var startingX = RandomHelper.GetRandomValue(1, width - 1);
             var startingY = RandomHelper.GetRandomValue(1, height - 1);
-            startPosition = new Point(startingX, startingY);
+            var startPosition = new Point(startingX, startingY);
 
             GeneratePassages(map, width, height, startingX, startingY);
 
-            return map;
+            return (map, startPosition);
         }
 
         private void GeneratePassages(Room[][] map, int width, int height, int startX, int startY)

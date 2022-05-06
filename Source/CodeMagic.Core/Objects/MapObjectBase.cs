@@ -1,36 +1,13 @@
-﻿using System.Collections.Generic;
-using CodeMagic.Core.Saving;
-
-namespace CodeMagic.Core.Objects
+﻿namespace CodeMagic.Core.Objects
 {
     public abstract class MapObjectBase : IMapObject
     {
-        private const string SaveKeyName = "Name";
-
-        protected MapObjectBase(SaveData data)
+        protected MapObjectBase()
         {
-            Name = data.GetStringValue(SaveKeyName);
+            Name = nameof(MapObjectBase);
         }
 
-        protected MapObjectBase(string name)
-        {
-            Name = name;
-        }
-
-        public SaveDataBuilder GetSaveData()
-        {
-            return new SaveDataBuilder(GetType(), GetSaveDataContent());
-        }
-
-        protected virtual Dictionary<string, object> GetSaveDataContent()
-        {
-            return new Dictionary<string, object>
-            {
-                {SaveKeyName, Name}
-            };
-        }
-
-        public virtual string Name { get; }
+        public virtual string Name { get; set; }
 
         public virtual bool BlocksMovement => false;
 

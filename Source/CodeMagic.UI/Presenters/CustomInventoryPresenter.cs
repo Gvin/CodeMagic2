@@ -16,9 +16,9 @@ namespace CodeMagic.UI.Presenters
 
         string InventoryName { set; }
 
-        InventoryStack SelectedStack { get; }
+        IInventoryStack SelectedStack { get; }
 
-        InventoryStack[] Stacks { set; }
+        IInventoryStack[] Stacks { set; }
 
         Player Player { set; }
 
@@ -29,32 +29,32 @@ namespace CodeMagic.UI.Presenters
 
     public class CustomInventoryPresenter : IPresenter
     {
-        private readonly ICustomInventoryView view;
-        private GameCore<Player> game;
-        private Inventory inventory;
-        private bool actionPerformed;
+        private readonly ICustomInventoryView _view;
+        private GameCore<Player> _game;
+        private IInventory _inventory;
+        private bool _actionPerformed;
 
         public CustomInventoryPresenter(ICustomInventoryView view)
         {
-            this.view = view;
-            actionPerformed = false;
+            _view = view;
+            _actionPerformed = false;
 
-            this.view.Exit += View_Exit;
-            this.view.PickUpOne += View_PickUpOne;
-            this.view.PickUpStack += View_PickUpStack;
-            this.view.PickUpAll += View_PickUpAll;
+            _view.Exit += View_Exit;
+            _view.PickUpOne += View_PickUpOne;
+            _view.PickUpStack += View_PickUpStack;
+            _view.PickUpAll += View_PickUpAll;
         }
 
         private void View_PickUpAll(object sender, EventArgs e)
         {
-            actionPerformed = true;
-            foreach (var stack in inventory.Stacks)
+            _actionPerformed = true;
+            foreach (var stack in _inventory.Stacks)
             {
                 var items = stack.Items.ToArray();
                 foreach (var item in items)
                 {
-                    inventory.RemoveItem(item);
-                    game.Player.Inventory.AddItem(item);
+                    _inventory.RemoveItem(item);
+                    _game.Player.Inventory.AddItem(item);
                 }
             }
             CloseView();
@@ -62,21 +62,21 @@ namespace CodeMagic.UI.Presenters
 
         private void View_PickUpStack(object sender, EventArgs e)
         {
-            if (view.SelectedStack == null)
+            if (_view.SelectedStack == null)
                 return;
 
-            actionPerformed = true;
-            var items = view.SelectedStack.Items.ToArray();
+            _actionPerformed = true;
+            var items = _view.SelectedStack.Items.ToArray();
             foreach (var item in items)
             {
-                inventory.RemoveItem(item);
-                game.Player.Inventory.AddItem(item);
+                _inventory.RemoveItem(item);
+                _game.Player.Inventory.AddItem(item);
             }
 
-            if (inventory.ItemsCount > 0)
+            if (_inventory.ItemsCount > 0)
             {
-                view.Stacks = inventory.Stacks;
-                view.RefreshItems(false);
+                _view.Stacks = _inventory.Stacks;
+                _view.RefreshItems(false);
             }
             else
             {
@@ -86,18 +86,18 @@ namespace CodeMagic.UI.Presenters
 
         private void View_PickUpOne(object sender, EventArgs e)
         {
-            if (view.SelectedStack == null)
+            if (_view.SelectedStack == null)
                 return;
 
-            actionPerformed = true;
-            var item = view.SelectedStack.TopItem;
-            inventory.RemoveItem(item);
-            game.Player.Inventory.AddItem(item);
+            _actionPerformed = true;
+            var item = _view.SelectedStack.TopItem;
+            _inventory.RemoveItem(item);
+            _game.Player.Inventory.AddItem(item);
 
-            if (inventory.ItemsCount > 0)
+            if (_inventory.ItemsCount > 0)
             {
-                view.Stacks = inventory.Stacks;
-                view.RefreshItems(true);
+                _view.Stacks = _inventory.Stacks;
+                _view.RefreshItems(true);
             }
             else
             {
@@ -107,11 +107,11 @@ namespace CodeMagic.UI.Presenters
 
         private void CloseView()
         {
-            if (actionPerformed)
+            if (_actionPerformed)
             {
-                game.PerformPlayerAction(new EmptyPlayerAction());
+                _game.PerformPlayerAction(new EmptyPlayerAction());
             }
-            view.Close();
+            _view.Close();
         }
 
         private void View_Exit(object sender, EventArgs e)
@@ -119,16 +119,16 @@ namespace CodeMagic.UI.Presenters
             CloseView();
         }
 
-        public void Run(GameCore<Player> currentGame, string inventoryName, Inventory customInventory)
+        public void Run(GameCore<Player> currentGame, string inventoryName, IInventory customInventory)
         {
-            game = currentGame;
-            inventory = customInventory;
-            view.InventoryName = inventoryName;
-            view.Stacks = inventory.Stacks;
-            view.Player = game.Player;
+            _game = currentGame;
+            _inventory = customInventory;
+            _view.InventoryName = inventoryName;
+            _view.Stacks = _inventory.Stacks;
+            _view.Player = _game.Player;
 
-            view.Initialize();
-            view.Show();
+            _view.Initialize();
+            _view.Show();
         }
     }
 }

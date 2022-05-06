@@ -6,24 +6,30 @@
 
 <div class="main-menu">
 	<div class="content">
-		@if (ShowContinueButton)
-		{
+
+		<div class="logo">
+
+		</div>
+
+		<div class="menu">
+			@if (ShowContinueButton)
+			{
+				<div class="menu-button">
+					<Button Text="C0ntinue Game" OnClick="HandleContunieGameClick"></Button>
+				</div>
+			}
 			<div class="menu-button">
-				<Button Text="C0ntinue Game" OnClick="HandleContunieGameClick"></Button>
+				<Button Text="Start Game" OnClick="HandleStartGameClick"></Button>
 			</div>
-			
-		}
-		<div class="menu-button">
-			<Button Text="Start Game" OnClick="HandleStartGameClick"></Button>
-		</div>
-		<div class="menu-button">
-			<Button Text="Spe11 Library" OnClick="HandleShowSpellLibraryClick"></Button>
-		</div>
-		<div class="menu-button">
-			<Button Text="Settings" OnClick="HandleSettingsClick"></Button>
-		</div>
-		<div class="menu-button">
-			<Button Text="Exit" OnClick="HandleExitClick"></Button>
+			<div class="menu-button">
+				<Button Text="Spe11 Library" OnClick="HandleShowSpellLibraryClick"></Button>
+			</div>
+			<div class="menu-button">
+				<Button Text="Settings" OnClick="HandleSettingsClick"></Button>
+			</div>
+			<div class="menu-button">
+				<Button Text="Exit" OnClick="HandleExitClick"></Button>
+			</div>
 		</div>
 
 	</div>

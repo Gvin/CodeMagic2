@@ -4,8 +4,8 @@ namespace CodeMagic.Game
 {
     public interface IImagesStorage
     {
-        SymbolsImage GetImage(string name);
+        ISymbolsImage GetImage(string name);
 
-        SymbolsImage[] GetAnimation(string name);
+        ISymbolsImage[] GetAnimation(string name);
     }
 }

@@ -21,17 +21,17 @@ namespace CodeMagic.Game.GameProcess
 
     public class GameManager : IGameManager
     {
-        private Task saveGameTask;
-        private int turnsSinceLastSaving;
-        private readonly ISaveService saveService;
-        private readonly int savingInterval;
+        private Task _saveGameTask;
+        private int _turnsSinceLastSaving;
+        private readonly ISaveService _saveService;
+        private readonly int _savingInterval;
         private readonly ILoggerFactory _loggerFactory;
 
         public GameManager(ISaveService saveService, int savingInterval, ILoggerFactory loggerFactory)
         {
             _loggerFactory = loggerFactory;
-            this.saveService = saveService;
-            this.savingInterval = savingInterval;
+            _saveService = saveService;
+            _savingInterval = savingInterval;
         }
 
         public GameCore<Player> StartGame()
@@ -50,11 +50,11 @@ namespace CodeMagic.Game.GameProcess
             var game = (GameCore<Player>) CurrentGame.Game;
             startMap.Refresh();
 
-            player.Inventory.ItemAdded += (sender, args) =>
+            player.Inventory.ItemAdded += (_, args) =>
             {
                 game.Journal.Write(new ItemReceivedMessage(args.Item));
             };
-            player.Inventory.ItemRemoved += (sender, args) =>
+            player.Inventory.ItemRemoved += (_, args) =>
             {
                 game.Journal.Write(new ItemLostMessage(args.Item));
             };
@@ -62,16 +62,16 @@ namespace CodeMagic.Game.GameProcess
             game.Journal.Write(new StartGameMessage());
 
             game.TurnEnded += game_TurnEnded;
-            saveService.SaveGame();
+            _saveService.SaveGame();
 
-            turnsSinceLastSaving = 0;
+            _turnsSinceLastSaving = 0;
 
             return game;
         }
 
         public void LoadGame()
         {
-            var (game, data) = saveService.LoadGame();
+            var (game, data) = _saveService.LoadGame();
 
             GameData.Initialize(data);
             CurrentGame.Load(game);
@@ -79,37 +79,37 @@ namespace CodeMagic.Game.GameProcess
             if (game == null)
                 return;
 
-            game.Player.Inventory.ItemAdded += (sender, args) =>
+            game.Player.Inventory.ItemAdded += (_, args) =>
             {
                 game.Journal.Write(new ItemReceivedMessage(args.Item));
             };
-            game.Player.Inventory.ItemRemoved += (sender, args) =>
+            game.Player.Inventory.ItemRemoved += (_, args) =>
             {
                 game.Journal.Write(new ItemLostMessage(args.Item));
             };
 
             game.TurnEnded += game_TurnEnded;
 
-            turnsSinceLastSaving = 0;
+            _turnsSinceLastSaving = 0;
         }
 
         private void game_TurnEnded(object sender, EventArgs args)
         {
-            turnsSinceLastSaving++;
+            _turnsSinceLastSaving++;
 
-            if (turnsSinceLastSaving >= savingInterval)
+            if (_turnsSinceLastSaving >= _savingInterval)
             {
-                saveGameTask?.Wait();
-                saveGameTask = saveService.SaveGameAsync();
-                turnsSinceLastSaving = 0;
+                _saveGameTask?.Wait();
+                _saveGameTask = _saveService.SaveGameAsync();
+                _turnsSinceLastSaving = 0;
             }
 
             if (CurrentGame.Player.Health <= 0)
             {
-                saveGameTask?.Wait();
+                _saveGameTask?.Wait();
                 ((GameCore<Player>)CurrentGame.Game).TurnEnded -= game_TurnEnded;
                 CurrentGame.Load(null);
-                saveService.DeleteSave();
+                _saveService.DeleteSave();
             }
         }
 

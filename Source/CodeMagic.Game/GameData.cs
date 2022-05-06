@@ -2,58 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeMagic.Core.Game;
-using CodeMagic.Core.Logging;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Items.Usable.Potions;
 
 namespace CodeMagic.Game
 {
-    public class GameData : ISaveable
+    public interface IGameData
     {
-        private static readonly ILog Log = LogManager.GetLog<GameData>();
+        PotionType GetPotionType(PotionColor potionColor);
+    }
 
-        public static GameData Current { get; private set; }
+    [Serializable]
+    public class GameData : IGameData
+    {
+        public static IGameData Current { get; private set; }
 
-        public static void Initialize(GameData data)
+        public static void Initialize(IGameData data)
         {
-            Log.Debug("Initializing GameData");
             Current = data;
         }
 
-        private const string SaveKeyPotionsPattern = "PotionsPattern";
+        public Dictionary<PotionColor, PotionType> PotionsPattern { get; set; }
 
-        public GameData()
+        public PotionType GetPotionType(PotionColor potionColor)
         {
-            PotionsPattern = new Dictionary<PotionColor, PotionType>();
-            InitializePotionTypes();
-        }
-
-        public GameData(SaveData data)
-        {
-            PotionsPattern = data.GetObject<DictionarySaveable>(SaveKeyPotionsPattern).Data.ToDictionary(
-                pair => (PotionColor)int.Parse((string)pair.Key),
-                pair => (PotionType)int.Parse((string)pair.Value));
-        }
-
-        public SaveDataBuilder GetSaveData()
-        {
-            var data = new Dictionary<string, object>
+            if (PotionsPattern == null)
             {
-                {
-                    SaveKeyPotionsPattern, new DictionarySaveable(PotionsPattern.ToDictionary(
-                        pair => (object) (int) pair.Key,
-                        pair => (object) (int) pair.Value))
-                }
-            };
-            return new SaveDataBuilder(GetType(), data);
+                PotionsPattern = GeneratePotionTypes();
+            }
+
+            return PotionsPattern[potionColor];
         }
 
-        public Dictionary<PotionColor, PotionType> PotionsPattern { get; }
-
-        private void InitializePotionTypes()
+        private static Dictionary<PotionColor, PotionType> GeneratePotionTypes()
         {
-            Log.Debug("Initializing potion types");
-            PotionsPattern.Clear();
+            var result = new Dictionary<PotionColor, PotionType>();
 
             var colors = Enum.GetValues(typeof(PotionColor)).Cast<PotionColor>().ToList();
             var types = Enum.GetValues(typeof(PotionType)).Cast<PotionType>().ToList();
@@ -62,8 +44,10 @@ namespace CodeMagic.Game
             {
                 var type = RandomHelper.GetRandomElement(types.ToArray());
                 types.Remove(type);
-                PotionsPattern.Add(potionColor, type);
+                result.Add(potionColor, type);
             }
+
+            return result;
         }
     }
 }

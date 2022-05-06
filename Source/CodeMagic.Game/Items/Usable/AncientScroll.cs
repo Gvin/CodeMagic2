@@ -127,7 +127,7 @@ namespace CodeMagic.Game.Items.Usable
             return string.Join(NewLineSign, lines);
         }
 
-        public override string GetSpellCode()
+        public override string GetSpellDisplayCode()
         {
             return damagedCode;
         }

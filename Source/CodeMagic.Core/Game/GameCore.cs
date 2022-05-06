@@ -4,7 +4,6 @@ using System.Linq;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Game.Journaling;
 using CodeMagic.Core.Game.PlayerActions;
-using CodeMagic.Core.Logging;
 using CodeMagic.Core.Objects;
 using CodeMagic.Core.Saving;
 using CodeMagic.Core.Statuses;
@@ -14,9 +13,9 @@ namespace CodeMagic.Core.Game
 {
     public sealed class CurrentGame
     {
-        private static ILogger<CurrentGame> Logger;
-        private static readonly object GameLockObject = new object();
-        private static IGameCore game;
+        private static ILogger<CurrentGame> _logger;
+        private static readonly object GameLockObject = new();
+        private static IGameCore _game;
 
         public static IGameCore Game
         {
@@ -24,15 +23,15 @@ namespace CodeMagic.Core.Game
             {
                 lock (GameLockObject)
                 {
-                    return game;
+                    return _game;
                 }
             }
             private set
             {
                 lock (GameLockObject)
                 {
-                    Logger.LogDebug("Setting game instance");
-                    game = value;
+                    _logger.LogDebug("Setting game instance");
+                    _game = value;
                 }
             }
         }
@@ -48,7 +47,7 @@ namespace CodeMagic.Core.Game
         public static void Initialize<TPlayer>(IAreaMap map, TPlayer player, Point playerPosition, ILoggerFactory loggerFactory)
             where TPlayer : class, IPlayer
         {
-            Logger = loggerFactory.CreateLogger<CurrentGame>();
+            _logger = loggerFactory.CreateLogger<CurrentGame>();
             Game = new GameCore<TPlayer>(map, player, playerPosition, loggerFactory.CreateLogger<GameCore<TPlayer>>());
         }
 
@@ -68,7 +67,7 @@ namespace CodeMagic.Core.Game
         private const string SaveKeyJournal = "Journal";
         private const string SaveKeyCurrentTurn = "CurrentTurn";
 
-        private AreaMapFragment cachedVisibleArea;
+        private AreaMapFragment _cachedVisibleArea;
 
         public GameCore(SaveData dataBuilder, ILogger<GameCore<TPlayer>> logger)
         {
@@ -78,7 +77,7 @@ namespace CodeMagic.Core.Game
             Player = Map.GetCell(PlayerPosition).Objects.OfType<TPlayer>().Single();
             Journal = new Journal();
             CurrentTurn = dataBuilder.GetIntValue(SaveKeyCurrentTurn);
-            cachedVisibleArea = null;
+            _cachedVisibleArea = null;
         }
 
         public GameCore(IAreaMap map, TPlayer player, Point playerPosition, ILogger<GameCore<TPlayer>> logger)
@@ -94,7 +93,7 @@ namespace CodeMagic.Core.Game
 
             CurrentTurn = 1;
 
-            cachedVisibleArea = null;
+            _cachedVisibleArea = null;
         }
 
         public event EventHandler TurnEnded;
@@ -143,7 +142,7 @@ namespace CodeMagic.Core.Game
                 TurnEnded?.Invoke(this, EventArgs.Empty);
             }
 
-            cachedVisibleArea = null;
+            _cachedVisibleArea = null;
         }
 
         private void ProcessSystemTurn()
@@ -160,8 +159,8 @@ namespace CodeMagic.Core.Game
 
         public AreaMapFragment GetVisibleArea()
         {
-            if (cachedVisibleArea != null)
-                return cachedVisibleArea;
+            if (_cachedVisibleArea != null)
+                return _cachedVisibleArea;
 
             var visibleArea = VisibilityHelper.GetVisibleArea(Player.VisibilityRange, PlayerPosition);
             if (visibleArea == null)
@@ -189,8 +188,8 @@ namespace CodeMagic.Core.Game
                 }
             }
 
-            cachedVisibleArea = new AreaMapFragment(result, visibleAreaDiameter, visibleAreaDiameter);
-            return cachedVisibleArea;
+            _cachedVisibleArea = new AreaMapFragment(result, visibleAreaDiameter, visibleAreaDiameter);
+            return _cachedVisibleArea;
         }
 
         public void Dispose()

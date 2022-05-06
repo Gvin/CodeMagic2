@@ -5,6 +5,6 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapGenerators
 {
     internal interface IMapAreaGenerator
     {
-        IAreaMap Generate(int level, MapSize size, out Point playerPosition);
+        (IAreaMap map, Point playerPosition) Generate(int level, MapSize size);
     }
 }

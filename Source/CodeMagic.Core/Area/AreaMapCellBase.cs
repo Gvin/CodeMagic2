@@ -1,43 +1,31 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 
 namespace CodeMagic.Core.Area
 {
     public abstract class AreaMapCellBase : IAreaMapCell
     {
-        private const string SaveKeyEnvironment = "Environment";
-        private const string SaveKeyObjects = "Objects";
-        private const string SaveKeyLightLevel = "LightLevel";
-
-        protected AreaMapCellBase(SaveData data)
-        {
-            ObjectsCollection = new MapObjectsCollection(data.GetObjectsCollection<IMapObject>(SaveKeyObjects));
-            LightLevel = (LightLevel)data.GetIntValue(SaveKeyLightLevel);
-            Environment = data.GetObject<IEnvironment>(SaveKeyEnvironment);
-        }
-
-        protected AreaMapCellBase(IEnvironment environment)
+        protected AreaMapCellBase()
         {
             ObjectsCollection = new MapObjectsCollection();
             LightLevel = LightLevel.Darkness;
-            Environment = environment;
         }
 
-        public SaveDataBuilder GetSaveData()
-        {
-            return new SaveDataBuilder(GetType(), new Dictionary<string, object>
-            {
-                {SaveKeyLightLevel, (int)LightLevel},
-                {SaveKeyObjects, ObjectsCollection},
-                {SaveKeyEnvironment, Environment}
-            });
-        }
-
-        public IEnvironment Environment { get; }
+        public IEnvironment Environment { get; set; }
 
         IMapObject[] IAreaMapCell.Objects => ObjectsCollection.ToArray();
+
+        public MapObjectsCollection ObjectsCollection { get; set; }
+
+        public LightLevel LightLevel { get; set; }
+
+        public bool BlocksMovement => ObjectsCollection.Any(obj => obj.BlocksMovement);
+
+        public bool BlocksEnvironment => ObjectsCollection.Any(obj => obj.BlocksEnvironment);
+
+        public bool BlocksVisibility => ObjectsCollection.Any(obj => obj.BlocksVisibility);
+
+        public bool BlocksProjectiles => ObjectsCollection.Any(obj => obj.BlocksProjectiles);
 
         public int GetVolume<T>() where T : IVolumeObject
         {
@@ -47,30 +35,6 @@ namespace CodeMagic.Core.Area
         public void RemoveVolume<T>(int volume) where T : IVolumeObject
         {
             ObjectsCollection.RemoveVolume<T>(volume);
-        }
-
-        public MapObjectsCollection ObjectsCollection { get; }
-
-        public LightLevel LightLevel { get; set; }
-
-        public bool BlocksMovement
-        {
-            get { return ObjectsCollection.Any(obj => obj.BlocksMovement); }
-        }
-
-        public bool BlocksEnvironment
-        {
-            get { return ObjectsCollection.Any(obj => obj.BlocksEnvironment); }
-        }
-
-        public bool BlocksVisibility
-        {
-            get { return ObjectsCollection.Any(obj => obj.BlocksVisibility); }
-        }
-
-        public bool BlocksProjectiles
-        {
-            get { return ObjectsCollection.Any(obj => obj.BlocksProjectiles); }
         }
 
         public IDestroyableObject GetBiggestDestroyable()

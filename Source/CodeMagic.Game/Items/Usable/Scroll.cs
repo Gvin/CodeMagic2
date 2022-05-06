@@ -9,33 +9,13 @@ namespace CodeMagic.Game.Items.Usable
 {
     public class Scroll : ScrollBase
     {
-        private const string SaveKeyInventoryImageName = "InvantoryImageName";
-
         private const string ImageWorld = "ItemsOnGround_Scroll";
 
         private const string ImageInventory1 = "Item_Scroll_New_V1";
         private const string ImageInventory2 = "Item_Scroll_New_V2";
         private const string ImageInventory3 = "Item_Scroll_New_V3";
 
-        private readonly string inventoryImageName;
-
-        public Scroll(SaveData data) : base(data)
-        {
-            inventoryImageName = data.GetStringValue(SaveKeyInventoryImageName);
-        }
-
-        public Scroll(ScrollItemConfiguration configuration) 
-            : base(configuration)
-        {
-            inventoryImageName = GetInventoryImageName(configuration.Code);
-        }
-
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyInventoryImageName, inventoryImageName);
-            return data;
-        }
+        public string InventoryImageName { get; set; }
 
         private static string GetInventoryImageName(string code)
         {
@@ -57,7 +37,12 @@ namespace CodeMagic.Game.Items.Usable
 
         public override SymbolsImage GetInventoryImage(IImagesStorage storage)
         {
-            return storage.GetImage(inventoryImageName);
+            if (string.IsNullOrEmpty(InventoryImageName))
+            {
+                InventoryImageName = GetInventoryImageName(Code);
+            }
+
+            return storage.GetImage(InventoryImageName);
         }
 
         public override StyledLine[] GetDescription(Player player)
@@ -73,19 +58,5 @@ namespace CodeMagic.Game.Items.Usable
                 new StyledLine {new StyledString("It can be used to cast a spell without mana loss.", TextHelper.DescriptionTextColor) }
             };
         }
-    }
-
-    public class ScrollItemConfiguration : ItemConfiguration
-    {
-        public ScrollItemConfiguration()
-        {
-            Weight = 300;
-        }
-
-        public string SpellName { get; set; }
-
-        public string Code { get; set; }
-
-        public int Mana { get; set; }
     }
 }

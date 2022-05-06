@@ -4,6 +4,6 @@ namespace CodeMagic.Game
 {
     public interface IInventoryImageProvider
     {
-        SymbolsImage GetInventoryImage(IImagesStorage storage);
+        ISymbolsImage GetInventoryImage(IImagesStorage storage);
     }
 }

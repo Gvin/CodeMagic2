@@ -1,60 +1,24 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Items;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.Game.Items
 {
     public abstract class EquipableItem : Item, IEquipableItem, ILightSource, ILightObject
     {
-        private const string SaveKeyBonuses = "Bonuses";
-        private const string SaveKeyStatBonuses = "StatBonuses";
-        private const string SaveKeyLightPower = "LightPower";
-        private const string SaveKeyDescription = "Description";
+        public Dictionary<EquipableBonusType, int> Bonuses { get; set; }
 
-        protected readonly string[] Description;
+        public Dictionary<PlayerStats, int> StatBonuses { get; set; }
 
-        protected EquipableItem(SaveData data) : base(data)
-        {
-            Bonuses = data.GetObject<DictionarySaveable>(SaveKeyBonuses).Data.ToDictionary(
-                pair => (EquipableBonusType) int.Parse((string) pair.Key), pair => int.Parse((string) pair.Value));
-            StatBonuses = data.GetObject<DictionarySaveable>(SaveKeyStatBonuses).Data.ToDictionary(
-                pair => (PlayerStats)int.Parse((string)pair.Key), pair => int.Parse((string)pair.Value));
+        public string[] Description { get; set; }
 
-            LightPower = (LightLevel) data.GetIntValue(SaveKeyLightPower);
-            IsLightOn = LightPower > LightLevel.Darkness;
+        public bool IsLightOn { get; set; }
 
-            Description = data.GetValuesCollection(SaveKeyDescription);
-        }
+        public LightLevel LightPower { get; set; }
 
-        protected EquipableItem(EquipableItemConfiguration configuration) 
-            : base(configuration)
-        {
-            Bonuses = configuration.Bonuses.ToDictionary(pair => pair.Key, pair => pair.Value);
-            StatBonuses = configuration.StatBonuses.ToDictionary(pair => pair.Key, pair => pair.Value);
-
-            LightPower = configuration.LightPower;
-            IsLightOn = LightPower > LightLevel.Darkness;
-
-            Description = configuration.Description?.ToArray() ?? new string[0];
-        }
-
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyBonuses, new DictionarySaveable(Bonuses.ToDictionary(pair => (object)(int)pair.Key, pair => (object)pair.Value)));
-            data.Add(SaveKeyStatBonuses, new DictionarySaveable(StatBonuses.ToDictionary(pair => (object)(int)pair.Key, pair => (object)pair.Value)));
-            data.Add(SaveKeyLightPower, (int) LightPower);
-            data.Add(SaveKeyDescription, Description);
-            return data;
-        }
-
-        protected Dictionary<EquipableBonusType, int> Bonuses { get; }
-
-        protected Dictionary<PlayerStats, int> StatBonuses { get; }
+        ILightSource[] ILightObject.LightSources => new ILightSource[] { this };
 
         public int GetBonus(EquipableBonusType bonusType)
         {
@@ -71,30 +35,6 @@ namespace CodeMagic.Game.Items
 
             return StatBonuses[statType];
         }
-
-        public bool IsLightOn { get; }
-
-        public LightLevel LightPower { get; }
-
-        public ILightSource[] LightSources => new ILightSource[] { this };
-    }
-
-    public class EquipableItemConfiguration : ItemConfiguration
-    {
-        public EquipableItemConfiguration()
-        {
-            LightPower = LightLevel.Darkness;
-            Bonuses = new Dictionary<EquipableBonusType, int>();
-            StatBonuses = new Dictionary<PlayerStats, int>();
-        }
-
-        public Dictionary<EquipableBonusType, int> Bonuses { get; set; }
-
-        public Dictionary<PlayerStats, int> StatBonuses { get; set; }
-
-        public LightLevel LightPower { get; set; }
-
-        public string[] Description { get; set; }
     }
 
     public enum EquipableBonusType

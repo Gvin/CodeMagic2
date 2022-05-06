@@ -1,74 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using CodeMagic.Core.Game;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Objects.Creatures;
-using CodeMagic.Game.Saving;
 using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Items
 {
     public class ArmorItem : DurableItem, IArmorItem, IInventoryImageProvider, IDescriptionProvider, IWorldImageProvider, IEquippedImageProvider
     {
-        private const string SaveKeyInventoryImage = "InventoryImage";
-        private const string SaveKeyWorldImage = "WorldImage";
-        private const string SaveKeyEquippedImage = "EquippedImage";
-        private const string SaveKeyProtection = "Protection";
-        private const string SaveKeyArmorType = "ArmorType";
+        public ISymbolsImage InventoryImage { get; set; }
 
-        private readonly SymbolsImage inventoryImage;
-        private readonly SymbolsImage worldImage;
-        private readonly SymbolsImage equippedImage;
-        private readonly Dictionary<Element, int> protection;
+        public ISymbolsImage WorldImage { get; set; }
 
-        public ArmorItem(SaveData data) : base(data)
-        {
-            inventoryImage = data.GetObject<SymbolsImageSaveable>(SaveKeyInventoryImage)?.GetImage();
-            worldImage = data.GetObject<SymbolsImageSaveable>(SaveKeyWorldImage)?.GetImage();
-            equippedImage = data.GetObject<SymbolsImageSaveable>(SaveKeyEquippedImage)?.GetImage();
+        public ISymbolsImage EquippedImage { get; set; }
 
-            protection = data.GetObject<DictionarySaveable>(SaveKeyProtection).Data.ToDictionary(pair =>
-                (Element) int.Parse((string) pair.Key), pair => int.Parse((string) pair.Value));
-            ArmorType = (ArmorType) data.GetIntValue(SaveKeyArmorType);
-        }
-
-        public ArmorItem(ArmorItemConfiguration configuration) 
-            : base(configuration)
-        {
-            protection = configuration.Protection.ToDictionary(pair => pair.Key, pair => pair.Value);
-            ArmorType = configuration.ArmorType;
-
-            inventoryImage = configuration.InventoryImage;
-            worldImage = configuration.WorldImage;
-            equippedImage = configuration.EquippedImage;
-        }
-
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyInventoryImage, inventoryImage !=null ? new SymbolsImageSaveable(inventoryImage) : null);
-            data.Add(SaveKeyWorldImage, worldImage != null ? new SymbolsImageSaveable(worldImage) : null);
-            data.Add(SaveKeyEquippedImage, equippedImage != null ? new SymbolsImageSaveable(equippedImage) : null);
-            data.Add(SaveKeyArmorType, (int) ArmorType);
-            data.Add(SaveKeyProtection,
-                new DictionarySaveable(protection.ToDictionary(pair => (object) (int) pair.Key,
-                    pair => (object) pair.Value)));
-            return data;
-        }
+        public Dictionary<Element, int> Protection { get; set; }
 
         public int EquippedImageOrder => (int) ArmorType;
 
-        public ArmorType ArmorType { get; }
+        public ArmorType ArmorType { get; set; }
 
         public int GetProtection(Element element)
         {
-            return protection.ContainsKey(element) ? protection[element] : 0;
+            return Protection.ContainsKey(element) ? Protection[element] : 0;
         }
 
-        public SymbolsImage GetInventoryImage(IImagesStorage storage)
+        public ISymbolsImage GetInventoryImage(IImagesStorage storage)
         {
-            return inventoryImage;
+            return InventoryImage;
         }
 
         public StyledLine[] GetDescription(Player player)
@@ -136,14 +95,14 @@ namespace CodeMagic.Game.Items
             }
         }
 
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
+        public ISymbolsImage GetWorldImage(IImagesStorage storage)
         {
-            return worldImage;
+            return WorldImage;
         }
 
-        public SymbolsImage GetEquippedImage(Player player, IImagesStorage imagesStorage)
+        public ISymbolsImage GetEquippedImage(Player player, IImagesStorage imagesStorage)
         {
-            return equippedImage;
+            return EquippedImage;
         }
     }
 
@@ -152,23 +111,5 @@ namespace CodeMagic.Game.Items
         Helmet = 0,
         Chest = 1,
         Leggings = 2
-    }
-
-    public class ArmorItemConfiguration : DurableItemConfiguration
-    {
-        public ArmorItemConfiguration()
-        {
-            Protection = new Dictionary<Element, int>();
-        }
-
-        public SymbolsImage InventoryImage { get; set; }
-
-        public SymbolsImage WorldImage { get; set; }
-
-        public SymbolsImage EquippedImage { get; set; }
-
-        public Dictionary<Element, int> Protection { get; set; }
-
-        public ArmorType ArmorType { get; set; }
     }
 }

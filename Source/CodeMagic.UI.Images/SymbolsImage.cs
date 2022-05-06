@@ -1,36 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using CodeMagic.UI.Images.Saving.Xml;
 
 namespace CodeMagic.UI.Images
 {
-    public class SymbolsImage
+    public interface ISymbolsImage
     {
-        private readonly Pixel[][] pixels;
+        int Width { get; }
+
+        int Height { get; }
+
+        void SetPixel(int x, int y, char? symbol, Color? color, Color? backgroundColor = null);
+
+        void SetSymbolMap(char?[][] symbolMap);
+
+        void SetColorMap(Color?[][] colorMap);
+
+        void SetDefaultColor(Color color);
+
+        void SetDefaultBackColor(Color? color);
+
+        SymbolsImage.Pixel this[int x, int y] { get; }
+    }
+
+    [Serializable]
+    public class SymbolsImage : ISymbolsImage
+    {
+        public SymbolsImage()
+            : this(1, 1)
+        {
+        }
 
         public SymbolsImage(int width, int height)
         {
             Width = width;
             Height = height;
 
-            pixels = new Pixel[Height][];
+            Pixels = new Pixel[Height][];
             for (var y = 0; y < Height; y++)
             {
-                pixels[y] = new Pixel[Width];
+                Pixels[y] = new Pixel[Width];
                 for (var x = 0; x < Width; x++)
                 {
-                    pixels[y][x] = new Pixel();
+                    Pixels[y][x] = new Pixel();
                 }
             }
         }
+
+        public Pixel[][] Pixels { get; set; }
 
         public int Width { get; }
 
         public int Height { get; }
 
-        public void SetPixel(int x, int y, int? symbol, Color? color, Color? backgroundColor = null)
+        public Pixel this[int x, int y] => Pixels[y][x];
+
+        public void SetPixel(int x, int y, char? symbol, Color? color, Color? backgroundColor = null)
         {
             var pixel = this[x, y];
             pixel.Symbol = symbol;
@@ -93,20 +118,6 @@ namespace CodeMagic.UI.Images
             }
         }
 
-        public Pixel this[int x, int y] => pixels[y][x];
-
-        public static void SaveToFile(SymbolsImage image, Stream fileStream)
-        {
-            var savingManager = new XmlSavingManager();
-            savingManager.SaveToFile(image.Width, image.Height, image.pixels, fileStream);
-        }
-
-        public static SymbolsImage LoadFromFile(Stream fileStream)
-        {
-            var savingManager = new XmlSavingManager();
-            return savingManager.LoadFromFile(fileStream);
-        }
-
         public static SymbolsImage Combine(SymbolsImage bottom, SymbolsImage top)
         {
             if (bottom.Width != top.Width || bottom.Height != top.Height)
@@ -167,9 +178,10 @@ namespace CodeMagic.UI.Images
             return result;
         }
 
+        [Serializable]
         public class Pixel
         {
-            public int? Symbol { get; set; }
+            public char? Symbol { get; set; }
 
             public Color? Color { get; set; }
 

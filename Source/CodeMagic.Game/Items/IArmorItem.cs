@@ -2,7 +2,7 @@
 
 namespace CodeMagic.Game.Items
 {
-    public interface IArmorItem : IEquipableItem
+    public interface IArmorItem : IEquipableItem, IDurableItem
     {
         ArmorType ArmorType { get; }
 

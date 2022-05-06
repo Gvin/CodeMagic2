@@ -1,61 +1,27 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Diagnostics;
-using System.IO;
 
 namespace CodeMagic.Core.Common
 {
-    public static class PerformanceMeter
+    public interface IPerformanceMeter
+	{
+        IDisposable Start(string methodName);
+    }
+
+    public class PerformanceMeter : IPerformanceMeter
     {
-        private static string outputFile;
+        private readonly ILogger<PerformanceMeter> _logger;
 
-        private static bool Initialized
-        {
-            get
-            {
-                lock (OutputFileLock)
-                {
-                    return !string.IsNullOrEmpty(outputFile);
-                }
-            }
-        }
-        private static object OutputFileLock = new object();
-
-        public static void Initialize(string outputFilePath)
-        {
-            outputFile = outputFilePath;
-
-            if (File.Exists(outputFile))
-            {
-                File.Delete(outputFile);
-            }
-
-            File.Create(outputFile).Close();
-        }
-
-        public static IPerformanceCounter Start(string methodName)
+        public IDisposable Start(string methodName)
         {
             return new PerformanceCounter(time =>
             {
-                WriteTime(methodName, time);
+                _logger.LogDebug("{MethodName}: {Miliseconds}", methodName, time);
             });
         }
 
-        private static void WriteTime(string methodName, long time)
-        {
-            if (Initialized)
-            {
-                lock (OutputFileLock)
-                {
-                    File.AppendAllText(outputFile, $"{methodName}: {time}\r\n");
-                }
-            }
-        }
-
-        public interface IPerformanceCounter : IDisposable
-        {
-        }
-
-        private class PerformanceCounter : IPerformanceCounter
+        private class PerformanceCounter : IDisposable
         {
             private readonly Stopwatch stopwatch;
             private readonly Action<long> callback;

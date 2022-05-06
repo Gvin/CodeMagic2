@@ -4,6 +4,7 @@
 .main-menu .content {
   width: fit-content;
   margin: auto;
+  margin-top: 20px;
 }
 .main-menu .content .menu-button {
   margin: auto;
