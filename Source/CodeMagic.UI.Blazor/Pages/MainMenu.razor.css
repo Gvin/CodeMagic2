@@ -1,0 +1,13 @@
+.main-menu {
+  user-select: none;
+}
+.main-menu .content {
+  width: fit-content;
+  margin: auto;
+}
+.main-menu .content .menu-button {
+  margin: auto;
+  width: fit-content;
+}
+
+/*# sourceMappingURL=MainMenu.razor.css.map */

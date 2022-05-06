@@ -8,6 +8,7 @@ using CodeMagic.Game.JournalMessages;
 using CodeMagic.Game.JournalMessages.Scenario;
 using CodeMagic.Game.MapGeneration.Dungeon;
 using CodeMagic.Game.Objects.Creatures;
+using Microsoft.Extensions.Logging;
 
 namespace CodeMagic.Game.GameProcess
 {
@@ -24,9 +25,11 @@ namespace CodeMagic.Game.GameProcess
         private int turnsSinceLastSaving;
         private readonly ISaveService saveService;
         private readonly int savingInterval;
+        private readonly ILoggerFactory _loggerFactory;
 
-        public GameManager(ISaveService saveService, int savingInterval)
+        public GameManager(ISaveService saveService, int savingInterval, ILoggerFactory loggerFactory)
         {
+            _loggerFactory = loggerFactory;
             this.saveService = saveService;
             this.savingInterval = savingInterval;
         }
@@ -43,7 +46,7 @@ namespace CodeMagic.Game.GameProcess
             var player = CreatePlayer();
 
             var startMap = DungeonMapGenerator.Current.GenerateNewMap(1, out var playerPosition);
-            CurrentGame.Initialize(startMap, player, playerPosition);
+            CurrentGame.Initialize(startMap, player, playerPosition, _loggerFactory);
             var game = (GameCore<Player>) CurrentGame.Game;
             startMap.Refresh();
 

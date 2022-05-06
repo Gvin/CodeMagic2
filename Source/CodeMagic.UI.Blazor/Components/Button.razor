@@ -1,0 +1,49 @@
+﻿
+<div class="button" @onclick="OnClick">
+	<div class="line">
+		<p class="frame-top">@TopFrameLine</p><p class="frame-bottom">┐</p>
+	</div>
+	<div class="line">
+		<p class="frame-top">│</p><p class="text">@DisplayText</p><p class="frame-bottom">│</p>
+	</div>
+	<div class="line">
+		<p class="frame-top">└</p><p class="frame-bottom">@BottomFrameLine</p>
+	</div>
+</div>
+
+@code {
+	[Parameter]
+	public string Text { get; set; } = "Button";
+
+	private string DisplayText => $"  {Text}  ";
+
+	private string TopFrameLine
+	{
+		get
+		{
+			var result = "┌";
+			for (var counter = 0; counter < Text.Length + 4; counter++)
+			{
+				result += "─";
+			}
+			return result;
+		}
+	}
+
+	private string BottomFrameLine
+	{
+		get
+		{
+			var result = string.Empty;
+			for (var counter = 0; counter < Text.Length + 4; counter++)
+			{
+				result += "─";
+			}
+			result += "┘";
+			return result;
+		}
+	}
+
+	[Parameter]
+	public EventCallback<MouseEventArgs> OnClick { get; set; }
+}

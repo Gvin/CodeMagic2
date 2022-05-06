@@ -1,0 +1,62 @@
+﻿@using CodeMagic.UI.Blazor.Components
+@using CodeMagic.UI.Blazor.Models
+@using CodeMagic.UI.Presenters
+
+@inject ILogger<MainMenu> _logger;
+
+<div class="main-menu">
+	<div class="content">
+		@if (ShowContinueButton)
+		{
+			<div class="menu-button">
+				<Button Text="C0ntinue Game" OnClick="HandleContunieGameClick"></Button>
+			</div>
+			
+		}
+		<div class="menu-button">
+			<Button Text="Start Game" OnClick="HandleStartGameClick"></Button>
+		</div>
+		<div class="menu-button">
+			<Button Text="Spe11 Library" OnClick="HandleShowSpellLibraryClick"></Button>
+		</div>
+		<div class="menu-button">
+			<Button Text="Settings" OnClick="HandleSettingsClick"></Button>
+		</div>
+		<div class="menu-button">
+			<Button Text="Exit" OnClick="HandleExitClick"></Button>
+		</div>
+
+	</div>
+</div>
+
+@code {
+	[Parameter]
+	public MainMenuModel? Model { get; set; }
+
+	private bool ShowContinueButton => Model?.ShowContinueButton ?? false;
+
+	private void HandleStartGameClick(MouseEventArgs args)
+	{
+		Model?.OnStartGame();
+	}
+
+	private void HandleContunieGameClick(MouseEventArgs args)
+	{
+		Model?.OnContinueGame();
+	}
+
+	private void HandleShowSpellLibraryClick(MouseEventArgs args)
+	{
+		Model?.OnShowSpellLibrary();
+	}
+
+	private void HandleSettingsClick(MouseEventArgs args)
+	{
+		Model?.OnShowSettings();
+	}
+
+	private void HandleExitClick(MouseEventArgs args)
+	{
+		Model?.OnExit();
+	}
+}

@@ -1,0 +1,28 @@
+﻿.button {
+    user-select: none;
+    color: white;
+
+    .line {
+        line-height: normal;
+
+        p {
+            display: inline;
+        }
+
+        .text {
+            white-space: pre;
+        }
+
+        .frame-top {
+            color: #B0C4DE;
+        }
+
+        .frame-bottom {
+            color: #424242;
+        }
+    }
+}
+
+.button:hover {
+    color: yellow;
+}

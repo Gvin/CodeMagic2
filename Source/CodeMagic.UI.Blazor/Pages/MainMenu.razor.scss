@@ -1,0 +1,13 @@
+﻿.main-menu {
+    user-select: none;
+
+    .content {
+        width: fit-content;
+        margin: auto;
+
+        .menu-button {
+            margin: auto;
+            width: fit-content;
+        }
+    }
+}

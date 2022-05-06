@@ -1,0 +1,25 @@
+.button {
+  user-select: none;
+  color: white;
+}
+.button .line {
+  line-height: normal;
+}
+.button .line p {
+  display: inline;
+}
+.button .line .text {
+  white-space: pre;
+}
+.button .line .frame-top {
+  color: #B0C4DE;
+}
+.button .line .frame-bottom {
+  color: #424242;
+}
+
+.button:hover {
+  color: yellow;
+}
+
+/*# sourceMappingURL=Button.razor.css.map */

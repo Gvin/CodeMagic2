@@ -2,7 +2,7 @@
 {
     public interface ISettingsService
     {
-        float Brightness { get; }
+        float Brightness { get; set; }
 
         bool DebugDrawTemperature { get; }
 
@@ -12,15 +12,11 @@
 
         FontSizeMultiplier FontSize { get; set; }
 
-        string SpellEditorPath { get; set; }
+        int SavingInterval { get; set; }
 
         int MinActionsInterval { get; }
 
-        int SavingInterval { get; }
-
         bool DebugWriteMapToFile { get; }
-
-        string LogLevel { get; }
 
         void Save();
     }

@@ -1,0 +1,38 @@
+﻿.index-page {
+    .game-frame {
+        user-select: none;
+
+        .wrapper {
+            z-index: -100;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+
+            .frame {
+                position: relative;
+                width: fit-content;
+                margin: auto;
+
+                p {
+                    white-space: pre;
+                    margin-top: 0px;
+                    margin-bottom: 0px;
+                    color: gray;
+                    line-height: normal;
+                }
+            }
+
+            .page-content-wrapper {
+                z-index: 0;
+                position: absolute;
+
+                .error-message {
+                    color: red;
+                    margin: auto;
+                    margin-top: 10px;
+                    width: fit-content;
+                }
+            }
+        }
+    }
+}

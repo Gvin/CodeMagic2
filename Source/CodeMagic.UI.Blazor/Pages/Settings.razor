@@ -1,0 +1,17 @@
+﻿@using CodeMagic.UI.Blazor.Models
+@using CodeMagic.UI.Blazor.Components;
+
+<div class="settings">
+	Settings
+	<Button Text="Exit" OnClick="HandleExitClick"></Button>
+</div>
+
+@code {
+	[Parameter]
+	public SettingsModel? Model { get; set; }
+
+	private void HandleExitClick(MouseEventArgs args)
+	{
+		Model?.OnExit();
+	}
+}

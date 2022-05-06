@@ -1,0 +1,33 @@
+.index-page .game-frame {
+  user-select: none;
+}
+.index-page .game-frame .wrapper {
+  z-index: -100;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.index-page .game-frame .wrapper .frame {
+  position: relative;
+  width: fit-content;
+  margin: auto;
+}
+.index-page .game-frame .wrapper .frame p {
+  white-space: pre;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: gray;
+  line-height: normal;
+}
+.index-page .game-frame .wrapper .page-content-wrapper {
+  z-index: 0;
+  position: absolute;
+}
+.index-page .game-frame .wrapper .page-content-wrapper .error-message {
+  color: red;
+  margin: auto;
+  margin-top: 10px;
+  width: fit-content;
+}
+
+/*# sourceMappingURL=Index.razor.css.map */
