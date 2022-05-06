@@ -6,8 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Version>2.1.0</Version>
     <Authors>Gvin</Authors>
-    <PackageProjectUrl>https://github.com/Gvin/CodeMagic</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Gvin/CodeMagic</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Gvin/CodeMagic2</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Gvin/CodeMagic2</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

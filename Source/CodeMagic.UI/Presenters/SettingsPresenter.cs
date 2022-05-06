@@ -29,12 +29,12 @@ namespace CodeMagic.UI.Presenters
 
     public class SettingsPresenter : IPresenter
     {
-        private const float BrightnessStep = 0.1f;
-        private const float BrightnessMin = 1.0f;
-        private const float BrightnessMax = 2.0f;
+        private const float BrightnessStep = 0.01f;
+        private const float BrightnessMin = 0.10f;
+        private const float BrightnessMax = 0.25f;
 
-        private const int SavingIntervalMax = 10;
-        private const int SavingIntervalMin = 5;
+        private const int SavingIntervalMax = 20;
+        private const int SavingIntervalMin = 10;
 
         private readonly ISettingsView view;
         private readonly ISettingsService settings;
