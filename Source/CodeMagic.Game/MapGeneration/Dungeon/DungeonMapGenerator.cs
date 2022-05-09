@@ -33,7 +33,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon
             {
                 {MapType.Dungeon, new DungeonRoomsMapGenerator(
                     new DungeonMapObjectsFactory(), 
-                    new ObjectsGenerators.DungeonObjectsGenerator(imagesStorage), 
+                    new ObjectsGenerators.DungeonObjectsGenerator(imagesStorage, performanceMeter), 
                     new DungeonMonstersGenerator(performanceMeter),
                     performanceMeter)},
                 {MapType.Labyrinth, new LabyrinthMapGenerator(new DungeonMapObjectsFactory(), performanceMeter)},

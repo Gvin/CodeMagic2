@@ -4,6 +4,7 @@ using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Items
 {
+    [Serializable]
     public abstract class HoldableDurableItemBase : 
         DurableItem,
         IHoldableItem,
@@ -32,9 +33,9 @@ namespace CodeMagic.Game.Items
 
         public ISymbolsImage GetEquippedImage(Player player, IImagesStorage imagesStorage)
         {
-            if (Equals(player.Equipment.RightHandItem))
+            if (Equals(player.Equipment.RightHandItemId))
                 return GetRightEquippedImage(imagesStorage);
-            if (Equals(player.Equipment.LeftHandItem))
+            if (Equals(player.Equipment.LeftHandItemId))
                 return GetLeftEquippedImage(imagesStorage);
 
             throw new ApplicationException($"Trying to render item \"{Name}\" that not equipped on both left and right hand.");

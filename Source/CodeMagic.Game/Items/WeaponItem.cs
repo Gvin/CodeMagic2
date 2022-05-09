@@ -7,12 +7,9 @@ using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.Game.Items
 {
+    [Serializable]
     public class WeaponItem : HoldableDurableItemBase, IWeaponItem
     {
-        public WeaponItem()
-        {
-        }
-
         public Dictionary<Element, int> MaxDamage { get; set; }
 
         public Dictionary<Element, int> MinDamage { get; set; }
@@ -39,8 +36,8 @@ namespace CodeMagic.Game.Items
 
         private StyledLine[] GetCharacteristicsDescription(Player player)
         {
-            var rightHandWeapon = player.Equipment.RightHandItem as IWeaponItem;
-            var leftHandWeapon = player.Equipment.LeftHandItem as IWeaponItem;
+            var rightHandWeapon = player.Equipment.RightHandItemId as IWeaponItem;
+            var leftHandWeapon = player.Equipment.LeftHandItemId as IWeaponItem;
 
             var result = new List<StyledLine>();
 

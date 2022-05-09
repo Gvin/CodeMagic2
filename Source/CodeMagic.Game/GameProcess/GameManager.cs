@@ -25,11 +25,13 @@ namespace CodeMagic.Game.GameProcess
         private int _turnsSinceLastSaving;
         private readonly ISaveService _saveService;
         private readonly int _savingInterval;
+        private readonly IDungeonMapGenerator _dungeonMapGenerator;
         private readonly ILoggerFactory _loggerFactory;
 
-        public GameManager(ISaveService saveService, int savingInterval, ILoggerFactory loggerFactory)
+        public GameManager(ISaveService saveService, int savingInterval, ILoggerFactory loggerFactory, IDungeonMapGenerator dungeonMapGenerator)
         {
             _loggerFactory = loggerFactory;
+            _dungeonMapGenerator = dungeonMapGenerator;
             _saveService = saveService;
             _savingInterval = savingInterval;
         }
@@ -45,7 +47,7 @@ namespace CodeMagic.Game.GameProcess
 
             var player = CreatePlayer();
 
-            var startMap = DungeonMapGenerator.Current.GenerateNewMap(1, out var playerPosition);
+            var (startMap, playerPosition) = _dungeonMapGenerator.GenerateNewMap(1);
             CurrentGame.Initialize(startMap, player, playerPosition, _loggerFactory);
             var game = (GameCore<Player>) CurrentGame.Game;
             startMap.Refresh();

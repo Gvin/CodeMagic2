@@ -118,7 +118,7 @@ namespace CodeMagic.UI.Images
             }
         }
 
-        public static SymbolsImage Combine(SymbolsImage bottom, SymbolsImage top)
+        public static ISymbolsImage Combine(ISymbolsImage bottom, SymbolsImage top)
         {
             if (bottom.Width != top.Width || bottom.Height != top.Height)
                 throw new ArgumentException($"Cannot combine images {bottom.Width}x{bottom.Height} and {top.Width}x{top.Height}");
@@ -140,7 +140,7 @@ namespace CodeMagic.UI.Images
             return result;
         }
 
-        public static SymbolsImage Recolor(SymbolsImage image, Dictionary<Color, Color> palette)
+        public static ISymbolsImage Recolor(ISymbolsImage image, Dictionary<Color, Color> palette)
         {
             var result = new SymbolsImage(image.Width, image.Height);
 

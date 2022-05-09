@@ -4,83 +4,56 @@ using System.Linq;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.Game.Items
 {
-    public class Equipment : ISaveable
+    public interface IEquipment
     {
-        private const string SaveKeyRightHandItem = "RightHandItem";
-        private const string SaveKeyLeftHandItem = "LeftHandItem";
-        private const string SaveKeyArmorHelmet = "ArmorHelmet";
-        private const string SaveKeyArmorChest = "ArmorChest";
-        private const string SaveKeyArmorLeggings = "ArmorLeggings";
-        private const string SaveKeySpellBook = "SpellBook";
+        string RightHandItemId { get; }
 
-        private static readonly WeaponItem Fists = new WeaponItem(new WeaponItemConfiguration
+        string LeftHandItemId { get; }
+
+        string SpellBookId { get; }
+
+        bool RightHandItemEquipped { get; }
+
+        bool LeftHandItemEquipped { get; }
+
+        int GetHitChanceBonus(IInventory playerInventory);
+
+        IEquipableItem[] GetEquippedItems(IInventory playerInventory);
+
+        IArmorItem GetEquipedArmor(ArmorType armorType, IInventory playerInventory);
+
+        IWeaponItem GetEquipedWeapon(IInventory playerInventory, bool right);
+
+        int GetProtection(Element element, IInventory playerInventory);
+
+        int GetBonus(EquipableBonusType bonusType, IInventory playerInventory);
+
+        int GetStatsBonus(PlayerStats statType, IInventory playerInventory);
+
+        ILightSource[] GetLightSources(IInventory playerInventory);
+    }
+
+    [Serializable]
+    public class Equipment : IEquipment
+    {
+        public static readonly WeaponItem Fists = new()
         {
             MaxDamage = new Dictionary<Element, int> {{Element.Blunt, 2}},
             MinDamage = new Dictionary<Element, int> {{Element.Blunt, 0}},
-            HitChance = 50,
+            Accuracy = 50,
             Name = "Fists",
             Key = "default_fists",
             Rareness = ItemRareness.Trash,
             Weight = 0
-        });
-
-        private IHoldableItem rightHandItem;
-        private IHoldableItem leftHandItem;
-
-        public Equipment(SaveData data, Inventory inventory)
-        {
-            var rightWeaponId = data.GetStringValue(SaveKeyRightHandItem);
-            if (rightWeaponId != null)
-            {
-                rightHandItem = (IHoldableItem) inventory.GetItemById(rightWeaponId);
-            }
-
-            var leftWeaponId = data.GetStringValue(SaveKeyLeftHandItem);
-            if (leftWeaponId != null)
-            {
-                leftHandItem = (IHoldableItem) inventory.GetItemById(leftWeaponId);
-            }
-
-            var spellBookId = data.GetStringValue(SaveKeySpellBook);
-            if (spellBookId != null)
-            {
-                SpellBook = (SpellBook) inventory.GetItemById(spellBookId);
-            }
-
-            Armor = new Dictionary<ArmorType, IArmorItem>
-            {
-                {ArmorType.Helmet, null},
-                {ArmorType.Chest, null},
-                {ArmorType.Leggings, null}
-            };
-
-            var helmetId = data.GetStringValue(SaveKeyArmorHelmet);
-            if (helmetId != null)
-            {
-                Armor[ArmorType.Helmet] = (IArmorItem) inventory.GetItemById(helmetId);
-            }
-
-            var chestId = data.GetStringValue(SaveKeyArmorChest);
-            if (chestId != null)
-            {
-                Armor[ArmorType.Chest] = (IArmorItem)inventory.GetItemById(chestId);
-            }
-
-            var leggingsId = data.GetStringValue(SaveKeyArmorLeggings);
-            if (leggingsId != null)
-            {
-                Armor[ArmorType.Leggings] = (IArmorItem)inventory.GetItemById(leggingsId);
-            }
-        }
+        };
 
         public Equipment()
         {
-            Armor = new Dictionary<ArmorType, IArmorItem>
+            Armor = new Dictionary<ArmorType, string>
             {
                 {ArmorType.Helmet, null},
                 {ArmorType.Chest, null},
@@ -88,56 +61,80 @@ namespace CodeMagic.Game.Items
             };
         }
 
-        public SaveDataBuilder GetSaveData()
+        public Dictionary<ArmorType, string> Armor { get; set; }
+
+        public string RightHandItemId { get; set; }
+
+        public string LeftHandItemId { get; set; }
+
+        public string SpellBookId { get; set; }
+
+        public bool RightHandItemEquipped => !string.IsNullOrEmpty(RightHandItemId);
+
+        public bool LeftHandItemEquipped => !string.IsNullOrEmpty(LeftHandItemId);
+
+        public int GetHitChanceBonus(IInventory playerInventory) => 
+            GetEquippedItems(playerInventory).OfType<ShieldItem>().Sum(shield => shield.HitChancePenalty);
+
+        public IWeaponItem GetEquipedWeapon(IInventory playerInventory, bool right)
         {
-            return new SaveDataBuilder(GetType(), new Dictionary<string, object>
+            if (right)
             {
-                {SaveKeyRightHandItem, rightHandItem?.Id},
-                {SaveKeyLeftHandItem, leftHandItem?.Id},
-                {SaveKeySpellBook, SpellBook?.Id},
-                {SaveKeyArmorHelmet, Armor[ArmorType.Helmet]?.Id},
-                {SaveKeyArmorChest, Armor[ArmorType.Chest]?.Id},
-                {SaveKeyArmorLeggings, Armor[ArmorType.Leggings]?.Id}
-            });
+                if (RightHandItemEquipped)
+                {
+                    return playerInventory.GetItemById<IWeaponItem>(RightHandItemId, true);
+                }
+
+                return Fists;
+            }
+            else
+            {
+                if (LeftHandItemEquipped)
+                {
+                    return playerInventory.GetItemById<IWeaponItem>(LeftHandItemId, true);
+                }
+
+                return Fists;
+            }
         }
 
-        public bool RightHandItemEquipped => rightHandItem != null;
-
-        public bool LeftHandItemEquipped => leftHandItem != null;
-
-        public int HitChanceBonus => GetEquippedItems().OfType<ShieldItem>().Sum(shield => shield.HitChancePenalty);
-
-        public IEquipableItem[] GetEquippedItems()
+        public IEquipableItem[] GetEquippedItems(IInventory playerInventory)
         {
+            var leftHandItem = playerInventory.GetItemById<IEquipableItem>(LeftHandItemId);
+            var rightHandItem = playerInventory.GetItemById<IEquipableItem>(RightHandItemId);
+
+            var spellBook = playerInventory.GetItemById<IEquipableItem>(SpellBookId);
+
             var result = new List<IEquipableItem>
             {
-                SpellBook,
+                spellBook,
                 leftHandItem,
                 rightHandItem
             };
 
-            result.AddRange(Armor.Values);
+            var armor = Armor.Values
+                .Select(armorId => playerInventory.GetItemById<IEquipableItem>(armorId));
+
+            result.AddRange(armor);
 
             return result.Where(item => item != null).ToArray();
         }
 
-        public Dictionary<ArmorType, IArmorItem> Armor { get; }
-
-        public IHoldableItem RightHandItem => rightHandItem ?? Fists;
-
-        public IHoldableItem LeftHandItem => leftHandItem ?? Fists;
-
-        public bool IsDoubleWielded => rightHandItem == null || leftHandItem == null;
+        public IArmorItem GetEquipedArmor(ArmorType armorType, IInventory playerInventory)
+        {
+            var itemId = Armor[armorType];
+            return playerInventory.GetItemById<IArmorItem>(itemId);
+        }
 
         public void EquipHoldable(IHoldableItem holdable, bool isRight)
         {
             if (isRight)
             {
-                rightHandItem = holdable;
+                RightHandItemId = holdable.Id;
             }
             else
             {
-                leftHandItem = holdable;
+                LeftHandItemId = holdable.Id;
             }
         }
 
@@ -145,8 +142,8 @@ namespace CodeMagic.Game.Items
         {
             switch (item)
             {
-                case IHoldableItem _:
-                    throw new ArgumentException($"Weapon items should be equiped with {nameof(EquipHoldable)}");
+                case IHoldableItem:
+                    throw new ArgumentException($"Weapon items should be equipped with {nameof(EquipHoldable)}");
                 case IArmorItem armorItem:
                     EquipArmor(armorItem);
                     break;
@@ -168,7 +165,7 @@ namespace CodeMagic.Game.Items
                 case IArmorItem armorItem:
                     UnequipArmor(armorItem.ArmorType);
                     break;
-                case SpellBook _:
+                case ISpellBook:
                     UnequipSpellBook();
                     break;
                 default:
@@ -187,13 +184,13 @@ namespace CodeMagic.Game.Items
 
         private void UnequipHoldable(IHoldableItem holdable)
         {
-            if (rightHandItem != null && rightHandItem.Equals(holdable))
+            if (RightHandItemEquipped && string.Equals(RightHandItemId, holdable.Id))
             {
-                rightHandItem = null;
+                RightHandItemId = null;
             }
-            else if (leftHandItem != null && leftHandItem.Equals(holdable))
+            else if (LeftHandItemEquipped && string.Equals(LeftHandItemId, holdable.Id))
             {
-                leftHandItem = null;
+                LeftHandItemId = null;
             }
             else
             {
@@ -203,22 +200,22 @@ namespace CodeMagic.Game.Items
 
         private void UnequipSpellBook()
         {
-            if (SpellBook != null)
+            if (SpellBookId != null)
             {
-                SpellBook = null;
+                SpellBookId = null;
             }
         }
 
         private void EquipArmor(IArmorItem newArmor)
         {
             UnequipArmor(newArmor.ArmorType);
-            Armor[newArmor.ArmorType] = newArmor;
+            Armor[newArmor.ArmorType] = newArmor.Id;
         }
 
-        private void EquipSpellBook(SpellBook newSpellBook)
+        private void EquipSpellBook(ISpellBook newSpellBook)
         {
             UnequipSpellBook();
-            SpellBook = newSpellBook;
+            SpellBookId = newSpellBook.Id;
         }
 
         public bool IsEquiped(IEquipableItem item)
@@ -226,36 +223,37 @@ namespace CodeMagic.Game.Items
             switch (item)
             {
                 case IHoldableItem holdableItem:
-                    return (rightHandItem != null && rightHandItem.Equals(holdableItem)) || (leftHandItem != null && leftHandItem.Equals(holdableItem));
+                    return (RightHandItemEquipped && string.Equals(RightHandItemId, holdableItem.Id)) || 
+                           (LeftHandItemEquipped && string.Equals(LeftHandItemId, holdableItem.Id));
                 case IArmorItem armorItem:
-                    return Armor[armorItem.ArmorType] != null && Armor[armorItem.ArmorType].Equals(item);
-                case SpellBook spellBookItem:
-                    return SpellBook != null && SpellBook.Equals(spellBookItem);
+                    return Armor[armorItem.ArmorType] != null && string.Equals(Armor[armorItem.ArmorType], item.Id);
+                case ISpellBook spellBookItem:
+                    return !string.IsNullOrEmpty(SpellBookId) && string.Equals(SpellBookId, spellBookItem.Id);
                 default:
                     throw new ArgumentException($"Equipable item type is not supported: {item.GetType().FullName}");
             }
         }
 
-        public SpellBook SpellBook { get; private set; }
-
-        public int GetProtection(Element element)
+        public int GetProtection(Element element, IInventory playerInventory)
         {
-            return Armor.Sum(pair => pair.Value?.GetProtection(element) ?? 0);
+            return Armor.Values
+                .Where(armorId => !string.IsNullOrEmpty(armorId))
+                .Sum(armorId => playerInventory.GetItemById<IArmorItem>(armorId, true).GetProtection(element));
         }
 
-        public int GetBonus(EquipableBonusType bonusType)
+        public int GetBonus(EquipableBonusType bonusType, IInventory playerInventory)
         {
-            return GetEquippedItems().Sum(item => item.GetBonus(bonusType));
+            return GetEquippedItems(playerInventory).Sum(item => item.GetBonus(bonusType));
         }
 
-        public int GetStatsBonus(PlayerStats statType)
+        public int GetStatsBonus(PlayerStats statType, IInventory playerInventory)
         {
-            return GetEquippedItems().Sum(item => item.GetStatBonus(statType));
+            return GetEquippedItems(playerInventory).Sum(item => item.GetStatBonus(statType));
         }
 
-        public ILightSource[] GetLightSources()
+        public ILightSource[] GetLightSources(IInventory playerInventory)
         {
-            return GetEquippedItems().OfType<ILightSource>().ToArray();
+            return GetEquippedItems(playerInventory).OfType<ILightSource>().ToArray();
         }
     }
 }

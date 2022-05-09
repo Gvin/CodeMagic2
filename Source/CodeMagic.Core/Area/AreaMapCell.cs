@@ -2,22 +2,11 @@
 using System.Linq;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 
 namespace CodeMagic.Core.Area
 {
     public class AreaMapCell : AreaMapCellBase, IAreaMapCellInternal
     {
-        public AreaMapCell(SaveData data)
-            : base(data)
-        {
-        }
-
-        public AreaMapCell(IEnvironment environment)
-            : base(environment)
-        {
-        }
-
         public void Update(Point position, UpdateOrder updateOrder)
         {
             ProcessDynamicObjects(position, updateOrder);

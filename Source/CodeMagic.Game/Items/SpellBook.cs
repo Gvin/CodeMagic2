@@ -8,7 +8,12 @@ using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Items
 {
-    public class SpellBook : EquipableItem, IInventoryImageProvider, IDescriptionProvider, IWorldImageProvider
+    public interface ISpellBook : IEquipableItem
+    {
+
+    }
+
+    public class SpellBook : EquipableItem, ISpellBook, IInventoryImageProvider, IDescriptionProvider, IWorldImageProvider
     {
         private const string SaveKeyInventoryImage = "InventoryImage";
         private const string SaveKeyWorldImage = "WorldImage";

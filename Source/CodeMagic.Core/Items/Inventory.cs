@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CodeMagic.Core.Exceptions;
 
 namespace CodeMagic.Core.Items
 {
@@ -22,7 +23,22 @@ namespace CodeMagic.Core.Items
 
         IItem GetItem(string itemKey);
 
-        IItem GetItemById(string itemId);
+        /// <summary>
+        /// Gets specific item from the inventory by it's id.
+        /// Returns null if the item is not found.
+        /// </summary>
+        /// <param name="itemId">Id of the item.</param>
+        /// <param name="errorIfNotFound">Throw error if item with such id is not in the inventory.</param>
+        IItem GetItemById(string itemId, bool errorIfNotFound = false);
+
+        /// <summary>
+        /// Gets specific item of specific type from the inventory by it's id.
+        /// Returns null if the item is not found.
+        /// </summary>
+        /// <typeparam name="T">Expected item type.</typeparam>
+        /// <param name="itemId">Id of the item.</param>
+        /// <param name="errorIfNotFound">Throw error if item with such id is not in the inventory.</param>
+        T GetItemById<T>(string itemId, bool errorIfNotFound = false) where T : IItem;
 
         bool Contains(string itemKey);
     }
@@ -138,10 +154,38 @@ namespace CodeMagic.Core.Items
             return Stacks.FirstOrDefault(stack => string.Equals(stack.TopItem.Key, itemKey))?.TopItem;
         }
 
-        public IItem GetItemById(string itemId)
+        public IItem GetItemById(string itemId, bool errorIfNotFound = false)
         {
+            var result = GetItemByIdOrNull(itemId);
+            if (result == null && errorIfNotFound)
+            {
+                throw ItemNotFoundException.ById(itemId); 
+            }
+
+            return result;
+        }
+
+        private IItem GetItemByIdOrNull(string itemId)
+        {
+            if (string.IsNullOrEmpty(itemId))
+            {
+                return null;
+            }
+
             return Stacks.FirstOrDefault(stack => stack.Items.Any(item => string.Equals(item.Id, itemId)))?.Items
                 .FirstOrDefault(item => string.Equals(item.Id, itemId));
+        }
+
+        public T GetItemById<T>(string itemId, bool errorIfNotFound = false) where T : IItem
+        {
+            var item = GetItemById(itemId, errorIfNotFound);
+
+            if (item == null)
+            {
+                return default;
+            }
+
+            return (T)item;
         }
 
         public bool Contains(string itemKey)

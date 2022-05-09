@@ -57,7 +57,7 @@ namespace CodeMagic.Game.PlayerActions
 
             game.Player.Stamina -= StaminaToAttack;
 
-            var holdableItem = useRightHand ? game.Player.Equipment.RightHandItem : game.Player.Equipment.LeftHandItem;
+            var holdableItem = useRightHand ? game.Player.Equipment.RightHandItemId : game.Player.Equipment.LeftHandItemId;
             if (!(holdableItem is IWeaponItem weapon))
             {
                 game.Journal.Write(new CantAttackWithItemMessage(holdableItem));

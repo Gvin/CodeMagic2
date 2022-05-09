@@ -54,8 +54,8 @@ namespace CodeMagic.Game.Items
 
         private StyledLine[] GetCharacteristicsDescription(Player player)
         {
-            var rightHandShield = player.Equipment.RightHandItem as ShieldItem;
-            var leftHandShield = player.Equipment.LeftHandItem as ShieldItem;
+            var rightHandShield = player.Equipment.RightHandItemId as ShieldItem;
+            var leftHandShield = player.Equipment.LeftHandItemId as ShieldItem;
 
             var result = new List<StyledLine>();
 
