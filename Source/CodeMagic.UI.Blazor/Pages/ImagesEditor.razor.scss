@@ -1,0 +1,25 @@
+﻿.images-editor {
+    .panel {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .drawing-area {
+        border: 1px solid white;
+        min-height: 100px;
+        max-width: 600px;
+
+        .pixels-row {
+            width: fit-content;
+
+            .pixel {
+                display: inline-block;
+                width: fit-content;
+                white-space: pre;
+                margin-top: 0px;
+                margin-bottom: 0px;
+                line-height: normal;
+            }
+        }
+    }
+}

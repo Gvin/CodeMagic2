@@ -1,6 +1,5 @@
 ﻿using System;
 using CodeMagic.Game.GameProcess;
-using CodeMagic.UI.Services;
 
 namespace CodeMagic.UI.Presenters
 {
@@ -8,58 +7,48 @@ namespace CodeMagic.UI.Presenters
     {
         event EventHandler StartNewGame;
         event EventHandler ExitToMenu;
-        event EventHandler Exit;
     }
 
     public class PlayerDeathPresenter : IPresenter
     {
-        private readonly IPlayerDeathView view;
-        private readonly IApplicationController controller;
-        private readonly IApplicationService applicationService;
-        private readonly IGameManager gameManager;
+        private readonly IPlayerDeathView _view;
+        private readonly IApplicationController _controller;
+        private readonly IGameManager _gameManager;
 
         public PlayerDeathPresenter(
             IPlayerDeathView view, 
-            IApplicationController controller, 
-            IApplicationService applicationService, 
+            IApplicationController controller,
             IGameManager gameManager)
         {
-            this.view = view;
-            this.controller = controller;
-            this.applicationService = applicationService;
-            this.gameManager = gameManager;
+            _view = view;
+            _controller = controller;
+            _gameManager = gameManager;
 
-            this.view.StartNewGame += View_StartNewGame;
-            this.view.ExitToMenu += View_ExitToMenu;
-            this.view.Exit += View_Exit;
-        }
-
-        private void View_Exit(object sender, EventArgs e)
-        {
-            applicationService.Exit();
+            _view.StartNewGame += View_StartNewGame;
+            _view.ExitToMenu += View_ExitToMenu;
         }
 
         private void View_ExitToMenu(object sender, EventArgs e)
         {
-            view.Close();
+            _view.Close();
 
-            controller.CreatePresenter<MainMenuPresenter>().Run();
+            _controller.CreatePresenter<MainMenuPresenter>().Run();
         }
 
         private void View_StartNewGame(object sender, EventArgs e)
         {
-            view.Close();
+            _view.Close();
             
-            controller.CreatePresenter<WaitMessagePresenter>().Run("Starting new game...", () =>
+            _controller.CreatePresenter<WaitMessagePresenter>().Run("Starting new game...", () =>
             {
-                var game = gameManager.StartGame();
-                controller.CreatePresenter<GameViewPresenter>().Run(game);
+                var game = _gameManager.StartGame();
+                _controller.CreatePresenter<GameViewPresenter>().Run(game);
             });
         }
 
         public void Run()
         {
-            view.Show();
+            _view.Show();
         }
     }
 }

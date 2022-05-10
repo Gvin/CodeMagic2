@@ -1,0 +1,128 @@
+﻿@page "/imageseditor"
+
+@using CodeMagic.UI.Images
+@using System.Drawing
+
+<h3>Images Editor</h3>
+
+<div class="images-editor">
+	<div class="panel">
+		Width: <input type="text" placeholder="Width" @bind="Width"/>
+		Height: <input type="text" placeholder="Height" @bind="Height"/>
+		<input type="button" value="Create" @onclick="HandleCreateImage"/>
+	</div>
+
+	<div class="panel">
+		<input type="text" @bind="Text"/>
+		<input type="color" placeholder="Main Color" @bind="MainColor"/>
+		<input type="button" value="Clear Main Color" @onclick="HandleClearMainColor"/>
+		<input type="color" placeholder="Background Color" @bind="BackgroundColor"/>
+		<input type="button" value="Clear Background Color" @onclick="HandleClearBackgroundColor"/>
+	</div>
+
+	<div class="panel drawing-area">
+		@for (var y = 0; y < Image.Height; y++)
+		{
+			<div class="pixels-row">
+				@for (var x = 0; x < Image.Width; x++)
+				{
+					var xValue = x;
+					var yValue = y;
+					<div class="pixel" @onclick="() => HandlePixelClick(xValue, yValue)">
+						<p style="color: @GetColor(Image[x,y]); background-color: @GetBackgroundColor(Image[x,y])">@GetSymbol(Image[x, y])</p>
+					</div>
+				}
+			</div>
+		}
+	</div>
+</div>
+
+
+@code {
+	private string? Text { get; set; }
+
+	private char? DrawingChar => Text?.FirstOrDefault();
+
+	private string? MainColor { get; set; }
+
+	private Color? DrawingMainColor
+	{
+		get
+		{
+			if (string.IsNullOrEmpty(MainColor))
+			{
+				return null;
+			}
+
+			return ColorTranslator.FromHtml(MainColor);
+		}
+	}
+
+	private string? BackgroundColor { get; set; }
+
+	private Color? DrawingBackgroundColor
+	{
+		get
+		{
+			if (string.IsNullOrEmpty(BackgroundColor))
+			{
+				return null;
+			}
+
+			return ColorTranslator.FromHtml(BackgroundColor);
+		}
+	}
+
+	private SymbolsImage Image { get; set; } = new(3, 3);
+
+	private int Width { get; set; } = 3;
+
+	private int Height { get; set; } = 3;
+
+	private void HandleCreateImage(MouseEventArgs args)
+	{
+		Image = new SymbolsImage(Width, Height);
+	}
+
+	private void HandleClearMainColor(MouseEventArgs args)
+	{
+		MainColor = null;
+	}
+
+	private void HandleClearBackgroundColor(MouseEventArgs args)
+	{
+		BackgroundColor = null;
+	}
+
+	private void HandlePixelClick(int x, int y)
+	{
+		Image[x, y].Symbol = DrawingChar;
+		Image[x, y].Color = DrawingMainColor;
+		Image[x, y].BackgroundColor = DrawingBackgroundColor;
+	}
+
+	private string GetSymbol(SymbolsImage.Pixel? pixel)
+	{
+		return pixel?.Symbol?.ToString() ?? " ";
+	}
+
+	private string GetColor(SymbolsImage.Pixel? pixel)
+	{
+		return ColorToRGBA(pixel?.Color);
+	}
+
+	private string GetBackgroundColor(SymbolsImage.Pixel? pixel)
+	{
+		return ColorToRGBA(pixel?.BackgroundColor);
+	}
+
+	private string ColorToRGBA(Color? color)
+	{
+		if (!color.HasValue)
+		{
+			return "white";
+		}
+
+		return $"rgba({color.Value.R},{color.Value.G},{color.Value.B},{color.Value.A})";
+	}
+}

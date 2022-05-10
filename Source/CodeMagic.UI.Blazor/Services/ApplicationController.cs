@@ -1,19 +1,18 @@
 ﻿using CodeMagic.UI.Presenters;
 
-namespace CodeMagic.UI.Blazor.Services
+namespace CodeMagic.UI.Blazor.Services;
+
+public class ApplicationController : IApplicationController
 {
-	public class ApplicationController : IApplicationController
-	{
-		private readonly IServiceProvider _serviceProvider;
+    private readonly IServiceProvider _serviceProvider;
 
-		public ApplicationController(IServiceProvider serviceProvider)
-		{
-			_serviceProvider = serviceProvider;
-		}
+    public ApplicationController(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
 
-		public TPresenter CreatePresenter<TPresenter>() where TPresenter : class, IPresenter
-		{
-			return _serviceProvider.GetRequiredService<TPresenter>();
-		}
-	}
+    public TPresenter CreatePresenter<TPresenter>() where TPresenter : class, IPresenter
+    {
+        return _serviceProvider.GetRequiredService<TPresenter>();
+    }
 }

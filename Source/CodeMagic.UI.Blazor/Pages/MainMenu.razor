@@ -27,19 +27,39 @@
 			<div class="menu-button">
 				<Button Text="Settings" OnClick="HandleSettingsClick"></Button>
 			</div>
-			<div class="menu-button">
-				<Button Text="Exit" OnClick="HandleExitClick"></Button>
-			</div>
 		</div>
 
 	</div>
 </div>
 
 @code {
+
 	[Parameter]
-	public MainMenuModel? Model { get; set; }
+	public MainMenuModel? Model
+	{
+		get => _model;
+		set
+		{
+			if (_model != null)
+			{
+				_model.ContinueOptionChanged -= ModelOnContinueOptionChanged;
+			}
+
+			_model = value;
+
+			if (_model != null)
+			{
+				_model.ContinueOptionChanged += ModelOnContinueOptionChanged;
+			}
+		}
+	}
 
 	private bool ShowContinueButton => Model?.ShowContinueButton ?? false;
+
+	private void ModelOnContinueOptionChanged(object? sender, EventArgs args)
+	{
+		StateHasChanged();
+	}
 
 	private void HandleStartGameClick(MouseEventArgs args)
 	{
@@ -61,8 +81,5 @@
 		Model?.OnShowSettings();
 	}
 
-	private void HandleExitClick(MouseEventArgs args)
-	{
-		Model?.OnExit();
-	}
+	private MainMenuModel? _model;
 }

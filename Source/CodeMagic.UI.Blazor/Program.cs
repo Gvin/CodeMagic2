@@ -30,7 +30,6 @@ builder.Services.AddOptions<SettingsConfiguration>(SettingsConfiguration.ConfigS
 // Services
 builder.Services.AddSingleton<IWindowService, WindowService>();
 builder.Services.AddSingleton<IApplicationController, ApplicationController>();
-builder.Services.AddSingleton<IApplicationService, ApplicationService>();
 builder.Services.AddSingleton<IGameManager>(provider => new GameManager(
     provider.GetRequiredService<ISaveService>(), 
     provider.GetRequiredService<IOptions<SettingsConfiguration>>().Value.SavingInterval,
@@ -54,6 +53,8 @@ builder.Services.AddTransient<MainMenuPresenter>();
 builder.Services.AddTransient<SettingsPresenter>();
 builder.Services.AddTransient<PlayerInventoryPresenter>();
 builder.Services.AddTransient<SpellBookPresenter>();
+builder.Services.AddTransient<InGameMenuPresenter>();
+builder.Services.AddTransient<PlayerDeathPresenter>();
 
 // Starting
 var application = builder.Build();

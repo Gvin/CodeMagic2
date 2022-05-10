@@ -1,0 +1,53 @@
+﻿@using CodeMagic.UI.Images
+@using System.Drawing
+
+@if (Model != null)
+{
+	<div>
+		@for (var y = 0; y < Model.Height; y++)
+		{
+			<div class="line">
+				@for (var x = 0; x < Model.Width; x++)
+				{
+					<p style="color: @GetColor(Model[x,y]); background-color: @GetBackgroundColor(Model[x,y])">@Model[x, y].Symbol</p>
+				}
+			</div>
+		}
+	</div>
+}
+
+@code {
+
+	[Parameter]
+	public ISymbolsImage? Model
+	{
+		get => _model;
+		set
+		{
+			_model = value;
+			StateHasChanged();
+		}
+	}
+
+	private ISymbolsImage? _model;
+
+	private string GetColor(SymbolsImage.Pixel? pixel)
+	{
+		return ColorToRGBA(pixel?.Color);
+	}
+
+	private string GetBackgroundColor(SymbolsImage.Pixel? pixel)
+	{
+		return ColorToRGBA(pixel?.BackgroundColor);
+	}
+
+	private string ColorToRGBA(Color? color)
+	{
+		if (!color.HasValue)
+		{
+			return "white";
+		}
+
+		return $"rgba({color.Value.R},{color.Value.G},{color.Value.B},{color.Value.A})";
+	}
+}

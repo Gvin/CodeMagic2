@@ -1,16 +1,13 @@
 ﻿@page "/"
 @using CodeMagic.UI.Blazor.Models
 @using CodeMagic.UI.Blazor.Services
-@using CodeMagic.UI.Presenters
 
 <PageTitle>Code Magic 2</PageTitle>
 
 @implements IDisposable
 
-@inject IJSRuntime _jsRuntime;
-@inject IWindowService _windowService;
-@inject IApplicationController _applicationController;
-@inject ILogger<Index> _logger;
+@inject IJSRuntime JsRuntime;
+@inject IWindowService WindowService;
 
 <div class="index-page">
 	<div class="game-frame">
@@ -79,7 +76,7 @@
 @code {
 	protected override void OnInitialized()
 	{
-		_windowService.WindowsChanged += WindowService_WindowsChanged;
+		WindowService.WindowsChanged += WindowService_WindowsChanged;
 
 		base.OnInitialized();
 	}
@@ -89,22 +86,16 @@
 		StateHasChanged();
 	}
 
-	private IWindowModel? CurrentWindowModel
-	{
-		get 
-		{
-			return _windowService.GetCurrentWindow();
-		}
-	}
+	private IWindowModel? CurrentWindowModel => WindowService.GetCurrentWindow();
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		await _jsRuntime.InvokeVoidAsync("setContentSize");
+		await JsRuntime.InvokeVoidAsync("setContentSize");
 		await base.OnAfterRenderAsync(firstRender);
 	}
 
 	public void Dispose()
 	{
-		_windowService.WindowsChanged -= WindowService_WindowsChanged;
+		WindowService.WindowsChanged -= WindowService_WindowsChanged;
 	}
 }
