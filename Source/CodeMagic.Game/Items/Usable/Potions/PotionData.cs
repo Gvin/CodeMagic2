@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Globalization;
 using CodeMagic.Core.Game;
+using CodeMagic.Core.Items;
+using CodeMagic.Core.Objects;
 using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.Game.Items.Usable.Potions
 {
-    internal abstract class PotionData
+    public abstract class PotionData
     {
         protected readonly PotionSize Size;
         private readonly PotionType type;
@@ -32,13 +34,13 @@ namespace CodeMagic.Game.Items.Usable.Potions
             return $"{sizeName}{colorName} Potion";
         }
 
-        public abstract void Use(GameCore<Player> game);
+        public abstract void Use(IGameCore game);
 
-        public StyledLine[] GetDescription(Player player, PotionColor color)
+        public StyledLine[] GetDescription(IPlayer player, PotionColor color)
         {
             var result = new List<StyledLine>();
 
-            if (player.KnownPotions.Contains(type))
+            if (player.IsKnownPotion(type))
             {
                 result.AddRange(GetEffectDescription());
             }

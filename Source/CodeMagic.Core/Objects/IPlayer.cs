@@ -6,9 +6,15 @@ namespace CodeMagic.Core.Objects
 {
     public interface IPlayer : ICreatureObject
     {
+        event EventHandler Died;
+
+        event EventHandler LeveledUp;
+
         int Mana { get; set; }
 
         int MaxMana { get; }
+
+        int Stamina { get; set; }
 
         int HungerPercent { get; set; }
 
@@ -16,16 +22,30 @@ namespace CodeMagic.Core.Objects
 
         int ManaRegeneration { get; }
 
-        Inventory Inventory { get; }
+        int ScrollReadingBonus { get; }
+
+        int AccuracyBonus { get; }
+
+        int DamageBonus { get; }
+
+        IInventory Inventory { get; }
+
+        IEquipment Equipment { get; }
 
         int MaxVisibilityRange { get; }
-
-        event EventHandler Died;
 
         int Experience { get; }
 
         int Level { get; }
 
         void AddExperience(int exp);
+
+        bool IsKnownPotion(PotionType type);
+
+        void MarkPotionKnown(PotionType type);
+
+        void IncreaseStat(PlayerStats stat);
+
+        int GetPureStat(PlayerStats stat);
     }
 }

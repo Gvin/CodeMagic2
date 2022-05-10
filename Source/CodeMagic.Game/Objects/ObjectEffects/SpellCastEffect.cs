@@ -6,7 +6,7 @@ namespace CodeMagic.Game.Objects.ObjectEffects
     {
         private const string ImageName = "Effect_SpellCast";
 
-        public override SymbolsImage GetEffectImage(int width, int height, IImagesStorage imagesStorage)
+        public override ISymbolsImage GetEffectImage(int width, int height, IImagesStorage imagesStorage)
         {
             return imagesStorage.GetImage(ImageName);
         }

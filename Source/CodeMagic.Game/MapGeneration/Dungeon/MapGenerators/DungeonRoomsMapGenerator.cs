@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using CodeMagic.Core.Area;
+using CodeMagic.Core.Common;
 using CodeMagic.Core.Game;
 using CodeMagic.Game.Area.EnvironmentData;
 using CodeMagic.Game.MapGeneration.Dungeon.MapObjectFactories;
@@ -17,21 +18,24 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapGenerators
         private const int TorchChance = 5;
         private const int MaxBuildRetries = 10;
 
-        private readonly IMapObjectFactory mapObjectsFactory;
-        private readonly IObjectsGenerator objectsGenerator;
-        private readonly IMonstersGenerator monstersGenerator;
+        private readonly IMapObjectFactory _mapObjectsFactory;
+        private readonly IObjectsGenerator _objectsGenerator;
+        private readonly IMonstersGenerator _monstersGenerator;
+        private readonly IPerformanceMeter _performanceMeter;
 
         public DungeonRoomsMapGenerator(
             IMapObjectFactory mapObjectsFactory,
             IObjectsGenerator objectsGenerator,
-            IMonstersGenerator monstersGenerator)
+            IMonstersGenerator monstersGenerator,
+            IPerformanceMeter performanceMeter)
         {
-            this.mapObjectsFactory = mapObjectsFactory;
-            this.objectsGenerator = objectsGenerator;
-            this.monstersGenerator = monstersGenerator;
+            _mapObjectsFactory = mapObjectsFactory;
+            _objectsGenerator = objectsGenerator;
+            _monstersGenerator = monstersGenerator;
+            _performanceMeter = performanceMeter;
         }
 
-        public IAreaMap Generate(int level, MapSize size, out Core.Game.Point playerPosition)
+        public (IAreaMap map, Core.Game.Point playerPosition) Generate(int level, MapSize size)
         {
             var builder = new MapBuilder(1, 1);
             switch (size)
@@ -58,17 +62,17 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapGenerators
             var width = simplifiedMap[0].Length;
 
             var map = ConvertMap(level, simplifiedMap, width, height);
-            playerPosition = FindPlayerPosition(map);
+            var playerPosition = FindPlayerPosition(map);
 
             if (level > 1)
             {
-                map.AddObject(playerPosition, mapObjectsFactory.CreateStairs());
+                map.AddObject(playerPosition, _mapObjectsFactory.CreateStairs());
             }
 
-            objectsGenerator.GenerateObjects(map, playerPosition);
-            monstersGenerator.GenerateMonsters(map, playerPosition);
+            _objectsGenerator.GenerateObjects(map, playerPosition);
+            _monstersGenerator.GenerateMonsters(map, playerPosition);
 
-            return map;
+            return (map, playerPosition);
         }
 
         private bool BuildMap(MapBuilder builder)
@@ -111,27 +115,27 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapGenerators
 
         private IAreaMap ConvertMap(int level, int[][] map, int width, int height)
         {
-            var result = new AreaMap(level, () => new AreaMapCell(new GameEnvironment()), width, height);
+            var result = new AreaMap(level, () => new AreaMapCell{Environment = new GameEnvironment()}, width, height, _performanceMeter);
 
-            for (int y = 0; y < height; y++)
+            for (var y = 0; y < height; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (var x = 0; x < width; x++)
                 {
-                    result.AddObject(x, y, mapObjectsFactory.CreateFloor());
+                    result.AddObject(x, y, _mapObjectsFactory.CreateFloor());
 
                     if (map[y][x] == MapBuilder.FilledCell)
                     {
-                        var wall = mapObjectsFactory.CreateWall(TorchChance);
+                        var wall = _mapObjectsFactory.CreateWall(TorchChance);
                         result.AddObject(x, y, wall);
                     }
                     else if (map[y][x] == MapBuilder.DoorCell)
                     {
-                        var door = mapObjectsFactory.CreateDoor();
+                        var door = _mapObjectsFactory.CreateDoor();
                         result.AddObject(x, y, door);
                     }
                     else if (map[y][x] == MapBuilder.TrapDoorCell)
                     {
-                        var trapDoor = mapObjectsFactory.CreateTrapDoor();
+                        var trapDoor = _mapObjectsFactory.CreateTrapDoor();
                         result.AddObject(x, y, trapDoor);
                     }
                 }

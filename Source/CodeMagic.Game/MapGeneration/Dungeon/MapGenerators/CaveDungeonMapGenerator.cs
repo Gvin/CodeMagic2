@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeMagic.Core.Area;
+using CodeMagic.Core.Common;
 using CodeMagic.Core.Game;
 using CodeMagic.Game.Area.EnvironmentData;
 using CodeMagic.Game.MapGeneration.Dungeon.MapObjectFactories;
@@ -10,14 +11,16 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapGenerators
 {
     internal class CaveDungeonMapGenerator : IMapAreaGenerator
     {
-        private readonly IMapObjectFactory mapObjectsFactory;
+        private readonly IMapObjectFactory _mapObjectsFactory;
+        private readonly IPerformanceMeter _performanceMeter;
 
-        public CaveDungeonMapGenerator(IMapObjectFactory mapObjectsFactory)
+        public CaveDungeonMapGenerator(IMapObjectFactory mapObjectsFactory, IPerformanceMeter performanceMeter)
         {
-            this.mapObjectsFactory = mapObjectsFactory;
+            _mapObjectsFactory = mapObjectsFactory;
+            _performanceMeter = performanceMeter;
         }
 
-        public IAreaMap Generate(int level, MapSize size, out Point playerPosition)
+        public (IAreaMap map, Point playerPosition) Generate(int level, MapSize size)
         {
             var generator = ConfigureMapHandler(size);
             generator.RandomFillMap();
@@ -29,13 +32,13 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapGenerators
 
             var map = ConvertMap(level, simplifiedMap, width, height);
 
-            playerPosition = FindPlayerPosition(map);
-            map.AddObject(playerPosition, mapObjectsFactory.CreateStairs());
+            var playerPosition = FindPlayerPosition(map);
+            map.AddObject(playerPosition, _mapObjectsFactory.CreateStairs());
 
             var trapDoorPosition = FindTrapDoorPosition(map, playerPosition);
-            map.AddObject(trapDoorPosition, mapObjectsFactory.CreateTrapDoor());
+            map.AddObject(trapDoorPosition, _mapObjectsFactory.CreateTrapDoor());
 
-            return map;
+            return (map, playerPosition);
         }
 
         private Point FindTrapDoorPosition(IAreaMap map, Point playerPosition)
@@ -188,17 +191,17 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapGenerators
 
         private IAreaMap ConvertMap(int level, int[][] map, int width, int height)
         {
-            var result = new AreaMap(level, () => new AreaMapCell(new GameEnvironment()), width, height);
+            var result = new AreaMap(level, () => new AreaMapCell{Environment = new GameEnvironment()}, width, height, _performanceMeter);
 
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    result.AddObject(x, y, mapObjectsFactory.CreateFloor());
+                    result.AddObject(x, y, _mapObjectsFactory.CreateFloor());
 
                     if (map[y][x] == MapHandler.FilledCell || map[y][x] == MapHandler.IndestructibleCell)
                     {
-                        var wall = mapObjectsFactory.CreateWall();
+                        var wall = _mapObjectsFactory.CreateWall();
                         result.AddObject(x, y, wall);
                     }
                 }

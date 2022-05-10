@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Objects.IceObjects;
 using CodeMagic.Game.Objects.SteamObjects;
 using CodeMagic.Game.Statuses;
@@ -9,6 +9,7 @@ using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Objects.LiquidObjects
 {
+    [Serializable]
     public class WaterLiquid : AbstractLiquid, IWorldImageProvider
     {
         private const string ImageSmall = "Water_Small";
@@ -17,14 +18,18 @@ namespace CodeMagic.Game.Objects.LiquidObjects
 
         public const string LiquidType = "WaterLiquid";
 
-        public WaterLiquid(int volume) 
-            : base(volume, LiquidType, "Water")
+        public WaterLiquid(int volume)
+        {
+            Volume = volume;
+        }
+
+        public WaterLiquid()
         {
         }
 
-        public WaterLiquid(SaveData data) : base(data)
-        {
-        }
+        public override string Type => LiquidType;
+
+        public override string Name => "Water";
 
         protected override IIce CreateIce(int volume)
         {
@@ -60,7 +65,7 @@ namespace CodeMagic.Game.Objects.LiquidObjects
             }
         }
 
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
+        public ISymbolsImage GetWorldImage(IImagesStorage storage)
         {
             if (Volume >= Configuration.MaxVolumeBeforeSpread)
                 return storage.GetImage(ImageBig);

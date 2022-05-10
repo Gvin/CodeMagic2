@@ -2,13 +2,13 @@
 using System.Linq;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.JournalMessages;
 using CodeMagic.Game.Objects.LiquidObjects;
 using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Objects.SteamObjects
 {
+    [Serializable]
     public class AcidSteam : AbstractSteam, IWorldImageProvider
     {
         private const string ImageSmall = "Acid_Steam_Small";
@@ -21,18 +21,24 @@ namespace CodeMagic.Game.Objects.SteamObjects
         private const int ThicknessBig = 70;
         private const int ThicknessMedium = 30;
 
-        private readonly AnimationsBatchManager animations;
-
-        public AcidSteam(SaveData data) : base(data)
-        {
-            animations = new AnimationsBatchManager(TimeSpan.FromSeconds(1), AnimationFrameStrategy.Random);
-        }
+        private readonly ISymbolsAnimationsManager _animations;
 
         public AcidSteam(int volume)
-            : base(volume, AcidLiquid.LiquidType, "Acid Steam")
+            : this()
         {
-            animations = new AnimationsBatchManager(TimeSpan.FromSeconds(1), AnimationFrameStrategy.Random);
+            Volume = volume;
         }
+
+        public AcidSteam()
+        {
+            _animations = new SymbolsAnimationsManager(
+                TimeSpan.FromSeconds(1),
+                AnimationFrameStrategy.Random);
+        }
+
+        protected override string LiquidType => AcidLiquid.LiquidType;
+
+        public override string Name => "Acid Steam";
 
         public override string Type => SteamType;
 
@@ -72,10 +78,10 @@ namespace CodeMagic.Game.Objects.SteamObjects
             return new AcidLiquid(volume);
         }
 
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
+        public ISymbolsImage GetWorldImage(IImagesStorage storage)
         {
             var animationName = GetAnimationName();
-            return animations.GetImage(storage, animationName);
+            return _animations.GetImage(storage, animationName);
         }
 
         private string GetAnimationName()

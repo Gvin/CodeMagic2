@@ -20,7 +20,7 @@ namespace CodeMagic.UI.Presenters
         private readonly IApplicationController controller;
         private readonly IGameManager gameManager;
         private readonly IApplicationService applicationService;
-        private GameCore<Player> currentGame;
+        private IGameCore currentGame;
 
         public InGameMenuPresenter(
             IInGameMenuView view, 
@@ -72,7 +72,7 @@ namespace CodeMagic.UI.Presenters
             applicationService.Exit();
         }
 
-        public void Run(GameCore<Player> game)
+        public void Run(IGameCore game)
         {
             currentGame = game;
 

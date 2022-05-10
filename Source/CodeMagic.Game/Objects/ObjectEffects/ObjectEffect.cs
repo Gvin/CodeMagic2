@@ -13,6 +13,6 @@ namespace CodeMagic.Game.Objects.ObjectEffects
 
         public DateTime CreatedAt { get; }
 
-        public abstract SymbolsImage GetEffectImage(int width, int height, IImagesStorage imagesStorage);
+        public abstract ISymbolsImage GetEffectImage(int width, int height, IImagesStorage imagesStorage);
     }
 }

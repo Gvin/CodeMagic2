@@ -15,13 +15,16 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses.Instances
 
         private const string BonusCode = "light_bonus";
 
-        public void Apply(IBonusConfiguration config, ItemConfiguration itemConfiguration, NameBuilder name)
+        public void Apply(IBonusConfiguration config, Item item, NameBuilder name)
         {
+            if (item is not EquipableItem equipableItem)
+                throw new ApplicationException(
+                    $"{nameof(LightBonusApplier)} cannot be applied to item {item.GetType().Name}");
+
             var possiblePower = GetPossibleLightPower(config);
             var power = RandomHelper.GetRandomElement(possiblePower);
 
-            var equipableConfig = (EquipableItemConfiguration) itemConfiguration;
-            equipableConfig.LightPower = power;
+            equipableItem.LightPower = power;
 
             name.AddNamePrefix(BonusCode, NamePrefix);
             name.AddDescription(BonusCode, "It emits some light.");

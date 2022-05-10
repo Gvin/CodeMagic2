@@ -9,7 +9,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapObjectFactories
     {
         public IMapObject CreateFloor()
         {
-            return new FloorObject(FloorObject.Type.Stone);
+            return FloorObject.Create(FloorObject.Type.Stone);
         }
 
         public IMapObject CreateStairs()
@@ -34,7 +34,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapObjectFactories
 
         public IMapObject CreateTorchWall()
         {
-            return new DungeonTorchWall();
+            return DungeonTorchWall.Create();
         }
 
         public IMapObject CreateWall(int torchChance)

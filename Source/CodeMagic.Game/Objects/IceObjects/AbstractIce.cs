@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Common;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
 using CodeMagic.Core.Objects.Creatures;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Area.EnvironmentData;
 using CodeMagic.Game.Configuration;
 using CodeMagic.Game.Configuration.Liquids;
@@ -17,45 +15,26 @@ namespace CodeMagic.Game.Objects.IceObjects
 {
     public abstract class AbstractIce : MapObjectBase, IIce
     {
-        private const string SaveKeyVolume = "Volume";
-        private const string SaveKeyLiquidType = "LiquidType";
-
         private const int MaxSlideDistance = 3;
         private const int SlideSpeedDamageMultiplier = 1;
 
-        protected readonly ILiquidConfiguration Configuration;
-        private readonly string liquidType;
-        private int volume;
+        private ILiquidConfiguration _configuration;
+        private int _volume;
 
-        protected AbstractIce(SaveData data) 
-            : base(data)
+        protected ILiquidConfiguration Configuration
         {
-            liquidType = data.GetStringValue(SaveKeyLiquidType);
-            Configuration = ConfigurationManager.GetLiquidConfiguration(liquidType);
-            if (Configuration == null)
-                throw new ApplicationException($"Unable to find liquid configuration for liquid type \"{liquidType}\".");
+            get
+            {
+                if (string.IsNullOrEmpty(LiquidType))
+                {
+                    throw new InvalidOperationException("Liquid type not initialized");
+                }
 
-            this.volume = data.GetIntValue(SaveKeyVolume);
+                return _configuration ??= ConfigurationManager.GetLiquidConfiguration(LiquidType);
+            }
         }
 
-        protected AbstractIce(int volume, string liquidType, string name)
-            : base(name)
-        {
-            this.liquidType = liquidType;
-            Configuration = ConfigurationManager.GetLiquidConfiguration(liquidType);
-            if (Configuration == null)
-                throw new ApplicationException($"Unable to find liquid configuration for liquid type \"{liquidType}\".");
-
-            this.volume = volume;
-        }
-
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyVolume, volume);
-            data.Add(SaveKeyLiquidType, liquidType);
-            return data;
-        }
+        public abstract string LiquidType { get; }
 
         public override ObjectSize Size => ObjectSize.Huge;
 
@@ -65,8 +44,8 @@ namespace CodeMagic.Game.Objects.IceObjects
 
         public int Volume
         {
-            get => volume;
-            set => volume = Math.Max(0, value);
+            get => _volume;
+            set => _volume = Math.Max(0, value);
         }
 
         protected abstract int MinVolumeForEffect { get; }
@@ -74,6 +53,8 @@ namespace CodeMagic.Game.Objects.IceObjects
         public bool SupportsSlide => Volume >= MinVolumeForEffect;
 
         public override ZIndex ZIndex => ZIndex.FloorCover;
+
+        public bool Updated { get; set; }
 
         public void Update(Point position)
         {
@@ -101,8 +82,6 @@ namespace CodeMagic.Game.Objects.IceObjects
         }
 
         protected abstract ILiquid CreateLiquid(int volume);
-
-        public bool Updated { get; set; }
 
         public Point ProcessStepOn(Point position, ICreatureObject target, Point initialTargetPosition)
         {

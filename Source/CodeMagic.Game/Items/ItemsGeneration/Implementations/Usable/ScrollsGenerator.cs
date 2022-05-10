@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
 using CodeMagic.Game.Items.Usable;
@@ -9,19 +10,30 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Usable
 {
     public class ScrollsGenerator : IUsableItemTypeGenerator
     {
+        private const char DamagedSymbol = '▒';
+        private const string NewLineSign = "\r\n";
+        private const int MinDamageZoneLength = 3;
+        private const int MaxDamageZoneLength = 10;
+
+        private const string AncientImageInventory1 = "Item_Scroll_Old_V1";
+        private const string AncientImageInventory2 = "Item_Scroll_Old_V2";
+        private const string AncientImageInventory3 = "Item_Scroll_Old_V3";
+
         private const int UncommonMinDamage = 15;
         private const int UncommonMaxDamage = 30;
 
         private const int RareMinDamage = 25;
         private const int RareMaxDamage = 50;
 
-        private readonly IAncientSpellsProvider spellsProvider;
-        private readonly Dictionary<BookSpell, string> spellNamesCache;
+        private const int ScrollWeight = 300;
+
+        private readonly IAncientSpellsProvider _spellsProvider;
+        private readonly Dictionary<BookSpell, string> _spellNamesCache;
 
         public ScrollsGenerator(IAncientSpellsProvider spellsProvider)
         {
-            this.spellsProvider = spellsProvider;
-            spellNamesCache = new Dictionary<BookSpell, string>();
+            _spellsProvider = spellsProvider;
+            _spellNamesCache = new Dictionary<BookSpell, string>();
         }
 
         public IItem Generate(ItemRareness rareness)
@@ -32,9 +44,9 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Usable
                 case ItemRareness.Common:
                     return null;
                 case ItemRareness.Uncommon:
-                    return GenerateScroll(rareness, spellsProvider.GetUncommonSpells(), UncommonMinDamage, UncommonMaxDamage);
+                    return GenerateScroll(rareness, _spellsProvider.GetUncommonSpells(), UncommonMinDamage, UncommonMaxDamage);
                 case ItemRareness.Rare:
-                    return GenerateScroll(rareness, spellsProvider.GetRareSpells(), RareMinDamage, RareMaxDamage);
+                    return GenerateScroll(rareness, _spellsProvider.GetRareSpells(), RareMinDamage, RareMaxDamage);
                 case ItemRareness.Epic:
                     throw new ArgumentException("Scrolls generator cannot generate scroll with Epic rareness.");
                 default:
@@ -52,7 +64,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Usable
             var damage = RandomHelper.GetRandomValue(minDamage, maxDamage);
             var name = GetName(spell);
 
-            return new AncientScroll(new AncientScrollItemConfiguration
+            return new AncientScroll
             {
                 Name = $"{name} Scroll",
                 Code = spell.Code,
@@ -60,17 +72,70 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Usable
                 DamagePercent = damage,
                 Key = Guid.NewGuid().ToString(),
                 Rareness = rareness,
-                SpellName = name
-            });
+                SpellName = name,
+                DamagedCode = GenerateDamagedCode(spell.Code, damage),
+                InventoryImageName = GetAncientScrollInventoryImageName(spell.Code),
+                Weight = ScrollWeight
+            };
+        }
+
+        private static string GetAncientScrollInventoryImageName(string code)
+        {
+            var letterA = code.Count(c => char.ToLower(c) == 'a');
+            var letterB = code.Count(c => char.ToLower(c) == 'b');
+            var letterC = code.Count(c => char.ToLower(c) == 'c');
+
+            if (letterA > letterB && letterA > letterC)
+                return AncientImageInventory1;
+            if (letterB > letterA && letterB > letterC)
+                return AncientImageInventory2;
+            return AncientImageInventory3;
+        }
+
+        private static string GenerateDamagedCode(string code, int damagePercent)
+        {
+            var lines = code.Split(new[] { NewLineSign }, StringSplitOptions.None);
+            var totalSymbolsCount = lines.Sum(line => line.Length);
+            var remainingDamageSymbols = (int)Math.Round(totalSymbolsCount * damagePercent / 100d);
+
+            const int maxIterations = 1000;
+            var iteration = 0;
+
+            while (remainingDamageSymbols > 0 && iteration < maxIterations)
+            {
+                iteration++;
+
+                var damageZoneLength = RandomHelper.GetRandomValue(MinDamageZoneLength, MaxDamageZoneLength);
+                var lineIndex = RandomHelper.GetRandomValue(0, lines.Length - 1);
+                var line = lines[lineIndex];
+                if (line.Length < damageZoneLength)
+                    continue;
+
+                var zoneStartPosition = RandomHelper.GetRandomValue(0, line.Length - 1 - damageZoneLength);
+                if (line[zoneStartPosition] == DamagedSymbol)
+                    continue;
+
+                for (var index = 0; index < damageZoneLength; index++)
+                {
+                    var onLineIndex = index + zoneStartPosition;
+                    line = line.Remove(onLineIndex, 1);
+                    line = line.Insert(onLineIndex, DamagedSymbol.ToString());
+                }
+
+                lines[lineIndex] = line;
+                remainingDamageSymbols -= damageZoneLength;
+            }
+
+            return string.Join(NewLineSign, lines);
         }
 
         private string GetName(BookSpell spell)
         {
-            if (spellNamesCache.ContainsKey(spell))
-                return spellNamesCache[spell];
+            if (_spellNamesCache.ContainsKey(spell))
+                return _spellNamesCache[spell];
 
             var name = GenerateName();
-            spellNamesCache.Add(spell, name);
+            _spellNamesCache.Add(spell, name);
             return name;
         }
 

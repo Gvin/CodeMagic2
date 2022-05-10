@@ -32,7 +32,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration
             new ColorPalette(Color.FromArgb(150, 45, 255), Color.FromArgb(75, 0, 151), Color.White),
         };
 
-        public static SymbolsImage RecolorImage(SymbolsImage sourceImage, Color mainColor)
+        public static ISymbolsImage RecolorImage(ISymbolsImage sourceImage, Color mainColor)
         {
             return SymbolsImage.Recolor(sourceImage, new Dictionary<Color, Color>
             {
@@ -40,26 +40,26 @@ namespace CodeMagic.Game.Items.ItemsGeneration
             });
         }
 
-        public static SymbolsImage RecolorSpellBookImage(SymbolsImage sourceImage, out Color mainColor)
+        public static ISymbolsImage RecolorSpellBookImage(ISymbolsImage sourceImage, out Color mainColor)
         {
             var palette = RandomHelper.GetRandomElement(SpellBookColors);
             mainColor = palette.Color1;
             return RecolorImage(sourceImage, palette);
         }
 
-        public static SymbolsImage RecolorSpellBookGroundImage(SymbolsImage sourceImage, Color mainColor)
+        public static ISymbolsImage RecolorSpellBookGroundImage(ISymbolsImage sourceImage, Color mainColor)
         {
             var palette = SpellBookColors.First(pal => pal.Color1 == mainColor);
             return RecolorImage(sourceImage, palette);
         }
 
-        public static SymbolsImage RecolorItemImage(SymbolsImage sourceImage, ItemMaterial material)
+        public static ISymbolsImage RecolorItemImage(ISymbolsImage sourceImage, ItemMaterial material)
         {
             var palette = Palette[material];
             return RecolorImage(sourceImage, palette);
         }
 
-        private static SymbolsImage RecolorImage(SymbolsImage sourceImage, ColorPalette palette)
+        private static ISymbolsImage RecolorImage(ISymbolsImage sourceImage, ColorPalette palette)
         {
             var recolorPalette = new Dictionary<Color, Color>
             {

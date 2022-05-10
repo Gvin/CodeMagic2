@@ -1,7 +1,6 @@
 ﻿using CodeMagic.Core.Game;
-using CodeMagic.Game.Items;
+using CodeMagic.Core.Items;
 using CodeMagic.Game.JournalMessages;
-using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.Game.PlayerActions
 {
@@ -16,7 +15,7 @@ namespace CodeMagic.Game.PlayerActions
 
         protected override int RestoresStamina => 20;
 
-        protected override bool Perform(GameCore<Player> game, out Point newPosition)
+        protected override bool Perform(IGameCore game, out Point newPosition)
         {
             game.Journal.Write(new UsedItemMessage(item));
             var keepItem = item.Use(game);

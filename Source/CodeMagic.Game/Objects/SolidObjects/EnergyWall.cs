@@ -1,80 +1,69 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.UI.Images;
-using Point = CodeMagic.Core.Game.Point;
 
-namespace CodeMagic.Game.Objects.SolidObjects
+namespace CodeMagic.Game.Objects.SolidObjects;
+
+[Serializable]
+public class EnergyWall : MapObjectBase, IDynamicObject, ILightObject, IWorldImageProvider
 {
-    public class EnergyWall : MapObjectBase, IDynamicObject, ILightObject, IWorldImageProvider
+    private const string ImageHighEnergy = "EnergyWall_HighEnergy";
+    private const string ImageMediumEnergy = "EnergyWall_MediumEnergy";
+    private const string ImageLowEnergy = "EnergyWall_LowEnergy";
+
+    private const int MediumEnergy = 3;
+    private const int HighEnergy = 10;
+
+    public EnergyWall(int lifeTime)
     {
-        private const string SaveKeyEnergyLeft = "EnergyLeft";
+        EnergyLeft = lifeTime;
+    }
 
-        private const string ImageHighEnergy = "EnergyWall_HighEnergy";
-        private const string ImageMediumEnergy = "EnergyWall_MediumEnergy";
-        private const string ImageLowEnergy = "EnergyWall_LowEnergy";
+    public EnergyWall()
+    {
+    }
 
-        private const int MediumEnergy = 3;
-        private const int HighEnergy = 10;
+    public int EnergyLeft { get; set; }
 
-        private int energyLeft;
+    public override string Name => "Energy Wall";
 
-        public EnergyWall(SaveData data) : base(data)
-        {
-            energyLeft = data.GetIntValue(SaveKeyEnergyLeft);
-        }
+    public UpdateOrder UpdateOrder => UpdateOrder.Early;
 
-        public EnergyWall(int lifeTime)
-            : base("Energy Wall")
-        {
-            energyLeft = lifeTime;
-        }
+    public override ObjectSize Size => ObjectSize.Huge;
 
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyEnergyLeft, energyLeft);
-            return data;
-        }
+    public ILightSource[] LightSources => new ILightSource[]
+    {
+        new StaticLightSource(CodeSpell.DefaultLightLevel)
+    };
 
-        public void Update(Point position)
-        {
-            energyLeft--;
-            if (energyLeft > 0)
-                return;
+    public bool Updated { get; set; }
 
-            CurrentGame.Map.RemoveObject(position, this);
-        }
+    public override bool BlocksMovement => true;
 
-        public UpdateOrder UpdateOrder => UpdateOrder.Early;
+    public override bool BlocksAttack => true;
 
-        public override ObjectSize Size => ObjectSize.Huge;
+    public override bool BlocksProjectiles => true;
 
-        public ILightSource[] LightSources => new ILightSource[]
-        {
-            new StaticLightSource(CodeSpell.DefaultLightLevel)
-        };
+    public override bool BlocksEnvironment => true;
 
-        public bool Updated { get; set; }
+    public override ZIndex ZIndex => ZIndex.Wall;
 
-        public override bool BlocksMovement => true;
+    public void Update(Point position)
+    {
+        EnergyLeft--;
+        if (EnergyLeft > 0)
+            return;
 
-        public override bool BlocksAttack => true;
+        CurrentGame.Map.RemoveObject(position, this);
+    }
 
-        public override bool BlocksProjectiles => true;
-
-        public override bool BlocksEnvironment => true;
-
-        public override ZIndex ZIndex => ZIndex.Wall;
-
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
-        {
-            if (energyLeft >= HighEnergy)
-                return storage.GetImage(ImageHighEnergy);
-            if (energyLeft >= MediumEnergy)
-                return storage.GetImage(ImageMediumEnergy);
-            return storage.GetImage(ImageLowEnergy);
-        }
+    public ISymbolsImage GetWorldImage(IImagesStorage storage)
+    {
+        if (EnergyLeft >= HighEnergy)
+            return storage.GetImage(ImageHighEnergy);
+        if (EnergyLeft >= MediumEnergy)
+            return storage.GetImage(ImageMediumEnergy);
+        return storage.GetImage(ImageLowEnergy);
     }
 }

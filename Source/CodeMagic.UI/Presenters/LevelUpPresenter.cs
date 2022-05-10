@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CodeMagic.Core.Objects;
+using CodeMagic.Core.Objects.Creatures;
 using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.UI.Presenters
@@ -22,7 +24,7 @@ namespace CodeMagic.UI.Presenters
     public class LevelUpPresenter : IPresenter
     {
         private readonly ILevelUpView view;
-        private Player player;
+        private IPlayer player;
 
         public LevelUpPresenter(ILevelUpView view)
         {
@@ -49,7 +51,7 @@ namespace CodeMagic.UI.Presenters
             }
         }
 
-        public void Run(Player currentPlayer)
+        public void Run(IPlayer currentPlayer)
         {
             player = currentPlayer;
             view.Level = player.Level;

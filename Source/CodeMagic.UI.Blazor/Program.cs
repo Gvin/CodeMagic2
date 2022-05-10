@@ -7,12 +7,18 @@ using CodeMagic.UI.Presenters;
 using CodeMagic.UI.Blazor.Models;
 using CodeMagic.UI.Services;
 using CodeMagic.Game.GameProcess;
+using CodeMagic.Core.Common;
+using CodeMagic.Game;
+using CodeMagic.Game.Items.ItemsGeneration.Implementations;
+using CodeMagic.Game.Items.Usable.Potions;
+using CodeMagic.Game.MapGeneration.Dungeon;
+using Microsoft.Extensions.Options;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 // Logging
 builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
@@ -27,11 +33,17 @@ builder.Services.AddSingleton<IApplicationController, ApplicationController>();
 builder.Services.AddSingleton<IApplicationService, ApplicationService>();
 builder.Services.AddSingleton<IGameManager>(provider => new GameManager(
     provider.GetRequiredService<ISaveService>(), 
-    5,
-    provider.GetRequiredService<ILoggerFactory>())); // TODO: Take save interval from settings
+    provider.GetRequiredService<IOptions<SettingsConfiguration>>().Value.SavingInterval,
+    provider.GetRequiredService<ILoggerFactory>(),
+    provider.GetRequiredService<IDungeonMapGenerator>()));
 builder.Services.AddSingleton<ISettingsService, SettingsService>();
 builder.Services.AddSingleton<ISaveService, SaveService>();
 builder.Services.AddSingleton<ILocalStorageService, LocalStorageService>();
+builder.Services.AddSingleton<IPerformanceMeter, PerformanceMeter>();
+builder.Services.AddSingleton<IDungeonMapGenerator, DungeonMapGenerator>();
+builder.Services.AddSingleton<IPotionDataFactory, PotionDataFactory>();
+builder.Services.AddSingleton<IUsableItemsGenerator, UsableItemsGenerator>();
+builder.Services.AddSingleton<IImagesStorage, ImagesStorageService>();
 
 // Windows
 builder.Services.AddTransient<IMainMenuView, MainMenuModel>();
@@ -40,6 +52,8 @@ builder.Services.AddTransient<ISettingsView, SettingsModel>();
 // Presenters
 builder.Services.AddTransient<MainMenuPresenter>();
 builder.Services.AddTransient<SettingsPresenter>();
+builder.Services.AddTransient<PlayerInventoryPresenter>();
+builder.Services.AddTransient<SpellBookPresenter>();
 
 // Starting
 var application = builder.Build();

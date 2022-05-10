@@ -1,9 +1,8 @@
 ﻿using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 
 namespace CodeMagic.Core.Area
 {
-    public interface IAreaMapCell : ISaveable
+    public interface IAreaMapCell
     {
         LightLevel LightLevel { get; set; }
 

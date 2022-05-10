@@ -3,53 +3,18 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using CodeMagic.Core.Game;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.Game.Items
 {
+    [Serializable]
     public class WeaponItem : HoldableDurableItemBase, IWeaponItem
     {
-        private const string SaveKeyAccuracy = "Accuracy";
-        private const string SaveKeyMinDamage = "MinDamage";
-        private const string SaveKeyMaxDamage = "MaxDamage";
+        public Dictionary<Element, int> MaxDamage { get; set; }
 
-        public WeaponItem(SaveData data) : base(data)
-        {
-            MinDamage = data.GetObject<DictionarySaveable>(SaveKeyMinDamage).Data
-                .ToDictionary(pair => (Element) int.Parse((string) pair.Key), pair => int.Parse((string) pair.Value));
-            MaxDamage = data.GetObject<DictionarySaveable>(SaveKeyMaxDamage).Data
-                .ToDictionary(pair => (Element)int.Parse((string)pair.Key), pair => int.Parse((string)pair.Value));
+        public Dictionary<Element, int> MinDamage { get; set; }
 
-            Accuracy = data.GetIntValue(SaveKeyAccuracy);
-        }
-
-        public WeaponItem(WeaponItemConfiguration configuration) 
-            : base(configuration)
-        {
-            MinDamage = configuration.MinDamage.ToDictionary(pair => pair.Key, pair => pair.Value);
-            MaxDamage = configuration.MaxDamage.ToDictionary(pair => pair.Key, pair => pair.Value);
-
-            Accuracy = configuration.HitChance;
-        }
-
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-
-            data.Add(SaveKeyAccuracy, Accuracy);
-            data.Add(SaveKeyMinDamage,
-                new DictionarySaveable(MinDamage.ToDictionary(pair => (object) (int) pair.Key,
-                    pair => (object) pair.Value)));
-            data.Add(SaveKeyMaxDamage,
-                new DictionarySaveable(MaxDamage.ToDictionary(pair => (object)(int)pair.Key,
-                    pair => (object)pair.Value)));
-            return data;
-        }
-
-        public Dictionary<Element, int> MaxDamage { get; }
-
-        public Dictionary<Element, int> MinDamage { get; }
+        public int Accuracy { get; set; }
 
         public Dictionary<Element, int> GenerateDamage()
         {
@@ -58,8 +23,6 @@ namespace CodeMagic.Game.Items
             return MaxDamage.ToDictionary(pair => pair.Key,
                 pair => RandomHelper.GetRandomValue(MinDamage[pair.Key], pair.Value));
         }
-
-        public int Accuracy { get; }
 
         public override StyledLine[] GetDescription(Player player)
         {
@@ -73,8 +36,8 @@ namespace CodeMagic.Game.Items
 
         private StyledLine[] GetCharacteristicsDescription(Player player)
         {
-            var rightHandWeapon = player.Equipment.RightHandItem as IWeaponItem;
-            var leftHandWeapon = player.Equipment.LeftHandItem as IWeaponItem;
+            var rightHandWeapon = player.Equipment.GetRightHandItem(player.Inventory) as IWeaponItem;
+            var leftHandWeapon = player.Equipment.GetLeftHandItem(player.Inventory) as IWeaponItem;
 
             var result = new List<StyledLine>();
 
@@ -189,14 +152,5 @@ namespace CodeMagic.Game.Items
 
             return item.MinDamage.ContainsKey(element) ? item.MinDamage[element] : 0;
         }
-    }
-
-    public class WeaponItemConfiguration : HoldableItemConfiguration
-    {
-        public Dictionary<Element, int> MaxDamage { get; set; }
-
-        public Dictionary<Element, int> MinDamage { get; set; }
-
-        public int HitChance { get; set; }
     }
 }

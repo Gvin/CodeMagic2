@@ -1,106 +1,101 @@
 ﻿using System;
-using System.Collections.Generic;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Area.EnvironmentData;
 using CodeMagic.UI.Images;
-using Point = CodeMagic.Core.Game.Point;
 
-namespace CodeMagic.Game.Objects.DecorativeObjects
+namespace CodeMagic.Game.Objects.DecorativeObjects;
+
+public interface IFireObject : IDynamicObject, ILightObject
 {
-    public class FireObject : MapObjectBase, IDynamicObject, ILightObject, IWorldImageProvider
+}
+
+[Serializable]
+public class FireObject : MapObjectBase, IFireObject, IWorldImageProvider
+{
+    private const LightLevel SmallFireLightLevel = LightLevel.Dusk2;
+    private const LightLevel MediumFireLightLevel = LightLevel.Dim2;
+    private const LightLevel BigFireLightLevel = LightLevel.Medium;
+
+    private const int MediumFireTemperature = 1000;
+    private const int BigFireTemperature = 1500;
+    public const int SmallFireTemperature = 600;
+
+    private const string ImageSmall = "Fire_Small";
+    private const string ImageMedium = "Fire_Medium";
+    private const string ImageBig = "Fire_Big";
+
+    public static FireObject Create(int temperature)
     {
-        private const string SaveKeyTemperature = "Temperature";
-
-        private const LightLevel SmallFireLightLevel = LightLevel.Dusk2;
-        private const LightLevel MediumFireLightLevel = LightLevel.Dim2;
-        private const LightLevel BigFireLightLevel = LightLevel.Medium;
-
-        private const int MediumFireTemperature = 1000;
-        private const int BigFireTemperature = 1500;
-        public const int SmallFireTemperature = 600;
-
-        private int temperature;
-
-        private const string ImageSmall = "Fire_Small";
-        private const string ImageMedium = "Fire_Medium";
-        private const string ImageBig = "Fire_Big";
-
-        private readonly AnimationsBatchManager animations;
-
-        public FireObject(SaveData data) 
-            : base(data)
+        return new FireObject
         {
-            animations = new AnimationsBatchManager(TimeSpan.FromMilliseconds(500), AnimationFrameStrategy.Random);
-            temperature = data.GetIntValue(SaveKeyTemperature);
-        }
-
-        public FireObject(int temperature)
-            : base("Fire")
-        {
-            animations = new AnimationsBatchManager(TimeSpan.FromMilliseconds(500), AnimationFrameStrategy.Random);
-            this.temperature = temperature;
-        }
-
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyTemperature, temperature);
-            return data;
-        }
-
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
-        {
-            var animationName = GetAnimationName();
-            return animations.GetImage(storage, animationName);
-        }
-
-        private string GetAnimationName()
-        {
-            if (temperature >= BigFireTemperature)
-                return ImageBig;
-            if (temperature >= MediumFireTemperature)
-                return ImageMedium;
-            return ImageSmall;
-        }
-
-        public override ObjectSize Size => ObjectSize.Huge;
-
-        public UpdateOrder UpdateOrder => UpdateOrder.Early;
-
-        public void Update(Point position)
-        {
-            var cell = CurrentGame.Map.GetCell(position);
-            if (cell.Temperature() < SmallFireTemperature)
-            {
-                CurrentGame.Map.RemoveObject(position, this);
-                return;
-            }
-
-            temperature = cell.Temperature();
-        }
-
-        public bool Updated { get; set; }
-
-        public override ZIndex ZIndex => ZIndex.AreaDecoration;
-
-        private LightLevel LightPower
-        {
-            get
-            {
-                if (temperature >= BigFireTemperature)
-                    return BigFireLightLevel;
-                if (temperature >= MediumFireTemperature)
-                    return MediumFireLightLevel;
-                return SmallFireLightLevel;
-            }
-        }
-
-        public ILightSource[] LightSources => new ILightSource[]
-        {
-            new StaticLightSource(LightPower)
+            Temperature = temperature
         };
+    }
+
+    private readonly SymbolsAnimationsManager _animations;
+
+    public FireObject()
+    {
+        _animations = new SymbolsAnimationsManager(
+            TimeSpan.FromMilliseconds(500),
+            AnimationFrameStrategy.Random);
+    }
+
+    public override string Name => "Fire";
+
+    public int Temperature { get; set; }
+
+    public override ObjectSize Size => ObjectSize.Huge;
+
+    public UpdateOrder UpdateOrder => UpdateOrder.Early;
+
+    public bool Updated { get; set; }
+
+    public override ZIndex ZIndex => ZIndex.AreaDecoration;
+
+    private LightLevel LightPower
+    {
+        get
+        {
+            if (Temperature >= BigFireTemperature)
+                return BigFireLightLevel;
+            if (Temperature >= MediumFireTemperature)
+                return MediumFireLightLevel;
+            return SmallFireLightLevel;
+        }
+    }
+
+    public ILightSource[] LightSources => new ILightSource[]
+    {
+        new StaticLightSource(LightPower)
+    };
+
+    public ISymbolsImage GetWorldImage(IImagesStorage storage)
+    {
+        var animationName = GetAnimationName();
+        return _animations.GetImage(storage, animationName);
+    }
+
+    private string GetAnimationName()
+    {
+        if (Temperature >= BigFireTemperature)
+            return ImageBig;
+        if (Temperature >= MediumFireTemperature)
+            return ImageMedium;
+        return ImageSmall;
+    }
+
+    public void Update(Point position)
+    {
+        var cell = CurrentGame.Map.GetCell(position);
+        if (cell.Temperature() < SmallFireTemperature)
+        {
+            CurrentGame.Map.RemoveObject(position, this);
+            return;
+        }
+
+        Temperature = cell.Temperature();
     }
 }

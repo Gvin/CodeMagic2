@@ -70,7 +70,7 @@ namespace CodeMagic.UI.Presenters
 
             view.Close();
 
-            var game = (GameCore<Player>)CurrentGame.Game;
+            var game = (IGameCore)CurrentGame.Game;
             controller.CreatePresenter<GameViewPresenter>().Run(game);
         }
 

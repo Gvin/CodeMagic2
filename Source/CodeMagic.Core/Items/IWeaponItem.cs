@@ -3,7 +3,7 @@ using CodeMagic.Core.Game;
 
 namespace CodeMagic.Game.Items
 {
-    public interface IWeaponItem : IHoldableItem
+    public interface IWeaponItem : IHoldableItem, IDurableItem
     {
         Dictionary<Element, int> MinDamage { get; }
 

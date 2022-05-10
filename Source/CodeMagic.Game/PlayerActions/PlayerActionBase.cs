@@ -1,6 +1,5 @@
 ﻿using CodeMagic.Core.Game;
 using CodeMagic.Core.Game.PlayerActions;
-using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.Game.PlayerActions
 {
@@ -8,7 +7,7 @@ namespace CodeMagic.Game.PlayerActions
     {
         public bool Perform(out Point newPosition)
         {
-            var game = (GameCore<Player>)CurrentGame.Game;
+            var game = CurrentGame.Game;
             var result = Perform(game, out newPosition);
 
             if (result)
@@ -20,6 +19,6 @@ namespace CodeMagic.Game.PlayerActions
 
         protected abstract int RestoresStamina { get; }
 
-        protected abstract bool Perform(GameCore<Player> game, out Point newPosition);
+        protected abstract bool Perform(IGameCore game, out Point newPosition);
     }
 }

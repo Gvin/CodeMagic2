@@ -1,54 +1,52 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using CodeMagic.Core.Items;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Objects.Creatures;
 using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Items.Materials
 {
+    [Serializable]
     public class Wood : Item, IWorldImageProvider, IInventoryImageProvider, IDescriptionProvider, IFuelItem
     {
-        private const string SaveKeyFuelLeft = "FuelLeft";
-
         private const string ResourceKey = "resource_wood";
+        private const string WorldImageName = "ItemsOnGround_Resource_Wood";
+        private const string InventoryImageName = "Item_Resource_Wood";
 
         private const int DefaultMaxFuel = 120;
 
-        public Wood(SaveData data)
-            : base(data)
-        {
-            FuelLeft = data.GetIntValue(SaveKeyFuelLeft);
-        }
-
         public Wood()
-            : base(new ItemConfiguration
-            {
-                Key = ResourceKey,
-                Name = "Wood",
-                Rareness = ItemRareness.Trash,
-                Weight = 2000
-            })
         {
             FuelLeft = MaxFuel;
         }
 
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyFuelLeft, FuelLeft);
-            return data;
-        }
+        public override string Key => ResourceKey;
+
+        public override ItemRareness Rareness => ItemRareness.Trash;
+
+        public override int Weight => 2000;
+
+        public override string Name => "Wood";
 
         public override bool Stackable => true;
 
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
+        public bool CanIgnite => true;
+
+        public int FuelLeft { get; set; }
+
+        public int MaxFuel => DefaultMaxFuel;
+
+        public int BurnTemperature => 700;
+
+        public int IgnitionTemperature => 450;
+
+        public ISymbolsImage GetWorldImage(IImagesStorage storage)
         {
-            return storage.GetImage("ItemsOnGround_Resource_Wood");
+            return storage.GetImage(WorldImageName);
         }
 
-        public SymbolsImage GetInventoryImage(IImagesStorage storage)
+        public ISymbolsImage GetInventoryImage(IImagesStorage storage)
         {
-            return storage.GetImage("Item_Resource_Wood");
+            return storage.GetImage(InventoryImageName);
         }
 
         public StyledLine[] GetDescription(Player player)
@@ -61,15 +59,5 @@ namespace CodeMagic.Game.Items.Materials
                 new StyledLine {{"It can be used as a fuel source.", TextHelper.DescriptionTextColor}}
             };
         }
-
-        public bool CanIgnite => true;
-
-        public int FuelLeft { get; set; }
-
-        public int MaxFuel => DefaultMaxFuel;
-
-        public int BurnTemperature => 700;
-
-        public int IgnitionTemperature => 450;
     }
 }

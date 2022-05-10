@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Area.EnvironmentData;
 using CodeMagic.Game.Configuration;
 using CodeMagic.Game.Configuration.Liquids;
@@ -13,10 +11,9 @@ using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Objects.LiquidObjects
 {
+    [Serializable]
     public class OilLiquid : MapObjectBase, ILiquid, IFireSpreadingObject, IDynamicObject, IWorldImageProvider
     {
-        private const string SaveKeyVolume = "Volume";
-
         private const string ImageSmall = "Oil_Small";
         private const string ImageMedium = "Oil_Medium";
         private const string ImageBig = "Oil_Big";
@@ -28,45 +25,30 @@ namespace CodeMagic.Game.Objects.LiquidObjects
 
         public const string LiquidType = "OilLiquid";
 
-        private readonly ILiquidConfiguration configuration;
+        private readonly ILiquidConfiguration _configuration;
+        private readonly int _ignitionTemperature;
+        private readonly int _heatSpeed;
+        private readonly double _burningRate;
 
-        private readonly int ignitionTemperature;
-        private readonly int heatSpeed;
-        private readonly double burningRate;
-
-        private int volume;
-
-        public OilLiquid(SaveData data) : base(data)
-        {
-            configuration = ConfigurationManager.GetLiquidConfiguration(LiquidType);
-
-            ignitionTemperature = GetCustomInt(CustomValueIgnitionTemperature);
-            BurningTemperature = GetCustomInt(CustomValueBurningTemperature);
-            heatSpeed = GetCustomInt(CustomValueHeatSpeed);
-            burningRate = GetCustomDouble(CustomValueBurningRate);
-
-            volume = data.GetIntValue(SaveKeyVolume);
-        }
+        private int _volume;
 
         public OilLiquid(int volume)
-            : base("Oil")
+            : this()
         {
-            configuration = ConfigurationManager.GetLiquidConfiguration(LiquidType);
+            _volume = volume;
+        }
 
-            ignitionTemperature = GetCustomInt(CustomValueIgnitionTemperature);
+        public OilLiquid()
+        {
+            _configuration = ConfigurationManager.GetLiquidConfiguration(LiquidType);
+
+            _ignitionTemperature = GetCustomInt(CustomValueIgnitionTemperature);
             BurningTemperature = GetCustomInt(CustomValueBurningTemperature);
-            heatSpeed = GetCustomInt(CustomValueHeatSpeed);
-            burningRate = GetCustomDouble(CustomValueBurningRate);
-
-            this.volume = volume;
+            _heatSpeed = GetCustomInt(CustomValueHeatSpeed);
+            _burningRate = GetCustomDouble(CustomValueBurningRate);
         }
 
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyVolume, volume);
-            return data;
-        }
+        public override string Name => "Oil";
 
         public UpdateOrder UpdateOrder => UpdateOrder.Medium;
 
@@ -86,7 +68,7 @@ namespace CodeMagic.Game.Objects.LiquidObjects
                 return;
             }
 
-            if (cell.Temperature() >= ignitionTemperature)
+            if (cell.Temperature() >= _ignitionTemperature)
             {
                 ProcessBurning(cell);
             }
@@ -111,11 +93,11 @@ namespace CodeMagic.Game.Objects.LiquidObjects
             if (cell.Temperature() < BurningTemperature)
             {
                 var temperatureDiff = BurningTemperature - cell.Temperature();
-                var temperatureChange = Math.Min(temperatureDiff, heatSpeed);
+                var temperatureChange = Math.Min(temperatureDiff, _heatSpeed);
                 cell.Environment.Cast().Temperature += temperatureChange;
             }
 
-            var burnedVolume = (int)Math.Ceiling(cell.Temperature() * burningRate);
+            var burnedVolume = (int)Math.Ceiling(cell.Temperature() * _burningRate);
             Volume -= burnedVolume;
         }
 
@@ -128,7 +110,7 @@ namespace CodeMagic.Game.Objects.LiquidObjects
         private string GetCustomString(string key)
         {
             var stringValue =
-                configuration.CustomValues.FirstOrDefault(value =>
+                _configuration.CustomValues.FirstOrDefault(value =>
                     string.Equals(value.Key, key))?.Value;
             if (string.IsNullOrEmpty(stringValue))
                 throw new ArgumentException(
@@ -144,15 +126,15 @@ namespace CodeMagic.Game.Objects.LiquidObjects
 
         public int Volume
         {
-            get => volume;
-            set => volume = Math.Max(0, value);
+            get => _volume;
+            set => _volume = Math.Max(0, value);
         }
 
-        public int MaxVolumeBeforeSpread => configuration.MaxVolumeBeforeSpread;
+        public int MaxVolumeBeforeSpread => _configuration.MaxVolumeBeforeSpread;
 
-        public int MaxSpreadVolume => configuration.MaxSpreadVolume;
+        public int MaxSpreadVolume => _configuration.MaxSpreadVolume;
 
-        public int MinVolumeForEffect => configuration.MinVolumeForEffect;
+        public int MinVolumeForEffect => _configuration.MinVolumeForEffect;
 
         public ISpreadingObject Separate(int separateVolume)
         {
@@ -164,19 +146,19 @@ namespace CodeMagic.Game.Objects.LiquidObjects
 
         public bool GetIsOnFire(IAreaMapCell cell)
         {
-            return cell.Temperature() >= ignitionTemperature;
+            return cell.Temperature() >= _ignitionTemperature;
         }
 
         public bool SpreadsFire => true;
 
         public int BurningTemperature { get; }
 
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
+        public ISymbolsImage GetWorldImage(IImagesStorage storage)
         {
-            if (Volume >= configuration.MaxVolumeBeforeSpread)
+            if (Volume >= _configuration.MaxVolumeBeforeSpread)
                 return storage.GetImage(ImageBig);
 
-            var halfSpread = configuration.MaxVolumeBeforeSpread / 2;
+            var halfSpread = _configuration.MaxVolumeBeforeSpread / 2;
             if (Volume >= halfSpread)
                 return storage.GetImage(ImageMedium);
 

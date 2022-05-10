@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Common;
 using CodeMagic.Core.Game;
-using CodeMagic.Core.Logging;
 using CodeMagic.Core.Objects.Creatures;
 using CodeMagic.Game.Configuration;
 using CodeMagic.Game.Configuration.Monsters;
@@ -15,15 +13,20 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MonstersGenerators
 {
     internal class DungeonMonstersGenerator : IMonstersGenerator
     {
-        private static readonly ILog Log = LogManager.GetLog<DungeonMonstersGenerator>();
-
         private const int SquadForceMultiplier = 2;
         private const double SquadForceVariation = 0.2d;
         private const double SquadsCountMultiplier = 0.01d;
 
+        private readonly IPerformanceMeter _performanceMeter;
+
+        public DungeonMonstersGenerator(IPerformanceMeter performanceMeter)
+        {
+            _performanceMeter = performanceMeter;
+        }
+
         public void GenerateMonsters(IAreaMap map, Point playerPosition)
         {
-            var stopwatch = Stopwatch.StartNew();
+            using var scope = _performanceMeter.Start($"{nameof(DungeonMonstersGenerator)}.{nameof(GenerateMonsters)}");
 
             var squadsCount = GetSquadsCount(map);
 
@@ -45,9 +48,6 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MonstersGenerators
                 var group = RandomHelper.GetRandomElement(possibleGroups);
                 PlaceSquad(map, possibleMonsters, group, occupiedCells);
             }
-
-            stopwatch.Stop();
-            Log.Debug($"GenerateMonsters took {stopwatch.ElapsedMilliseconds} milliseconds.");
         }
 
         private static void PlaceSquad(IAreaMap map, IMonsterConfiguration[] monsters, string group,
@@ -83,7 +83,8 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MonstersGenerators
 
         private static ICreatureObject CreateMonster(IMonsterConfiguration config)
         {
-            return new MonsterCreatureImpl(new MonsterCreatureImplConfiguration(config));
+            var monsterConfiguration = MonsterCreatureImplConfiguration.FromConfiguration(config);
+            return MonsterCreatureImpl.Create(monsterConfiguration);
         }
 
         private static int GetSquadForce(int level)

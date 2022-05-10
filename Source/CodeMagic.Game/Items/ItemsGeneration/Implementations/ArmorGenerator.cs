@@ -19,15 +19,15 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
         private const string WorldImageNameLeggings = "ItemsOnGround_Armor_Leggings";
         private const string WorldImageNameHelmet = "ItemsOnGround_Armor_Helmet";
 
-        private readonly IArmorConfiguration configuration;
-        private readonly IImagesStorage imagesStorage;
-        private readonly BonusesGenerator bonusesGenerator;
+        private readonly IArmorConfiguration _configuration;
+        private readonly IImagesStorage _imagesStorage;
+        private readonly IBonusesGenerator _bonusesGenerator;
 
-        public ArmorGenerator(IArmorConfiguration configuration, BonusesGenerator bonusesGenerator, IImagesStorage imagesStorage)
+        public ArmorGenerator(IArmorConfiguration configuration, IBonusesGenerator bonusesGenerator, IImagesStorage imagesStorage)
         {
-            this.configuration = configuration;
-            this.imagesStorage = imagesStorage;
-            this.bonusesGenerator = bonusesGenerator;
+            _configuration = configuration;
+            _imagesStorage = imagesStorage;
+            _bonusesGenerator = bonusesGenerator;
         }
 
         public ArmorItem GenerateArmor(ItemRareness rareness, ArmorClass armorClass)
@@ -46,7 +46,10 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
             var maxDurability = weightConfig.Durability;
             var bonusesCount = RandomHelper.GetRandomValue(rarenessConfig.MinBonuses, rarenessConfig.MaxBonuses);
 
-            var itemConfig = new ArmorItemConfiguration
+            var durabilityPercent = RandomHelper.GetRandomValue(MinDurabilityPercent, MaxDurabilityPercent);
+            var durability = Math.Min(maxDurability, (int)Math.Round(maxDurability * (durabilityPercent / 100d)));
+
+            var result = new ArmorItem
             {
                 Name = name,
                 Key = Guid.NewGuid().ToString(),
@@ -58,30 +61,28 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
                 Protection = protection,
                 Rareness = rareness,
                 Weight = weightConfig.Weight,
-                MaxDurability = maxDurability
+                MaxDurability = maxDurability,
+                Durability = durability
             };
-            bonusesGenerator.GenerateBonuses(itemConfig, bonusesCount);
 
-            var durabilityPercent = RandomHelper.GetRandomValue(MinDurabilityPercent, MaxDurabilityPercent);
-            var durability = Math.Min(itemConfig.MaxDurability, (int)Math.Round(itemConfig.MaxDurability * (durabilityPercent / 100d)));
-            itemConfig.Durability = durability;
+            _bonusesGenerator.GenerateBonuses(result, bonusesCount);
 
-            return new ArmorItem(itemConfig);
+            return result;
         }
 
-        private SymbolsImage GetEquippedImage(ItemMaterial material, IArmorPieceConfiguration config)
+        private ISymbolsImage GetEquippedImage(ItemMaterial material, IArmorPieceConfiguration config)
         {
             if (string.IsNullOrEmpty(config.EquippedImage))
                 return null;
 
-            var image = imagesStorage.GetImage(config.EquippedImage);
+            var image = _imagesStorage.GetImage(config.EquippedImage);
             return ItemRecolorHelper.RecolorItemImage(image, material);
         }
 
-        private SymbolsImage GetWorldImage(ItemMaterial material, ArmorType type)
+        private ISymbolsImage GetWorldImage(ItemMaterial material, ArmorType type)
         {
             var imageName = GetWorldImageName(type);
-            var imageInit = imagesStorage.GetImage(imageName);
+            var imageInit = _imagesStorage.GetImage(imageName);
             return ItemRecolorHelper.RecolorItemImage(imageInit, material);
         }
 
@@ -134,7 +135,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
 
         private string GetMaterialDescription(ItemMaterial material)
         {
-            var textConfig = configuration.DescriptionConfiguration.MaterialDescription.FirstOrDefault(config => config.Material == material);
+            var textConfig = _configuration.DescriptionConfiguration.MaterialDescription.FirstOrDefault(config => config.Material == material);
             if (textConfig == null)
                 throw new ApplicationException($"Text configuration not found for armor material: {material}");
 
@@ -143,7 +144,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
 
         private string GetRarenessDescription(ItemRareness rareness)
         {
-            var textConfig = configuration.DescriptionConfiguration.RarenessDescription.FirstOrDefault(config => config.Rareness == rareness);
+            var textConfig = _configuration.DescriptionConfiguration.RarenessDescription.FirstOrDefault(config => config.Rareness == rareness);
             if (textConfig == null)
                 throw new ApplicationException($"Text configuration not found for armor rareness: {rareness}");
 
@@ -188,10 +189,10 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
             return result;
         }
 
-        private SymbolsImage GetArmorImage(IArmorPieceConfiguration config, ItemMaterial material)
+        private ISymbolsImage GetArmorImage(IArmorPieceConfiguration config, ItemMaterial material)
         {
             var imageName = RandomHelper.GetRandomElement(config.Images);
-            var imageInit = imagesStorage.GetImage(imageName);
+            var imageInit = _imagesStorage.GetImage(imageName);
             return ItemRecolorHelper.RecolorItemImage(imageInit, material);
         }
 
@@ -209,11 +210,11 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
             switch (type)
             {
                 case ArmorType.Helmet:
-                    return configuration.HelmetConfiguration;
+                    return _configuration.HelmetConfiguration;
                 case ArmorType.Chest:
-                    return configuration.ChestConfiguration;
+                    return _configuration.ChestConfiguration;
                 case ArmorType.Leggings:
-                    return configuration.LeggingsConfiguration;
+                    return _configuration.LeggingsConfiguration;
                 default:
                     throw new ArgumentException($"Unknown armor type: {type}");
             }

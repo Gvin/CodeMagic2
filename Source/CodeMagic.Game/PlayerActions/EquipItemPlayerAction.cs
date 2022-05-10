@@ -16,9 +16,9 @@ namespace CodeMagic.Game.PlayerActions
 
         protected override int RestoresStamina => 10;
 
-        protected override bool Perform(GameCore<Player> game, out Point newPosition)
+        protected override bool Perform(IGameCore game, out Point newPosition)
         {
-            ((GameCore<Player>)CurrentGame.Game).Player.Equipment.EquipItem(item);
+            ((IGameCore)CurrentGame.Game).Player.Equipment.EquipItem(item);
             CurrentGame.Journal.Write(new ItemEquipedMessage(item));
 
             newPosition = CurrentGame.PlayerPosition;

@@ -1,50 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CodeMagic.Core.Saving;
+using CodeMagic.Core.Exceptions;
 
 namespace CodeMagic.Core.Items
 {
-    public class Inventory : ISaveable
-    {
-        private const string SaveKeyStacks = "Stacks";
+    public interface IInventory
+	{
+        event EventHandler<ItemEventArgs> ItemAdded;
 
+        event EventHandler<ItemEventArgs> ItemRemoved;
+
+        IInventoryStack[] Stacks { get; }
+
+        int ItemsCount { get; }
+
+        void AddItem(IItem item);
+
+        void AddItems(IEnumerable<IItem> items);
+
+        void RemoveItem(IItem item);
+
+        void Update();
+
+        int GetWeight();
+
+        IItem GetItem(string itemKey);
+
+        /// <summary>
+        /// Gets specific item from the inventory by it's id.
+        /// Returns null if the item is not found.
+        /// </summary>
+        /// <param name="itemId">Id of the item.</param>
+        /// <param name="errorIfNotFound">Throw error if item with such id is not in the inventory.</param>
+        IItem GetItemById(string itemId, bool errorIfNotFound = false);
+
+        /// <summary>
+        /// Gets specific item of specific type from the inventory by it's id.
+        /// Returns null if the item is not found.
+        /// </summary>
+        /// <typeparam name="T">Expected item type.</typeparam>
+        /// <param name="itemId">Id of the item.</param>
+        /// <param name="errorIfNotFound">Throw error if item with such id is not in the inventory.</param>
+        T GetItemById<T>(string itemId, bool errorIfNotFound = false) where T : IItem;
+
+        bool Contains(string itemKey);
+    }
+
+    public class Inventory : IInventory
+    {
         public event EventHandler<ItemEventArgs> ItemAdded;
         public event EventHandler<ItemEventArgs> ItemRemoved; 
 
-        private readonly List<InventoryStack> stacks;
-
-        public Inventory(SaveData data)
-        {
-            stacks = data.GetObjectsCollection<InventoryStack>(SaveKeyStacks).ToList();
-
-            foreach (var inventoryStack in stacks)
-            {
-                foreach (var item in inventoryStack.Items.OfType<IDecayItem>())
-                {
-                    item.Decayed += Item_Decayed;
-                }
-            }
-        }
-
         public Inventory()
         {
-            stacks = new List<InventoryStack>();
+            Stacks = new List<IInventoryStack>();
         }
 
         public Inventory(IEnumerable<IItem> items)
         {
-            stacks = new List<InventoryStack>();
+            Stacks = new List<IInventoryStack>();
             AddItems(items);
         }
 
-        public SaveDataBuilder GetSaveData()
-        {
-            return new SaveDataBuilder(GetType(), new Dictionary<string, object>
-            {
-                {SaveKeyStacks, stacks.ToArray()}
-            });
-        }
+        public List<IInventoryStack> Stacks { get; set; }
 
         public void AddItems(IEnumerable<IItem> items)
         {
@@ -56,7 +75,7 @@ namespace CodeMagic.Core.Items
 
         public void AddItem(IItem item)
         {
-            lock (stacks)
+            lock (Stacks)
             {
                 if (item is IDecayItem decayItem)
                 {
@@ -65,7 +84,7 @@ namespace CodeMagic.Core.Items
 
                 if (!item.Stackable)
                 {
-                    stacks.Add(new InventoryStack(item));
+                    Stacks.Add(new InventoryStack(item));
                     return;
                 }
 
@@ -76,7 +95,7 @@ namespace CodeMagic.Core.Items
                 }
                 else
                 {
-                    stacks.Add(new InventoryStack(item));
+                    Stacks.Add(new InventoryStack(item));
                 }
 
                 ItemAdded?.Invoke(this, new ItemEventArgs(item));
@@ -91,7 +110,7 @@ namespace CodeMagic.Core.Items
 
         public void Update()
         {
-            foreach (var stack in stacks.ToArray())
+            foreach (var stack in Stacks.ToArray())
             {
                 foreach (var item in stack.Items.OfType<IDecayItem>().ToArray())
                 {
@@ -102,7 +121,7 @@ namespace CodeMagic.Core.Items
 
         public void RemoveItem(IItem item)
         {
-            lock (stacks)
+            lock (Stacks)
             {
                 var existingStack = GetItemStack(item);
                 if (existingStack == null)
@@ -118,41 +137,69 @@ namespace CodeMagic.Core.Items
                 existingStack.Remove(item);
                 if (existingStack.Count == 0)
                 {
-                    stacks.Remove(existingStack);
+                    Stacks.Remove(existingStack);
                 }
 
                 ItemRemoved?.Invoke(this, new ItemEventArgs(item));
             }
         }
 
-        public int ItemsCount => stacks.Sum(stack => stack.Count);
+        public int ItemsCount => Stacks.Sum(stack => stack.Count);
 
-        public InventoryStack[] Stacks => stacks.ToArray();
+        IInventoryStack[] IInventory.Stacks => Stacks.ToArray();
 
-        public int GetWeight()
+		public int GetWeight()
         {
-            return stacks.Sum(stack => stack.Weight);
+            return Stacks.Sum(stack => stack.Weight);
         }
 
         public IItem GetItem(string itemKey)
         {
-            return stacks.FirstOrDefault(stack => string.Equals(stack.TopItem.Key, itemKey))?.TopItem;
+            return Stacks.FirstOrDefault(stack => string.Equals(stack.TopItem.Key, itemKey))?.TopItem;
         }
 
-        public IItem GetItemById(string itemId)
+        public IItem GetItemById(string itemId, bool errorIfNotFound = false)
         {
-            return stacks.FirstOrDefault(stack => stack.Items.Any(item => string.Equals(item.Id, itemId)))?.Items
+            var result = GetItemByIdOrNull(itemId);
+            if (result == null && errorIfNotFound)
+            {
+                throw ItemNotFoundException.ById(itemId); 
+            }
+
+            return result;
+        }
+
+        private IItem GetItemByIdOrNull(string itemId)
+        {
+            if (string.IsNullOrEmpty(itemId))
+            {
+                return null;
+            }
+
+            return Stacks.FirstOrDefault(stack => stack.Items.Any(item => string.Equals(item.Id, itemId)))?.Items
                 .FirstOrDefault(item => string.Equals(item.Id, itemId));
+        }
+
+        public T GetItemById<T>(string itemId, bool errorIfNotFound = false) where T : IItem
+        {
+            var item = GetItemById(itemId, errorIfNotFound);
+
+            if (item == null)
+            {
+                return default;
+            }
+
+            return (T)item;
         }
 
         public bool Contains(string itemKey)
         {
-            return stacks.Any(stack => string.Equals(stack.TopItem.Key, itemKey));
+            return Stacks.Any(stack => string.Equals(stack.TopItem.Key, itemKey));
         }
 
-        private InventoryStack GetItemStack(IItem item)
+        private IInventoryStack GetItemStack(IItem item)
         {
-            return stacks.FirstOrDefault(stack => stack.CheckItemMatches(item));
+            return Stacks.FirstOrDefault(stack => stack.CheckItemMatches(item));
         }
     }
 
@@ -166,29 +213,45 @@ namespace CodeMagic.Core.Items
         public IItem Item { get; }
     }
 
-    public class InventoryStack : ISaveable
+    public interface IInventoryStack
     {
-        private const string SaveKeyItems = "Items";
+        IItem[] Items { get; }
 
-        private readonly List<IItem> items;
+        IItem TopItem { get; }
 
-        public InventoryStack(SaveData data)
+        int Weight { get; }
+
+        int Count { get; }
+
+        void Add(IItem item);
+
+        void Remove(IItem item);
+
+        bool CheckItemMatches(IItem item);
+    }
+
+
+    public class InventoryStack : IInventoryStack
+    {
+        public InventoryStack()
         {
-            items = data.GetObjectsCollection(SaveKeyItems).Cast<IItem>().ToList();
         }
 
         public InventoryStack(IItem item)
         {
-            items = new List<IItem> {item};
+            Items = new List<IItem> {item};
         }
 
-        public SaveDataBuilder GetSaveData()
-        {
-            return new SaveDataBuilder(GetType(), new Dictionary<string, object>
-            {
-                {SaveKeyItems, items}
-            });
-        }
+        public List<IItem> Items { get; set; }
+
+        IItem[] IInventoryStack.Items => Items.ToArray();
+
+        public IItem TopItem => Items.Last();
+
+        public int Weight => Items.Sum(item => item.Weight);
+
+        public int Count => Items.Count;
+
 
         public void Add(IItem item)
         {
@@ -197,28 +260,20 @@ namespace CodeMagic.Core.Items
             if (!CheckItemMatches(item))
                 throw new ArgumentException("Item doesn't match stack.");
 
-            items.Add(item);
+            Items.Add(item);
         }
 
         public void Remove(IItem item)
         {
-            if (!items.Contains(item))
+            if (!Items.Contains(item))
                 throw new ArgumentException("Item not found in stack.");
 
-            items.Remove(item);
+            Items.Remove(item);
         }
-
-        public IItem[] Items => items.ToArray();
-
-        public IItem TopItem => items.Last();
-
-        public int Weight => items.Sum(item => item.Weight);
 
         public bool CheckItemMatches(IItem item)
         {
-            return item.Equals(items.First());
+            return item.Equals(Items.First());
         }
-
-        public int Count => items.Count;
     }
 }

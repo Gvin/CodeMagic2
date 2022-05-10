@@ -7,6 +7,6 @@ namespace CodeMagic.Game.Objects
     {
         bool CanUse { get; }
 
-        void Use(GameCore<Player> game, Point position);
+        void Use(IGameCore game, Point position);
     }
 }

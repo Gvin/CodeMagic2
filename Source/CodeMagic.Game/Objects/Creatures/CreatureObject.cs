@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Common;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
 using CodeMagic.Core.Objects.Creatures;
-using CodeMagic.Core.Saving;
 using CodeMagic.Core.Statuses;
 using CodeMagic.Game.Statuses;
 
@@ -13,27 +11,11 @@ namespace CodeMagic.Game.Objects.Creatures
 {
     public abstract class CreatureObject : DestroyableObject, ICreatureObject
     {
-        private const string SaveKeyDirection = "Direction";
-
         private const int BloodMarkPercentage = 20;
 
-        protected CreatureObject(SaveData data) 
-            : base(data)
-        {
-            Direction = (Direction) data.GetIntValue(SaveKeyDirection);
-        }
-
-        protected CreatureObject(string name, int health) 
-            : base(name, health)
+        protected CreatureObject()
         {
             Direction = Direction.North;
-        }
-
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyDirection, (int) Direction);
-            return data;
         }
 
         public Direction Direction { get; set; }
@@ -49,14 +31,6 @@ namespace CodeMagic.Game.Objects.Creatures
             }
         }
 
-        protected abstract int TryBlockMeleeDamage(Direction damageDirection, int damage, Element element);
-
-        public sealed override void MeleeDamage(Point position, Direction attackDirection, int damage, Element element)
-        {
-            var remainingDamage = TryBlockMeleeDamage(attackDirection, damage, element);
-            base.MeleeDamage(position, attackDirection, remainingDamage, element);
-        }
-
         public override ZIndex ZIndex => ZIndex.Creature;
 
         protected virtual double ParalyzedChanceMultiplier => 5;
@@ -64,6 +38,20 @@ namespace CodeMagic.Game.Objects.Creatures
         protected virtual double FrozenChanceMultiplier => 5;
 
         public abstract int MaxVisibilityRange { get; }
+
+        public override bool BlocksMovement => true;
+
+        public bool Updated { get; set; }
+
+        public virtual UpdateOrder UpdateOrder => UpdateOrder.Medium;
+
+        protected abstract int TryBlockMeleeDamage(Direction damageDirection, int damage, Element element);
+
+        public sealed override void MeleeDamage(Point position, Direction attackDirection, int damage, Element element)
+        {
+            var remainingDamage = TryBlockMeleeDamage(attackDirection, damage, element);
+            base.MeleeDamage(position, attackDirection, remainingDamage, element);
+        }
 
         protected override void ApplyRealDamage(int damage, Element element, Point position)
         {
@@ -124,8 +112,6 @@ namespace CodeMagic.Game.Objects.Creatures
             return initialValue;
         }
 
-        public override bool BlocksMovement => true;
-
         public virtual void Update(Point position)
         {
             if (CurrentGame.Map.GetCell(position).LightLevel >= LightLevel.Blinding)
@@ -133,9 +119,5 @@ namespace CodeMagic.Game.Objects.Creatures
                 Statuses.Add(new BlindObjectStatus());
             }
         }
-
-        public bool Updated { get; set; }
-
-        public virtual UpdateOrder UpdateOrder => UpdateOrder.Medium;
     }
 }

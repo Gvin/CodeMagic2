@@ -1,33 +1,16 @@
-﻿using System.Collections.Generic;
-using CodeMagic.Core.Game;
-using CodeMagic.Core.Saving;
+﻿using CodeMagic.Core.Game;
 using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.Game.Objects.SolidObjects
 {
     public abstract class DoorBase : WallBase, IUsableObject
     {
-        private const string SaveKeyClosed = "Closed";
-
-        protected DoorBase(SaveData data) : base(data)
-        {
-            Closed = data.GetBoolValue(SaveKeyClosed);
-        }
-
-        protected DoorBase(string name)
-            : base(name)
+        protected DoorBase()
         {
             Closed = true;
         }
 
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyClosed, Closed);
-            return data;
-        }
-
-        protected bool Closed { get; private set; }
+        public bool Closed { get; set; }
 
         public override bool BlocksMovement => Closed;
 
@@ -41,7 +24,7 @@ namespace CodeMagic.Game.Objects.SolidObjects
 
         public bool CanUse => Closed;
 
-        public void Use(GameCore<Player> game, Point position)
+        public void Use(IGameCore game, Point position)
         {
             if (!Closed)
                 return;

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
+using CodeMagic.Core.Objects;
 using CodeMagic.Game.Items.Custom;
 using CodeMagic.Game.Items.ItemsGeneration;
 using CodeMagic.Game.JournalMessages;
@@ -14,29 +15,31 @@ namespace CodeMagic.Game.GameProcess
 {
     public interface IGameManager
     {
-        GameCore<Player> StartGame();
+        GameCore StartGame();
 
         void LoadGame();
     }
 
     public class GameManager : IGameManager
     {
-        private Task saveGameTask;
-        private int turnsSinceLastSaving;
-        private readonly ISaveService saveService;
-        private readonly int savingInterval;
+        private Task _saveGameTask;
+        private int _turnsSinceLastSaving;
+        private readonly ISaveService _saveService;
+        private readonly int _savingInterval;
+        private readonly IDungeonMapGenerator _dungeonMapGenerator;
         private readonly ILoggerFactory _loggerFactory;
 
-        public GameManager(ISaveService saveService, int savingInterval, ILoggerFactory loggerFactory)
+        public GameManager(ISaveService saveService, int savingInterval, ILoggerFactory loggerFactory, IDungeonMapGenerator dungeonMapGenerator)
         {
             _loggerFactory = loggerFactory;
-            this.saveService = saveService;
-            this.savingInterval = savingInterval;
+            _dungeonMapGenerator = dungeonMapGenerator;
+            _saveService = saveService;
+            _savingInterval = savingInterval;
         }
 
-        public GameCore<Player> StartGame()
+        public GameCore StartGame()
         {
-            if (CurrentGame.Game is GameCore<Player> oldGame)
+            if (CurrentGame.Game is GameCore oldGame)
             {
                 oldGame.TurnEnded -= game_TurnEnded;
             }
@@ -45,16 +48,16 @@ namespace CodeMagic.Game.GameProcess
 
             var player = CreatePlayer();
 
-            var startMap = DungeonMapGenerator.Current.GenerateNewMap(1, out var playerPosition);
+            var (startMap, playerPosition) = _dungeonMapGenerator.GenerateNewMap(1);
             CurrentGame.Initialize(startMap, player, playerPosition, _loggerFactory);
-            var game = (GameCore<Player>) CurrentGame.Game;
+            var game = (GameCore) CurrentGame.Game;
             startMap.Refresh();
 
-            player.Inventory.ItemAdded += (sender, args) =>
+            player.Inventory.ItemAdded += (_, args) =>
             {
                 game.Journal.Write(new ItemReceivedMessage(args.Item));
             };
-            player.Inventory.ItemRemoved += (sender, args) =>
+            player.Inventory.ItemRemoved += (_, args) =>
             {
                 game.Journal.Write(new ItemLostMessage(args.Item));
             };
@@ -62,16 +65,16 @@ namespace CodeMagic.Game.GameProcess
             game.Journal.Write(new StartGameMessage());
 
             game.TurnEnded += game_TurnEnded;
-            saveService.SaveGame();
+            _saveService.SaveGame();
 
-            turnsSinceLastSaving = 0;
+            _turnsSinceLastSaving = 0;
 
             return game;
         }
 
         public void LoadGame()
         {
-            var (game, data) = saveService.LoadGame();
+            var (game, data) = _saveService.LoadGame();
 
             GameData.Initialize(data);
             CurrentGame.Load(game);
@@ -79,43 +82,44 @@ namespace CodeMagic.Game.GameProcess
             if (game == null)
                 return;
 
-            game.Player.Inventory.ItemAdded += (sender, args) =>
+            game.Player.Inventory.ItemAdded += (_, args) =>
             {
                 game.Journal.Write(new ItemReceivedMessage(args.Item));
             };
-            game.Player.Inventory.ItemRemoved += (sender, args) =>
+            game.Player.Inventory.ItemRemoved += (_, args) =>
             {
                 game.Journal.Write(new ItemLostMessage(args.Item));
             };
 
             game.TurnEnded += game_TurnEnded;
 
-            turnsSinceLastSaving = 0;
+            _turnsSinceLastSaving = 0;
         }
 
         private void game_TurnEnded(object sender, EventArgs args)
         {
-            turnsSinceLastSaving++;
+            _turnsSinceLastSaving++;
 
-            if (turnsSinceLastSaving >= savingInterval)
+            if (_turnsSinceLastSaving >= _savingInterval)
             {
-                saveGameTask?.Wait();
-                saveGameTask = saveService.SaveGameAsync();
-                turnsSinceLastSaving = 0;
+                _saveGameTask?.Wait();
+                _saveGameTask = _saveService.SaveGameAsync();
+                _turnsSinceLastSaving = 0;
             }
 
             if (CurrentGame.Player.Health <= 0)
             {
-                saveGameTask?.Wait();
-                ((GameCore<Player>)CurrentGame.Game).TurnEnded -= game_TurnEnded;
+                _saveGameTask?.Wait();
+                ((GameCore)CurrentGame.Game).TurnEnded -= game_TurnEnded;
                 CurrentGame.Load(null);
-                saveService.DeleteSave();
+                _saveService.DeleteSave();
             }
         }
 
-        private Player CreatePlayer()
+        private IPlayer CreatePlayer()
         {
             var player = new Player();
+            player.Initialize();
 
             var itemsGenerator = ItemsGeneratorManager.Generator;
 

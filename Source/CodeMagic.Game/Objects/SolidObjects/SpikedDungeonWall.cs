@@ -1,33 +1,32 @@
-﻿using CodeMagic.Core.Game;
+﻿using System;
+using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.JournalMessages;
 
 namespace CodeMagic.Game.Objects.SolidObjects
 {
+    [Serializable]
     public class SpikedDungeonWall : SolidWallBase, ICollideDamageObject
     {
         private const int MinDamage = 10;
         private const int MaxDamage = 30;
 
-        public SpikedDungeonWall(SaveData data) : base(data)
-        {
-        }
+        public override string Name => "Spiked Dungeon Wall";
 
-        public SpikedDungeonWall() : base("Spiked Dungeon Wall")
-        {
-        }
+        protected override string ImageNormal => "Wall_Spiked";
+
+        protected override string ImageBottom => "Wall_Spiked_Bottom";
+
+        protected override string ImageRight => "Wall_Spiked_Right";
+
+        protected override string ImageBottomRight => "Wall_Spiked_Bottom_Right";
+
+        protected override string ImageCorner => "Wall_Spiked_Corner";
 
         public override bool CanConnectTo(IMapObject mapObject)
         {
-            return mapObject is SpikedDungeonWall || mapObject is DungeonWall || mapObject is DungeonDoor || mapObject is DungeonTorchWall;
+            return mapObject is SpikedDungeonWall or DungeonWall or DungeonDoor or DungeonTorchWall;
         }
-
-        protected override string ImageNormal => "Wall_Spiked";
-        protected override string ImageBottom => "Wall_Spiked_Bottom";
-        protected override string ImageRight => "Wall_Spiked_Right";
-        protected override string ImageBottomRight => "Wall_Spiked_Bottom_Right";
-        protected override string ImageCorner => "Wall_Spiked_Corner";
 
         public void Damage(IDestroyableObject collidedObject, Point position)
         {

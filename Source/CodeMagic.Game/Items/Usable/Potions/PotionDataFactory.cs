@@ -1,13 +1,14 @@
 ﻿using System;
+using CodeMagic.Core.Items;
 
 namespace CodeMagic.Game.Items.Usable.Potions
 {
-    internal interface IPotionDataFactory
+    public interface IPotionDataFactory
     {
         PotionData GetPotionData(PotionType type, PotionSize size);
     }
 
-    internal class PotionDataFactory : IPotionDataFactory
+    public class PotionDataFactory : IPotionDataFactory
     {
         public PotionData GetPotionData(PotionType type, PotionSize size)
         {

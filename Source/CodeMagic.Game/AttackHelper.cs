@@ -1,12 +1,12 @@
 ﻿using System;
 using CodeMagic.Core.Game;
-using CodeMagic.Game.Objects.Creatures;
+using CodeMagic.Core.Objects;
 
 namespace CodeMagic.Game
 {
     public static class AttackHelper
     {
-        public static int CalculateDamage(int damage, Element element, Player player)
+        public static int CalculateDamage(int damage, Element element, IPlayer player)
         {
             if (element == Element.Piercing ||
                 element == Element.Slashing ||

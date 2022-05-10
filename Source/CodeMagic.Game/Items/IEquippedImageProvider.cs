@@ -5,7 +5,7 @@ namespace CodeMagic.Game.Items
 {
     public interface IEquippedImageProvider
     {
-        SymbolsImage GetEquippedImage(Player player, IImagesStorage imagesStorage);
+        ISymbolsImage GetEquippedImage(Player player, IImagesStorage imagesStorage);
 
         int EquippedImageOrder { get; }
     }

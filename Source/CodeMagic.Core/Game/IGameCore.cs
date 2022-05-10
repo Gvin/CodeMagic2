@@ -9,6 +9,10 @@ namespace CodeMagic.Core.Game
 {
     public interface IGameCore : IDisposable, ISaveable
     {
+        event EventHandler TurnEnded;
+
+        event EventHandler MapUpdated;
+
         IAreaMap Map { get; }
 
         int CurrentTurn { get; }

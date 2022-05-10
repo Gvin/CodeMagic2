@@ -15,15 +15,15 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
         private const string WorldImageName = "ItemsOnGround_SpellBook";
         private const string DefaultName = "Spell Book";
 
-        private readonly ISpellBooksConfiguration configuration;
-        private readonly BonusesGenerator bonusesGenerator;
-        private readonly IImagesStorage imagesStorage;
+        private readonly ISpellBooksConfiguration _configuration;
+        private readonly IBonusesGenerator _bonusesGenerator;
+        private readonly IImagesStorage _imagesStorage;
 
-        public SpellBookGenerator(ISpellBooksConfiguration configuration, BonusesGenerator bonusesGenerator, IImagesStorage imagesStorage)
+        public SpellBookGenerator(ISpellBooksConfiguration configuration, IBonusesGenerator bonusesGenerator, IImagesStorage imagesStorage)
         {
-            this.configuration = configuration;
-            this.bonusesGenerator = bonusesGenerator;
-            this.imagesStorage = imagesStorage;
+            _configuration = configuration;
+            _bonusesGenerator = bonusesGenerator;
+            _imagesStorage = imagesStorage;
         }
 
         public SpellBook GenerateSpellBook(ItemRareness rareness)
@@ -34,33 +34,33 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
             var inventoryImage = GenerateImage(out var mainColor);
             var worldImage = GetWorldImage(mainColor);
 
-            var itemConfig = new SpellBookConfiguration
+            var item = new SpellBook
             {
                 Name = DefaultName,
                 Key = Guid.NewGuid().ToString(),
                 Description = GenerateDescription(config),
-                Size = spellsCount,
+                BookSize = spellsCount,
                 InventoryImage = inventoryImage,
                 WorldImage = worldImage,
-                Weight = configuration.Weight,
+                Weight = _configuration.Weight,
                 Rareness = rareness
             };
 
-            bonusesGenerator.GenerateBonuses(itemConfig, bonusesCount);
+            _bonusesGenerator.GenerateBonuses(item, bonusesCount);
 
-            return new SpellBook(itemConfig);
+            return item;
         }
 
-        private SymbolsImage GetWorldImage(Color mainImageColor)
+        private ISymbolsImage GetWorldImage(Color mainImageColor)
         {
-            var imageInit = imagesStorage.GetImage(WorldImageName);
+            var imageInit = _imagesStorage.GetImage(WorldImageName);
             return ItemRecolorHelper.RecolorSpellBookGroundImage(imageInit, mainImageColor);
         }
 
-        private SymbolsImage GenerateImage(out Color mainColor)
+        private ISymbolsImage GenerateImage(out Color mainColor)
         {
-            var baseImageInit = imagesStorage.GetImage(configuration.Template);
-            var symbolImageInit = imagesStorage.GetImage(RandomHelper.GetRandomElement(configuration.SymbolImages));
+            var baseImageInit = _imagesStorage.GetImage(_configuration.Template);
+            var symbolImageInit = _imagesStorage.GetImage(RandomHelper.GetRandomElement(_configuration.SymbolImages));
             var imageInit = SymbolsImage.Combine(baseImageInit, symbolImageInit);
             return ItemRecolorHelper.RecolorSpellBookImage(imageInit, out mainColor);
         }
@@ -77,7 +77,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
 
         private ISpellBookRarenessConfiguration GetConfiguration(ItemRareness rareness)
         {
-            var result = configuration.Configuration.FirstOrDefault(config => config.Rareness == rareness);
+            var result = _configuration.Configuration.FirstOrDefault(config => config.Rareness == rareness);
             if (result == null)
                 throw new ApplicationException($"Rareness configuration not found for spell book rareness: {rareness}");
 

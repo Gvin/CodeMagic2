@@ -13,9 +13,11 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses.Instances
         private const string KeyMin = "Min";
         private const string KeyMax = "Max";
 
-        public void Apply(IBonusConfiguration config, ItemConfiguration itemConfiguration, NameBuilder name)
+        public void Apply(IBonusConfiguration config, Item item, NameBuilder name)
         {
-            var equipableConfig = (EquipableItemConfiguration) itemConfiguration;
+            if (item is not EquipableItem equipableItem)
+                throw new ApplicationException(
+                    $"{nameof(EquipmentBonusApplier)} cannot be applied to item {item.GetType().Name}");
 
             var bonusType = (EquipableBonusType) Enum.Parse(typeof(EquipableBonusType), config.Values[KeyBonusType]);
 
@@ -26,11 +28,11 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses.Instances
             if (bonus == 0)
                 return;
 
-            if (!equipableConfig.Bonuses.ContainsKey(bonusType))
+            if (!equipableItem.Bonuses.ContainsKey(bonusType))
             {
-                equipableConfig.Bonuses.Add(bonusType, 0);
+                equipableItem.Bonuses.Add(bonusType, 0);
             }
-            equipableConfig.Bonuses[bonusType] += bonus;
+            equipableItem.Bonuses[bonusType] += bonus;
 
             var bonusCode = GetBonusCode(bonusType);
             name.AddNamePostfix(bonusCode, GetNamePostfix(bonusType));

@@ -1,5 +1,7 @@
-﻿using CodeMagic.Core.Game;
+﻿using System;
+using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
+using CodeMagic.Core.Objects.Creatures;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration.Bonuses;
 using CodeMagic.Game.Objects.Creatures;
 
@@ -12,9 +14,11 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses.Instances
         private const string KeyMin = "Min";
         private const string KeyMax = "Max";
 
-        public void Apply(IBonusConfiguration config, ItemConfiguration itemConfiguration, NameBuilder name)
+        public void Apply(IBonusConfiguration config, Item item, NameBuilder name)
         {
-            var equipableConfig = (EquipableItemConfiguration)itemConfiguration;
+            if (item is not EquipableItem equipableItem)
+                throw new ApplicationException(
+                    $"{nameof(PlayerStatBonusApplier)} cannot be applied to item {item.GetType().Name}");
 
             var bonusType = GenerateStat();
 
@@ -25,11 +29,11 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses.Instances
             if (bonus == 0)
                 return;
 
-            if (!equipableConfig.StatBonuses.ContainsKey(bonusType))
+            if (!equipableItem.StatBonuses.ContainsKey(bonusType))
             {
-                equipableConfig.StatBonuses.Add(bonusType, 0);
+                equipableItem.StatBonuses.Add(bonusType, 0);
             }
-            equipableConfig.StatBonuses[bonusType] += bonus;
+            equipableItem.StatBonuses[bonusType] += bonus;
 
             var bonusCode = GetBonusCode(bonusType);
             name.AddNamePostfix(bonusCode, GetNamePostfix(bonusType));

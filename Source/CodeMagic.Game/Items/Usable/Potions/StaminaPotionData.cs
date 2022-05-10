@@ -1,5 +1,6 @@
 ﻿using System;
 using CodeMagic.Core.Game;
+using CodeMagic.Core.Items;
 using CodeMagic.Game.JournalMessages;
 using CodeMagic.Game.Objects.Creatures;
 
@@ -12,7 +13,7 @@ namespace CodeMagic.Game.Items.Usable.Potions
         {
         }
 
-        public override void Use(GameCore<Player> game)
+        public override void Use(IGameCore game)
         {
             var effect = GetStaminaPotionEffect(Size);
             game.Player.Stamina += effect;

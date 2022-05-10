@@ -1,4 +1,5 @@
-﻿using CodeMagic.Core.Game;
+﻿using System;
+using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration.Bonuses;
 
@@ -11,9 +12,11 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses.Instances
         private const string KeyMax = "Max";
         private const string KeyMin = "Min";
 
-        public void Apply(IBonusConfiguration config, ItemConfiguration itemConfiguration, NameBuilder name)
+        public void Apply(IBonusConfiguration config, Item item, NameBuilder name)
         {
-            var armorConfig = (ArmorItemConfiguration) itemConfiguration;
+            if (item is not ArmorItem armorItem)
+                throw new ApplicationException(
+                    $"{nameof(ProtectionBonusApplier)} cannot be applied to item {item.GetType().Name}");
 
             var element = ItemGeneratorHelper.GetRandomDamageElement();
             var min = int.Parse(config.Values[KeyMin]);
@@ -21,13 +24,13 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses.Instances
 
             var protection = RandomHelper.GetRandomValue(min, max);
 
-            if (armorConfig.Protection.ContainsKey(element))
+            if (armorItem.Protection.ContainsKey(element))
             {
-                armorConfig.Protection[element] += protection;
+                armorItem.Protection[element] += protection;
             }
             else
             {
-                armorConfig.Protection.Add(element, protection);
+                armorItem.Protection.Add(element, protection);
             }
 
             var bonusCode = GetBonusCode(element);

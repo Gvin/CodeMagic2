@@ -1,5 +1,6 @@
 ﻿using System;
 using CodeMagic.Core.Game;
+using CodeMagic.Core.Items;
 using CodeMagic.Core.Statuses;
 using CodeMagic.Game.Objects.Creatures;
 
@@ -11,7 +12,7 @@ namespace CodeMagic.Game.Items.Usable.Potions
         {
         }
 
-        public override void Use(GameCore<Player> game)
+        public override void Use(IGameCore game)
         {
             var timeToLive = GetFreezePotionEffect(Size);
             game.Player.Statuses.Add(new FrozenObjectStatus(timeToLive));

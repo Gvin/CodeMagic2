@@ -1,6 +1,6 @@
 ﻿using System;
 using CodeMagic.Core.Game;
-using CodeMagic.Game.Objects.Creatures;
+using CodeMagic.Core.Items;
 using CodeMagic.Game.Statuses;
 
 namespace CodeMagic.Game.Items.Usable.Potions
@@ -11,7 +11,7 @@ namespace CodeMagic.Game.Items.Usable.Potions
         {
         }
 
-        public override void Use(GameCore<Player> game)
+        public override void Use(IGameCore game)
         {
             var timeToLive = GetBlindPotionEffect(Size);
             game.Player.Statuses.Add(new BlindObjectStatus(timeToLive));

@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using CodeMagic.Core.Area;
+using CodeMagic.Core.Common;
 using CodeMagic.Core.Game;
-using CodeMagic.Core.Logging;
 
 namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
 {
     internal partial class DungeonObjectsGenerator : IObjectsGenerator
     {
-        private static readonly ILog Log = LogManager.GetLog<DungeonObjectsGenerator>();
+        private readonly IPerformanceMeter _performanceMeter;
+        private readonly ObjectsPattern[] _patterns;
 
-        private readonly ObjectsPattern[] patterns;
-
-        public DungeonObjectsGenerator(IImagesStorage storage)
+        public DungeonObjectsGenerator(IImagesStorage storage, IPerformanceMeter performanceMeter)
         {
-            patterns = GetPatterns(storage);
+            _performanceMeter = performanceMeter;
+            _patterns = GetPatterns(storage);
         }
 
         private static ObjectsPattern[] GetPatterns(IImagesStorage storage)
@@ -47,19 +46,16 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
 
         public void GenerateObjects(IAreaMap map, Point playerPosition)
         {
-            var stopwatch = Stopwatch.StartNew();
+            using var scope = _performanceMeter.Start($"{nameof(DungeonObjectsGenerator)}.{nameof(GenerateObjects)}");
 
-            foreach (var pattern in patterns)
+            foreach (var pattern in _patterns)
             {
                 var count = (int)Math.Floor(map.Width * map.Height * pattern.MaxCountMultiplier);
-                for (int counter = 0; counter < count; counter++)
+                for (var counter = 0; counter < count; counter++)
                 {
                     AddPattern(map, playerPosition, pattern);
                 }
             }
-
-            stopwatch.Stop();
-            Log.Debug($"GenerateObjects took {stopwatch.ElapsedMilliseconds} milliseconds.");
         }
 
         private void AddPattern(IAreaMap map, Point playerPosition, ObjectsPattern pattern)

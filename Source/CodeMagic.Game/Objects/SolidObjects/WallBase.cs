@@ -3,39 +3,23 @@ using System.Linq;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 
 namespace CodeMagic.Game.Objects.SolidObjects
 {
     public abstract class WallBase : MapObjectBase, IPlaceConnectionObject
     {
-        private const string SaveKeyConnectedTiles = "ConnectedTiles";
-
-        private readonly List<Point> connectedTiles;
-
-        protected WallBase(SaveData data) : base(data)
+        protected WallBase()
         {
-            connectedTiles = data.GetObjectsCollection<Point>(SaveKeyConnectedTiles).ToList();
+            ConnectedTiles = new List<Point>();
         }
 
-        protected WallBase(string name)
-            : base(name)
-        {
-            connectedTiles = new List<Point>();
-        }
-
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyConnectedTiles, connectedTiles);
-            return data;
-        }
+        public List<Point> ConnectedTiles { get; set; }
 
         public override ObjectSize Size => ObjectSize.Huge;
 
         public void AddConnectedTile(Point position)
         {
-            connectedTiles.Add(position);
+            ConnectedTiles.Add(position);
         }
 
         public override bool BlocksMovement => true;
@@ -52,7 +36,7 @@ namespace CodeMagic.Game.Objects.SolidObjects
 
         protected bool HasConnectedTile(int relativeX, int relativeY)
         {
-            return connectedTiles.Any(point => point.X == relativeX && point.Y == relativeY);
+            return ConnectedTiles.Any(point => point.X == relativeX && point.Y == relativeY);
         }
 
         public void OnPlaced(IAreaMap map, Point position)
@@ -74,7 +58,7 @@ namespace CodeMagic.Game.Objects.SolidObjects
             var wallUp = GetWall(map, position, relativeX, relativeY);
             if (wallUp != null)
             {
-                connectedTiles.Add(new Point(relativeX, relativeY));
+                ConnectedTiles.Add(new Point(relativeX, relativeY));
                 wallUp.AddConnectedTile(new Point(relativeX* (-1), relativeY * (-1)));
             }
         }

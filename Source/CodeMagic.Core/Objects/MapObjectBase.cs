@@ -1,52 +1,34 @@
-﻿using System.Collections.Generic;
-using CodeMagic.Core.Saving;
-
-namespace CodeMagic.Core.Objects
+﻿namespace CodeMagic.Core.Objects
 {
     public abstract class MapObjectBase : IMapObject
     {
-        private const string SaveKeyName = "Name";
-
-        protected MapObjectBase(SaveData data)
+        protected MapObjectBase()
         {
-            Name = data.GetStringValue(SaveKeyName);
+            Name = nameof(MapObjectBase);
+            BlocksMovement = false;
+            BlocksProjectiles = false;
+            IsVisible = true;
+            BlocksVisibility = false;
+            BlocksAttack = false;
         }
 
-        protected MapObjectBase(string name)
-        {
-            Name = name;
-        }
+        public virtual string Name { get; set; }
 
-        public SaveDataBuilder GetSaveData()
-        {
-            return new SaveDataBuilder(GetType(), GetSaveDataContent());
-        }
+        public virtual bool BlocksMovement { get; set; }
 
-        protected virtual Dictionary<string, object> GetSaveDataContent()
-        {
-            return new Dictionary<string, object>
-            {
-                {SaveKeyName, Name}
-            };
-        }
+        public virtual bool BlocksProjectiles { get; set; }
 
-        public virtual string Name { get; }
+        public virtual bool IsVisible { get; set; }
 
-        public virtual bool BlocksMovement => false;
+        public virtual bool BlocksVisibility { get; set; }
 
-        public virtual bool BlocksProjectiles => false;
-
-        public virtual bool IsVisible => true;
-
-        public virtual bool BlocksVisibility => false;
-
-        public virtual bool BlocksAttack => false;
+        public virtual bool BlocksAttack { get; set; }
 
         public virtual bool BlocksEnvironment => false;
 
-        public abstract ZIndex ZIndex { get; }
+        public virtual ZIndex ZIndex { get; set; }
 
-        public abstract ObjectSize Size { get; }
+        public virtual ObjectSize Size { get; set; }
 
         public virtual bool Equals(IMapObject other)
         {

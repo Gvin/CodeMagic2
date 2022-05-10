@@ -17,7 +17,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
         private static ObjectsPattern CreateTableWithChairs()
         {
             var pattern = new ObjectsPattern(5, 3, 0.0007);
-            pattern.Add(1, 1, (level) => new FurnitureObject(new FurnitureObjectConfiguration
+            pattern.Add(1, 1, (_) => new FurnitureObject
             {
                 Name = "Chair",
                 MaxHealth = 10,
@@ -26,8 +26,8 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
                 Size = ObjectSize.Medium,
                 ZIndex = ZIndex.BigDecoration,
                 WorldImage = "Furniture_Chair_Right"
-            }));
-            pattern.Add(2, 1, (level) => new FurnitureObject(new FurnitureObjectConfiguration
+            });
+            pattern.Add(2, 1, (_) => new FurnitureObject
             {
                 Name = "Table",
                 MaxHealth = 20,
@@ -37,8 +37,8 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
                 ZIndex = ZIndex.BigDecoration,
                 BlocksMovement = true,
                 WorldImage = "Furniture_Table"
-            }));
-            pattern.Add(3, 1, (level) => new FurnitureObject(new FurnitureObjectConfiguration
+            });
+            pattern.Add(3, 1, (_) => new FurnitureObject
             {
                 Name = "Chair",
                 MaxHealth = 10,
@@ -47,7 +47,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
                 Size = ObjectSize.Medium,
                 ZIndex = ZIndex.BigDecoration,
                 WorldImage = "Furniture_Chair_Left"
-            }));
+            });
             
             pattern.AddRequirement(0, 0, RequirementIsEmpty);
             pattern.AddRequirement(1, 0, RequirementIsEmpty);
@@ -145,7 +145,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
         {
             var pattern = new ObjectsPattern(3, 3, 0.003);
 
-            pattern.Add(1, 1, (level) => new ContainerObject(new ContainerObjectConfiguration
+            pattern.Add(1, 1, (level) => new ContainerObject(0, level, "crate")
             {
                 Name = "Crate",
                 BlocksMovement = true,
@@ -154,9 +154,8 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
                 ZIndex = ZIndex.BigDecoration,
                 MinWoodCount = 1,
                 MaxWoodCount = 4,
-                ContainerType = "crate",
                 WorldImage = "Furniture_Crate"
-            }, level));
+            });
 
             pattern.AddRequirement(1, 1, RequirementIsEmpty);
 
@@ -178,7 +177,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
         {
             var pattern = new ObjectsPattern(3, 3, 0.0025);
 
-            pattern.Add(1, 1, (level) => new ContainerObject(new ContainerObjectConfiguration
+            pattern.Add(1, 1, (level) => new ContainerObject(0, level, "chest")
             {
                 Name = "Chest",
                 BlocksMovement = true,
@@ -187,9 +186,8 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
                 ZIndex = ZIndex.BigDecoration,
                 MinWoodCount = 1,
                 MaxWoodCount = 4,
-                ContainerType = "chest",
                 WorldImage = "Furniture_Chest"
-            }, level));
+            });
 
             pattern.AddRequirement(1, 1, RequirementIsEmpty);
 
@@ -211,7 +209,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
         {
             var pattern = new ObjectsPattern(3, 3, 0.001);
 
-            pattern.Add(1, 1, (level) => new ContainerObject(new ContainerObjectConfiguration
+            pattern.Add(1, 1, (level) => new ContainerObject(2, level, "chest")
             {
                 Name = "Chest",
                 BlocksMovement = true,
@@ -220,10 +218,8 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
                 ZIndex = ZIndex.BigDecoration,
                 MinWoodCount = 1,
                 MaxWoodCount = 4,
-                ContainerType = "chest",
-                LootLevelIncrement = 2,
                 WorldImage = "Furniture_Chest_Golden"
-            }, level));
+            });
 
             pattern.AddRequirement(1, 1, RequirementIsEmpty);
 
@@ -245,7 +241,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
         {
             var pattern = new ObjectsPattern(1, 1, 0.02);
             var volume = RandomHelper.GetRandomValue(20, 100);
-            pattern.Add(0, 0, level => new WaterLiquid(volume));
+            pattern.Add(0, 0, _ => new WaterLiquid(volume));
             return pattern;
         }
 
@@ -253,7 +249,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
         {
             var pattern = new ObjectsPattern(3, 3, 0.01);
 
-            pattern.Add(1, 1, level => new SpikedFloorObject());
+            pattern.Add(1, 1, _ => SpikedFloorObject.Create());
             pattern.AddRequirement(1, 1, RequirementIsEmpty);
 
             pattern.AddRequirement(0, 0, RequirementNotBlocking);
@@ -273,7 +269,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
         private static ObjectsPattern CreateStone()
         {
             var pattern = new ObjectsPattern(1, 1, 0.03);
-            pattern.Add(0, 0, level => new Stone());
+            pattern.Add(0, 0, _ => new Stone());
             pattern.AddRequirement(0, 0, RequirementIsEmpty);
             return pattern;
         }
@@ -300,7 +296,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
 
         private static IMapObject CreateShelf(int level, string image)
         {
-            return new ContainerObject(new ContainerObjectConfiguration
+            return new ContainerObject(0, level, "shelf")
             {
                 Name = "Shelf",
                 MaxHealth = 20,
@@ -309,14 +305,13 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
                 BlocksMovement = false,
                 MinWoodCount = 0,
                 MaxWoodCount = 1,
-                ContainerType = "shelf",
                 WorldImage = image
-            }, level);
+            };
         }
 
         private class ObjectsPattern
         {
-            private readonly MapObjectsCollection[][] pattern;
+            private readonly MapObjectsCollection[][] _pattern;
 
             public ObjectsPattern(int width, int height, double maxCountMultiplier)
             {
@@ -324,13 +319,13 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
                 Height = height;
                 MaxCountMultiplier = maxCountMultiplier;
 
-                pattern = new MapObjectsCollection[height][];
-                for (int y = 0; y < height; y++)
+                _pattern = new MapObjectsCollection[height][];
+                for (var y = 0; y < height; y++)
                 {
 
-                    pattern[y] = new MapObjectsCollection[width];
-                    var row = pattern[y];
-                    for (int x = 0; x < width; x++)
+                    _pattern[y] = new MapObjectsCollection[width];
+                    var row = _pattern[y];
+                    for (var x = 0; x < width; x++)
                     {
                         row[x] = new MapObjectsCollection();
                     }
@@ -345,45 +340,45 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
 
             public void Add(int x, int y, Func<int, IMapObject> objectFactory)
             {
-                pattern[y][x].Add(objectFactory);
+                _pattern[y][x].Add(objectFactory);
             }
 
             public void AddRequirement(int x, int y, Func<IAreaMapCell, bool> requirement)
             {
-                pattern[y][x].AddRequirement(requirement);
+                _pattern[y][x].AddRequirement(requirement);
             }
 
             public Func<int, IMapObject>[] Get(int x, int y)
             {
-                return pattern[y][x].ToArray();
+                return _pattern[y][x].ToArray();
             }
 
             public bool CheckRequirements(int x, int y, IAreaMapCell cell)
             {
-                return pattern[y][x].CheckRequirements(cell);
+                return _pattern[y][x].CheckRequirements(cell);
             }
 
             internal class MapObjectsCollection : List<Func<int, IMapObject>>
             {
-                private readonly List<Func<IAreaMapCell, bool>> requirements;
+                private readonly List<Func<IAreaMapCell, bool>> _requirements;
 
                 public MapObjectsCollection()
                 {
-                    requirements = new List<Func<IAreaMapCell, bool>>();
+                    _requirements = new List<Func<IAreaMapCell, bool>>();
                 }
 
                 public void AddRequirement(Func<IAreaMapCell, bool> requirement)
                 {
-                    requirements.Add(requirement);
+                    _requirements.Add(requirement);
                 }
 
                 public bool CheckRequirements(IAreaMapCell cell)
                 {
-                    if (requirements.Count == 0)
+                    if (_requirements.Count == 0)
                     {
                         return true;
                     }
-                    return requirements.All(requirement => requirement(cell));
+                    return _requirements.All(requirement => requirement(cell));
                 }
             }
         }
