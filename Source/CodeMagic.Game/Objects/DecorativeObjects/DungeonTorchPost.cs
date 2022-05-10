@@ -1,41 +1,37 @@
 ﻿using System;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.UI.Images;
 
-namespace CodeMagic.Game.Objects.DecorativeObjects
+namespace CodeMagic.Game.Objects.DecorativeObjects;
+
+[Serializable]
+public class DungeonTorchPost : MapObjectBase, ILightObject, IWorldImageProvider
 {
-    public class DungeonTorchPost : MapObjectBase, ILightObject, IWorldImageProvider
+    private const string AnimationName = "Decoratives_TorchPost";
+
+    private readonly ISymbolsAnimationsManager _animationsManager;
+
+    public DungeonTorchPost()
     {
-        private const string AnimationName = "Decoratives_TorchPost";
+        _animationsManager = new SymbolsAnimationsManager(
+            TimeSpan.FromMilliseconds(500),
+            AnimationFrameStrategy.Random);
+    }
 
-        private readonly AnimationsBatchManager animationsManager;
+    public override string Name => "Torch Post";
 
-        public DungeonTorchPost(SaveData data) 
-            : base(data)
-        {
-            animationsManager = new AnimationsBatchManager(TimeSpan.FromMilliseconds(500), AnimationFrameStrategy.Random);
-        }
+    public override ZIndex ZIndex => ZIndex.BigDecoration;
 
-        public DungeonTorchPost() 
-            : base("Torch Post")
-        {
-            animationsManager = new AnimationsBatchManager(TimeSpan.FromMilliseconds(500), AnimationFrameStrategy.Random);
-        }
+    public override ObjectSize Size => ObjectSize.Huge;
 
-        public override ZIndex ZIndex => ZIndex.BigDecoration;
+    public ILightSource[] LightSources => new ILightSource[]
+    {
+        new StaticLightSource(LightLevel.Medium),
+    };
 
-        public override ObjectSize Size => ObjectSize.Huge;
-
-        public ILightSource[] LightSources => new ILightSource[]
-        {
-            new StaticLightSource(LightLevel.Medium),
-        };
-
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
-        {
-            return animationsManager.GetImage(storage, AnimationName);
-        }
+    public ISymbolsImage GetWorldImage(IImagesStorage storage)
+    {
+        return _animationsManager.GetImage(storage, AnimationName);
     }
 }

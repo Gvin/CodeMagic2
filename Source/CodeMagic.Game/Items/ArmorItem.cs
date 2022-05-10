@@ -32,7 +32,7 @@ namespace CodeMagic.Game.Items
 
         public StyledLine[] GetDescription(Player player)
         {
-            var equipedArmor = player.Equipment.Armor[ArmorType];
+            var equipedArmor = player.Equipment.GetEquipedArmor(ArmorType, player.Inventory);
 
             var result = new List<StyledLine>();
 

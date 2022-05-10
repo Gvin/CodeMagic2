@@ -16,7 +16,7 @@ namespace CodeMagic.Core.Objects
 
         int ManaRegeneration { get; }
 
-        Inventory Inventory { get; }
+        IInventory Inventory { get; }
 
         int MaxVisibilityRange { get; }
 

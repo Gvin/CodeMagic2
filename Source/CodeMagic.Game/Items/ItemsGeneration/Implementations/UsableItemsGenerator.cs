@@ -4,18 +4,27 @@ using System.Linq;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
 using CodeMagic.Game.Items.ItemsGeneration.Implementations.Usable;
+using CodeMagic.Game.Items.Usable.Potions;
 
 namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
 {
-    public class UsableItemsGenerator
+    public interface IUsableItemsGenerator
     {
-        private readonly Dictionary<UsableItemType, IUsableItemTypeGenerator> generators;
+        IItem GenerateUsableItem(ItemRareness rareness);
+    }
 
-        public UsableItemsGenerator(IImagesStorage imagesStorage, IAncientSpellsProvider spellsProvider)
+    public class UsableItemsGenerator : IUsableItemsGenerator
+    {
+        private readonly Dictionary<UsableItemType, IUsableItemTypeGenerator> _generators;
+
+        public UsableItemsGenerator(
+            IImagesStorage imagesStorage,
+            IAncientSpellsProvider spellsProvider,
+            IPotionDataFactory potionDataFactory)
         {
-            generators = new Dictionary<UsableItemType, IUsableItemTypeGenerator>
+            _generators = new Dictionary<UsableItemType, IUsableItemTypeGenerator>
             {
-                {UsableItemType.Potion, new PotionsGenerator()},
+                {UsableItemType.Potion, new PotionsGenerator(potionDataFactory)},
                 {UsableItemType.Scroll, new ScrollsGenerator(spellsProvider)}
             };
         }
@@ -23,9 +32,9 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
         public IItem GenerateUsableItem(ItemRareness rareness)
         {
             var type = GetRandomItemType();
-            if (generators.ContainsKey(type))
+            if (_generators.ContainsKey(type))
             {
-                return generators[type].Generate(rareness);
+                return _generators[type].Generate(rareness);
             }
 
             throw new ArgumentException($"Unknown usable item type: {type}");

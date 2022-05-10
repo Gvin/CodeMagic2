@@ -1,5 +1,4 @@
 ﻿using CodeMagic.Core.Items;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Objects.Creatures;
 using CodeMagic.UI.Images;
 
@@ -12,29 +11,38 @@ namespace CodeMagic.Game.Items.Materials
         private const string WorldImageName = "ItemsOnGround_Scroll";
         private const string InventoryImageName = "Item_Scroll_Empty";
 
-        public BlankScroll(SaveData data) 
-            : base(data)
+        public override string Key
         {
+            get => ItemKey;
+            set {}
         }
 
-        public BlankScroll() : base(new ItemConfiguration
+        public override ItemRareness Rareness
         {
-            Name = "Blank Scroll",
-            Key = ItemKey,
-            Rareness = ItemRareness.Common,
-            Weight = 300
-        })
+            get => ItemRareness.Common;
+            set {}
+        }
+
+        public override int Weight
         {
+            get => 300;
+            set {}
+        }
+
+        public override string Name
+        {
+            get => "Blank Scroll";
+            set {}
         }
 
         public override bool Stackable => true;
 
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
+        public ISymbolsImage GetWorldImage(IImagesStorage storage)
         {
             return storage.GetImage(WorldImageName);
         }
 
-        public SymbolsImage GetInventoryImage(IImagesStorage storage)
+        public ISymbolsImage GetInventoryImage(IImagesStorage storage)
         {
             return storage.GetImage(InventoryImageName);
         }

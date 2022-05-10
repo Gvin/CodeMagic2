@@ -1,28 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Game;
-using CodeMagic.Core.Logging;
 using CodeMagic.Core.Objects;
 using CodeMagic.Core.Objects.Creatures;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.JournalMessages;
 using CodeMagic.Game.Spells;
 using CodeMagic.Game.Spells.Script;
 using CodeMagic.UI.Images;
+using Microsoft.Extensions.Logging;
 
 namespace CodeMagic.Game.Objects
 {
-    public class CodeSpell : MapObjectBase, ILightObject, IDynamicObject, IWorldImageProvider
+    public interface ICodeSpell : ILightObject, IDynamicObject
     {
-        private static readonly ILog Log = LogManager.GetLog<CodeSpell>();
 
-        private const string SaveKeyMana = "Mana";
-        private const string SaveKeyLightPower = "LightPower";
-        private const string SaveKeyLifeTime = "LifeTime";
-        private const string SaveKeyRemainingLightTime = "RemainingLightTime";
-        private const string SaveKeyCode = "Code";
-        private const string SaveKeyCasterId = "CasterId";
+    }
+
+    [Serializable]
+    public class CodeSpell : MapObjectBase, ICodeSpell, IWorldImageProvider
+    {
+        private readonly ILogger<CodeSpell> _logger;
 
         private const string ImageHighMana = "Spell_HighMana";
         private const string ImageMediumMana = "Spell_MediumMana";
@@ -31,45 +28,39 @@ namespace CodeMagic.Game.Objects
         private const int HighManaLevel = 100;
         private const int MediumManaLevel = 20;
 
-        private readonly AnimationsBatchManager animations;
         public const LightLevel DefaultLightLevel = LightLevel.Dusk1;
-        private readonly SpellCodeExecutor codeExecutor;
-        private readonly string casterId;
-        private readonly string code;
-        private int? remainingLightTime;
-        private int lifeTime;
 
-        public CodeSpell(SaveData data)
-            : base(data)
+        private readonly ISymbolsAnimationsManager _animations;
+
+        public CodeSpell()
         {
-            Mana = data.GetIntValue(SaveKeyMana);
-            LightPower = (LightLevel) data.GetIntValue(SaveKeyLightPower);
-            lifeTime = data.GetIntValue(SaveKeyLifeTime);
+            _logger = StaticLoggerFactory.CreateLogger<CodeSpell>();
+            _animations = new SymbolsAnimationsManager(
+                TimeSpan.FromMilliseconds(500),
+                AnimationFrameStrategy.OneByOneStartFromRandom);
 
-            var remainingLightTimeValue = data.GetStringValue(SaveKeyRemainingLightTime);
-            remainingLightTime = remainingLightTimeValue == null ? (int?) null : int.Parse(remainingLightTimeValue);
-
-            code = data.GetStringValue(SaveKeyCode);
-            casterId = data.GetStringValue(SaveKeyCasterId);
-            codeExecutor = new SpellCodeExecutor(casterId, this.code);
-
-            animations = new AnimationsBatchManager(TimeSpan.FromMilliseconds(500), AnimationFrameStrategy.OneByOneStartFromRandom);
-        }
-
-        public CodeSpell(ICreatureObject caster, string name, string code, int mana)
-            : base(name)
-        {
-            Mana = mana;
             LightPower = DefaultLightLevel;
-            remainingLightTime = null;
-            lifeTime = 0;
-
-            casterId = caster.Id;
-            this.code = code;
-            codeExecutor = new SpellCodeExecutor(caster.Id, code);
-
-            animations = new AnimationsBatchManager(TimeSpan.FromMilliseconds(500), AnimationFrameStrategy.OneByOneStartFromRandom);
+            RemainingLightTime = null;
+            LifeTime = 0;
         }
+
+        public CodeSpell(ICreatureObject caster, string code)
+            : this()
+        {
+            CasterId = caster.Id;
+            Code = code;
+            CodeExecutor = new SpellCodeExecutor(CasterId, Code);
+        }
+
+        public SpellCodeExecutor CodeExecutor { get; set; }
+
+        public string CasterId { get; set; }
+
+        public string Code { get; set; }
+
+        public int? RemainingLightTime { get; set; }
+
+        public int LifeTime { get; set; }
 
         public override ObjectSize Size => ObjectSize.Huge;
 
@@ -79,13 +70,20 @@ namespace CodeMagic.Game.Objects
 
         public int Mana { get; set; }
 
+        private LightLevel LightPower { get; set; }
+
+        public override ZIndex ZIndex => ZIndex.Spell;
+
+        public ILightSource[] LightSources => new ILightSource[]
+        {
+            new StaticLightSource(LightPower)
+        };
+
         public void SetEmitLight(LightLevel level, int time)
         {
             LightPower = level;
-            remainingLightTime = time;
+            RemainingLightTime = time;
         }
-
-        private LightLevel LightPower { get; set; }
 
         public void Update(Point position)
         {
@@ -94,8 +92,8 @@ namespace CodeMagic.Game.Objects
             {
                 ProcessLightEmitting();
 
-                var action = codeExecutor.Execute(position, this, lifeTime);
-                lifeTime++;
+                var action = CodeExecutor.Execute(position, this, LifeTime);
+                LifeTime++;
 
                 if (action.ManaCost <= Mana)
                 {
@@ -115,7 +113,7 @@ namespace CodeMagic.Game.Objects
             }
             catch (SpellException ex)
             {
-                Log.Debug("Spell error", ex);
+                _logger.LogDebug(ex, "Spell error");
                 CurrentGame.Journal.Write(new SpellErrorMessage(Name, ex.Message));
                 CurrentGame.Map.RemoveObject(currentPosition, this);
             }
@@ -123,45 +121,26 @@ namespace CodeMagic.Game.Objects
 
         private void ProcessLightEmitting()
         {
-            if (!remainingLightTime.HasValue)
+            if (!RemainingLightTime.HasValue)
                 return;
 
-            if (remainingLightTime.Value < 0)
+            if (RemainingLightTime.Value < 0)
             {
                 LightPower = DefaultLightLevel;
-                remainingLightTime = null;
+                RemainingLightTime = null;
                 return;
             }
 
-            remainingLightTime = remainingLightTime.Value - 1;
+            RemainingLightTime = RemainingLightTime.Value - 1;
         }
 
-        public override ZIndex ZIndex => ZIndex.Spell;
-
-        public ILightSource[] LightSources => new ILightSource[]
-        {
-            new StaticLightSource(LightPower)
-        };
-
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
+        public ISymbolsImage GetWorldImage(IImagesStorage storage)
         {
             if (Mana >= HighManaLevel)
-                return animations.GetImage(storage, ImageHighMana);
+                return _animations.GetImage(storage, ImageHighMana);
             if (Mana >= MediumManaLevel)
-                return animations.GetImage(storage, ImageMediumMana);
-            return animations.GetImage(storage, ImageLowMana);
-        }
-
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyMana, Mana);
-            data.Add(SaveKeyLightPower, (int) LightPower);
-            data.Add(SaveKeyRemainingLightTime, remainingLightTime);
-            data.Add(SaveKeyCode, code);
-            data.Add(SaveKeyCasterId, casterId);
-            data.Add(SaveKeyLifeTime, lifeTime);
-            return data;
+                return _animations.GetImage(storage, ImageMediumMana);
+            return _animations.GetImage(storage, ImageLowMana);
         }
     }
 }

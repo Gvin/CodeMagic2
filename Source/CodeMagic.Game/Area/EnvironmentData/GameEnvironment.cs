@@ -10,6 +10,7 @@ using CodeMagic.Game.Objects.DecorativeObjects;
 
 namespace CodeMagic.Game.Area.EnvironmentData
 {
+    [Serializable]
     public class GameEnvironment : IGameEnvironment
     {
         private const string SaveKeyTemperature = "Temperature";
@@ -18,66 +19,63 @@ namespace CodeMagic.Game.Area.EnvironmentData
 
         private const double TemperatureToPressureMultiplier = 0.6d;
 
-        private readonly Temperature temperature;
-        private readonly Pressure pressure;
-        private readonly MagicEnergy magicEnergy;
-
-        public GameEnvironment(SaveData data)
-        {
-            temperature = data.GetObject<Temperature>(SaveKeyTemperature);
-            pressure = data.GetObject<Pressure>(SaveKeyPressure);
-            magicEnergy = data.GetObject<MagicEnergy>(SaveKeyMagicEnergy);
-        }
-
         public GameEnvironment()
         {
-            temperature = new Temperature();
-            pressure = new Pressure();
-            magicEnergy = new MagicEnergy();
+            Temperature = new Temperature();
+            Pressure = new Pressure();
+            MagicEnergy = new MagicEnergy();
         }
+
+        public Temperature Temperature { get; set; }
+
+        public Pressure Pressure { get; set; }
+
+        public MagicEnergy MagicEnergy { get; set; }
 
         public SaveDataBuilder GetSaveData()
         {
             return new SaveDataBuilder(GetType(), new Dictionary<string, object>
             {
-                {SaveKeyTemperature, temperature},
-                {SaveKeyPressure, pressure},
-                {SaveKeyMagicEnergy, magicEnergy}
+                {SaveKeyTemperature, Temperature},
+                {SaveKeyPressure, Pressure},
+                {SaveKeyMagicEnergy, MagicEnergy}
             });
         }
 
-        public int Temperature
+        int IGameEnvironment.Temperature
         {
-            get => temperature.Value;
+            get => Temperature.Value;
             set
             {
-                var oldValue = temperature.Value;
-                temperature.Value = value;
-                var diff = temperature.Value - oldValue;
+                var oldValue = Temperature.Value;
+                Temperature.Value = value;
+                var diff = Temperature.Value - oldValue;
                 var pressureDiff = (int) Math.Round(diff * TemperatureToPressureMultiplier);
-                Pressure += pressureDiff;
+                This.Pressure += pressureDiff;
             }
         }
 
-        public int MagicEnergyLevel
+        int IGameEnvironment.MagicEnergyLevel
         {
-            get => magicEnergy.Energy;
-            set => magicEnergy.Energy = value;
+            get => MagicEnergy.Energy;
+            set => MagicEnergy.Energy = value;
         }
 
-        public int MaxMagicEnergyLevel => magicEnergy.MaxEnergy;
+        int IGameEnvironment.MaxMagicEnergyLevel => MagicEnergy.MaxEnergy;
 
-        public int MagicDisturbanceLevel
+        int IGameEnvironment.MagicDisturbanceLevel
         {
-            get => magicEnergy.Disturbance;
-            set => magicEnergy.Disturbance = value;
+            get => MagicEnergy.Disturbance;
+            set => MagicEnergy.Disturbance = value;
         }
 
-        public int Pressure
+        int IGameEnvironment.Pressure
         {
-            get => pressure.Value;
-            set => pressure.Value = value;
+            get => Pressure.Value;
+            set => Pressure.Value = value;
         }
+
+        private IGameEnvironment This => this;
 
         public void Update(Point position, IAreaMapCell cell)
         {
@@ -90,30 +88,30 @@ namespace CodeMagic.Game.Area.EnvironmentData
 
             Normalize();
 
-            if (temperature.Value >= FireObject.SmallFireTemperature && !cell.Objects.OfType<FireObject>().Any())
+            if (Temperature.Value >= FireObject.SmallFireTemperature && !cell.Objects.OfType<FireObject>().Any())
             {
-                CurrentGame.Map.AddObject(position, new FireObject(temperature.Value));
+                CurrentGame.Map.AddObject(position, new FireObject{Temperature = Temperature.Value});
             }
         }
 
         private void Normalize()
         {
-            temperature.Normalize();
-            pressure.Normalize();
-            magicEnergy.Normalize();
+            Temperature.Normalize();
+            Pressure.Normalize();
+            MagicEnergy.Normalize();
         }
 
         private void CheckFuelObjects(Point position, IAreaMapCell cell)
         {
             var fuelObjects = cell.Objects
                 .OfType<IFuelObject>()
-                .Where(obj => obj.CanIgnite && Temperature >= obj.IgnitionTemperature)
+                .Where(obj => obj.CanIgnite && This.Temperature >= obj.IgnitionTemperature)
                 .ToArray();
             if (fuelObjects.Length == 0)
                 return;
 
             var maxTemperature = fuelObjects.Max(obj => obj.BurnTemperature);
-            Temperature = maxTemperature;
+            This.Temperature = maxTemperature;
             foreach (var fuelObject in fuelObjects)
             {
                 fuelObject.FuelLeft--;
@@ -126,8 +124,8 @@ namespace CodeMagic.Game.Area.EnvironmentData
 
         private void ApplyEnvironment(IDestroyableObject destroyable, Point position)
         {
-            var temperatureDamage = temperature.GetTemperatureDamage(out var temperDamageElement);
-            var pressureDamage = pressure.GetPressureDamage();
+            var temperatureDamage = Temperature.GetTemperatureDamage(out var temperDamageElement);
+            var pressureDamage = Pressure.GetPressureDamage();
 
             if (temperatureDamage > 0 && temperDamageElement.HasValue)
             {
@@ -141,24 +139,24 @@ namespace CodeMagic.Game.Area.EnvironmentData
                 destroyable.Damage(position, pressureDamage, Element.Blunt);
             }
 
-            magicEnergy.ApplyMagicEnvironment(destroyable, position);
+            MagicEnergy.ApplyMagicEnvironment(destroyable, position);
         }
 
         public void Balance(IAreaMapCell cell, IAreaMapCell otherCell)
         {
             var otherEnvironment = (GameEnvironment)otherCell.Environment;
 
-            temperature.Balance(otherEnvironment.temperature);
-            pressure.Balance(otherEnvironment.pressure);
-            magicEnergy.Balance(otherEnvironment.magicEnergy);
+            Temperature.Balance(otherEnvironment.Temperature);
+            Pressure.Balance(otherEnvironment.Pressure);
+            MagicEnergy.Balance(otherEnvironment.MagicEnergy);
 
             CheckFireSpread(cell, otherCell);
         }
 
         private void CheckFireSpread(IAreaMapCell cell, IAreaMapCell otherCell)
         {
-            var localEnvironment = (GameEnvironment) cell.Environment;
-            var otherEnvironment = (GameEnvironment) otherCell.Environment;
+            var localEnvironment = (IGameEnvironment) cell.Environment;
+            var otherEnvironment = (IGameEnvironment) otherCell.Environment;
 
             var localIgnitable = cell.Objects.OfType<IFireSpreadingObject>().FirstOrDefault(obj => obj.SpreadsFire);
             var otherIgnitable = otherCell.Objects.OfType<IFireSpreadingObject>().FirstOrDefault(obj => obj.SpreadsFire);

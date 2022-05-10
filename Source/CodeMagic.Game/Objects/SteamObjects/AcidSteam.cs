@@ -21,17 +21,17 @@ namespace CodeMagic.Game.Objects.SteamObjects
         private const int ThicknessBig = 70;
         private const int ThicknessMedium = 30;
 
-        private readonly AnimationsBatchManager animations;
+        private readonly SymbolsAnimationsManager animations;
 
         public AcidSteam(SaveData data) : base(data)
         {
-            animations = new AnimationsBatchManager(TimeSpan.FromSeconds(1), AnimationFrameStrategy.Random);
+            animations = new SymbolsAnimationsManager(TimeSpan.FromSeconds(1), AnimationFrameStrategy.Random);
         }
 
         public AcidSteam(int volume)
             : base(volume, AcidLiquid.LiquidType, "Acid Steam")
         {
-            animations = new AnimationsBatchManager(TimeSpan.FromSeconds(1), AnimationFrameStrategy.Random);
+            animations = new SymbolsAnimationsManager(TimeSpan.FromSeconds(1), AnimationFrameStrategy.Random);
         }
 
         public override string Type => SteamType;

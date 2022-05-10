@@ -52,7 +52,7 @@ namespace CodeMagic.UI.Presenters
 
         private bool GetSpellBookEnabled()
         {
-            return game.Player.Equipment.SpellBook != null;
+            return !string.IsNullOrEmpty(game.Player.Equipment.SpellBookId);
         }
 
         private bool GetOpenGroundEnabled()
@@ -80,8 +80,10 @@ namespace CodeMagic.UI.Presenters
 
         private void View_OpenSpellBook(object sender, EventArgs e)
         {
-            if (game.Player.Equipment.SpellBook == null)
+            if (string.IsNullOrEmpty(game.Player.Equipment.SpellBookId))
+            {
                 return;
+            }
 
             controller.CreatePresenter<SpellBookPresenter>().Run(game);
         }

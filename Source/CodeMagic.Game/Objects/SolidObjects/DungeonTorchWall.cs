@@ -13,7 +13,7 @@ namespace CodeMagic.Game.Objects.SolidObjects
         private const string ImageBottomRight = "Wall_Dungeon_Bottom_Right_Torch";
         private const string ImageCorner = "Wall_Dungeon_Corner";
 
-        private readonly AnimationsBatchManager animationsManager;
+        private readonly SymbolsAnimationsManager animationsManager;
 
         public override bool CanConnectTo(IMapObject mapObject)
         {
@@ -22,14 +22,14 @@ namespace CodeMagic.Game.Objects.SolidObjects
 
         public DungeonTorchWall(SaveData data) : base(data)
         {
-            animationsManager = new AnimationsBatchManager(TimeSpan.FromMilliseconds(300),
+            animationsManager = new SymbolsAnimationsManager(TimeSpan.FromMilliseconds(300),
                 AnimationFrameStrategy.OneByOneStartFromRandom);
         }
 
         public DungeonTorchWall()
             : base("Dungeon Wall")
         {
-            animationsManager = new AnimationsBatchManager(TimeSpan.FromMilliseconds(300),
+            animationsManager = new SymbolsAnimationsManager(TimeSpan.FromMilliseconds(300),
                 AnimationFrameStrategy.OneByOneStartFromRandom);
         }
 

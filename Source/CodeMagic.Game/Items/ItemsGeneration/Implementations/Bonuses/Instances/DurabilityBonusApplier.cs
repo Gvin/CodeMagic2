@@ -13,11 +13,11 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses.Instances
         private const string KeyMin = "Min";
         private const string KeyMax = "Max";
 
-        public void Apply(IBonusConfiguration config, ItemConfiguration itemConfiguration, NameBuilder name)
+        public void Apply(IBonusConfiguration config, Item itemConfiguration, NameBuilder name)
         {
-            if (!(itemConfiguration is DurableItemConfiguration item))
+            if (itemConfiguration is not DurableItem durableItem)
                 throw new ApplicationException(
-                    $"{nameof(DurabilityBonusApplier)} cannot be applied to item configuration {itemConfiguration.GetType().Name}");
+                    $"{nameof(DurabilityBonusApplier)} cannot be applied to item {itemConfiguration.GetType().Name}");
 
             var min = int.Parse(config.Values[KeyMin]);
             var max = int.Parse(config.Values[KeyMax]);
@@ -26,7 +26,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses.Instances
             if (bonus == 0)
                 return;
 
-            item.MaxDurability = (int) Math.Round(item.MaxDurability * (1 + bonus / 100d));
+            durableItem.MaxDurability = (int) Math.Round(durableItem.MaxDurability * (1 + bonus / 100d));
 
             name.AddNamePrefix(BonusCode, "Durable");
             name.AddDescription(BonusCode, "This item looks more durable.");

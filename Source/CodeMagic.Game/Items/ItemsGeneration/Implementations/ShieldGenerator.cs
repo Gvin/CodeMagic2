@@ -14,23 +14,23 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
         private const int MaxDurabilityPercent = 100;
         private const int MinDurabilityPercent = 30;
 
-        private readonly IShieldsConfiguration configuration;
-        private readonly IImagesStorage imagesStorage;
-        private readonly BonusesGenerator bonusesGenerator;
+        private readonly IShieldsConfiguration _configuration;
+        private readonly IImagesStorage _imagesStorage;
+        private readonly IBonusesGenerator _bonusesGenerator;
 
-        public ShieldGenerator(IShieldsConfiguration configuration, BonusesGenerator bonusesGenerator, IImagesStorage imagesStorage)
+        public ShieldGenerator(IShieldsConfiguration configuration, IBonusesGenerator bonusesGenerator, IImagesStorage imagesStorage)
         {
-            this.configuration = configuration;
-            this.imagesStorage = imagesStorage;
-            this.bonusesGenerator = bonusesGenerator;
+            _configuration = configuration;
+            _imagesStorage = imagesStorage;
+            _bonusesGenerator = bonusesGenerator;
         }
 
-        public ShieldItem GenerateShield(ItemRareness rareness)
+        public IShieldItem GenerateShield(ItemRareness rareness)
         {
             var config = RandomHelper.GetRandomElement(
-                configuration.SmallShieldConfiguration,
-                configuration.MediumShieldConfiguration, 
-                configuration.BigShieldConfiguration);
+                _configuration.SmallShieldConfiguration,
+                _configuration.MediumShieldConfiguration, 
+                _configuration.BigShieldConfiguration);
 
             var rarenessConfig = GetRarenessConfiguration(config, rareness);
             var material = RandomHelper.GetRandomElement(rarenessConfig.Materials);
@@ -47,15 +47,15 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
             var hitChancePenalty = - GetIntervalRandomValue(rarenessConfig.HitChancePenalty); // Negative value
             var description = GenerateDescription(rareness, material);
 
-            var itemConfig = new ShieldItemConfiguration
+            var item = new ShieldItem
             {
                 Name = name,
                 Key = Guid.NewGuid().ToString(),
                 Rareness = rareness,
                 InventoryImage = inventoryImage,
                 WorldImage = worldImage,
-                EquippedImageRight = equippedImageRight,
                 EquippedImageLeft = equippedImageLeft,
+                EquippedImageRight = equippedImageRight,
                 Weight = weightConfiguration.Weight,
                 MaxDurability = maxDurability,
                 BlocksDamage = blocksDamage,
@@ -63,13 +63,14 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
                 HitChancePenalty = hitChancePenalty,
                 Description = description
             };
-            bonusesGenerator.GenerateBonuses(itemConfig, bonusesCount);
+
+            _bonusesGenerator.GenerateBonuses(item, bonusesCount);
 
             var durabilityPercent = RandomHelper.GetRandomValue(MinDurabilityPercent, MaxDurabilityPercent);
-            var durability = Math.Min(itemConfig.MaxDurability, (int)Math.Round(itemConfig.MaxDurability * (durabilityPercent / 100d)));
-            itemConfig.Durability = durability;
+            var durability = Math.Min(item.MaxDurability, (int)Math.Round(item.MaxDurability * (durabilityPercent / 100d)));
+            item.Durability = durability;
 
-            return new ShieldItem(itemConfig);
+            return item;
         }
 
         private string[] GenerateDescription(ItemRareness rareness, ItemMaterial material)
@@ -83,7 +84,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
 
         private string GetMaterialDescription(ItemMaterial material)
         {
-            var textConfig = configuration.DescriptionConfiguration.MaterialDescription.FirstOrDefault(config => config.Material == material);
+            var textConfig = _configuration.DescriptionConfiguration.MaterialDescription.FirstOrDefault(config => config.Material == material);
             if (textConfig == null)
                 throw new ApplicationException($"Text configuration not found for shield material: {material}");
 
@@ -92,7 +93,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
 
         private string GetRarenessDescription(ItemRareness rareness)
         {
-            var textConfig = configuration.DescriptionConfiguration.RarenessDescription.FirstOrDefault(config => config.Rareness == rareness);
+            var textConfig = _configuration.DescriptionConfiguration.RarenessDescription.FirstOrDefault(config => config.Rareness == rareness);
             if (textConfig == null)
                 throw new ApplicationException($"Text configuration not found for shield rareness: {rareness}");
 
@@ -113,9 +114,9 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
             return result;
         }
 
-        private SymbolsImage GetMaterialColoredImage(string imageName, ItemMaterial material)
+        private ISymbolsImage GetMaterialColoredImage(string imageName, ItemMaterial material)
         {
-            var image = imagesStorage.GetImage(imageName);
+            var image = _imagesStorage.GetImage(imageName);
             return ItemRecolorHelper.RecolorItemImage(image, material);
         }
 
@@ -135,16 +136,16 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
             return $"{materialPrefix} {baseName}";
         }
 
-        private SymbolsImage GenerateInventoryImage(IShieldConfiguration config, ItemMaterial material)
+        private ISymbolsImage GenerateInventoryImage(IShieldConfiguration config, ItemMaterial material)
         {
             var parts = config.Images.Sprites.OrderBy(sprite => sprite.Index)
-                .Select(sprite => imagesStorage.GetImage(RandomHelper.GetRandomElement(sprite.Images)))
+                .Select(sprite => _imagesStorage.GetImage(RandomHelper.GetRandomElement(sprite.Images)))
                 .Select(image => ItemRecolorHelper.RecolorItemImage(image, material))
                 .ToArray();
             return MergeImages(parts);
         }
 
-        private SymbolsImage MergeImages(params SymbolsImage[] images)
+        private ISymbolsImage MergeImages(params ISymbolsImage[] images)
         {
             if (images.Length == 0)
                 throw new ArgumentException("No images to merge.");

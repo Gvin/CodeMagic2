@@ -200,9 +200,9 @@ namespace CodeMagic.Game.Objects.Creatures
 
         public int MaxCarryWeight => 23000 + 2000 * GetStat(PlayerStats.Strength);
 
-        public Equipment Equipment { get; }
+        public IEquipment Equipment { get; }
 
-        public Inventory Inventory { get; }
+        public IInventory Inventory { get; }
 
         public override int MaxVisibilityRange => 4;
 

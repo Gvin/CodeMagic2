@@ -1,77 +1,57 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.JournalMessages;
 using CodeMagic.Game.Objects.Creatures;
 using CodeMagic.Game.Objects.Creatures.Loot;
 
-namespace CodeMagic.Game.Objects.Furniture
+namespace CodeMagic.Game.Objects.Furniture;
+
+[Serializable]
+public class ContainerObject : FurnitureObject, IUsableObject, IDynamicObject
 {
-    public class ContainerObject : FurnitureObject, IUsableObject, IDynamicObject
+    public ContainerObject(int lootLevelIncrement, int level, string containerType)
     {
-        private const string SaveKeyInventory = "Inventory";
+        var lootLevel = level + lootLevelIncrement;
+        var loot = new TreasureLootGenerator(lootLevel, containerType).GenerateLoot();
 
-        private readonly Inventory inventory;
+        Inventory = new Inventory(loot);
+    }
 
-        public ContainerObject(SaveData data) 
-            : base(data)
+    public ContainerObject()
+    {
+    }
+
+    public IInventory Inventory { get; set; }
+
+    public bool CanUse => true;
+
+    public void Use(GameCore<Player> game, Point position)
+    {
+        game.Journal.Write(new ContainerOpenMessage(Name));
+        DialogsManager.Provider.OpenInventoryDialog(Name, Inventory);
+    }
+
+    public override void OnDeath(Point position)
+    {
+        base.OnDeath(position);
+
+        foreach (var stack in Inventory.Stacks)
         {
-            inventory = data.GetObject<Inventory>(SaveKeyInventory);
-        }
-
-        public ContainerObject(ContainerObjectConfiguration configuration, int level) 
-            : base(configuration)
-        {
-            var lootLevel = level + configuration.LootLevelIncrement;
-            var loot = new TreasureLootGenerator(lootLevel, configuration.ContainerType).GenerateLoot();
-
-            inventory = new Inventory(loot);
-        }
-
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyInventory, inventory);
-            return data;
-        }
-
-        public bool CanUse => true;
-
-        public void Use(GameCore<Player> game, Point position)
-        {
-            game.Journal.Write(new ContainerOpenMessage(Name));
-            DialogsManager.Provider.OpenInventoryDialog(Name, inventory);
-        }
-
-        public override void OnDeath(Point position)
-        {
-            base.OnDeath(position);
-
-            foreach (var stack in inventory.Stacks)
+            foreach (var item in stack.Items)
             {
-                foreach (var item in stack.Items)
-                {
-                    CurrentGame.Map.AddObject(position, item);
-                }
+                CurrentGame.Map.AddObject(position, item);
             }
         }
-
-        public void Update(Point position)
-        {
-            inventory.Update();
-        }
-
-        public bool Updated { get; set; }
-
-        public UpdateOrder UpdateOrder => UpdateOrder.Late;
     }
 
-    public class ContainerObjectConfiguration : FurnitureObjectConfiguration
+    public void Update(Point position)
     {
-        public string ContainerType { get; set; }
-
-        public int LootLevelIncrement { get; set; }
+        Inventory.Update();
     }
+
+    public bool Updated { get; set; }
+
+    public UpdateOrder UpdateOrder => UpdateOrder.Late;
 }

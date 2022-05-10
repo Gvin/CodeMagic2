@@ -5,7 +5,7 @@ namespace CodeMagic.Game
 {
     public interface IDialogsProvider
     {
-        void OpenInventoryDialog(string inventoryName, Inventory inventory);
+        void OpenInventoryDialog(string inventoryName, IInventory inventory);
 
         void OpenWaitDialog(string message, Action waitAction);
     }

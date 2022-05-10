@@ -7,18 +7,19 @@ using CodeMagic.Game.Items.ItemsGeneration.Configuration;
 using CodeMagic.Game.Items.ItemsGeneration.Implementations;
 using CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses;
 using CodeMagic.Game.Items.ItemsGeneration.Implementations.Weapon;
+using CodeMagic.Game.Items.Usable.Potions;
 
 namespace CodeMagic.Game.Items.ItemsGeneration
 {
     public interface IItemsGenerator
     {
-        WeaponItem GenerateWeapon(ItemRareness rareness);
+        IWeaponItem GenerateWeapon(ItemRareness rareness);
 
-        ShieldItem GenerateShield(ItemRareness rareness);
+        IShieldItem GenerateShield(ItemRareness rareness);
 
-        ArmorItem GenerateArmor(ItemRareness rareness, ArmorClass armorClass);
+        IArmorItem GenerateArmor(ItemRareness rareness, ArmorClass armorClass);
 
-        SpellBook GenerateSpellBook(ItemRareness rareness);
+        ISpellBook GenerateSpellBook(ItemRareness rareness);
 
         IItem GenerateUsable(ItemRareness rareness);
 
@@ -43,7 +44,11 @@ namespace CodeMagic.Game.Items.ItemsGeneration
         private readonly FoodItemsGenerator foodItemsGenerator;
         private readonly ShieldGenerator shieldGenerator;
 
-        public ItemsGenerator(IItemGeneratorConfiguration configuration, IImagesStorage imagesStorage, IAncientSpellsProvider spellsProvider)
+        public ItemsGenerator(
+            IItemGeneratorConfiguration configuration,
+            IImagesStorage imagesStorage,
+            IAncientSpellsProvider spellsProvider,
+            IPotionDataFactory potionDataFactory)
         {
             var bonusesGenerator = new BonusesGenerator(configuration.BonusesConfiguration);
 
@@ -98,12 +103,12 @@ namespace CodeMagic.Game.Items.ItemsGeneration
             armorGenerator = new ArmorGenerator(configuration.ArmorConfiguration, bonusesGenerator, imagesStorage);
             shieldGenerator = new ShieldGenerator(configuration.ShieldsConfiguration, bonusesGenerator, imagesStorage);
             spellBookGenerator = new SpellBookGenerator(configuration.SpellBooksConfiguration, bonusesGenerator, imagesStorage);
-            usableItemsGenerator = new UsableItemsGenerator(imagesStorage, spellsProvider);
+            usableItemsGenerator = new UsableItemsGenerator(imagesStorage, spellsProvider, potionDataFactory);
             resourceItemsGenerator = new ResourceItemsGenerator();
             foodItemsGenerator = new FoodItemsGenerator(imagesStorage);
         }
 
-        public WeaponItem GenerateWeapon(ItemRareness rareness)
+        public IWeaponItem GenerateWeapon(ItemRareness rareness)
         {
             if (GetIfRarenessExceedMax(rareness))
                 throw new ArgumentException("Item generator cannot generate epic items.");
@@ -113,7 +118,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration
             return generator.GenerateWeapon(rareness);
         }
 
-        public ShieldItem GenerateShield(ItemRareness rareness)
+        public IShieldItem GenerateShield(ItemRareness rareness)
         {
             if (GetIfRarenessExceedMax(rareness))
                 throw new ArgumentException("Item generator cannot generate epic items.");
@@ -121,7 +126,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration
             return shieldGenerator.GenerateShield(rareness);
         }
 
-        public ArmorItem GenerateArmor(ItemRareness rareness, ArmorClass armorClass)
+        public IArmorItem GenerateArmor(ItemRareness rareness, ArmorClass armorClass)
         {
             if (GetIfRarenessExceedMax(rareness))
                 throw new ArgumentException("Item generator cannot generate epic items.");
@@ -129,7 +134,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration
             return armorGenerator.GenerateArmor(rareness, armorClass);
         }
 
-        public SpellBook GenerateSpellBook(ItemRareness rareness)
+        public ISpellBook GenerateSpellBook(ItemRareness rareness)
         {
             if (GetIfRarenessExceedMax(rareness))
                 throw new ArgumentException("Item generator cannot generate epic items.");

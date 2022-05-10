@@ -15,37 +15,37 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Weapon
         private const int MaxDurabilityPercent = 100;
         private const int MinDurabilityPercent = 30;
 
-        private readonly IImagesStorage imagesStorage;
-        private readonly string baseName;
-        private readonly string worldImageName;
-        private readonly IWeaponConfiguration configuration;
-        private readonly IWeaponsConfiguration configurations;
-        private readonly BonusesGenerator bonusesGenerator;
+        private readonly IImagesStorage _imagesStorage;
+        private readonly string _baseName;
+        private readonly string _worldImageName;
+        private readonly IWeaponConfiguration _configuration;
+        private readonly IWeaponsConfiguration _configurations;
+        private readonly IBonusesGenerator _bonusesGenerator;
 
         public WeaponGenerator(
             string baseName, 
             string worldImageName,
             IWeaponConfiguration configuration,
             IWeaponsConfiguration configurations, 
-            BonusesGenerator bonusesGenerator, 
+            IBonusesGenerator bonusesGenerator, 
             IImagesStorage imagesStorage)
         {
-            this.configurations = configurations;
-            this.imagesStorage = imagesStorage;
-            this.bonusesGenerator = bonusesGenerator;
-            this.baseName = baseName;
-            this.worldImageName = worldImageName;
-            this.configuration = configuration;
+            this._configurations = configurations;
+            this._imagesStorage = imagesStorage;
+            this._bonusesGenerator = bonusesGenerator;
+            this._baseName = baseName;
+            this._worldImageName = worldImageName;
+            this._configuration = configuration;
         }
 
-        public WeaponItem GenerateWeapon(ItemRareness rareness)
+        public IWeaponItem GenerateWeapon(ItemRareness rareness)
         {
             var rarenessConfiguration = GetRarenessConfiguration(rareness);
             var material = RandomHelper.GetRandomElement(rarenessConfiguration.Materials);
             var inventoryImage = GenerateImage(material);
-            var worldImage = GetMaterialColoredImage(worldImageName, material);
-            var equippedRightImage = GetMaterialColoredImage(configuration.EquippedImageRight, material);
-            var equippedLeftImage = GetMaterialColoredImage(configuration.EquippedImageLeft, material);
+            var worldImage = GetMaterialColoredImage(_worldImageName, material);
+            var equippedRightImage = GetMaterialColoredImage(_configuration.EquippedImageRight, material);
+            var equippedLeftImage = GetMaterialColoredImage(_configuration.EquippedImageLeft, material);
             var maxDamage = GenerateMaxDamage(rarenessConfiguration);
             var minDamage = maxDamage.ToDictionary(pair => pair.Key, pair => pair.Value - rarenessConfiguration.MinMaxDamageDifference);
             var hitChance = RandomHelper.GetRandomValue(rarenessConfiguration.MinHitChance, rarenessConfiguration.MaxHitChance);
@@ -54,8 +54,8 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Weapon
             var description = GenerateDescription(rareness, material);
             var bonusesCount = RandomHelper.GetRandomValue(rarenessConfiguration.MinBonuses, rarenessConfiguration.MaxBonuses);
             var maxDurability = weightConfiguration.Durability;
-            
-            var itemConfig = new WeaponItemConfiguration
+
+            var item = new WeaponItem
             {
                 Name = name,
                 Key = Guid.NewGuid().ToString(),
@@ -64,25 +64,26 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Weapon
                 Weight = weightConfiguration.Weight,
                 MaxDamage = maxDamage,
                 MinDamage = minDamage,
-                HitChance = hitChance,
+                Accuracy = hitChance,
                 InventoryImage = inventoryImage,
                 WorldImage = worldImage,
-                EquippedImageRight = equippedRightImage,
                 EquippedImageLeft = equippedLeftImage,
+                EquippedImageRight = equippedRightImage,
                 MaxDurability = maxDurability
             };
-            bonusesGenerator.GenerateBonuses(itemConfig, bonusesCount);
+
+            _bonusesGenerator.GenerateBonuses(item, bonusesCount);
 
             var durabilityPercent = RandomHelper.GetRandomValue(MinDurabilityPercent, MaxDurabilityPercent);
-            var durability = Math.Min(itemConfig.MaxDurability, (int)Math.Round(itemConfig.MaxDurability * (durabilityPercent / 100d)));
-            itemConfig.Durability = durability;
+            var durability = Math.Min(item.MaxDurability, (int)Math.Round(item.MaxDurability * (durabilityPercent / 100d)));
+            item.Durability = durability;
 
-            return new WeaponItem(itemConfig);
+            return item;
         }
 
-        private SymbolsImage GetMaterialColoredImage(string imageName, ItemMaterial material)
+        private ISymbolsImage GetMaterialColoredImage(string imageName, ItemMaterial material)
         {
-            var image = imagesStorage.GetImage(imageName);
+            var image = _imagesStorage.GetImage(imageName);
             return ItemRecolorHelper.RecolorItemImage(image, material);
         }
 
@@ -94,14 +95,14 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Weapon
 
         private IWeightConfiguration GetWeightConfiguration(ItemMaterial material)
         {
-            var result = configuration.Weight.FirstOrDefault(config => config.Material == material);
+            var result = _configuration.Weight.FirstOrDefault(config => config.Material == material);
             if (result == null)
-                throw new ApplicationException($"No {baseName} weight configuration for material: {material}");
+                throw new ApplicationException($"No {_baseName} weight configuration for material: {material}");
 
             return result;
         }
 
-        private SymbolsImage MergeImages(params SymbolsImage[] images)
+        private ISymbolsImage MergeImages(params ISymbolsImage[] images)
         {
             if (images.Length == 0)
                 throw new ArgumentException("No images to merge.");
@@ -117,17 +118,17 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Weapon
 
         private IWeaponRarenessConfiguration GetRarenessConfiguration(ItemRareness rareness)
         {
-            var result = configuration.RarenessConfiguration.FirstOrDefault(config => config.Rareness == rareness);
+            var result = _configuration.RarenessConfiguration.FirstOrDefault(config => config.Rareness == rareness);
             if (result == null)
-                throw new ApplicationException($"No {baseName} rareness configuration for rareness: {rareness}");
+                throw new ApplicationException($"No {_baseName} rareness configuration for rareness: {rareness}");
 
             return result;
         }
 
-        private SymbolsImage GenerateImage(ItemMaterial material)
+        private ISymbolsImage GenerateImage(ItemMaterial material)
         {
-            var parts = configuration.Images.Sprites.OrderBy(sprite => sprite.Index)
-                .Select(sprite => imagesStorage.GetImage(RandomHelper.GetRandomElement(sprite.Images)))
+            var parts = _configuration.Images.Sprites.OrderBy(sprite => sprite.Index)
+                .Select(sprite => _imagesStorage.GetImage(RandomHelper.GetRandomElement(sprite.Images)))
                 .Select(image => ItemRecolorHelper.RecolorItemImage(image, material))
                 .ToArray();
             return MergeImages(parts);
@@ -136,7 +137,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Weapon
         private string GenerateName(ItemMaterial material)
         {
             var materialPrefix = NameGenerationHelper.GetMaterialPrefix(material);
-            return $"{materialPrefix} {baseName}";
+            return $"{materialPrefix} {_baseName}";
         }
 
         private string[] GenerateDescription(ItemRareness rareness, ItemMaterial material)
@@ -150,7 +151,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Weapon
 
         private string GetMaterialDescription(ItemMaterial material)
         {
-            var textConfig = configurations.DescriptionConfiguration.MaterialDescription.FirstOrDefault(config => config.Material == material);
+            var textConfig = _configurations.DescriptionConfiguration.MaterialDescription.FirstOrDefault(config => config.Material == material);
             if (textConfig == null)
                 throw new ApplicationException($"Text configuration not found for weapon material: {material}");
 
@@ -159,7 +160,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Weapon
 
         private string GetRarenessDescription(ItemRareness rareness)
         {
-            var textConfig = configurations.DescriptionConfiguration.RarenessDescription.FirstOrDefault(config => config.Rareness == rareness);
+            var textConfig = _configurations.DescriptionConfiguration.RarenessDescription.FirstOrDefault(config => config.Rareness == rareness);
             if (textConfig == null)
                 throw new ApplicationException($"Text configuration not found for weapon rareness: {rareness}");
 

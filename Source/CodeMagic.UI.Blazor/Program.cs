@@ -8,6 +8,8 @@ using CodeMagic.UI.Blazor.Models;
 using CodeMagic.UI.Services;
 using CodeMagic.Game.GameProcess;
 using CodeMagic.Core.Common;
+using CodeMagic.Game.Items.ItemsGeneration.Implementations;
+using CodeMagic.Game.Items.Usable.Potions;
 using CodeMagic.Game.MapGeneration.Dungeon;
 using Microsoft.Extensions.Options;
 
@@ -31,12 +33,15 @@ builder.Services.AddSingleton<IApplicationService, ApplicationService>();
 builder.Services.AddSingleton<IGameManager>(provider => new GameManager(
     provider.GetRequiredService<ISaveService>(), 
     provider.GetRequiredService<IOptions<SettingsConfiguration>>().Value.SavingInterval,
-    provider.GetRequiredService<ILoggerFactory>()));
+    provider.GetRequiredService<ILoggerFactory>(),
+    provider.GetRequiredService<IDungeonMapGenerator>()));
 builder.Services.AddSingleton<ISettingsService, SettingsService>();
 builder.Services.AddSingleton<ISaveService, SaveService>();
 builder.Services.AddSingleton<ILocalStorageService, LocalStorageService>();
 builder.Services.AddSingleton<IPerformanceMeter, PerformanceMeter>();
 builder.Services.AddSingleton<IDungeonMapGenerator, DungeonMapGenerator>();
+builder.Services.AddSingleton<IPotionDataFactory, PotionDataFactory>();
+builder.Services.AddSingleton<IUsableItemsGenerator, UsableItemsGenerator>();
 
 // Windows
 builder.Services.AddTransient<IMainMenuView, MainMenuModel>();

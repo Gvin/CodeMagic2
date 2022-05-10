@@ -1,46 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.Game.Items
 {
-    public class ShieldItem : HoldableDurableItemBase
+    public interface IShieldItem : IHoldableItem, IDurableItem
     {
-        private const string SaveKeyBlocksDamage = "BlocksDamage";
-        private const string SaveKeyProtectChance = "ProtectChance";
-        private const string SaveKeyHitChancePenalty = "HitChancePenalty";
+        int BlocksDamage { get; }
 
-        public ShieldItem(SaveData data) : base(data)
-        {
-            BlocksDamage = data.GetIntValue(SaveKeyBlocksDamage);
-            HitChancePenalty = data.GetIntValue(SaveKeyHitChancePenalty);
-            ProtectChance = data.GetIntValue(SaveKeyProtectChance);
-        }
+        int ProtectChance { get; }
 
-        public ShieldItem(ShieldItemConfiguration configuration) : base(configuration)
-        {
-            BlocksDamage = configuration.BlocksDamage;
-            ProtectChance = configuration.ProtectChance;
-            HitChancePenalty = configuration.HitChancePenalty;
-        }
+        int HitChancePenalty { get; }
+    }
 
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
+    [Serializable]
+    public class ShieldItem : HoldableDurableItemBase, IShieldItem
+    {
+        public int BlocksDamage { get; set; }
 
-            data.Add(SaveKeyBlocksDamage, BlocksDamage);
-            data.Add(SaveKeyHitChancePenalty, HitChancePenalty);
-            data.Add(SaveKeyProtectChance, ProtectChance);
+        public int ProtectChance { get; set; }
 
-            return data;
-        }
-
-        public int BlocksDamage { get; }
-
-        public int ProtectChance { get; }
-
-        public int HitChancePenalty { get; }
+        public int HitChancePenalty { get; set; }
 
         public override StyledLine[] GetDescription(Player player)
         {
@@ -54,8 +35,8 @@ namespace CodeMagic.Game.Items
 
         private StyledLine[] GetCharacteristicsDescription(Player player)
         {
-            var rightHandShield = player.Equipment.RightHandItemId as ShieldItem;
-            var leftHandShield = player.Equipment.LeftHandItemId as ShieldItem;
+            var rightHandShield = player.Inventory.GetItemById(player.Equipment.RightHandItemId) as IShieldItem;
+            var leftHandShield = player.Inventory.GetItemById(player.Equipment.LeftHandItemId) as IShieldItem;
 
             var result = new List<StyledLine>();
 
@@ -93,8 +74,8 @@ namespace CodeMagic.Game.Items
             return result.ToArray();
         }
 
-        private void AddProtectionDescription(List<StyledLine> descr, ShieldItem leftHandShield,
-            ShieldItem rightHandShield)
+        private void AddProtectionDescription(List<StyledLine> descr, IShieldItem leftHandShield,
+            IShieldItem rightHandShield)
         {
             var hitChanceLine = new StyledLine { "Protect Chance: " };
             if (Equals(rightHandShield) || Equals(leftHandShield) || leftHandShield == null)
@@ -129,14 +110,5 @@ namespace CodeMagic.Game.Items
             }
             descr.Add(hitChancePenaltyLine);
         }
-    }
-
-    public class ShieldItemConfiguration : HoldableItemConfiguration
-    {
-        public int BlocksDamage { get; set; }
-
-        public int ProtectChance { get; set; }
-
-        public int HitChancePenalty { get; set; }
     }
 }

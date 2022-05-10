@@ -16,7 +16,7 @@ namespace CodeMagic.Game.Items.Custom
         private const string TorchEquippedImageRight = "ItemOnPlayer_Weapon_Right_Torch";
         private const string TorchEquippedImageLeft = "ItemOnPlayer_Weapon_Left_Torch";
 
-        private readonly AnimationsBatchManager _animation;
+        private readonly SymbolsAnimationsManager _animation;
 
         public TorchItem()
         {
@@ -35,7 +35,7 @@ namespace CodeMagic.Game.Items.Custom
             Description = new[] { "Rude torch made from wood and clothes." };
             MaxDurability = 20;
 
-            _animation = new AnimationsBatchManager(TimeSpan.FromMilliseconds(500),
+            _animation = new SymbolsAnimationsManager(TimeSpan.FromMilliseconds(500),
                 AnimationFrameStrategy.OneByOneStartFromRandom);
         }
 

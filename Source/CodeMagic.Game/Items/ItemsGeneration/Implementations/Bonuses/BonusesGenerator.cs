@@ -8,7 +8,12 @@ using CodeMagic.Game.Items.ItemsGeneration.Configuration.Bonuses;
 
 namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses
 {
-    public class BonusesGenerator
+    public interface IBonusesGenerator
+    {
+        void GenerateBonuses(Item item, int bonusesCount);
+    }
+
+    public class BonusesGenerator : IBonusesGenerator
     {
         private const string GroupNameCommon = "All";
         private const string GroupNameEquipable = "Equipable";
@@ -28,33 +33,33 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses
             {AccuracyBonusApplier.BonusType, new AccuracyBonusApplier()}
         };
 
-        private readonly IBonusesConfiguration configuration;
+        private readonly IBonusesConfiguration _configuration;
 
         public BonusesGenerator(IBonusesConfiguration configuration)
         {
-            this.configuration = configuration;
+            _configuration = configuration;
         }
 
-        public void GenerateBonuses(ItemConfiguration item, int bonusesCount)
+        public void GenerateBonuses(Item item, int bonusesCount)
         {
             if (bonusesCount == 0)
                 return;
 
             var configurationGroup = GetConfigurationGroup(item);
             var config = GetConfiguration(item.Rareness, configurationGroup);
-            var nameBuilder = new NameBuilder(item.Name, (item as EquipableItemConfiguration)?.Description);
+            var nameBuilder = new NameBuilder(item.Name, (item as EquipableItem)?.Description);
 
             GenerateBonuses(item, nameBuilder, config, bonusesCount);
 
             item.Name = nameBuilder.ToString();
-            if (item is EquipableItemConfiguration equipable)
+            if (item is EquipableItem equipable)
             {
                 equipable.Description = nameBuilder.GetDescription();
             }
         }
 
         private void GenerateBonuses(
-            ItemConfiguration item, 
+            Item item, 
             NameBuilder name, 
             IBonusConfiguration[] config,
             int bonusesCount)
@@ -66,7 +71,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses
             }
         }
 
-        private void ApplyBonus(ItemConfiguration item, NameBuilder name, IBonusConfiguration bonusConfig)
+        private void ApplyBonus(Item item, NameBuilder name, IBonusConfiguration bonusConfig)
         {
             if (!BonusAppliers.ContainsKey(bonusConfig.Type))
                 throw new ApplicationException($"Bonus applier not found for bonus type: {bonusConfig.Type}");
@@ -75,17 +80,17 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses
             applier.Apply(bonusConfig, item, name);
         }
 
-        private string GetConfigurationGroup(ItemConfiguration item)
+        private string GetConfigurationGroup(Item item)
         {
             switch (item)
             {
-                case WeaponItemConfiguration _:
+                case WeaponItem _:
                     return GroupNameWeapon;
-                case ShieldItemConfiguration _:
+                case ShieldItem _:
                     return GroupNameShield;
-                case ArmorItemConfiguration _:
+                case ArmorItem _:
                     return GroupNameArmor;
-                case EquipableItemConfiguration _:
+                case EquipableItem _:
                     return GroupNameEquipable;
                 default:
                     return GroupNameCommon;
@@ -102,13 +107,13 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses
         {
             var result = new List<IBonusRarenessConfiguration>();
 
-            var group = configuration.Groups.FirstOrDefault(gr => string.Equals(gr.Type, groupName));
+            var group = _configuration.Groups.FirstOrDefault(gr => string.Equals(gr.Type, groupName));
             while (group != null)
             {
                 result.AddRange(group.Configuration);
                 if (string.IsNullOrEmpty(group.InheritFrom))
                     break;
-                group = configuration.Groups.FirstOrDefault(gr => string.Equals(gr.Type, group.InheritFrom));
+                group = _configuration.Groups.FirstOrDefault(gr => string.Equals(gr.Type, group.InheritFrom));
             }
 
             return result.ToArray();

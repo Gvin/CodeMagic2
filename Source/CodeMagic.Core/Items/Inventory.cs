@@ -7,6 +7,10 @@ namespace CodeMagic.Core.Items
 {
     public interface IInventory
 	{
+        event EventHandler<ItemEventArgs> ItemAdded;
+
+        event EventHandler<ItemEventArgs> ItemRemoved;
+
         IInventoryStack[] Stacks { get; }
 
         int ItemsCount { get; }

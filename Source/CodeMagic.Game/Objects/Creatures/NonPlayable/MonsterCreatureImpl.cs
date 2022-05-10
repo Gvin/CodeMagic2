@@ -43,7 +43,7 @@ namespace CodeMagic.Game.Objects.Creatures.NonPlayable
             return new MonsterCreatureImplConfiguration(config);
         }
 
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
+        public ISymbolsImage GetWorldImage(IImagesStorage storage)
         {
             var body = storage.GetImage(configuration.Image);
             var directionImageName = GetWorldImageName();

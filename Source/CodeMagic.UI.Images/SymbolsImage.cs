@@ -118,7 +118,7 @@ namespace CodeMagic.UI.Images
             }
         }
 
-        public static ISymbolsImage Combine(ISymbolsImage bottom, SymbolsImage top)
+        public static ISymbolsImage Combine(ISymbolsImage bottom, ISymbolsImage top)
         {
             if (bottom.Width != top.Width || bottom.Height != top.Height)
                 throw new ArgumentException($"Cannot combine images {bottom.Width}x{bottom.Height} and {top.Width}x{top.Height}");

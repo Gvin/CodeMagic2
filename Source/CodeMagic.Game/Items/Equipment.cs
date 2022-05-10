@@ -20,6 +20,10 @@ namespace CodeMagic.Game.Items
 
         bool LeftHandItemEquipped { get; }
 
+        IHoldableItem GetLeftHandItem(IInventory playerInventory);
+
+        IHoldableItem GetRightHandItem(IInventory playerInventory);
+
         int GetHitChanceBonus(IInventory playerInventory);
 
         IEquipableItem[] GetEquippedItems(IInventory playerInventory);
@@ -35,6 +39,12 @@ namespace CodeMagic.Game.Items
         int GetStatsBonus(PlayerStats statType, IInventory playerInventory);
 
         ILightSource[] GetLightSources(IInventory playerInventory);
+
+        void EquipHoldable(IHoldableItem holdable, bool isRight);
+
+        void EquipItem(IEquipableItem item);
+
+        void UnequipItem(IEquipableItem item);
     }
 
     [Serializable]
@@ -72,6 +82,16 @@ namespace CodeMagic.Game.Items
         public bool RightHandItemEquipped => !string.IsNullOrEmpty(RightHandItemId);
 
         public bool LeftHandItemEquipped => !string.IsNullOrEmpty(LeftHandItemId);
+
+        public IHoldableItem GetLeftHandItem(IInventory playerInventory)
+        {
+            return playerInventory.GetItemById<IHoldableItem>(LeftHandItemId) ?? Fists;
+        }
+
+        public IHoldableItem GetRightHandItem(IInventory playerInventory)
+        {
+            return playerInventory.GetItemById<IHoldableItem>(RightHandItemId) ?? Fists;
+        }
 
         public int GetHitChanceBonus(IInventory playerInventory) => 
             GetEquippedItems(playerInventory).OfType<ShieldItem>().Sum(shield => shield.HitChancePenalty);

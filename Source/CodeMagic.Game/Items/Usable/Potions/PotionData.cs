@@ -6,7 +6,7 @@ using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.Game.Items.Usable.Potions
 {
-    internal abstract class PotionData
+    public abstract class PotionData
     {
         protected readonly PotionSize Size;
         private readonly PotionType type;

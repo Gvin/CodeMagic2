@@ -9,7 +9,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MapObjectFactories
     {
         public IMapObject CreateFloor()
         {
-            return new FloorObject(FloorObject.Type.Stone);
+            return new FloorObject{FloorType = FloorObject.Type.Stone};
         }
 
         public IMapObject CreateStairs()
