@@ -25,9 +25,9 @@ public abstract class DestroyableObject : MapObjectBase, IDestroyableObject
         ObjectEffects = new List<IObjectEffect>();
     }
 
-    public Dictionary<Element, int> BaseProtection { get; set; }
+    public virtual Dictionary<Element, int> BaseProtection { get; set; }
 
-    public List<string> StatusesImmunity { get; set; }
+    public virtual List<string> StatusesImmunity { get; set; }
 
     public int HealthInternal { get; set; }
 

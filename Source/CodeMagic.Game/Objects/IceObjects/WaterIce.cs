@@ -1,25 +1,31 @@
-﻿using CodeMagic.Core.Saving;
+﻿using System;
 using CodeMagic.Game.Objects.LiquidObjects;
 using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Objects.IceObjects
 {
+    [Serializable]
     public class WaterIce : AbstractIce, IWorldImageProvider
     {
         private const string ImageSmall = "Ice_Water_Small";
         private const string ImageMedium = "Ice_Water_Medium";
         private const string ImageBig = "Ice_Water_Big";
         private const string ObjectType = "WaterIce";
+
         public const int WaterIceMinVolumeForEffect = 50;
 
-        public WaterIce(SaveData data) : base(data)
+        public WaterIce(int volume)
+        {
+            Volume = volume;
+        }
+
+        public WaterIce()
         {
         }
 
-        public WaterIce(int volume) 
-            : base(volume, WaterLiquid.LiquidType, "Ice")
-        {
-        }
+        public override string LiquidType => WaterLiquid.LiquidType;
+
+        public override string Name => "Ice";
 
         protected override int MinVolumeForEffect => WaterIceMinVolumeForEffect;
 
@@ -30,7 +36,7 @@ namespace CodeMagic.Game.Objects.IceObjects
             return new WaterLiquid(volume);
         }
 
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
+        public ISymbolsImage GetWorldImage(IImagesStorage storage)
         {
             if (Volume >= Configuration.MaxVolumeBeforeSpread)
                 return storage.GetImage(ImageBig);

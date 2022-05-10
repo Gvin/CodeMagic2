@@ -83,7 +83,8 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MonstersGenerators
 
         private static ICreatureObject CreateMonster(IMonsterConfiguration config)
         {
-            return new MonsterCreatureImpl(new MonsterCreatureImplConfiguration(config));
+            var monsterConfiguration = MonsterCreatureImplConfiguration.FromConfiguration(config);
+            return MonsterCreatureImpl.Create(monsterConfiguration);
         }
 
         private static int GetSquadForce(int level)

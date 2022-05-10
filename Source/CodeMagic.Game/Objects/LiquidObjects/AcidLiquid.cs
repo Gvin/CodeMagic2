@@ -2,7 +2,6 @@
 using System.Linq;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.JournalMessages;
 using CodeMagic.Game.Objects.IceObjects;
 using CodeMagic.Game.Objects.SteamObjects;
@@ -10,6 +9,7 @@ using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Objects.LiquidObjects
 {
+    [Serializable]
     public class AcidLiquid : AbstractLiquid, IWorldImageProvider
     {
         private const string ImageSmall = "Acid_Small";
@@ -18,14 +18,18 @@ namespace CodeMagic.Game.Objects.LiquidObjects
         private const string CustomValueDamageToVolumeMultiplier = "DamageToVolumeMultiplier";
         public const string LiquidType = "AcidLiquid";
 
-        public AcidLiquid(SaveData data) : base(data)
+        public AcidLiquid(int volume)
+        {
+            Volume = volume;
+        }
+
+        public AcidLiquid()
         {
         }
 
-        public AcidLiquid(int volume) 
-            : base(volume, LiquidType, "Acid")
-        {
-        }
+        public override string Type => LiquidType;
+
+        public override string Name => "Acid";
 
         protected override IIce CreateIce(int volume)
         {
@@ -68,7 +72,7 @@ namespace CodeMagic.Game.Objects.LiquidObjects
             return double.Parse(stringValue);
         }
 
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
+        public ISymbolsImage GetWorldImage(IImagesStorage storage)
         {
             if (Volume >= Configuration.MaxVolumeBeforeSpread)
                 return storage.GetImage(ImageBig);

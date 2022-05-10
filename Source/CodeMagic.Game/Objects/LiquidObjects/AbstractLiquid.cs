@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Area.EnvironmentData;
 using CodeMagic.Game.Configuration;
 using CodeMagic.Game.Configuration.Liquids;
@@ -15,42 +13,37 @@ namespace CodeMagic.Game.Objects.LiquidObjects
 {
     public abstract class AbstractLiquid : MapObjectBase, ILiquid, IDynamicObject
     {
-        private const string SaveKeyVolume = "Volume";
-        private const string SaveKeyLiquidType = "LiquidType";
+        private ILiquidConfiguration _configuration;
+        private int _volume;
 
-        protected readonly ILiquidConfiguration Configuration;
-        private int volume;
-
-        protected AbstractLiquid(SaveData data) : base(data)
+        protected ILiquidConfiguration Configuration
         {
-            Type = data.GetStringValue(SaveKeyLiquidType);
-            Configuration = ConfigurationManager.GetLiquidConfiguration(Type);
-            volume = data.GetIntValue(SaveKeyVolume);
-        }
+            get
+            {
+                if (string.IsNullOrEmpty(Type))
+                {
+                    throw new InvalidOperationException("Liquid type not initialized");
+                }
 
-        protected AbstractLiquid(int volume, string type, string name)
-            : base(name)
-        {
-            Configuration = ConfigurationManager.GetLiquidConfiguration(type);
-            Type = type;
-            this.volume = volume;
-        }
-
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyVolume, volume);
-            data.Add(SaveKeyLiquidType, Type);
-            return data;
+                return _configuration ??= ConfigurationManager.GetLiquidConfiguration(Type);
+            }
         }
 
         public UpdateOrder UpdateOrder => UpdateOrder.Medium;
 
-        public string Type { get; }
+        public abstract string Type { get; }
 
         public override ZIndex ZIndex => ZIndex.FloorCover;
 
         public override ObjectSize Size => ObjectSize.Huge;
+
+        public bool Updated { get; set; }
+
+        public int Volume
+        {
+            get => _volume;
+            set => _volume = Math.Max(0, value);
+        }
 
         public void Update(Point position)
         {
@@ -112,23 +105,6 @@ namespace CodeMagic.Game.Objects.LiquidObjects
         }
 
         protected abstract IIce CreateIce(int volume);
-
-        public bool Updated { get; set; }
-
-        public int Volume
-        {
-            get => volume;
-            set
-            {
-                if (value < 0)
-                {
-                    volume = 0;
-                    return;
-                }
-
-                volume = value;
-            }
-        }
 
         public int MaxVolumeBeforeSpread => Configuration.MaxVolumeBeforeSpread;
 

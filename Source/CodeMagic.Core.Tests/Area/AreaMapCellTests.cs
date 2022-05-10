@@ -19,7 +19,7 @@ namespace CodeMagic.Core.Tests.Area
         public bool ContainsBigObjectsTest(bool isBigObject)
         {
             // Arrange
-            var cell = new AreaMapCell((IEnvironment)null);
+            var cell = new AreaMapCell();
             var objectMock = new Mock<IMapObject>();
             objectMock.SetupGet(obj => obj.BlocksMovement).Returns(isBigObject);
 
@@ -36,7 +36,7 @@ namespace CodeMagic.Core.Tests.Area
         public void UpdatesCorrectObjectsTest(UpdateOrder order)
         {
             // Arrange
-            var cell = new AreaMapCell((IEnvironment)null);
+            var cell = new AreaMapCell();
 
             var objects = new List<Mock<IDynamicObject>>();
             foreach (var updateOrder in Enum.GetValues(typeof(UpdateOrder)).Cast<UpdateOrder>())
@@ -70,7 +70,7 @@ namespace CodeMagic.Core.Tests.Area
         public void PostUpdateRemovesDeadDestroyableTest()
         {
             // Arrange
-            var cell = new AreaMapCell((IEnvironment)null);
+            var cell = new AreaMapCell();
 
             var statusesMock = new Mock<IObjectStatusesCollection>();
             var objectMock = new Mock<IDestroyableObject>();
@@ -94,7 +94,7 @@ namespace CodeMagic.Core.Tests.Area
         public void SpreadingTest()
         {
             // Arrange
-            var cell = new AreaMapCell((IEnvironment)null);
+            var cell = new AreaMapCell();
             var localSpreadingObjMock = new Mock<ISpreadingObject>();
             localSpreadingObjMock.SetupGet(obj => obj.MaxVolumeBeforeSpread).Returns(100);
             localSpreadingObjMock.SetupGet(obj => obj.Volume).Returns(120);
@@ -104,7 +104,7 @@ namespace CodeMagic.Core.Tests.Area
             localSpreadingObjMock.Setup(obj => obj.Separate(It.IsAny<int>())).Returns(localSeparatedObjMock.Object);
             cell.ObjectsCollection.Add(localSpreadingObjMock.Object);
 
-            var otherCell = new AreaMapCell((IEnvironment)null);
+            var otherCell = new AreaMapCell();
             var otherSpreadingObjMock = new Mock<ISpreadingObject>();
             otherSpreadingObjMock.SetupGet(obj => obj.MaxVolumeBeforeSpread).Returns(100);
             otherSpreadingObjMock.SetupGet(obj => obj.Volume).Returns(120);

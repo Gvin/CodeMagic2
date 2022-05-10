@@ -22,6 +22,13 @@ namespace CodeMagic.Game.MapGeneration.Dungeon
 
     public class DungeonMapGenerator : IDungeonMapGenerator
     {
+        public static IDungeonMapGenerator Current { get; private set; }
+
+        public static void Initialize(IDungeonMapGenerator instance)
+        {
+            Current = instance;
+        }
+
         private readonly ILogger<DungeonMapGenerator> _logger;
         private readonly Dictionary<MapType, IMapAreaGenerator> _generators;
 

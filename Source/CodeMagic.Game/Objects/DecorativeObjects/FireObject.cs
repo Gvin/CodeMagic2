@@ -7,8 +7,12 @@ using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Objects.DecorativeObjects;
 
+public interface IFireObject : IDynamicObject, ILightObject
+{
+}
+
 [Serializable]
-public class FireObject : MapObjectBase, IDynamicObject, ILightObject, IWorldImageProvider
+public class FireObject : MapObjectBase, IFireObject, IWorldImageProvider
 {
     private const LightLevel SmallFireLightLevel = LightLevel.Dusk2;
     private const LightLevel MediumFireLightLevel = LightLevel.Dim2;
@@ -21,6 +25,14 @@ public class FireObject : MapObjectBase, IDynamicObject, ILightObject, IWorldIma
     private const string ImageSmall = "Fire_Small";
     private const string ImageMedium = "Fire_Medium";
     private const string ImageBig = "Fire_Big";
+
+    public static FireObject Create(int temperature)
+    {
+        return new FireObject
+        {
+            Temperature = temperature
+        };
+    }
 
     private readonly SymbolsAnimationsManager _animations;
 

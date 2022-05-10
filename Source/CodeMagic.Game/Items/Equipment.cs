@@ -45,6 +45,8 @@ namespace CodeMagic.Game.Items
         void EquipItem(IEquipableItem item);
 
         void UnequipItem(IEquipableItem item);
+
+        bool IsEquiped(IEquipableItem item);
     }
 
     [Serializable]

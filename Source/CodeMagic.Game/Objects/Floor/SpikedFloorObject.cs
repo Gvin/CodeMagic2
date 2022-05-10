@@ -14,6 +14,11 @@ public class SpikedFloorObject : MapObjectBase, IStepReactionObject, IWorldImage
     private const int MinDamage = 2;
     private const int MaxDamage = 5;
 
+    public static SpikedFloorObject Create()
+    {
+        return new SpikedFloorObject();
+    }
+
     public override string Name => "Spikes";
 
     public ISymbolsImage GetWorldImage(IImagesStorage storage)

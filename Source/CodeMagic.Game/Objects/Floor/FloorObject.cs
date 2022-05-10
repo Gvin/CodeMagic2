@@ -8,6 +8,11 @@ namespace CodeMagic.Game.Objects.Floor;
 [Serializable]
 public class FloorObject : MapObjectBase, IWorldImageProvider
 {
+    public static FloorObject Create(Type floorType)
+    {
+        return new FloorObject { FloorType = floorType };
+    }
+
     public Type FloorType { get; set; }
 
     public override string Name => GetName(FloorType);

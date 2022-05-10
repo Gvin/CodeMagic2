@@ -18,6 +18,14 @@ public class CreatureRemains : MapObjectBase, IWorldImageProvider
     private const string ImageBonesWhiteSmall = "Remains_Bones_Small";
     private const string ImageBonesWhiteMedium = "Remains_Bones_Medium";
 
+    public static CreatureRemains Create(RemainsType remainsType)
+    {
+        return new CreatureRemains
+        {
+            RemainsType = remainsType
+        };
+    }
+
     public override string Name => GetName(RemainsType);
 
     public RemainsType RemainsType { get; set; }

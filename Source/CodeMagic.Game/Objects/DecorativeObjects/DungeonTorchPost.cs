@@ -8,6 +8,11 @@ namespace CodeMagic.Game.Objects.DecorativeObjects;
 [Serializable]
 public class DungeonTorchPost : MapObjectBase, ILightObject, IWorldImageProvider
 {
+    public DungeonTorchPost Create()
+    {
+        return new DungeonTorchPost();
+    }
+
     private const string AnimationName = "Decoratives_TorchPost";
 
     private readonly ISymbolsAnimationsManager _animationsManager;

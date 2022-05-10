@@ -26,7 +26,7 @@ namespace CodeMagic.UI.Presenters
 
         int SelectedSpellIndex { get; }
 
-        SpellBook SpellBook { set; }
+        ISpellBook SpellBook { set; }
 
         int? PlayerMana { set; }
 
@@ -61,6 +61,15 @@ namespace CodeMagic.UI.Presenters
             _view.LoadFromLibrary += View_LoadFromLibrary;
         }
 
+        private ISpellBook CurrentSpellBook
+        {
+            get
+            {
+                var spellBookId = _game.Player.Equipment.SpellBookId;
+                return _game.Player.Inventory.GetItemById<ISpellBook>(spellBookId);
+            }
+        }
+
         private void View_LoadFromLibrary(object sender, EventArgs e)
         {
             _controller.CreatePresenter<LoadSpellPresenter>().Run(((result, spell) =>
@@ -68,7 +77,7 @@ namespace CodeMagic.UI.Presenters
                 if (!result)
                     return;
 
-                _game.Player.Equipment.SpellBook.Spells[_view.SelectedSpellIndex] = spell;
+                CurrentSpellBook.Spells[_view.SelectedSpellIndex] = spell;
                 _view.RefreshSpells();
             }));
         }
@@ -83,7 +92,7 @@ namespace CodeMagic.UI.Presenters
                     return;
 
                 spell.Name = string.IsNullOrEmpty(spell.Name) ? DefaultSpellName : spell.Name;
-                _game.Player.Equipment.SpellBook.Spells[_view.SelectedSpellIndex] = spell;
+                CurrentSpellBook.Spells[_view.SelectedSpellIndex] = spell;
                 _view.RefreshSpells();
             }
 
@@ -146,7 +155,7 @@ namespace CodeMagic.UI.Presenters
             if (_view.SelectedSpell != null)
                 return;
 
-            _game.Player.Equipment.SpellBook.Spells[_view.SelectedSpellIndex] = null;
+            CurrentSpellBook.Spells[_view.SelectedSpellIndex] = null;
             _view.RefreshSpells();
         }
 
@@ -167,7 +176,7 @@ namespace CodeMagic.UI.Presenters
         {
             _game = currentGame;
             _view.PlayerMana = _game.Player.Mana;
-            _view.SpellBook = _game.Player.Equipment.SpellBook;
+            _view.SpellBook = CurrentSpellBook;
             _view.CanScribe = _game.Player.Inventory.Contains(BlankScroll.ItemKey);
 
             _view.Initialize();

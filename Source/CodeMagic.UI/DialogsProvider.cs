@@ -9,21 +9,21 @@ namespace CodeMagic.UI
 {
     public class DialogsProvider : IDialogsProvider
     {
-        private readonly IApplicationController controller;
+        private readonly IApplicationController _controller;
 
         public DialogsProvider(IApplicationController controller)
         {
-            this.controller = controller;
+            _controller = controller;
         }
 
-        public void OpenInventoryDialog(string inventoryName, Inventory inventory)
+        public void OpenInventoryDialog(string inventoryName, IInventory inventory)
         {
-            controller.CreatePresenter<CustomInventoryPresenter>().Run((GameCore<Player>)CurrentGame.Game, inventoryName, inventory);
+            _controller.CreatePresenter<CustomInventoryPresenter>().Run((GameCore<Player>)CurrentGame.Game, inventoryName, inventory);
         }
 
         public void OpenWaitDialog(string message, Action waitAction)
         {
-            controller.CreatePresenter<WaitMessagePresenter>().Run(message, waitAction);
+            _controller.CreatePresenter<WaitMessagePresenter>().Run(message, waitAction);
         }
     }
 }

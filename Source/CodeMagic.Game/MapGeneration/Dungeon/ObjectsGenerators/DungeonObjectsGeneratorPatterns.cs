@@ -249,7 +249,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
         {
             var pattern = new ObjectsPattern(3, 3, 0.01);
 
-            pattern.Add(1, 1, _ => new SpikedFloorObject());
+            pattern.Add(1, 1, _ => SpikedFloorObject.Create());
             pattern.AddRequirement(1, 1, RequirementIsEmpty);
 
             pattern.AddRequirement(0, 0, RequirementNotBlocking);

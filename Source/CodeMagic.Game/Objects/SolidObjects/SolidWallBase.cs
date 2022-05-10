@@ -1,18 +1,9 @@
-﻿using CodeMagic.Core.Saving;
-using CodeMagic.UI.Images;
+﻿using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Objects.SolidObjects
 {
     public abstract class SolidWallBase : WallBase, IWorldImageProvider
     {
-        protected SolidWallBase(SaveData data) : base(data)
-        {
-        }
-
-        protected SolidWallBase(string name) : base(name)
-        {
-        }
-
         protected abstract string ImageNormal { get; }
 
         protected abstract string ImageBottom { get; }
@@ -23,7 +14,7 @@ namespace CodeMagic.Game.Objects.SolidObjects
 
         protected abstract string ImageCorner { get; }
 
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
+        public ISymbolsImage GetWorldImage(IImagesStorage storage)
         {
             if (!HasConnectedTile(0, 1) && !HasConnectedTile(1, 0))
             {

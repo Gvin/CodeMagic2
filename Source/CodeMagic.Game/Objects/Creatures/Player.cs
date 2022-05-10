@@ -217,7 +217,7 @@ namespace CodeMagic.Game.Objects.Creatures
 
         protected override IMapObject GenerateDamageMark()
         {
-            return new CreatureRemains(RemainsType.BloodRedSmall);
+            return CreatureRemains.Create(RemainsType.BloodRedSmall);
         }
 
         public override bool BlocksMovement => true;

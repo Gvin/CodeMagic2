@@ -88,9 +88,9 @@ namespace CodeMagic.Game.Area.EnvironmentData
 
             Normalize();
 
-            if (Temperature.Value >= FireObject.SmallFireTemperature && !cell.Objects.OfType<FireObject>().Any())
+            if (Temperature.Value >= FireObject.SmallFireTemperature && !cell.Objects.OfType<IFireObject>().Any())
             {
-                CurrentGame.Map.AddObject(position, new FireObject{Temperature = Temperature.Value});
+                CurrentGame.Map.AddObject(position, FireObject.Create(Temperature.Value));
             }
         }
 

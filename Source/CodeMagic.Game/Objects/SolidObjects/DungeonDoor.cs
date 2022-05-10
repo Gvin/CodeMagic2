@@ -1,9 +1,10 @@
-﻿using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
+﻿using System;
+using CodeMagic.Core.Objects;
 using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Objects.SolidObjects
 {
+    [Serializable]
     public class DungeonDoor : DoorBase, IWorldImageProvider
     {
         private const string ImageOpenedHorizontal = "Door_Dungeon_Opened_Horizontal";
@@ -11,20 +12,14 @@ namespace CodeMagic.Game.Objects.SolidObjects
         private const string ImageClosedVertical = "Door_Dungeon_Closed_Vertical";
         private const string ImageClosedHorizontal = "Door_Dungeon_Closed_Horizontal";
 
-        public DungeonDoor(SaveData data) : base(data)
-        {
-        }
-
-        public DungeonDoor() : base("Door")
-        {
-        }
+        public override string Name => "Door";
 
         public override bool CanConnectTo(IMapObject mapObject)
         {
-            return mapObject is DungeonWall || mapObject is DungeonTorchWall || mapObject is DungeonDoor;
+            return mapObject is DungeonWall or DungeonTorchWall or DungeonDoor;
         }
 
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
+        public ISymbolsImage GetWorldImage(IImagesStorage storage)
         {
             if (Closed)
             {

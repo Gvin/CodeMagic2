@@ -13,11 +13,11 @@ namespace CodeMagic.Game.PlayerActions
     public class MeleeAttackPlayerAction : PlayerActionBase
     {
         private const int StaminaToAttack = 10;
-        private readonly bool useRightHand;
+        private readonly bool _useRightHand;
 
         public MeleeAttackPlayerAction(bool useRightHand)
         {
-            this.useRightHand = useRightHand;
+            _useRightHand = useRightHand;
         }
 
         protected override int RestoresStamina => 0;
@@ -57,8 +57,10 @@ namespace CodeMagic.Game.PlayerActions
 
             game.Player.Stamina -= StaminaToAttack;
 
-            var holdableItem = useRightHand ? game.Player.Equipment.RightHandItemId : game.Player.Equipment.LeftHandItemId;
-            if (!(holdableItem is IWeaponItem weapon))
+            var holdableItemId = _useRightHand ? game.Player.Equipment.RightHandItemId : game.Player.Equipment.LeftHandItemId;
+            var holdableItem = game.Player.Inventory.GetItemById(holdableItemId);
+
+            if (holdableItem is not IWeaponItem weapon)
             {
                 game.Journal.Write(new CantAttackWithItemMessage(holdableItem));
                 return false;
