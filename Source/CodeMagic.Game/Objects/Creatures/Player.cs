@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using CodeMagic.Core.Common;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
-using CodeMagic.Core.Logging;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
+using CodeMagic.Core.Objects.Creatures;
 using CodeMagic.Game.Area.EnvironmentData;
 using CodeMagic.Game.Configuration;
 using CodeMagic.Game.Items;
@@ -15,24 +15,15 @@ using CodeMagic.Game.JournalMessages;
 using CodeMagic.Game.Objects.DecorativeObjects;
 using CodeMagic.Game.Statuses;
 using CodeMagic.UI.Images;
+using Microsoft.Extensions.Logging;
 using Point = CodeMagic.Core.Game.Point;
 
 namespace CodeMagic.Game.Objects.Creatures
 {
+    [Serializable]
     public class Player : CreatureObject, IPlayer, ILightObject, IWorldImageProvider
     {
-        private static readonly ILog Log = LogManager.GetLog<Player>();
-
-        private const string SaveKeyInventory = "Inventory";
-        private const string SaveKeyEquipment = "Equipment";
-        private const string SaveKeyStats = "Stats";
-        private const string SaveKeyMana = "Mana";
-        private const string SaveKeyStamina = "Stamina";
-        private const string SaveKeyHunger = "Hunger";
-        private const string SaveKeyExperience = "Experience";
-        private const string SaveKeyLevel = "Level";
-        private const string SaveKeyKnownPotions = "KnownPotions";
-        private const string SaveKeyRegeneration = "Regeneration";
+        private readonly ILogger<Player> _logger = StaticLoggerFactory.CreateLogger<Player>();
 
         private const string ImageUp = "Creature_Up";
         private const string ImageDown = "Creature_Down";
@@ -61,83 +52,108 @@ namespace CodeMagic.Game.Objects.Creatures
         private const double HungerBlocksRegeneration = 30d;
         private const double HungerBlocksManaRestore = 70d;
 
-        private int mana;
-        private int stamina;
-        private double regeneration;
-        private double hungerPercent;
-        private readonly Dictionary<PlayerStats, int> stats;
-
         public event EventHandler Died;
         public event EventHandler LeveledUp;
 
-        public Player(SaveData data) : base(data)
-        {
-            Inventory = data.GetObject<Inventory>(SaveKeyInventory);
-            Inventory.ItemRemoved += Inventory_ItemRemoved;
-
-            var equipmentData = data.Objects[SaveKeyEquipment];
-            Equipment = new Equipment(equipmentData, Inventory);
-
-            stats = data.GetObject<DictionarySaveable>(SaveKeyStats).Data.ToDictionary(
-                pair => (PlayerStats) int.Parse((string)pair.Key),
-                pair => int.Parse((string) pair.Value));
-
-            Mana = data.GetIntValue(SaveKeyMana);
-            Stamina = data.GetIntValue(SaveKeyStamina);
-
-            hungerPercent = double.Parse(data.GetStringValue(SaveKeyHunger));
-            regeneration = double.Parse(data.GetStringValue(SaveKeyRegeneration));
-            Experience = data.GetIntValue(SaveKeyExperience);
-            Level = data.GetIntValue(SaveKeyLevel);
-
-            KnownPotions = data.GetValuesCollection(SaveKeyKnownPotions).Select(value => (PotionType) int.Parse(value))
-                .ToList();
-        }
-
-        public Player() : base("Player", GetMaxHealth(DefaultStatValue))
+        public Player()
         {
             Equipment = new Equipment();
-
             Inventory = new Inventory();
-            Inventory.ItemRemoved += Inventory_ItemRemoved;
-
             KnownPotions = new List<PotionType>();
+            Stats = new Dictionary<PlayerStats, int>();
+        }
 
-            stats = new Dictionary<PlayerStats, int>();
-            foreach (var playerStat in Enum.GetValues(typeof(PlayerStats)).Cast<PlayerStats>())
-            {
-                stats.Add(playerStat, DefaultStatValue);
-            }
+        public int ManaValue { get; set; }
 
+        public int StaminaValue { get; set; }
+
+        public double RegenerationValue { get; set; }
+
+        public double HungerPercentValue { get; set; }
+
+        public Dictionary<PlayerStats, int> Stats { get; set; }
+
+        public override string Name => "Player";
+
+        public IEquipment Equipment { get; set; }
+
+        public IInventory Inventory { get; set; }
+
+        public List<PotionType> KnownPotions { get; set; }
+
+        public int Experience { get; set; }
+
+        public int Level { get; set; }
+
+        [IgnoreDataMember]
+        public int HungerPercent
+        {
+            get => (int)Math.Floor(HungerPercentValue);
+            set => HungerPercentValue = Math.Max(0d, Math.Min(100d, value));
+        }
+
+        public int MaxCarryWeight => 23000 + 2000 * GetStat(PlayerStats.Strength);
+
+        public override int MaxVisibilityRange => 4;
+
+        public override int DodgeChance =>
+            Math.Min(MaxDodgeChance, 1 * (GetStat(PlayerStats.Agility) - DefaultStatValue));
+
+        public int DamageBonus => 2 * (GetStat(PlayerStats.Strength) - DefaultStatValue);
+
+        public int AccuracyBonus => 1 * (GetStat(PlayerStats.Agility) - DefaultStatValue) + Equipment.GetHitChanceBonus(Inventory);
+
+        public int ScrollReadingBonus => 2 * (GetStat(PlayerStats.Wisdom) - DefaultStatValue);
+
+        public override bool BlocksMovement => true;
+
+        public int ManaRegeneration => 2 + GetStat(PlayerStats.Wisdom) + Equipment.GetBonus(EquipableBonusType.ManaRegeneration, Inventory);
+
+        [IgnoreDataMember]
+        public override int MaxHealth
+        {
+            get => GetMaxHealth(GetStat(PlayerStats.Endurance)) +
+                   Equipment.GetBonus(EquipableBonusType.Health, Inventory);
+            set {}
+        }
+
+        [IgnoreDataMember]
+        public int Stamina
+        {
+            get => StaminaValue;
+            set => StaminaValue = Math.Max(0, Math.Min(MaxStamina, value));
+        }
+
+        public int MaxStamina =>
+            80 + 20 * GetStat(PlayerStats.Endurance) + Equipment.GetBonus(EquipableBonusType.Stamina, Inventory);
+
+        [IgnoreDataMember]
+        public int Mana
+        {
+            get => ManaValue;
+            set => ManaValue = Math.Max(0, Math.Min(MaxMana, value));
+        }
+
+        public int MaxMana => 80 + 20 * GetStat(PlayerStats.Intelligence) + Equipment.GetBonus(EquipableBonusType.Mana, Inventory);
+
+        public void Initialize()
+        {
+            Health = MaxHealth;
             Mana = MaxMana;
             Stamina = MaxStamina;
-            hungerPercent = 0d;
-            regeneration = 0d;
+
+            HungerPercentValue = 0d;
+            RegenerationValue = 0d;
             Experience = 0;
             Level = 1;
+
+            Inventory.ItemRemoved += Inventory_ItemRemoved;
+
+            foreach (var playerStat in Enum.GetValues(typeof(PlayerStats)).Cast<PlayerStats>())
+            {
+                Stats.Add(playerStat, DefaultStatValue);
+            }
         }
-
-        protected override Dictionary<string, object> GetSaveDataContent()
-        {
-            var data = base.GetSaveDataContent();
-            data.Add(SaveKeyEquipment, Equipment);
-            data.Add(SaveKeyInventory, Inventory);
-            data.Add(SaveKeyStats, new DictionarySaveable(stats.ToDictionary(pair => (object)(int)pair.Key, pair => (object)pair.Value)));
-            data.Add(SaveKeyMana, Mana);
-            data.Add(SaveKeyStamina, Stamina);
-            data.Add(SaveKeyHunger, hungerPercent);
-            data.Add(SaveKeyRegeneration, regeneration);
-            data.Add(SaveKeyExperience, Experience);
-            data.Add(SaveKeyLevel, Level);
-            data.Add(SaveKeyKnownPotions, KnownPotions.Select(type => (int)type).ToArray());
-            return data;
-        }
-
-        public List<PotionType> KnownPotions { get; }
-
-        public int Experience { get; private set; }
-
-        public int Level { get; private set; }
 
         public void AddExperience(int exp)
         {
@@ -147,7 +163,7 @@ namespace CodeMagic.Game.Objects.Creatures
             var xpToLevelUp = GetXpToLevelUp();
             if (Experience >= xpToLevelUp)
             {
-                Log.Debug($"Leveled Up. EXP: {Experience}, EXP to LVL: {GetXpToLevelUp()}");
+                _logger.LogDebug("Leveled Up. EXP: {Experience}, EXP to LVL: {ExperienceToLevelUp}", Experience, GetXpToLevelUp());
                 Level++;
                 Experience -= xpToLevelUp;
                 CurrentGame.Journal.Write(new LevelUpMessage(Level));
@@ -155,9 +171,22 @@ namespace CodeMagic.Game.Objects.Creatures
             }
         }
 
+        public bool IsKnownPotion(PotionType type)
+        {
+            return KnownPotions.Contains(type);
+        }
+
+        public void MarkPotionKnown(PotionType type)
+        {
+            if (!KnownPotions.Contains(type))
+            {
+                KnownPotions.Add(type);
+            }
+        }
+
         public void IncreaseStat(PlayerStats stat)
         {
-            stats[stat]++;
+            Stats[stat]++;
         }
 
         public int GetXpToLevelUp()
@@ -173,17 +202,17 @@ namespace CodeMagic.Game.Objects.Creatures
 
         private int GetStat(PlayerStats stat)
         {
-            return GetPureStat(stat) + Equipment.GetStatsBonus(stat);
+            return GetPureStat(stat) + Equipment.GetStatsBonus(stat, Inventory);
         }
 
         public int GetPureStat(PlayerStats stat)
         {
-            return stats[stat];
+            return Stats[stat];
         }
 
         private void Inventory_ItemRemoved(object sender, ItemEventArgs e)
         {
-            if (!(e.Item is IEquipableItem equipable))
+            if (e.Item is not IEquipableItem equipable)
                 return;
 
             if (Equipment.IsEquiped(equipable))
@@ -192,56 +221,10 @@ namespace CodeMagic.Game.Objects.Creatures
             }
         }
 
-        public int HungerPercent
-        {
-            get => (int)Math.Floor(hungerPercent);
-            set => hungerPercent = Math.Max(0d, Math.Min(100d, value));
-        }
-
-        public int MaxCarryWeight => 23000 + 2000 * GetStat(PlayerStats.Strength);
-
-        public IEquipment Equipment { get; }
-
-        public IInventory Inventory { get; }
-
-        public override int MaxVisibilityRange => 4;
-
-        public override int DodgeChance =>
-            Math.Min(MaxDodgeChance, 1 * (GetStat(PlayerStats.Agility) - DefaultStatValue));
-
-        public int DamageBonus => 2 * (GetStat(PlayerStats.Strength) - DefaultStatValue);
-
-        public int AccuracyBonus => 1 * (GetStat(PlayerStats.Agility) - DefaultStatValue) + Equipment.HitChanceBonus;
-
-        public int ScrollReadingBonus => 2 * (GetStat(PlayerStats.Wisdom) - DefaultStatValue);
-
         protected override IMapObject GenerateDamageMark()
         {
             return CreatureRemains.Create(RemainsType.BloodRedSmall);
         }
-
-        public override bool BlocksMovement => true;
-
-        public int ManaRegeneration => 2 + GetStat(PlayerStats.Wisdom) + Equipment.GetBonus(EquipableBonusType.ManaRegeneration);
-
-        public override int MaxHealth => GetMaxHealth(GetStat(PlayerStats.Endurance)) + Equipment.GetBonus(EquipableBonusType.Health);
-
-        public int Stamina
-        {
-            get => stamina;
-            set => stamina = Math.Max(0, Math.Min(MaxStamina, value));
-        }
-
-        public int MaxStamina =>
-            80 + 20 * GetStat(PlayerStats.Endurance) + Equipment.GetBonus(EquipableBonusType.Stamina);
-
-        public int Mana
-        {
-            get => mana;
-            set => mana = Math.Max(0, Math.Min(MaxMana, value));
-        }
-
-        public int MaxMana => 80 + 20 * GetStat(PlayerStats.Intelligence) + Equipment.GetBonus(EquipableBonusType.Mana);
 
         protected override int TryBlockMeleeDamage(Direction damageDirection, int damage, Element element)
         {
@@ -250,7 +233,7 @@ namespace CodeMagic.Game.Objects.Creatures
 
             var remainingDamage = damage;
 
-            var shields = Equipment.GetEquippedItems().OfType<ShieldItem>().ToArray();
+            var shields = Equipment.GetEquippedItems(Inventory).OfType<IShieldItem>().ToArray();
             foreach (var shield in shields)
             {
                 if (!RandomHelper.CheckChance(shield.ProtectChance)) 
@@ -279,7 +262,7 @@ namespace CodeMagic.Game.Objects.Creatures
             base.ApplyRealDamage(damage, element, position);
 
             var targetArmorType = RandomHelper.GetRandomEnumValue<ArmorType>();
-            if (Equipment.Armor[targetArmorType] is DurableItem targetArmor)
+            if (Equipment.GetEquipedArmor(targetArmorType, Inventory) is IDurableItem targetArmor)
             {
                 targetArmor.Durability--;
             }
@@ -299,28 +282,28 @@ namespace CodeMagic.Game.Objects.Creatures
 
         private void RegenerateHealth()
         {
-            if (hungerPercent >= HungerBlocksRegeneration)
+            if (HungerPercentValue >= HungerBlocksRegeneration)
             {
-                regeneration = 0;
+                RegenerationValue = 0;
                 return;
             }
 
-            regeneration += RegenerationIncrement;
-            if (regeneration >= 1d)
+            RegenerationValue += RegenerationIncrement;
+            if (RegenerationValue >= 1d)
             {
-                regeneration -= 1d;
+                RegenerationValue -= 1d;
                 Health += 1;
             }
 
             if (Health == MaxHealth)
             {
-                regeneration = 0;
+                RegenerationValue = 0;
             }
         }
 
         private void RegenerateMana(Point position)
         {
-            if (hungerPercent >= HungerBlocksManaRestore)
+            if (HungerPercentValue >= HungerBlocksManaRestore)
                 return;
 
             var manaRegeneration = ManaRegeneration;
@@ -340,8 +323,8 @@ namespace CodeMagic.Game.Objects.Creatures
 
         private void IncrementHunger()
         {
-            hungerPercent = Math.Min(100d, hungerPercent + HungerIncrement);
-            if (hungerPercent >= 100d)
+            HungerPercentValue = Math.Min(100d, HungerPercentValue + HungerIncrement);
+            if (HungerPercentValue >= 100d)
             {
                 Statuses.Add(new HungryObjectStatus());
             }
@@ -358,7 +341,7 @@ namespace CodeMagic.Game.Objects.Creatures
 
         public override void OnDeath(Point position)
         {
-            Log.Debug("Player is dead");
+            _logger.LogDebug("Player is dead");
 
             base.OnDeath(position);
 
@@ -369,13 +352,13 @@ namespace CodeMagic.Game.Objects.Creatures
 
         public override int GetProtection(Element element)
         {
-            var value = base.GetProtection(element) + Equipment.GetProtection(element);
+            var value = base.GetProtection(element) + Equipment.GetProtection(element, Inventory);
             return Math.Min(MaxProtection, value);
         }
 
-        public ILightSource[] LightSources => Equipment.GetLightSources();
+        public ILightSource[] LightSources => Equipment.GetLightSources(Inventory);
 
-        public SymbolsImage GetWorldImage(IImagesStorage storage)
+        public ISymbolsImage GetWorldImage(IImagesStorage storage)
         {
             var body = GetBodyImage(storage);
 
@@ -387,7 +370,7 @@ namespace CodeMagic.Game.Objects.Creatures
             return SymbolsImage.Combine(body, directionImage);
         }
 
-        private SymbolsImage GetDirectionImage(IImagesStorage storage)
+        private ISymbolsImage GetDirectionImage(IImagesStorage storage)
         {
             var facingPosition = Point.GetPointInDirection(CurrentGame.PlayerPosition, Direction);
             var facingUsable = (CurrentGame.Map.TryGetCell(facingPosition)?.Objects.OfType<IUsableObject>())?.Any(usable => usable.CanUse) ?? false;
@@ -407,11 +390,11 @@ namespace CodeMagic.Game.Objects.Creatures
             }
         }
 
-        private SymbolsImage GetEquipmentImage(IImagesStorage storage, int width, int height)
+        private ISymbolsImage GetEquipmentImage(IImagesStorage storage, int width, int height)
         {
-            var result = new SymbolsImage(width, height);
+            ISymbolsImage result = new SymbolsImage(width, height);
 
-            var equippedImages = Equipment.GetEquippedItems()
+            var equippedImages = Equipment.GetEquippedItems(Inventory)
                 .OfType<IEquippedImageProvider>()
                 .OrderBy(item => item.EquippedImageOrder)
                 .Select(item => item.GetEquippedImage(this, storage))
@@ -425,7 +408,7 @@ namespace CodeMagic.Game.Objects.Creatures
             return result;
         }
 
-        private SymbolsImage GetBodyImage(IImagesStorage storage)
+        private ISymbolsImage GetBodyImage(IImagesStorage storage)
         {
             var body = storage.GetImage(ImageBody);
 

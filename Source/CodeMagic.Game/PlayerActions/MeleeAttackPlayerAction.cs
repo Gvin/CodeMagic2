@@ -22,7 +22,7 @@ namespace CodeMagic.Game.PlayerActions
 
         protected override int RestoresStamina => 0;
 
-        protected override bool Perform(GameCore<Player> game, out Point newPosition)
+        protected override bool Perform(IGameCore game, out Point newPosition)
         {
             newPosition = game.PlayerPosition;
 
@@ -94,7 +94,7 @@ namespace CodeMagic.Game.PlayerActions
             return true;
         }
 
-        private Dictionary<Element, int> GenerateDamage(Player player, IWeaponItem weapon)
+        private Dictionary<Element, int> GenerateDamage(IPlayer player, IWeaponItem weapon)
         {
             var weaponDamage = weapon.GenerateDamage();
 

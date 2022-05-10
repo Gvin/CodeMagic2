@@ -9,7 +9,7 @@ namespace CodeMagic.Game.PlayerActions
     {
         protected override int RestoresStamina => 10;
 
-        protected override bool Perform(GameCore<Player> game, out Point newPosition)
+        protected override bool Perform(IGameCore game, out Point newPosition)
         {
             var playerLookPosition = Point.GetPointInDirection(game.PlayerPosition, game.Player.Direction);
 

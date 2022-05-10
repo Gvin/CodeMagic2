@@ -44,7 +44,7 @@ namespace CodeMagic.UI.Presenters
         private readonly ISpellBookView _view;
         private readonly IApplicationController _controller;
         private readonly ISpellsLibraryService _spellsLibraryService;
-        private GameCore<Player> _game;
+        private IGameCore _game;
 
         public SpellBookPresenter(ISpellBookView view, IApplicationController controller, ISpellsLibraryService spellsLibraryService)
         {
@@ -172,7 +172,7 @@ namespace CodeMagic.UI.Presenters
             _view.Close();
         }
 
-        public void Run(GameCore<Player> currentGame)
+        public void Run(IGameCore currentGame)
         {
             _game = currentGame;
             _view.PlayerMana = _game.Player.Mana;

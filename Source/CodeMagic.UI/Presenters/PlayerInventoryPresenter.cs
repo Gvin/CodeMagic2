@@ -2,9 +2,9 @@
 using System.Linq;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
+using CodeMagic.Core.Objects;
 using CodeMagic.Game.Items;
 using CodeMagic.Game.Items.Usable;
-using CodeMagic.Game.Objects.Creatures;
 using CodeMagic.Game.PlayerActions;
 using CodeMagic.UI.Services;
 
@@ -22,7 +22,7 @@ namespace CodeMagic.UI.Presenters
         event EventHandler TakeOffItem;
         event EventHandler CheckScroll;
 
-        Player Player { set; }
+        IPlayer Player { set; }
 
         IInventoryStack[] Stacks { set; }
 
@@ -35,7 +35,7 @@ namespace CodeMagic.UI.Presenters
     {
         private readonly IPlayerInventoryView _view;
         private readonly IEditSpellService _editSpellService;
-        private GameCore<Player> _game;
+        private IGameCore _game;
 
         public PlayerInventoryPresenter(IPlayerInventoryView view, IEditSpellService editSpellService)
         {
@@ -144,7 +144,7 @@ namespace CodeMagic.UI.Presenters
             _view.Close();
         }
 
-        public void Run(GameCore<Player> currentGame)
+        public void Run(IGameCore currentGame)
         {
             _game = currentGame;
             _view.Player = _game.Player;
@@ -154,9 +154,9 @@ namespace CodeMagic.UI.Presenters
             _view.Show();
         }
 
-        private static bool GetIfEquipped(Player player, IInventoryStack stack)
+        private static bool GetIfEquipped(IPlayer player, IInventoryStack stack)
         {
-            if (!(stack.TopItem is IEquipableItem equipable))
+            if (stack.TopItem is not IEquipableItem equipable)
                 return false;
 
             return player.Equipment.IsEquiped(equipable);

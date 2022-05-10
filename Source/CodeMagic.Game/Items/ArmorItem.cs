@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CodeMagic.Core.Game;
+using CodeMagic.Core.Items;
 using CodeMagic.Game.Objects.Creatures;
 using CodeMagic.UI.Images;
 
@@ -104,12 +105,5 @@ namespace CodeMagic.Game.Items
         {
             return EquippedImage;
         }
-    }
-
-    public enum ArmorType
-    {
-        Helmet = 0,
-        Chest = 1,
-        Leggings = 2
     }
 }

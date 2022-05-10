@@ -27,7 +27,7 @@ public class ContainerObject : FurnitureObject, IUsableObject, IDynamicObject
 
     public bool CanUse => true;
 
-    public void Use(GameCore<Player> game, Point position)
+    public void Use(IGameCore game, Point position)
     {
         game.Journal.Write(new ContainerOpenMessage(Name));
         DialogsManager.Provider.OpenInventoryDialog(Name, Inventory);

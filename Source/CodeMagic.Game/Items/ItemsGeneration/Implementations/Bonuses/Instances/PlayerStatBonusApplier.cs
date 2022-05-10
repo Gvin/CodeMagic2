@@ -1,6 +1,7 @@
 ﻿using System;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
+using CodeMagic.Core.Objects.Creatures;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration.Bonuses;
 using CodeMagic.Game.Objects.Creatures;
 

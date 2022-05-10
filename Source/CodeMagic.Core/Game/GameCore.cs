@@ -44,11 +44,10 @@ namespace CodeMagic.Core.Game
 
         public static Point PlayerPosition => Game?.PlayerPosition;
 
-        public static void Initialize<TPlayer>(IAreaMap map, TPlayer player, Point playerPosition, ILoggerFactory loggerFactory)
-            where TPlayer : class, IPlayer
+        public static void Initialize(IAreaMap map, IPlayer player, Point playerPosition, ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<CurrentGame>();
-            Game = new GameCore<TPlayer>(map, player, playerPosition, loggerFactory.CreateLogger<GameCore<TPlayer>>());
+            Game = new GameCore(map, player, playerPosition, loggerFactory.CreateLogger<GameCore>());
         }
 
         public static void Load(IGameCore loadedGame)
@@ -57,9 +56,9 @@ namespace CodeMagic.Core.Game
         }
     }
 
-    public class GameCore<TPlayer> : IGameCore, ITurnProvider where TPlayer : class, IPlayer
+    public class GameCore : IGameCore, ITurnProvider
     {
-        private readonly ILogger<GameCore<TPlayer>> _logger;
+        private readonly ILogger<GameCore> _logger;
 
         private const string SaveKeyMap = "Map";
         private const string SaveKeyPlayer = "Player";
@@ -69,18 +68,18 @@ namespace CodeMagic.Core.Game
 
         private AreaMapFragment _cachedVisibleArea;
 
-        public GameCore(SaveData dataBuilder, ILogger<GameCore<TPlayer>> logger)
+        public GameCore(SaveData dataBuilder, ILogger<GameCore> logger)
         {
             _logger = logger;
             Map = dataBuilder.GetObject<AreaMap>(SaveKeyMap);
             PlayerPosition = dataBuilder.GetObject<Point>(SaveKeyPlayerPosition);
-            Player = Map.GetCell(PlayerPosition).Objects.OfType<TPlayer>().Single();
+            Player = Map.GetCell(PlayerPosition).Objects.OfType<IPlayer>().Single();
             Journal = new Journal();
             CurrentTurn = dataBuilder.GetIntValue(SaveKeyCurrentTurn);
             _cachedVisibleArea = null;
         }
 
-        public GameCore(IAreaMap map, TPlayer player, Point playerPosition, ILogger<GameCore<TPlayer>> logger)
+        public GameCore(IAreaMap map, IPlayer player, Point playerPosition, ILogger<GameCore> logger)
         {
             _logger = logger;
             Map = map;
@@ -103,9 +102,7 @@ namespace CodeMagic.Core.Game
 
         public IAreaMap Map { get; private set; }
 
-        public TPlayer Player { get; }
-
-        IPlayer IGameCore.Player => Player;
+        public IPlayer Player { get; }
 
         public Journal Journal { get; }
 

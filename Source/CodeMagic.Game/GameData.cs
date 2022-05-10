@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeMagic.Core.Game;
+using CodeMagic.Core.Items;
 using CodeMagic.Game.Items.Usable.Potions;
 
 namespace CodeMagic.Game

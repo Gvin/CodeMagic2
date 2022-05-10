@@ -1,7 +1,6 @@
 ﻿using CodeMagic.Core.Game;
 using CodeMagic.Game;
 using CodeMagic.Game.GameProcess;
-using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.UI.Blazor.Services
 {
@@ -12,7 +11,7 @@ namespace CodeMagic.UI.Blazor.Services
 			throw new NotImplementedException();
 		}
 
-		public (GameCore<Player>?, GameData?) LoadGame()
+		public (IGameCore?, IGameData?) LoadGame()
 		{
 			return (null, null);
 		}

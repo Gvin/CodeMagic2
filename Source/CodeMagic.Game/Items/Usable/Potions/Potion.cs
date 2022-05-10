@@ -20,13 +20,13 @@ public sealed class Potion : Item, IUsableItem, IWorldImageProvider, IInventoryI
 
     public override string Name => PotionData.GetName(PotionColor);
 
-    public bool Use(GameCore<Player> game)
+    public bool Use(IGameCore game)
     {
         PotionData.Use(game);
 
-        if (!game.Player.KnownPotions.Contains(PotionType))
+        if (!game.Player.IsKnownPotion(PotionType))
         {
-            game.Player.KnownPotions.Add(PotionType);
+            game.Player.MarkPotionKnown(PotionType);
         }
 
         return false;
@@ -149,16 +149,4 @@ public enum PotionColor
     Yellow,
     White,
     Gray
-}
-
-public enum PotionType
-{
-    Health,
-    Mana,
-    Restoration,
-    Stamina,
-    Paralyze,
-    Freeze,
-    Hunger,
-    Blind
 }

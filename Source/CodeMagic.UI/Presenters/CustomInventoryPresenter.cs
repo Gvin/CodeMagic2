@@ -2,7 +2,7 @@
 using System.Linq;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
-using CodeMagic.Game.Objects.Creatures;
+using CodeMagic.Core.Objects;
 using CodeMagic.Game.PlayerActions;
 
 namespace CodeMagic.UI.Presenters
@@ -20,7 +20,7 @@ namespace CodeMagic.UI.Presenters
 
         IInventoryStack[] Stacks { set; }
 
-        Player Player { set; }
+        IPlayer Player { set; }
 
         void Initialize();
 
@@ -30,7 +30,7 @@ namespace CodeMagic.UI.Presenters
     public class CustomInventoryPresenter : IPresenter
     {
         private readonly ICustomInventoryView _view;
-        private GameCore<Player> _game;
+        private IGameCore _game;
         private IInventory _inventory;
         private bool _actionPerformed;
 
@@ -119,7 +119,7 @@ namespace CodeMagic.UI.Presenters
             CloseView();
         }
 
-        public void Run(GameCore<Player> currentGame, string inventoryName, IInventory customInventory)
+        public void Run(IGameCore currentGame, string inventoryName, IInventory customInventory)
         {
             _game = currentGame;
             _inventory = customInventory;

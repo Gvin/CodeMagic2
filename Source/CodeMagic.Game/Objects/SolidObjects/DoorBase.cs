@@ -24,7 +24,7 @@ namespace CodeMagic.Game.Objects.SolidObjects
 
         public bool CanUse => Closed;
 
-        public void Use(GameCore<Player> game, Point position)
+        public void Use(IGameCore game, Point position)
         {
             if (!Closed)
                 return;

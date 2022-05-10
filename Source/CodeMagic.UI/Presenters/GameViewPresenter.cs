@@ -2,6 +2,7 @@
 using System.Linq;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
+using CodeMagic.Core.Objects;
 using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.UI.Presenters
@@ -18,7 +19,7 @@ namespace CodeMagic.UI.Presenters
         bool SpellBookEnabled { set; }
         bool OpenGroundEnabled { set; }
 
-        GameCore<Player> Game { set; }
+        IGameCore Game { set; }
 
         void Initialize();
     }
@@ -27,7 +28,7 @@ namespace CodeMagic.UI.Presenters
     {
         private readonly IGameView view;
         private readonly IApplicationController controller;
-        private GameCore<Player> game;
+        private IGameCore game;
 
         public GameViewPresenter(
             IGameView view, 
@@ -117,7 +118,7 @@ namespace CodeMagic.UI.Presenters
             controller.CreatePresenter<PlayerDeathPresenter>().Run();
         }
 
-        public void Run(GameCore<Player> currentGame)
+        public void Run(IGameCore currentGame)
         {
             game = currentGame;
             view.Game = game;

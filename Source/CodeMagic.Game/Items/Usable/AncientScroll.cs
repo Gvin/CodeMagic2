@@ -1,5 +1,6 @@
 ﻿using System;
 using CodeMagic.Core.Game;
+using CodeMagic.Core.Objects;
 using CodeMagic.Game.Area.EnvironmentData;
 using CodeMagic.Game.JournalMessages;
 using CodeMagic.Game.Objects.Creatures;
@@ -21,7 +22,7 @@ public class AncientScroll : ScrollBase
 
     public string DamagedCode { get; set; }
 
-    public override bool Use(GameCore<Player> game)
+    public override bool Use(IGameCore game)
     {
         var chanceToRead = GetChanceToRead(game.Player);
         if (RandomHelper.CheckChance(chanceToRead))
@@ -35,7 +36,7 @@ public class AncientScroll : ScrollBase
         return false;
     }
 
-    private int GetChanceToRead(Player player)
+    private int GetChanceToRead(IPlayer player)
     {
         return 100 - DamagePercent + player.ScrollReadingBonus;
     }

@@ -26,7 +26,7 @@ namespace CodeMagic.Game.Objects.SolidObjects
 
         public bool CanUse => true;
 
-        public void Use(GameCore<Player> game, Point position)
+        public void Use(IGameCore game, Point position)
         {
             DialogsManager.Provider.OpenWaitDialog("Descending...", () =>
             {

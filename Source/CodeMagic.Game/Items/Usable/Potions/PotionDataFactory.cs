@@ -1,4 +1,5 @@
 ﻿using System;
+using CodeMagic.Core.Items;
 
 namespace CodeMagic.Game.Items.Usable.Potions
 {

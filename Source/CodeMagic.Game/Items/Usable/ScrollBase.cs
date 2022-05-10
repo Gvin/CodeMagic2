@@ -21,7 +21,7 @@ public abstract class ScrollBase : Item, IScroll, IWorldImageProvider, IInventor
 
     public int Mana { get; set; }
 
-    public virtual bool Use(GameCore<Player> game)
+    public virtual bool Use(IGameCore game)
     {
         var codeSpell = new CodeSpell(game.Player, Code) {Name = SpellName, Mana = Mana};
         game.Map.AddObject(game.PlayerPosition, codeSpell);

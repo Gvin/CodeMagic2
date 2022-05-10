@@ -1,4 +1,4 @@
-﻿using CodeMagic.Game.Items;
+﻿using CodeMagic.Core.Items;
 
 namespace CodeMagic.Game.JournalMessages
 {

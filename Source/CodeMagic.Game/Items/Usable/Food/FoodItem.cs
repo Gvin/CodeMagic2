@@ -23,7 +23,7 @@ namespace CodeMagic.Game.Items.Usable.Food
 
         public override bool Stackable => true;
 
-        public bool Use(GameCore<Player> game)
+        public bool Use(IGameCore game)
         {
             game.Player.HungerPercent -= HungerDecrease;
             game.Journal.Write(new HungerDecreasedMessage(HungerDecrease));

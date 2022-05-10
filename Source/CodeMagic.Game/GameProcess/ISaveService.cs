@@ -1,17 +1,15 @@
 ﻿using System.Threading.Tasks;
 using CodeMagic.Core.Game;
-using CodeMagic.Game.Objects.Creatures;
 
-namespace CodeMagic.Game.GameProcess
+namespace CodeMagic.Game.GameProcess;
+
+public interface ISaveService
 {
-    public interface ISaveService
-    {
-        void SaveGame();
+    void SaveGame();
 
-        (GameCore<Player>, GameData) LoadGame();
+    (IGameCore, IGameData) LoadGame();
 
-        Task SaveGameAsync();
+    Task SaveGameAsync();
 
-        void DeleteSave();
-    }
+    void DeleteSave();
 }

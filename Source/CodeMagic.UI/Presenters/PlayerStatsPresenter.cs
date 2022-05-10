@@ -1,5 +1,5 @@
 ﻿using System;
-using CodeMagic.Game.Objects.Creatures;
+using CodeMagic.Core.Objects;
 
 namespace CodeMagic.UI.Presenters
 {
@@ -7,7 +7,7 @@ namespace CodeMagic.UI.Presenters
     {
         event EventHandler Exit;
 
-        Player Player { set; }
+        IPlayer Player { set; }
     }
 
     public class PlayerStatsPresenter : IPresenter
@@ -26,7 +26,7 @@ namespace CodeMagic.UI.Presenters
             view.Close();
         }
 
-        public void Run(Player player)
+        public void Run(IPlayer player)
         {
             view.Player = player;
 

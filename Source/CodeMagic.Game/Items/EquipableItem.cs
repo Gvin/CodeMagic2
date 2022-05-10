@@ -2,7 +2,7 @@
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Items;
 using CodeMagic.Core.Objects;
-using CodeMagic.Game.Objects.Creatures;
+using CodeMagic.Core.Objects.Creatures;
 
 namespace CodeMagic.Game.Items
 {
@@ -35,13 +35,5 @@ namespace CodeMagic.Game.Items
 
             return StatBonuses[statType];
         }
-    }
-
-    public enum EquipableBonusType
-    {
-        Health,
-        Mana,
-        ManaRegeneration,
-        Stamina
     }
 }

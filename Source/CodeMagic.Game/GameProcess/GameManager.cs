@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
+using CodeMagic.Core.Objects;
 using CodeMagic.Game.Items.Custom;
 using CodeMagic.Game.Items.ItemsGeneration;
 using CodeMagic.Game.JournalMessages;
@@ -14,7 +15,7 @@ namespace CodeMagic.Game.GameProcess
 {
     public interface IGameManager
     {
-        GameCore<Player> StartGame();
+        GameCore StartGame();
 
         void LoadGame();
     }
@@ -36,9 +37,9 @@ namespace CodeMagic.Game.GameProcess
             _savingInterval = savingInterval;
         }
 
-        public GameCore<Player> StartGame()
+        public GameCore StartGame()
         {
-            if (CurrentGame.Game is GameCore<Player> oldGame)
+            if (CurrentGame.Game is GameCore oldGame)
             {
                 oldGame.TurnEnded -= game_TurnEnded;
             }
@@ -49,7 +50,7 @@ namespace CodeMagic.Game.GameProcess
 
             var (startMap, playerPosition) = _dungeonMapGenerator.GenerateNewMap(1);
             CurrentGame.Initialize(startMap, player, playerPosition, _loggerFactory);
-            var game = (GameCore<Player>) CurrentGame.Game;
+            var game = (GameCore) CurrentGame.Game;
             startMap.Refresh();
 
             player.Inventory.ItemAdded += (_, args) =>
@@ -109,15 +110,16 @@ namespace CodeMagic.Game.GameProcess
             if (CurrentGame.Player.Health <= 0)
             {
                 _saveGameTask?.Wait();
-                ((GameCore<Player>)CurrentGame.Game).TurnEnded -= game_TurnEnded;
+                ((GameCore)CurrentGame.Game).TurnEnded -= game_TurnEnded;
                 CurrentGame.Load(null);
                 _saveService.DeleteSave();
             }
         }
 
-        private Player CreatePlayer()
+        private IPlayer CreatePlayer()
         {
             var player = new Player();
+            player.Initialize();
 
             var itemsGenerator = ItemsGeneratorManager.Generator;
 
