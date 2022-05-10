@@ -13,6 +13,11 @@ namespace CodeMagic.Core.Common
     {
         private readonly ILogger<PerformanceMeter> _logger;
 
+        public PerformanceMeter(ILogger<PerformanceMeter> logger)
+        {
+            _logger = logger;
+        }
+
         public IDisposable Start(string methodName)
         {
             return new PerformanceCounter(time =>

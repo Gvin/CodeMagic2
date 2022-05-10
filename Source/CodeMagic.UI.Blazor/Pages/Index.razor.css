@@ -19,6 +19,12 @@
   color: gray;
   line-height: normal;
 }
+.index-page .game-frame .wrapper #size-check-element {
+  width: fit-content;
+  line-height: normal;
+  white-space: pre;
+  margin: 0;
+}
 .index-page .game-frame .wrapper .page-content-wrapper {
   z-index: 0;
   position: absolute;
