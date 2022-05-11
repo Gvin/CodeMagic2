@@ -8,17 +8,18 @@
         border: 1px solid white;
         min-height: 100px;
         max-width: 600px;
+        user-select: none;
 
         .pixels-row {
-            width: fit-content;
+            line-height: normal;
 
             .pixel {
                 display: inline-block;
-                width: fit-content;
                 white-space: pre;
-                margin-top: 0px;
-                margin-bottom: 0px;
-                line-height: normal;
+
+                p {
+                    margin-bottom: 0px;
+                }
             }
         }
     }

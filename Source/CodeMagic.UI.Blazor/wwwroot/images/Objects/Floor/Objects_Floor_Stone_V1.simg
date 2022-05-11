@@ -1,0 +1,21 @@
+{
+    "Pixels": [
+        [
+            { "Symbol": "˙", "Color": "52, 52, 52", "BackgroundColor": "108, 108, 108" },
+            { "Symbol": null, "Color": null, "BackgroundColor": "108, 108, 108" },
+            { "Symbol": null, "Color": null, "BackgroundColor": "108, 108, 108" }
+        ],
+        [
+            { "Symbol": null, "Color": null, "BackgroundColor": "108, 108, 108" },
+            { "Symbol": null, "Color": null, "BackgroundColor": "108, 108, 108" },
+            { "Symbol": ".", "Color": "52, 52, 52", "BackgroundColor": "108, 108, 108" }
+        ],
+        [
+            { "Symbol": null, "Color": null, "BackgroundColor": "108, 108, 108" },
+            { "Symbol": "·", "Color": "52, 52, 52", "BackgroundColor": "108, 108, 108" },
+            { "Symbol": null, "Color": null, "BackgroundColor": "108, 108, 108" }
+        ]
+    ],
+    "Width": 3,
+    "Height": 3
+}

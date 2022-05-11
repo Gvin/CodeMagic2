@@ -1,51 +1,50 @@
 ﻿using System;
+using CodeMagic.Game.Images;
 using CodeMagic.Game.Objects.LiquidObjects;
-using CodeMagic.UI.Images;
 
-namespace CodeMagic.Game.Objects.IceObjects
+namespace CodeMagic.Game.Objects.IceObjects;
+
+[Serializable]
+public class WaterIce : AbstractIce, IWorldImageProvider
 {
-    [Serializable]
-    public class WaterIce : AbstractIce, IWorldImageProvider
+    private const string ImageSmall = "Ice_Water_Small";
+    private const string ImageMedium = "Ice_Water_Medium";
+    private const string ImageBig = "Ice_Water_Big";
+    private const string ObjectType = "WaterIce";
+
+    public const int WaterIceMinVolumeForEffect = 50;
+
+    public WaterIce(int volume)
     {
-        private const string ImageSmall = "Ice_Water_Small";
-        private const string ImageMedium = "Ice_Water_Medium";
-        private const string ImageBig = "Ice_Water_Big";
-        private const string ObjectType = "WaterIce";
+        Volume = volume;
+    }
 
-        public const int WaterIceMinVolumeForEffect = 50;
+    public WaterIce()
+    {
+    }
 
-        public WaterIce(int volume)
-        {
-            Volume = volume;
-        }
+    public override string LiquidType => WaterLiquid.LiquidType;
 
-        public WaterIce()
-        {
-        }
+    public override string Name => "Ice";
 
-        public override string LiquidType => WaterLiquid.LiquidType;
+    protected override int MinVolumeForEffect => WaterIceMinVolumeForEffect;
 
-        public override string Name => "Ice";
+    public override string Type => ObjectType;
 
-        protected override int MinVolumeForEffect => WaterIceMinVolumeForEffect;
+    protected override ILiquid CreateLiquid(int volume)
+    {
+        return new WaterLiquid(volume);
+    }
 
-        public override string Type => ObjectType;
+    public ISymbolsImage GetWorldImage(IImagesStorageService storage)
+    {
+        if (Volume >= Configuration.MaxVolumeBeforeSpread)
+            return storage.GetImage(ImageBig);
 
-        protected override ILiquid CreateLiquid(int volume)
-        {
-            return new WaterLiquid(volume);
-        }
+        var halfSpread = Configuration.MaxVolumeBeforeSpread / 2;
+        if (Volume >= halfSpread)
+            return storage.GetImage(ImageMedium);
 
-        public ISymbolsImage GetWorldImage(IImagesStorage storage)
-        {
-            if (Volume >= Configuration.MaxVolumeBeforeSpread)
-                return storage.GetImage(ImageBig);
-
-            var halfSpread = Configuration.MaxVolumeBeforeSpread / 2;
-            if (Volume >= halfSpread)
-                return storage.GetImage(ImageMedium);
-
-            return storage.GetImage(ImageSmall);
-        }
+        return storage.GetImage(ImageSmall);
     }
 }

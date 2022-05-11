@@ -1,14 +1,13 @@
-﻿using CodeMagic.UI.Images;
+﻿using CodeMagic.Game.Images;
 
-namespace CodeMagic.Game.Objects.ObjectEffects
+namespace CodeMagic.Game.Objects.ObjectEffects;
+
+public class SpellCastEffect : ObjectEffect
 {
-    public class SpellCastEffect : ObjectEffect
-    {
-        private const string ImageName = "Effect_SpellCast";
+    private const string ImageName = "Effect_SpellCast";
 
-        public override ISymbolsImage GetEffectImage(int width, int height, IImagesStorage imagesStorage)
-        {
-            return imagesStorage.GetImage(ImageName);
-        }
+    public override ISymbolsImage GetEffectImage(int width, int height, IImagesStorageService imagesStorage)
+    {
+        return imagesStorage.GetImage(ImageName);
     }
 }

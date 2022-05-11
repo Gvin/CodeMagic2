@@ -3,7 +3,7 @@ using CodeMagic.Core.Area;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
 using CodeMagic.Game.Area.EnvironmentData;
-using CodeMagic.UI.Images;
+using CodeMagic.Game.Images;
 
 namespace CodeMagic.Game.Objects.DecorativeObjects;
 
@@ -72,7 +72,7 @@ public class FireObject : MapObjectBase, IFireObject, IWorldImageProvider
         new StaticLightSource(LightPower)
     };
 
-    public ISymbolsImage GetWorldImage(IImagesStorage storage)
+    public ISymbolsImage GetWorldImage(IImagesStorageService storage)
     {
         var animationName = GetAnimationName();
         return _animations.GetImage(storage, animationName);

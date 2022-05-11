@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
+using CodeMagic.Game.Images;
 using CodeMagic.Game.Objects.Creatures;
-using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Items.Usable;
 
@@ -39,12 +39,12 @@ public class Scroll : ScrollBase
         return ImageInventory3;
     }
 
-    public override ISymbolsImage GetWorldImage(IImagesStorage storage)
+    public override ISymbolsImage GetWorldImage(IImagesStorageService storage)
     {
         return storage.GetImage(ImageWorld);
     }
 
-    public override ISymbolsImage GetInventoryImage(IImagesStorage storage)
+    public override ISymbolsImage GetInventoryImage(IImagesStorageService storage)
     {
         if (string.IsNullOrEmpty(InventoryImageName))
         {

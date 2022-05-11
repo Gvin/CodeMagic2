@@ -1,6 +1,6 @@
 ﻿using System;
 using CodeMagic.Core.Objects;
-using CodeMagic.UI.Images;
+using CodeMagic.Game.Images;
 
 namespace CodeMagic.Game.Objects.DecorativeObjects;
 
@@ -54,7 +54,7 @@ public class CreatureRemains : MapObjectBase, IWorldImageProvider
         }
     }
 
-    public ISymbolsImage GetWorldImage(IImagesStorage storage)
+    public ISymbolsImage GetWorldImage(IImagesStorageService storage)
     {
         var imageName = GetWorldImageName();
         return storage.GetImage(imageName);

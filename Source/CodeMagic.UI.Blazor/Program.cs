@@ -18,7 +18,7 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 // Logging
 builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
@@ -42,7 +42,9 @@ builder.Services.AddSingleton<IPerformanceMeter, PerformanceMeter>();
 builder.Services.AddSingleton<IDungeonMapGenerator, DungeonMapGenerator>();
 builder.Services.AddSingleton<IPotionDataFactory, PotionDataFactory>();
 builder.Services.AddSingleton<IUsableItemsGenerator, UsableItemsGenerator>();
-builder.Services.AddSingleton<IImagesStorage, ImagesStorageService>();
+builder.Services.AddSingleton<IImagesStorageService, ImagesStorageService>();
+builder.Services.AddSingleton<IDownloadFileService, DownloadFileService>();
+builder.Services.AddSingleton<IFilesLoadService, FilesLoadService>();
 
 // Windows
 builder.Services.AddTransient<IMainMenuView, MainMenuModel>();
@@ -60,5 +62,6 @@ builder.Services.AddTransient<PlayerDeathPresenter>();
 var application = builder.Build();
 
 application.Services.GetRequiredService<IApplicationController>().CreatePresenter<MainMenuPresenter>().Run();
+await application.Services.GetRequiredService<IImagesStorageService>().Initialize();
 
 await application.RunAsync();

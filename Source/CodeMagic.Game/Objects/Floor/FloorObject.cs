@@ -1,7 +1,7 @@
 ﻿using System;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.UI.Images;
+using CodeMagic.Game.Images;
 
 namespace CodeMagic.Game.Objects.Floor;
 
@@ -32,7 +32,7 @@ public class FloorObject : MapObjectBase, IWorldImageProvider
 
     public override ObjectSize Size => ObjectSize.Huge;
 
-    public ISymbolsImage GetWorldImage(IImagesStorage storage)
+    public ISymbolsImage GetWorldImage(IImagesStorageService storage)
     {
         return storage.GetImage(GetWorldImageName(FloorType));
     }

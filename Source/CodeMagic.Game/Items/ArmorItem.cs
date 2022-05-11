@@ -2,108 +2,107 @@
 using System.Collections.Generic;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
+using CodeMagic.Game.Images;
 using CodeMagic.Game.Objects.Creatures;
-using CodeMagic.UI.Images;
 
-namespace CodeMagic.Game.Items
+namespace CodeMagic.Game.Items;
+
+public class ArmorItem : DurableItem, IArmorItem, IInventoryImageProvider, IDescriptionProvider, IWorldImageProvider, IEquippedImageProvider
 {
-    public class ArmorItem : DurableItem, IArmorItem, IInventoryImageProvider, IDescriptionProvider, IWorldImageProvider, IEquippedImageProvider
+    public ISymbolsImage InventoryImage { get; set; }
+
+    public ISymbolsImage WorldImage { get; set; }
+
+    public ISymbolsImage EquippedImage { get; set; }
+
+    public Dictionary<Element, int> Protection { get; set; }
+
+    public int EquippedImageOrder => (int) ArmorType;
+
+    public ArmorType ArmorType { get; set; }
+
+    public int GetProtection(Element element)
     {
-        public ISymbolsImage InventoryImage { get; set; }
+        return Protection.ContainsKey(element) ? Protection[element] : 0;
+    }
 
-        public ISymbolsImage WorldImage { get; set; }
+    public ISymbolsImage GetInventoryImage(IImagesStorageService storage)
+    {
+        return InventoryImage;
+    }
 
-        public ISymbolsImage EquippedImage { get; set; }
+    public StyledLine[] GetDescription(Player player)
+    {
+        var equipedArmor = player.Equipment.GetEquipedArmor(ArmorType, player.Inventory);
 
-        public Dictionary<Element, int> Protection { get; set; }
+        var result = new List<StyledLine>();
 
-        public int EquippedImageOrder => (int) ArmorType;
-
-        public ArmorType ArmorType { get; set; }
-
-        public int GetProtection(Element element)
+        if (equipedArmor == null || Equals(equipedArmor))
         {
-            return Protection.ContainsKey(element) ? Protection[element] : 0;
+            result.Add(TextHelper.GetWeightLine(Weight));
+        }
+        else
+        {
+            result.Add(TextHelper.GetCompareWeightLine(Weight, equipedArmor.Weight));
         }
 
-        public ISymbolsImage GetInventoryImage(IImagesStorage storage)
+        result.Add(StyledLine.Empty);
+
+        result.Add(TextHelper.GetDurabilityLine(Durability, MaxDurability));
+
+        result.Add(StyledLine.Empty);
+
+        AddProtectionDescription(result, equipedArmor);
+
+        result.Add(StyledLine.Empty);
+
+        TextHelper.AddBonusesDescription(this, equipedArmor, result);
+
+        result.Add(StyledLine.Empty);
+
+        result.AddRange(TextHelper.ConvertDescription(Description));
+
+        return result.ToArray();
+    }
+
+    private void AddProtectionDescription(List<StyledLine> descriptionResult, IArmorItem equipedArmor)
+    {
+        var equiped = Equals(equipedArmor);
+        foreach (Element element in Enum.GetValues(typeof(Element)))
         {
-            return InventoryImage;
-        }
+            var value = GetProtection(element);
+            var equipedValue = equipedArmor?.GetProtection(element) ?? 0;
 
-        public StyledLine[] GetDescription(Player player)
-        {
-            var equipedArmor = player.Equipment.GetEquipedArmor(ArmorType, player.Inventory);
-
-            var result = new List<StyledLine>();
-
-            if (equipedArmor == null || Equals(equipedArmor))
+            if (value != 0 || equipedValue != 0)
             {
-                result.Add(TextHelper.GetWeightLine(Weight));
-            }
-            else
-            {
-                result.Add(TextHelper.GetCompareWeightLine(Weight, equipedArmor.Weight));
-            }
-
-            result.Add(StyledLine.Empty);
-
-            result.Add(TextHelper.GetDurabilityLine(Durability, MaxDurability));
-
-            result.Add(StyledLine.Empty);
-
-            AddProtectionDescription(result, equipedArmor);
-
-            result.Add(StyledLine.Empty);
-
-            TextHelper.AddBonusesDescription(this, equipedArmor, result);
-
-            result.Add(StyledLine.Empty);
-
-            result.AddRange(TextHelper.ConvertDescription(Description));
-
-            return result.ToArray();
-        }
-
-        private void AddProtectionDescription(List<StyledLine> descriptionResult, IArmorItem equipedArmor)
-        {
-            var equiped = Equals(equipedArmor);
-            foreach (Element element in Enum.GetValues(typeof(Element)))
-            {
-                var value = GetProtection(element);
-                var equipedValue = equipedArmor?.GetProtection(element) ?? 0;
-
-                if (value != 0 || equipedValue != 0)
+                var protectionLine = new StyledLine
                 {
-                    var protectionLine = new StyledLine
-                    {
-                        new StyledString($"{TextHelper.GetElementName(element)}",
-                            TextHelper.GetElementColor(element)),
-                        " Protection: "
-                    };
+                    new StyledString($"{TextHelper.GetElementName(element)}",
+                        TextHelper.GetElementColor(element)),
+                    " Protection: "
+                };
 
-                    if (equiped)
-                    {
-                        protectionLine.Add(TextHelper.GetValueString(value, "%"));
-                    }
-                    else
-                    {
-                        protectionLine.Add(TextHelper.GetCompareValueString(value, equipedValue, "%"));
-                    }
-
-                    descriptionResult.Add(protectionLine);
+                if (equiped)
+                {
+                    protectionLine.Add(TextHelper.GetValueString(value, "%"));
                 }
+                else
+                {
+                    protectionLine.Add(TextHelper.GetCompareValueString(value, equipedValue, "%"));
+                }
+
+                descriptionResult.Add(protectionLine);
             }
         }
+    }
 
-        public ISymbolsImage GetWorldImage(IImagesStorage storage)
-        {
-            return WorldImage;
-        }
+    public ISymbolsImage GetWorldImage(IImagesStorageService storage)
+    {
+        return WorldImage;
+    }
 
-        public ISymbolsImage GetEquippedImage(Player player, IImagesStorage imagesStorage)
-        {
-            return EquippedImage;
-        }
+    public ISymbolsImage GetEquippedImage(Player player, IImagesStorageService imagesStorage)
+    {
+        return EquippedImage;
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.UI.Images;
+using CodeMagic.Game.Images;
 
 namespace CodeMagic.Game.Objects.SolidObjects;
 
@@ -58,7 +58,7 @@ public class EnergyWall : MapObjectBase, IDynamicObject, ILightObject, IWorldIma
         CurrentGame.Map.RemoveObject(position, this);
     }
 
-    public ISymbolsImage GetWorldImage(IImagesStorage storage)
+    public ISymbolsImage GetWorldImage(IImagesStorageService storage)
     {
         if (EnergyLeft >= HighEnergy)
             return storage.GetImage(ImageHighEnergy);

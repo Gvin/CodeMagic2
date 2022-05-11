@@ -1,9 +1,9 @@
-﻿using CodeMagic.UI.Images;
+﻿using CodeMagic.Game.Images;
 
 namespace CodeMagic.Game
 {
     public interface IWorldImageProvider
     {
-        ISymbolsImage GetWorldImage(IImagesStorage storage);
+        ISymbolsImage GetWorldImage(IImagesStorageService storage);
     }
 }

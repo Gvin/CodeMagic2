@@ -1,7 +1,15 @@
 ﻿@page "/imageseditor"
 
-@using CodeMagic.UI.Images
 @using System.Drawing
+@using CodeMagic.Game
+@using CodeMagic.Game.Images
+@using CodeMagic.UI.Blazor.Services
+@using CodeMagic.UI.Blazor.Components
+@using Jint.Parser.Ast
+@using Newtonsoft.Json
+
+@inject IDownloadFileService DownloadFileService;
+@inject IImagesStorageService ImagesStorageService;
 
 <h3>Images Editor</h3>
 
@@ -11,9 +19,15 @@
 		Height: <input type="text" placeholder="Height" @bind="Height"/>
 		<input type="button" value="Create" @onclick="HandleCreateImage"/>
 	</div>
+	
+	<div class="panel">
+		<input type="button" value="Download" @onclick="HandleDownloadClick"/>
+		<InputFile OnChange="LoadImage" AdditionalAttributes="@ImageLoadAttributes"></InputFile>
+	</div>
 
 	<div class="panel">
 		<input type="text" @bind="Text"/>
+		<input type="button" value="Clear Symbol" @onclick="HandleClearSymbol"/>
 		<input type="color" placeholder="Main Color" @bind="MainColor"/>
 		<input type="button" value="Clear Main Color" @onclick="HandleClearMainColor"/>
 		<input type="color" placeholder="Background Color" @bind="BackgroundColor"/>
@@ -28,17 +42,31 @@
 				{
 					var xValue = x;
 					var yValue = y;
-					<div class="pixel" @onclick="() => HandlePixelClick(xValue, yValue)">
-						<p style="color: @GetColor(Image[x,y]); background-color: @GetBackgroundColor(Image[x,y])">@GetSymbol(Image[x, y])</p>
-					</div>
+					<div class="pixel" @onclick="() => HandlePixelClick(xValue, yValue)"><p style="color: @GetColor(Image[x,y]); background-color: @GetBackgroundColor(Image[x,y])">@GetSymbol(Image[x, y])</p></div>
 				}
 			</div>
 		}
+	</div>
+	
+	<div class="panel">
+		Default background:
+		<div @onclick="HandleSetBackgroundStoneFloor">
+			<SymbolsImageDisplay Model="StoneFloorImage"></SymbolsImageDisplay>
+		</div>
 	</div>
 </div>
 
 
 @code {
+	private static Dictionary<string, object> ImageLoadAttributes => new()
+	{
+		{ "accept", ".simg" }
+	};
+
+	private ISymbolsImage? BackgroundImage { get; set; }
+
+	private ISymbolsImage StoneFloorImage => ImagesStorageService.GetImage("Objects_Floor_Stone_V1");
+
 	private string? Text { get; set; }
 
 	private char? DrawingChar => Text?.FirstOrDefault();
@@ -79,6 +107,11 @@
 
 	private int Height { get; set; } = 3;
 
+	private void HandleSetBackgroundStoneFloor(MouseEventArgs args)
+	{
+		BackgroundImage = StoneFloorImage;
+	}
+
 	private void HandleCreateImage(MouseEventArgs args)
 	{
 		Image = new SymbolsImage(Width, Height);
@@ -94,11 +127,50 @@
 		BackgroundColor = null;
 	}
 
+	private void HandleClearSymbol(MouseEventArgs args)
+	{
+		Text = null;
+	}
+
 	private void HandlePixelClick(int x, int y)
 	{
 		Image[x, y].Symbol = DrawingChar;
 		Image[x, y].Color = DrawingMainColor;
 		Image[x, y].BackgroundColor = DrawingBackgroundColor;
+		StateHasChanged();
+	}
+
+	private async void HandleDownloadClick(MouseEventArgs args)
+	{
+		var content = JsonConvert.SerializeObject(Image);
+		await DownloadFileService.DownloadAsync("image.simg", content);
+	}
+
+	private async void LoadImage(InputFileChangeEventArgs args)
+	{
+		if (args.FileCount != 1)
+		{
+			return;
+		}
+
+		var imageFromFile = await ReadFile(args.File);
+		if (imageFromFile != null)
+		{
+			Image = imageFromFile;
+			StateHasChanged();
+		}
+	}
+
+	private static async Task<SymbolsImage?> ReadFile(IBrowserFile file)
+	{
+		var content = await ReadFileContent(file);
+		return JsonConvert.DeserializeObject<SymbolsImage>(content);
+	}
+
+	private static async Task<string> ReadFileContent(IBrowserFile file)
+	{
+		await using var fileStream = file.OpenReadStream();
+		return await new StreamReader(fileStream).ReadToEndAsync();
 	}
 
 	private string GetSymbol(SymbolsImage.Pixel? pixel)

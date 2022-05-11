@@ -46,7 +46,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration
 
         public ItemsGenerator(
             IItemGeneratorConfiguration configuration,
-            IImagesStorage imagesStorage,
+            IImagesStorageService imagesStorage,
             IAncientSpellsProvider spellsProvider,
             IPotionDataFactory potionDataFactory)
         {

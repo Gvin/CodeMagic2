@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
+using CodeMagic.Game.Images;
 using CodeMagic.Game.Objects;
-using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Items.Custom
 {
@@ -74,22 +74,22 @@ namespace CodeMagic.Game.Items.Custom
             }
         }
 
-        public override ISymbolsImage GetInventoryImage(IImagesStorage storage)
+        public override ISymbolsImage GetInventoryImage(IImagesStorageService storage)
         {
             return storage.GetImage(TorchInventoryImage);
         }
 
-        public override ISymbolsImage GetWorldImage(IImagesStorage storage)
+        public override ISymbolsImage GetWorldImage(IImagesStorageService storage)
         {
             return storage.GetImage(TorchWorldImage);
         }
 
-        protected override ISymbolsImage GetRightEquippedImage(IImagesStorage storage)
+        protected override ISymbolsImage GetRightEquippedImage(IImagesStorageService storage)
         {
             return _animation.GetImage(storage, TorchEquippedImageRight);
         }
 
-        protected override ISymbolsImage GetLeftEquippedImage(IImagesStorage storage)
+        protected override ISymbolsImage GetLeftEquippedImage(IImagesStorageService storage)
         {
             return _animation.GetImage(storage, TorchEquippedImageLeft);
         }

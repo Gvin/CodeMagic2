@@ -1,18 +1,17 @@
 ﻿using System;
 using CodeMagic.Core.Objects.ObjectEffects;
-using CodeMagic.UI.Images;
+using CodeMagic.Game.Images;
 
-namespace CodeMagic.Game.Objects.ObjectEffects
+namespace CodeMagic.Game.Objects.ObjectEffects;
+
+public abstract class ObjectEffect : IObjectEffect
 {
-    public abstract class ObjectEffect : IObjectEffect
+    protected ObjectEffect()
     {
-        protected ObjectEffect()
-        {
-            CreatedAt = DateTime.Now;
-        }
-
-        public DateTime CreatedAt { get; }
-
-        public abstract ISymbolsImage GetEffectImage(int width, int height, IImagesStorage imagesStorage);
+        CreatedAt = DateTime.Now;
     }
+
+    public DateTime CreatedAt { get; }
+
+    public abstract ISymbolsImage GetEffectImage(int width, int height, IImagesStorageService imagesStorage);
 }

@@ -5,7 +5,7 @@ using CodeMagic.Core.Common;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
 using CodeMagic.Game.Configuration.Monsters;
-using CodeMagic.UI.Images;
+using CodeMagic.Game.Images;
 
 namespace CodeMagic.Game.Objects.Creatures.NonPlayable;
 
@@ -22,7 +22,7 @@ public class MonsterCreatureImpl : MonsterCreatureObject, IWorldImageProvider
 
     private MonsterCreatureImplConfiguration ConfigurationImpl => (MonsterCreatureImplConfiguration)Configuration;
 
-    public ISymbolsImage GetWorldImage(IImagesStorage storage)
+    public ISymbolsImage GetWorldImage(IImagesStorageService storage)
     {
         var body = storage.GetImage(ConfigurationImpl.Image);
         var directionImageName = GetWorldImageName();

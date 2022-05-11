@@ -1,6 +1,6 @@
 ﻿using System;
 using CodeMagic.Core.Objects;
-using CodeMagic.UI.Images;
+using CodeMagic.Game.Images;
 
 namespace CodeMagic.Game.Objects.SolidObjects;
 
@@ -33,7 +33,7 @@ public class DungeonTorchWall : TorchWallBase, IWorldImageProvider
         return mapObject is DungeonWall or DungeonTorchWall or DungeonDoor;
     }
 
-    public ISymbolsImage GetWorldImage(IImagesStorage storage)
+    public ISymbolsImage GetWorldImage(IImagesStorageService storage)
     {
         if (!HasConnectedTile(0, 1) && !HasConnectedTile(1, 0))
         {

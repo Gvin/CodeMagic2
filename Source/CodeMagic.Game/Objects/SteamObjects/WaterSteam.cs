@@ -1,7 +1,7 @@
 ﻿using System;
 using CodeMagic.Core.Objects;
+using CodeMagic.Game.Images;
 using CodeMagic.Game.Objects.LiquidObjects;
-using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Objects.SteamObjects;
 
@@ -48,7 +48,7 @@ public class WaterSteam : AbstractSteam, IWorldImageProvider
         return new WaterLiquid(volume);
     }
 
-    public ISymbolsImage GetWorldImage(IImagesStorage storage)
+    public ISymbolsImage GetWorldImage(IImagesStorageService storage)
     {
         var animationName = GetAnimationName();
         return _animations.GetImage(storage, animationName);

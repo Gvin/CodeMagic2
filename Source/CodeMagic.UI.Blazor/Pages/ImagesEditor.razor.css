@@ -6,17 +6,17 @@
   border: 1px solid white;
   min-height: 100px;
   max-width: 600px;
+  user-select: none;
 }
 .images-editor .drawing-area .pixels-row {
-  width: fit-content;
+  line-height: normal;
 }
 .images-editor .drawing-area .pixels-row .pixel {
   display: inline-block;
-  width: fit-content;
   white-space: pre;
-  margin-top: 0px;
+}
+.images-editor .drawing-area .pixels-row .pixel p {
   margin-bottom: 0px;
-  line-height: normal;
 }
 
 /*# sourceMappingURL=ImagesEditor.razor.css.map */
