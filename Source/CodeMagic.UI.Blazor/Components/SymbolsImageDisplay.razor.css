@@ -1,0 +1,17 @@
+.symbols-image-display {
+  user-select: none;
+  width: fit-content;
+  height: fit-content;
+}
+.symbols-image-display .pixels-row {
+  line-height: normal;
+}
+.symbols-image-display .pixels-row .pixel {
+  display: inline-block;
+  white-space: pre;
+}
+.symbols-image-display .pixels-row .pixel p {
+  margin-bottom: 0px;
+}
+
+/*# sourceMappingURL=SymbolsImageDisplay.razor.css.map */

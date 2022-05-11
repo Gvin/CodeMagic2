@@ -1,0 +1,18 @@
+﻿.symbols-image-display {
+    user-select: none;
+    width: fit-content;
+    height: fit-content;
+
+    .pixels-row {
+        line-height: normal;
+
+        .pixel {
+            display: inline-block;
+            white-space: pre;
+
+            p {
+                margin-bottom: 0px;
+            }
+        }
+    }
+}

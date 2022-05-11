@@ -3,13 +3,13 @@
 
 @if (Model != null)
 {
-	<div>
+	<div class="symbols-image-display">
 		@for (var y = 0; y < Model.Height; y++)
 		{
-			<div class="line">
+			<div class="pixels-row">
 				@for (var x = 0; x < Model.Width; x++)
 				{
-					<p style="color: @GetColor(Model[x,y]); background-color: @GetBackgroundColor(Model[x,y])">@Model[x, y].Symbol</p>
+					<div class="pixel"><p style="color: @GetColor(Model[x,y]); background-color: @GetBackgroundColor(Model[x,y])">@GetSymbol(Model[x, y])</p></div>
 				}
 			</div>
 		}
@@ -33,21 +33,16 @@
 
 	private string GetColor(SymbolsImage.Pixel? pixel)
 	{
-		return ColorToRGBA(pixel?.Color);
+		return (pixel?.Color).ToStyleString();
 	}
 
 	private string GetBackgroundColor(SymbolsImage.Pixel? pixel)
 	{
-		return ColorToRGBA(pixel?.BackgroundColor);
+		return (pixel?.BackgroundColor).ToStyleString();
 	}
 
-	private string ColorToRGBA(Color? color)
+	private string GetSymbol(SymbolsImage.Pixel? pixel)
 	{
-		if (!color.HasValue)
-		{
-			return "white";
-		}
-
-		return $"rgba({color.Value.R},{color.Value.G},{color.Value.B},{color.Value.A})";
+		return pixel?.Symbol?.ToString() ?? " ";
 	}
 }

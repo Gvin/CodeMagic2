@@ -5,7 +5,6 @@
 @using CodeMagic.Game.Images
 @using CodeMagic.UI.Blazor.Services
 @using CodeMagic.UI.Blazor.Components
-@using Jint.Parser.Ast
 @using Newtonsoft.Json
 
 @inject IDownloadFileService DownloadFileService;
@@ -180,21 +179,11 @@
 
 	private string GetColor(SymbolsImage.Pixel? pixel)
 	{
-		return ColorToRGBA(pixel?.Color);
+		return (pixel?.Color).ToStyleString();
 	}
 
 	private string GetBackgroundColor(SymbolsImage.Pixel? pixel)
 	{
-		return ColorToRGBA(pixel?.BackgroundColor);
-	}
-
-	private string ColorToRGBA(Color? color)
-	{
-		if (!color.HasValue)
-		{
-			return "white";
-		}
-
-		return $"rgba({color.Value.R},{color.Value.G},{color.Value.B},{color.Value.A})";
+		return (pixel?.BackgroundColor).ToStyleString();
 	}
 }
