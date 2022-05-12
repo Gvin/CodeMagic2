@@ -1,14 +1,12 @@
 ﻿@page "/imageseditor"
 
 @using System.Drawing
-@using CodeMagic.Game
 @using CodeMagic.Game.Images
 @using CodeMagic.UI.Blazor.Services
-@using CodeMagic.UI.Blazor.Components
 @using Newtonsoft.Json
 
 @inject IDownloadFileService DownloadFileService;
-@inject IImagesStorageService ImagesStorageService;
+@inject ILogger<ImagesEditor> Logger;
 
 <h3>Images Editor</h3>
 
@@ -34,24 +32,25 @@
 	</div>
 
 	<div class="panel drawing-area">
-		@for (var y = 0; y < Image.Height; y++)
-		{
-			<div class="pixels-row">
-				@for (var x = 0; x < Image.Width; x++)
-				{
-					var xValue = x;
-					var yValue = y;
-					<div class="pixel" @onclick="() => HandlePixelClick(xValue, yValue)"><p style="color: @GetColor(Image[x,y]); background-color: @GetBackgroundColor(Image[x,y])">@GetSymbol(Image[x, y])</p></div>
-				}
-			</div>
-		}
+		<div class="drawing-image">
+			@for (var y = 0; y < Image.Height; y++)
+			{
+				<div class="pixels-row">
+					@for (var x = 0; x < Image.Width; x++)
+					{
+						var xValue = x;
+						var yValue = y;
+						<div class="pixel" @onclick="() => HandlePixelClick(xValue, yValue)">
+							<p style="color: @GetColor(ImageToDraw[x, y]); background-color: @GetBackgroundColor(ImageToDraw[x, y])">@GetSymbol(ImageToDraw[x, y])</p></div>
+					}
+				</div>
+			}
+		</div>
 	</div>
 	
 	<div class="panel">
-		Default background:
-		<div @onclick="HandleSetBackgroundStoneFloor">
-			<SymbolsImageDisplay Model="StoneFloorImage"></SymbolsImageDisplay>
-		</div>
+		Background image:
+		<InputFile OnChange="LoadBackgroundImage" AdditionalAttributes="@ImageLoadAttributes"></InputFile>
 	</div>
 </div>
 
@@ -62,9 +61,7 @@
 		{ "accept", ".simg" }
 	};
 
-	private ISymbolsImage? BackgroundImage { get; set; }
-
-	private ISymbolsImage StoneFloorImage => ImagesStorageService.GetImage("Objects_Floor_Stone_V1");
+	private ISymbolsImage BackgroundImage { get; set; } = GetDefaultBackgroundImage(3, 3);
 
 	private string? Text { get; set; }
 
@@ -100,20 +97,48 @@
 		}
 	}
 
+	private ISymbolsImage ImageToDraw => SymbolsImage.Combine(BackgroundImage, Image);
+
 	private SymbolsImage Image { get; set; } = new(3, 3);
 
 	private int Width { get; set; } = 3;
 
 	private int Height { get; set; } = 3;
 
-	private void HandleSetBackgroundStoneFloor(MouseEventArgs args)
+	private async void LoadBackgroundImage(InputFileChangeEventArgs args)
 	{
-		BackgroundImage = StoneFloorImage;
+		if (args.FileCount != 1)
+		{
+			return;
+		}
+
+		var imageFromFile = await ReadFile(args.File);
+
+		if (imageFromFile == null)
+		{
+			return;
+		}
+
+		if (imageFromFile.Width != Image.Width || imageFromFile.Height != Image.Height)
+		{
+			Logger.LogError("Selected background image size does not match with drawing image size.");
+			return;
+		}
+
+		BackgroundImage = imageFromFile;
+		StateHasChanged();
 	}
 
 	private void HandleCreateImage(MouseEventArgs args)
 	{
 		Image = new SymbolsImage(Width, Height);
+
+		if (BackgroundImage.Width != Width || BackgroundImage.Height != Height)
+		{
+			BackgroundImage = GetDefaultBackgroundImage(Width, Height);
+		}
+
+		StateHasChanged();
 	}
 
 	private void HandleClearMainColor(MouseEventArgs args)
@@ -185,5 +210,12 @@
 	private string GetBackgroundColor(SymbolsImage.Pixel? pixel)
 	{
 		return (pixel?.BackgroundColor).ToStyleString();
+	}
+
+	private static ISymbolsImage GetDefaultBackgroundImage(int width, int height)
+	{
+		var result = new SymbolsImage(width, height);
+		result.SetDefaultBackColor(Color.Black);
+		return result;
 	}
 }

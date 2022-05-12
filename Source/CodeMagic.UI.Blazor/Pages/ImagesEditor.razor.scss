@@ -10,15 +10,20 @@
         max-width: 600px;
         user-select: none;
 
-        .pixels-row {
-            line-height: normal;
+        .drawing-image {
+            border: 1px solid white;
+            width: fit-content;
 
-            .pixel {
-                display: inline-block;
-                white-space: pre;
+            .pixels-row {
+                line-height: normal;
 
-                p {
-                    margin-bottom: 0px;
+                .pixel {
+                    display: inline-block;
+                    white-space: pre;
+
+                    p {
+                        margin-bottom: 0px;
+                    }
                 }
             }
         }
