@@ -24,7 +24,6 @@
 
 	<div class="panel">
 		<input type="text" @bind="Text"/>
-		<input type="button" value="Clear Symbol" @onclick="HandleClearSymbol"/>
 		<input type="color" placeholder="Main Color" @bind="MainColor"/>
 		<input type="button" value="Clear Main Color" @onclick="HandleClearMainColor"/>
 		<input type="color" placeholder="Background Color" @bind="BackgroundColor"/>
@@ -51,6 +50,7 @@
 	<div class="panel">
 		Background image:
 		<InputFile OnChange="LoadBackgroundImage" AdditionalAttributes="@ImageLoadAttributes"></InputFile>
+		<input type="button" value="Clear Background Image" @onclick="HandleClearBackgroundImage"/>
 	</div>
 </div>
 
@@ -65,7 +65,7 @@
 
 	private string? Text { get; set; }
 
-	private char? DrawingChar => Text?.FirstOrDefault();
+	private char? DrawingChar => string.IsNullOrEmpty(Text) ? null : Text[0];
 
 	private string? MainColor { get; set; }
 
@@ -129,14 +129,17 @@
 		StateHasChanged();
 	}
 
+	private void HandleClearBackgroundImage(MouseEventArgs args)
+	{
+		BackgroundImage = GetDefaultBackgroundImage(Image.Width, Image.Height);
+		StateHasChanged();
+	}
+
 	private void HandleCreateImage(MouseEventArgs args)
 	{
 		Image = new SymbolsImage(Width, Height);
 
-		if (BackgroundImage.Width != Width || BackgroundImage.Height != Height)
-		{
-			BackgroundImage = GetDefaultBackgroundImage(Width, Height);
-		}
+		CheckBackgroundImageSize(Width, Height);
 
 		StateHasChanged();
 	}
@@ -149,11 +152,6 @@
 	private void HandleClearBackgroundColor(MouseEventArgs args)
 	{
 		BackgroundColor = null;
-	}
-
-	private void HandleClearSymbol(MouseEventArgs args)
-	{
-		Text = null;
 	}
 
 	private void HandlePixelClick(int x, int y)
@@ -181,7 +179,16 @@
 		if (imageFromFile != null)
 		{
 			Image = imageFromFile;
+			CheckBackgroundImageSize(Image.Width, Image.Height);
 			StateHasChanged();
+		}
+	}
+
+	private void CheckBackgroundImageSize(int width, int height)
+	{
+		if (BackgroundImage.Width != width || BackgroundImage.Height != height)
+		{
+			BackgroundImage = GetDefaultBackgroundImage(width, height);
 		}
 	}
 

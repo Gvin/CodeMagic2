@@ -1,5 +1,38 @@
 {
     "Images": [
-        "objects/floor/Floor_Stone_V1.simg"
+
+        // Creatures
+        //-------------------------------------
+        "Creatures/Creature_Down.simg",
+        "Creatures/Creature_Left.simg",
+        "Creatures/Creature_Right.simg",
+        "Creatures/Creature_Up.simg",
+        // Creatures -> BlackKnight
+        "Creatures/BlackKnight/Monster_BlackKnight.simg",
+        // Creatures -> Goblin
+        "Creatures/Goblin/Monster_GoblinWeak.simg",
+        "Creatures/Goblin/Monster_Hobgoblin.simg",
+        "Creatures/Goblin/Monster_HobgoblinKnight.simg",
+        // Creatures -> Skeleton
+        "Creatures/Skeleton/Monster_SkeletonArmored.simg",
+        "Creatures/Skeleton/Monster_SkeletonKnight.simg",
+        "Creatures/Skeleton/Monster_SkeletonWeak.simg",
+        // Creatures -> Slime
+        "Creatures/Slime/Monster_Slime_Blue.simg",
+        "Creatures/Slime/Monster_Slime_BlueBig.simg",
+        "Creatures/Slime/Monster_Slime_Green.simg",
+        "Creatures/Slime/Monster_Slime_GreenBig.simg",
+        "Creatures/Slime/Monster_Slime_Orange.simg",
+        "Creatures/Slime/Monster_Slime_OrangeBig.simg",
+        //-------------------------------------
+
+        // DamagedEquipment
+        //-------------------------------------
+        "DamagedEquipment/DamagedEquipment_Chest.simg",
+        "DamagedEquipment/DamagedEquipment_Helmet.simg",
+        "DamagedEquipment/DamagedEquipment_Leggings.simg",
+        "DamagedEquipment/DamagedEquipment_Weapon_Left.simg",
+        "DamagedEquipment/DamagedEquipment_Weapon_Right.simg"
+        //-------------------------------------
     ]
 }
