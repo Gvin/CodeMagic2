@@ -1,8 +1,8 @@
 ﻿using System;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
+using CodeMagic.Game.Images;
 using CodeMagic.Game.Items.Materials;
-using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Objects.Furniture;
 
@@ -23,7 +23,7 @@ public class FurnitureObject : DestroyableObject, IWorldImageProvider
 
     public override bool BlocksMovement { get; set; }
 
-    public ISymbolsImage GetWorldImage(IImagesStorage storage)
+    public ISymbolsImage GetWorldImage(IImagesStorageService storage)
     {
         return storage.GetImage(WorldImage);
     }

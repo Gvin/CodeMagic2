@@ -6,6 +6,11 @@
   margin: auto;
   margin-top: 20px;
 }
+.main-menu .content .logo {
+  margin: auto;
+  width: fit-content;
+  margin-bottom: 10px;
+}
 .main-menu .content .menu-button {
   margin: auto;
   width: fit-content;

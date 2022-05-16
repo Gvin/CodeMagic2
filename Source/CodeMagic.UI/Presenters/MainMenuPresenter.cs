@@ -1,8 +1,6 @@
 ﻿using System;
 using CodeMagic.Core.Game;
 using CodeMagic.Game.GameProcess;
-using CodeMagic.Game.Objects.Creatures;
-using CodeMagic.UI.Services;
 
 namespace CodeMagic.UI.Presenters
 {
@@ -16,51 +14,40 @@ namespace CodeMagic.UI.Presenters
 
         event EventHandler ShowSettings;
 
-        event EventHandler Exit;
-
         void SetContinueOptionState(bool canContinue);
     }
 
     public class MainMenuPresenter : IPresenter
     {
-        private readonly IMainMenuView view;
-        private readonly IApplicationController controller;
-        private readonly IApplicationService applicationService;
-        private readonly IGameManager gameManager;
+        private readonly IMainMenuView _view;
+        private readonly IApplicationController _controller;
+        private readonly IGameManager _gameManager;
 
         public MainMenuPresenter(
             IMainMenuView view, 
-            IApplicationController controller, 
-            IApplicationService applicationService, 
+            IApplicationController controller,
             IGameManager gameManager)
         {
-            this.view = view;
-            this.controller = controller;
-            this.applicationService = applicationService;
-            this.gameManager = gameManager;
+            _view = view;
+            _controller = controller;
+            _gameManager = gameManager;
 
-            this.view.SetContinueOptionState(CurrentGame.Game != null);
+            _view.SetContinueOptionState(CurrentGame.Game != null);
 
-            this.view.StartGame += View_StartGame;
-            this.view.ContinueGame += View_ContinueGame;
-            this.view.ShowSpellLibrary += View_ShowSpellLibrary;
-            this.view.ShowSettings += View_ShowSettings;
-            this.view.Exit += View_Exit;
-        }
-
-        private void View_Exit(object sender, EventArgs e)
-        {
-            applicationService.Exit();
+            _view.StartGame += View_StartGame;
+            _view.ContinueGame += View_ContinueGame;
+            _view.ShowSpellLibrary += View_ShowSpellLibrary;
+            _view.ShowSettings += View_ShowSettings;
         }
 
         private void View_ShowSettings(object sender, EventArgs e)
         {
-            controller.CreatePresenter<SettingsPresenter>().Run();
+            _controller.CreatePresenter<SettingsPresenter>().Run();
         }
 
         private void View_ShowSpellLibrary(object sender, EventArgs e)
         {
-            controller.CreatePresenter<MainSpellsLibraryPresenter>().Run();
+            _controller.CreatePresenter<MainSpellsLibraryPresenter>().Run();
         }
 
         private void View_ContinueGame(object sender, EventArgs e)
@@ -68,26 +55,25 @@ namespace CodeMagic.UI.Presenters
             if (CurrentGame.Game == null)
                 return;
 
-            view.Close();
+            _view.Close();
 
-            var game = (IGameCore)CurrentGame.Game;
-            controller.CreatePresenter<GameViewPresenter>().Run(game);
+            _controller.CreatePresenter<GameViewPresenter>().Run(CurrentGame.Game);
         }
 
         private void View_StartGame(object sender, EventArgs args)
         {
-            view.Close();
+            _view.Close();
 
-            controller.CreatePresenter<WaitMessagePresenter>().Run("Starting new game...", () =>
+            _controller.CreatePresenter<WaitMessagePresenter>().Run("Starting new game...", () =>
             {
-                var game = gameManager.StartGame();
-                controller.CreatePresenter<GameViewPresenter>().Run(game);
+                var game = _gameManager.StartGame();
+                _controller.CreatePresenter<GameViewPresenter>().Run(game);
             });
         }
 
         public void Run()
         {
-            view.Show();
+            _view.Show();
         }
     }
 }

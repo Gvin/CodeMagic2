@@ -1,7 +1,7 @@
 ﻿using System;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Objects;
-using CodeMagic.UI.Images;
+using CodeMagic.Game.Images;
 
 namespace CodeMagic.Game.Objects.DecorativeObjects;
 
@@ -35,7 +35,7 @@ public class DungeonTorchPost : MapObjectBase, ILightObject, IWorldImageProvider
         new StaticLightSource(LightLevel.Medium),
     };
 
-    public ISymbolsImage GetWorldImage(IImagesStorage storage)
+    public ISymbolsImage GetWorldImage(IImagesStorageService storage)
     {
         return _animationsManager.GetImage(storage, AnimationName);
     }

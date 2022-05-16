@@ -18,7 +18,7 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 // Logging
 builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
@@ -30,7 +30,6 @@ builder.Services.AddOptions<SettingsConfiguration>(SettingsConfiguration.ConfigS
 // Services
 builder.Services.AddSingleton<IWindowService, WindowService>();
 builder.Services.AddSingleton<IApplicationController, ApplicationController>();
-builder.Services.AddSingleton<IApplicationService, ApplicationService>();
 builder.Services.AddSingleton<IGameManager>(provider => new GameManager(
     provider.GetRequiredService<ISaveService>(), 
     provider.GetRequiredService<IOptions<SettingsConfiguration>>().Value.SavingInterval,
@@ -43,7 +42,9 @@ builder.Services.AddSingleton<IPerformanceMeter, PerformanceMeter>();
 builder.Services.AddSingleton<IDungeonMapGenerator, DungeonMapGenerator>();
 builder.Services.AddSingleton<IPotionDataFactory, PotionDataFactory>();
 builder.Services.AddSingleton<IUsableItemsGenerator, UsableItemsGenerator>();
-builder.Services.AddSingleton<IImagesStorage, ImagesStorageService>();
+builder.Services.AddSingleton<IImagesStorageService, ImagesStorageService>();
+builder.Services.AddSingleton<IDownloadFileService, DownloadFileService>();
+builder.Services.AddSingleton<IFilesLoadService, FilesLoadService>();
 
 // Windows
 builder.Services.AddTransient<IMainMenuView, MainMenuModel>();
@@ -54,10 +55,13 @@ builder.Services.AddTransient<MainMenuPresenter>();
 builder.Services.AddTransient<SettingsPresenter>();
 builder.Services.AddTransient<PlayerInventoryPresenter>();
 builder.Services.AddTransient<SpellBookPresenter>();
+builder.Services.AddTransient<InGameMenuPresenter>();
+builder.Services.AddTransient<PlayerDeathPresenter>();
 
 // Starting
 var application = builder.Build();
 
 application.Services.GetRequiredService<IApplicationController>().CreatePresenter<MainMenuPresenter>().Run();
+await application.Services.GetRequiredService<IImagesStorageService>().Initialize();
 
 await application.RunAsync();

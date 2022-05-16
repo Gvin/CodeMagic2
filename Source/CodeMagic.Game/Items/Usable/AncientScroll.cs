@@ -2,9 +2,9 @@
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
 using CodeMagic.Game.Area.EnvironmentData;
+using CodeMagic.Game.Images;
 using CodeMagic.Game.JournalMessages;
 using CodeMagic.Game.Objects.Creatures;
-using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Items.Usable;
 
@@ -46,12 +46,12 @@ public class AncientScroll : ScrollBase
         return DamagedCode;
     }
 
-    public override ISymbolsImage GetWorldImage(IImagesStorage storage)
+    public override ISymbolsImage GetWorldImage(IImagesStorageService storage)
     {
         return storage.GetImage(ImageWorld);
     }
 
-    public override ISymbolsImage GetInventoryImage(IImagesStorage storage)
+    public override ISymbolsImage GetInventoryImage(IImagesStorageService storage)
     {
         return storage.GetImage(InventoryImageName);
     }

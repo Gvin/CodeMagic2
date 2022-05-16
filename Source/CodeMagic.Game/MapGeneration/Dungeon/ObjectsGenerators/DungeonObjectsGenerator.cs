@@ -11,13 +11,13 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.ObjectsGenerators
         private readonly IPerformanceMeter _performanceMeter;
         private readonly ObjectsPattern[] _patterns;
 
-        public DungeonObjectsGenerator(IImagesStorage storage, IPerformanceMeter performanceMeter)
+        public DungeonObjectsGenerator(IImagesStorageService storage, IPerformanceMeter performanceMeter)
         {
             _performanceMeter = performanceMeter;
             _patterns = GetPatterns(storage);
         }
 
-        private static ObjectsPattern[] GetPatterns(IImagesStorage storage)
+        private static ObjectsPattern[] GetPatterns(IImagesStorageService storage)
         {
             var patternsList = new List<ObjectsPattern>
             {

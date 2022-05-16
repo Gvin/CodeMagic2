@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.Core", "CodeMagic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.Game", "CodeMagic.Game\CodeMagic.Game.csproj", "{9931C445-4660-49A4-B7BA-EE09E3FE22B9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.UI.Images", "CodeMagic.UI.Images\CodeMagic.UI.Images.csproj", "{8D893FA3-EF08-402B-A449-A7A177E72063}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.Configuration.Xml", "CodeMagic.Configuration.Xml\CodeMagic.Configuration.Xml.csproj", "{A0B37CE4-6C21-4911-A685-DC09E4963563}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.UI", "CodeMagic.UI\CodeMagic.UI.csproj", "{AAF2FBFC-6770-4BAE-96C1-FEC6743BB44D}"
@@ -37,10 +35,6 @@ Global
 		{9931C445-4660-49A4-B7BA-EE09E3FE22B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9931C445-4660-49A4-B7BA-EE09E3FE22B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9931C445-4660-49A4-B7BA-EE09E3FE22B9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D893FA3-EF08-402B-A449-A7A177E72063}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D893FA3-EF08-402B-A449-A7A177E72063}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D893FA3-EF08-402B-A449-A7A177E72063}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D893FA3-EF08-402B-A449-A7A177E72063}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A0B37CE4-6C21-4911-A685-DC09E4963563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A0B37CE4-6C21-4911-A685-DC09E4963563}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0B37CE4-6C21-4911-A685-DC09E4963563}.Release|Any CPU.ActiveCfg = Release|Any CPU

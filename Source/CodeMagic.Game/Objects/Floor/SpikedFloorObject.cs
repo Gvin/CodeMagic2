@@ -2,8 +2,8 @@
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
 using CodeMagic.Core.Objects.Creatures;
+using CodeMagic.Game.Images;
 using CodeMagic.Game.JournalMessages;
-using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Objects.Floor;
 
@@ -21,7 +21,7 @@ public class SpikedFloorObject : MapObjectBase, IStepReactionObject, IWorldImage
 
     public override string Name => "Spikes";
 
-    public ISymbolsImage GetWorldImage(IImagesStorage storage)
+    public ISymbolsImage GetWorldImage(IImagesStorageService storage)
     {
         return storage.GetImage(WorldImageName);
     }

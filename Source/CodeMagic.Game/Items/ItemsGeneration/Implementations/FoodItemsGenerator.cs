@@ -7,14 +7,14 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
 {
     public class FoodItemsGenerator
     {
-        private static readonly Func<IImagesStorage, IItem>[] Generators = {
+        private static readonly Func<IImagesStorageService, IItem>[] Generators = {
             CreateApple,
             CreateMeat
         };
 
-        private readonly IImagesStorage _imagesStorage;
+        private readonly IImagesStorageService _imagesStorage;
 
-        public FoodItemsGenerator(IImagesStorage imagesStorage)
+        public FoodItemsGenerator(IImagesStorageService imagesStorage)
         {
             _imagesStorage = imagesStorage;
         }
@@ -25,7 +25,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
             return generator(_imagesStorage);
         }
 
-        private static IItem CreateMeat(IImagesStorage storage)
+        private static IItem CreateMeat(IImagesStorageService storage)
         {
             return new FoodItem
             {
@@ -43,7 +43,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
             };
         }
 
-        private static IItem CreateApple(IImagesStorage storage)
+        private static IItem CreateApple(IImagesStorageService storage)
         {
             return new FoodItem
             {

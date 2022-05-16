@@ -1,34 +1,35 @@
 ﻿@using CodeMagic.UI.Blazor.Components
 @using CodeMagic.UI.Blazor.Models
 @using CodeMagic.UI.Presenters
+@using CodeMagic.Game
+@using CodeMagic.Game.Images
+@using System.Drawing
 
-@inject ILogger<MainMenu> _logger;
+@inject ILogger<MainMenu> Logger;
+@inject IImagesStorageService ImagesStorage;
 
 <div class="main-menu">
 	<div class="content">
 
 		<div class="logo">
-
+			<SymbolsImageDisplay Model="LogoImage" BackgroundColor="Color.Black"></SymbolsImageDisplay>
 		</div>
 
-		<div class="menu">
+		<div>
 			@if (ShowContinueButton)
 			{
 				<div class="menu-button">
-					<Button Text="C0ntinue Game" OnClick="HandleContunieGameClick"></Button>
+					<Button Text="C0nt1nue Game" OnClick="HandleContinueGameClick"></Button>
 				</div>
 			}
 			<div class="menu-button">
 				<Button Text="Start Game" OnClick="HandleStartGameClick"></Button>
 			</div>
 			<div class="menu-button">
-				<Button Text="Spe11 Library" OnClick="HandleShowSpellLibraryClick"></Button>
+				<Button Text="Spell L1brary" OnClick="HandleShowSpellLibraryClick"></Button>
 			</div>
 			<div class="menu-button">
-				<Button Text="Settings" OnClick="HandleSettingsClick"></Button>
-			</div>
-			<div class="menu-button">
-				<Button Text="Exit" OnClick="HandleExitClick"></Button>
+				<Button Text="Sett1ngs" OnClick="HandleSettingsClick"></Button>
 			</div>
 		</div>
 
@@ -36,17 +37,42 @@
 </div>
 
 @code {
+
 	[Parameter]
-	public MainMenuModel? Model { get; set; }
+	public MainMenuModel? Model
+	{
+		get => _model;
+		set
+		{
+			if (_model != null)
+			{
+				_model.ContinueOptionChanged -= ModelOnContinueOptionChanged;
+			}
+
+			_model = value;
+
+			if (_model != null)
+			{
+				_model.ContinueOptionChanged += ModelOnContinueOptionChanged;
+			}
+		}
+	}
+
+	private ISymbolsImage LogoImage => ImagesStorage.GetImage("Logo");
 
 	private bool ShowContinueButton => Model?.ShowContinueButton ?? false;
+
+	private void ModelOnContinueOptionChanged(object? sender, EventArgs args)
+	{
+		StateHasChanged();
+	}
 
 	private void HandleStartGameClick(MouseEventArgs args)
 	{
 		Model?.OnStartGame();
 	}
 
-	private void HandleContunieGameClick(MouseEventArgs args)
+	private void HandleContinueGameClick(MouseEventArgs args)
 	{
 		Model?.OnContinueGame();
 	}
@@ -61,8 +87,5 @@
 		Model?.OnShowSettings();
 	}
 
-	private void HandleExitClick(MouseEventArgs args)
-	{
-		Model?.OnExit();
-	}
+	private MainMenuModel? _model;
 }

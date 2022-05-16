@@ -18,7 +18,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
         private readonly Dictionary<UsableItemType, IUsableItemTypeGenerator> _generators;
 
         public UsableItemsGenerator(
-            IImagesStorage imagesStorage,
+            IImagesStorageService imagesStorage,
             IAncientSpellsProvider spellsProvider,
             IPotionDataFactory potionDataFactory)
         {

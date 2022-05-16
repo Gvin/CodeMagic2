@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CodeMagic.Game.Images;
 using CodeMagic.Game.Objects.Creatures;
 using CodeMagic.Game.Spells;
-using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Items
 {
@@ -37,7 +37,7 @@ namespace CodeMagic.Game.Items
 
         public override bool Stackable => false;
 
-        public ISymbolsImage GetInventoryImage(IImagesStorage storage)
+        public ISymbolsImage GetInventoryImage(IImagesStorageService storage)
         {
             return InventoryImage;
         }
@@ -85,7 +85,7 @@ namespace CodeMagic.Game.Items
             return result.ToArray();
         }
 
-        public ISymbolsImage GetWorldImage(IImagesStorage storage)
+        public ISymbolsImage GetWorldImage(IImagesStorageService storage)
         {
             return WorldImage;
         }

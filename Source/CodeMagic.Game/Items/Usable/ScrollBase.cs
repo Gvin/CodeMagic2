@@ -1,8 +1,8 @@
 ﻿using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
+using CodeMagic.Game.Images;
 using CodeMagic.Game.Objects;
 using CodeMagic.Game.Objects.Creatures;
-using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Items.Usable;
 
@@ -33,9 +33,9 @@ public abstract class ScrollBase : Item, IScroll, IWorldImageProvider, IInventor
         return Code;
     }
 
-    public abstract ISymbolsImage GetWorldImage(IImagesStorage storage);
+    public abstract ISymbolsImage GetWorldImage(IImagesStorageService storage);
 
-    public abstract ISymbolsImage GetInventoryImage(IImagesStorage storage);
+    public abstract ISymbolsImage GetInventoryImage(IImagesStorageService storage);
 
     public abstract StyledLine[] GetDescription(Player player);
 }

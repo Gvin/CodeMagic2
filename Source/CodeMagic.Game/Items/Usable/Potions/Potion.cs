@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
+using CodeMagic.Game.Images;
 using CodeMagic.Game.Objects.Creatures;
-using CodeMagic.UI.Images;
 
 namespace CodeMagic.Game.Items.Usable.Potions;
 
@@ -32,14 +32,14 @@ public sealed class Potion : Item, IUsableItem, IWorldImageProvider, IInventoryI
         return false;
     }
         
-    public ISymbolsImage GetWorldImage(IImagesStorage storage)
+    public ISymbolsImage GetWorldImage(IImagesStorageService storage)
     {
         var templateImage = storage.GetImage("ItemsOnGround_Potion");
         var palette = GetPotionPalette();
         return SymbolsImage.Recolor(templateImage, palette);
     }
 
-    public ISymbolsImage GetInventoryImage(IImagesStorage storage)
+    public ISymbolsImage GetInventoryImage(IImagesStorageService storage)
     {
         var imageTemplateName = GetInventoryImageTemplateName();
         var templateImage = storage.GetImage(imageTemplateName);

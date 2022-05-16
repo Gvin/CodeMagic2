@@ -1,6 +1,6 @@
 ﻿using System;
 using CodeMagic.Core.Objects;
-using CodeMagic.UI.Images;
+using CodeMagic.Game.Images;
 
 namespace CodeMagic.Game.Objects.SolidObjects
 {
@@ -15,7 +15,7 @@ namespace CodeMagic.Game.Objects.SolidObjects
 
         public override ObjectSize Size => ObjectSize.Huge;
 
-        public ISymbolsImage GetWorldImage(IImagesStorage storage)
+        public ISymbolsImage GetWorldImage(IImagesStorageService storage)
         {
             return storage.GetImage(ImageName);
         }

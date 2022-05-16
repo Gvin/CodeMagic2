@@ -1,0 +1,228 @@
+﻿@page "/imageseditor"
+
+@using System.Drawing
+@using CodeMagic.Game.Images
+@using CodeMagic.UI.Blazor.Services
+@using Newtonsoft.Json
+
+@inject IDownloadFileService DownloadFileService;
+@inject ILogger<ImagesEditor> Logger;
+
+<h3>Images Editor</h3>
+
+<div class="images-editor">
+	<div class="panel">
+		Width: <input type="text" placeholder="Width" @bind="Width"/>
+		Height: <input type="text" placeholder="Height" @bind="Height"/>
+		<input type="button" value="Create" @onclick="HandleCreateImage"/>
+	</div>
+	
+	<div class="panel">
+		<input type="button" value="Download" @onclick="HandleDownloadClick"/>
+		<InputFile OnChange="LoadImage" AdditionalAttributes="@ImageLoadAttributes"></InputFile>
+	</div>
+
+	<div class="panel">
+		<input type="text" @bind="Text"/>
+		<input type="color" placeholder="Main Color" @bind="MainColor"/>
+		<input type="button" value="Clear Main Color" @onclick="HandleClearMainColor"/>
+		<input type="color" placeholder="Background Color" @bind="BackgroundColor"/>
+		<input type="button" value="Clear Background Color" @onclick="HandleClearBackgroundColor"/>
+	</div>
+
+	<div class="panel drawing-area">
+		<div class="drawing-image">
+			@for (var y = 0; y < Image.Height; y++)
+			{
+				<div class="pixels-row">
+					@for (var x = 0; x < Image.Width; x++)
+					{
+						var xValue = x;
+						var yValue = y;
+						<div class="pixel" @onclick="() => HandlePixelClick(xValue, yValue)">
+							<p style="color: @GetColor(ImageToDraw[x, y]); background-color: @GetBackgroundColor(ImageToDraw[x, y])">@GetSymbol(ImageToDraw[x, y])</p></div>
+					}
+				</div>
+			}
+		</div>
+	</div>
+	
+	<div class="panel">
+		Background image:
+		<InputFile OnChange="LoadBackgroundImage" AdditionalAttributes="@ImageLoadAttributes"></InputFile>
+		<input type="button" value="Clear Background Image" @onclick="HandleClearBackgroundImage"/>
+	</div>
+</div>
+
+
+@code {
+	private static Dictionary<string, object> ImageLoadAttributes => new()
+	{
+		{ "accept", ".simg" }
+	};
+
+	private ISymbolsImage BackgroundImage { get; set; } = GetDefaultBackgroundImage(3, 3);
+
+	private string? Text { get; set; }
+
+	private char? DrawingChar => string.IsNullOrEmpty(Text) ? null : Text[0];
+
+	private string? MainColor { get; set; }
+
+	private Color? DrawingMainColor
+	{
+		get
+		{
+			if (string.IsNullOrEmpty(MainColor))
+			{
+				return null;
+			}
+
+			return ColorTranslator.FromHtml(MainColor);
+		}
+	}
+
+	private string? BackgroundColor { get; set; }
+
+	private Color? DrawingBackgroundColor
+	{
+		get
+		{
+			if (string.IsNullOrEmpty(BackgroundColor))
+			{
+				return null;
+			}
+
+			return ColorTranslator.FromHtml(BackgroundColor);
+		}
+	}
+
+	private ISymbolsImage ImageToDraw => SymbolsImage.Combine(BackgroundImage, Image);
+
+	private SymbolsImage Image { get; set; } = new(3, 3);
+
+	private int Width { get; set; } = 3;
+
+	private int Height { get; set; } = 3;
+
+	private async void LoadBackgroundImage(InputFileChangeEventArgs args)
+	{
+		if (args.FileCount != 1)
+		{
+			return;
+		}
+
+		var imageFromFile = await ReadFile(args.File);
+
+		if (imageFromFile == null)
+		{
+			return;
+		}
+
+		if (imageFromFile.Width != Image.Width || imageFromFile.Height != Image.Height)
+		{
+			Logger.LogError("Selected background image size does not match with drawing image size.");
+			return;
+		}
+
+		BackgroundImage = imageFromFile;
+		StateHasChanged();
+	}
+
+	private void HandleClearBackgroundImage(MouseEventArgs args)
+	{
+		BackgroundImage = GetDefaultBackgroundImage(Image.Width, Image.Height);
+		StateHasChanged();
+	}
+
+	private void HandleCreateImage(MouseEventArgs args)
+	{
+		Image = new SymbolsImage(Width, Height);
+
+		CheckBackgroundImageSize(Width, Height);
+
+		StateHasChanged();
+	}
+
+	private void HandleClearMainColor(MouseEventArgs args)
+	{
+		MainColor = null;
+	}
+
+	private void HandleClearBackgroundColor(MouseEventArgs args)
+	{
+		BackgroundColor = null;
+	}
+
+	private void HandlePixelClick(int x, int y)
+	{
+		Image[x, y].Symbol = DrawingChar;
+		Image[x, y].Color = DrawingMainColor;
+		Image[x, y].BackgroundColor = DrawingBackgroundColor;
+		StateHasChanged();
+	}
+
+	private async void HandleDownloadClick(MouseEventArgs args)
+	{
+		var content = JsonConvert.SerializeObject(Image, Formatting.Indented);
+		await DownloadFileService.DownloadAsync("image.simg", content);
+	}
+
+	private async void LoadImage(InputFileChangeEventArgs args)
+	{
+		if (args.FileCount != 1)
+		{
+			return;
+		}
+
+		var imageFromFile = await ReadFile(args.File);
+		if (imageFromFile != null)
+		{
+			Image = imageFromFile;
+			CheckBackgroundImageSize(Image.Width, Image.Height);
+			StateHasChanged();
+		}
+	}
+
+	private void CheckBackgroundImageSize(int width, int height)
+	{
+		if (BackgroundImage.Width != width || BackgroundImage.Height != height)
+		{
+			BackgroundImage = GetDefaultBackgroundImage(width, height);
+		}
+	}
+
+	private static async Task<SymbolsImage?> ReadFile(IBrowserFile file)
+	{
+		var content = await ReadFileContent(file);
+		return JsonConvert.DeserializeObject<SymbolsImage>(content);
+	}
+
+	private static async Task<string> ReadFileContent(IBrowserFile file)
+	{
+		await using var fileStream = file.OpenReadStream();
+		return await new StreamReader(fileStream).ReadToEndAsync();
+	}
+
+	private string GetSymbol(SymbolsImage.Pixel? pixel)
+	{
+		return pixel?.Symbol?.ToString() ?? " ";
+	}
+
+	private string GetColor(SymbolsImage.Pixel? pixel)
+	{
+		return (pixel?.Color).ToStyleString();
+	}
+
+	private string GetBackgroundColor(SymbolsImage.Pixel? pixel)
+	{
+		return (pixel?.BackgroundColor).ToStyleString();
+	}
+
+	private static ISymbolsImage GetDefaultBackgroundImage(int width, int height)
+	{
+		var result = new SymbolsImage(width, height);
+		result.SetDefaultBackColor(Color.Black);
+		return result;
+	}
+}

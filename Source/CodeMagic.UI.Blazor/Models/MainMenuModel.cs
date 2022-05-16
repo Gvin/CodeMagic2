@@ -18,13 +18,14 @@ namespace CodeMagic.UI.Blazor.Models
 
 		public event EventHandler? ShowSettings;
 
-		public event EventHandler? Exit;
+        public event EventHandler? ContinueOptionChanged;
 
-		public bool ShowContinueButton { get; private set; }
+        public bool ShowContinueButton { get; private set; }
 
 		public void SetContinueOptionState(bool canContinue)
 		{
 			ShowContinueButton = canContinue;
+			ContinueOptionChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		public void OnStartGame()
@@ -46,10 +47,5 @@ namespace CodeMagic.UI.Blazor.Models
 		{
 			ShowSettings?.Invoke(this, EventArgs.Empty);
 		}
-
-		public void OnExit()
-		{
-			Exit?.Invoke(this, EventArgs.Empty);
-		}
-	}
+    }
 }

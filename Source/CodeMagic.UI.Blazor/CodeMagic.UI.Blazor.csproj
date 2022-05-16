@@ -22,4 +22,12 @@
     <ProjectReference Include="..\CodeMagic.UI\CodeMagic.UI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="dotnet run --project ../../ImagesListBuilder/ImagesListBuilder/ImagesListBuilder.csproj &quot;./wwwroot/images&quot; &quot;./wwwroot/images-list.json&quot;" />
+  </Target>
+
 </Project>

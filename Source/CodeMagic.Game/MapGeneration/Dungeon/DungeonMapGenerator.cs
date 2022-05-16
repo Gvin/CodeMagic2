@@ -32,7 +32,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon
         private readonly ILogger<DungeonMapGenerator> _logger;
         private readonly Dictionary<MapType, IMapAreaGenerator> _generators;
 
-        public DungeonMapGenerator(IImagesStorage imagesStorage, IPerformanceMeter performanceMeter, ILogger<DungeonMapGenerator> logger)
+        public DungeonMapGenerator(IImagesStorageService imagesStorage, IPerformanceMeter performanceMeter, ILogger<DungeonMapGenerator> logger)
         {
             _logger = logger;
 

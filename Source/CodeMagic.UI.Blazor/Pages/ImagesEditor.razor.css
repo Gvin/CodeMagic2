@@ -1,0 +1,26 @@
+.images-editor .panel {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.images-editor .drawing-area {
+  border: 1px solid white;
+  min-height: 100px;
+  max-width: 600px;
+  user-select: none;
+}
+.images-editor .drawing-area .drawing-image {
+  border: 1px solid white;
+  width: fit-content;
+}
+.images-editor .drawing-area .drawing-image .pixels-row {
+  line-height: normal;
+}
+.images-editor .drawing-area .drawing-image .pixels-row .pixel {
+  display: inline-block;
+  white-space: pre;
+}
+.images-editor .drawing-area .drawing-image .pixels-row .pixel p {
+  margin-bottom: 0px;
+}
+
+/*# sourceMappingURL=ImagesEditor.razor.css.map */
