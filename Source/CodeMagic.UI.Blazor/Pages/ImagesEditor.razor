@@ -164,7 +164,7 @@
 
 	private async void HandleDownloadClick(MouseEventArgs args)
 	{
-		var content = JsonConvert.SerializeObject(Image);
+		var content = JsonConvert.SerializeObject(Image, Formatting.Indented);
 		await DownloadFileService.DownloadAsync("image.simg", content);
 	}
 

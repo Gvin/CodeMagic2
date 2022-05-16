@@ -9,7 +9,7 @@ public class ImagesProcessor
     public async Task Process(string imagesFolder, string outputFilePath)
     {
         var images = await GetImages(imagesFolder);
-        var outputFileContent = JsonConvert.SerializeObject(images);
+        var outputFileContent = JsonConvert.SerializeObject(images, Formatting.Indented);
         await File.WriteAllTextAsync(outputFilePath, outputFileContent);
     }
 

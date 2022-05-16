@@ -1,1 +1,1562 @@
-[{"FilePath":"/Creatures/Creature_Down.simg","Hash":2713645},{"FilePath":"/Creatures/Creature_Left.simg","Hash":2713689},{"FilePath":"/Creatures/Creature_Right.simg","Hash":2713579},{"FilePath":"/Creatures/Creature_Up.simg","Hash":2713535},{"FilePath":"/DamagedEquipment/DamagedEquipment_Chest.simg","Hash":1551000},{"FilePath":"/DamagedEquipment/DamagedEquipment_Helmet.simg","Hash":1150644},{"FilePath":"/DamagedEquipment/DamagedEquipment_Leggings.simg","Hash":1347258},{"FilePath":"/DamagedEquipment/DamagedEquipment_Weapon_Left.simg","Hash":1345597},{"FilePath":"/DamagedEquipment/DamagedEquipment_Weapon_Right.simg","Hash":1345597},{"FilePath":"/Decoratives/Decoratives_TrapDoor.simg","Hash":3535686},{"FilePath":"/Effects/Effect_SpellCast.simg","Hash":2606879},{"FilePath":"/Fire/Fire_Big_0.simg","Hash":4800125},{"FilePath":"/Fire/Fire_Big_1.simg","Hash":4812181},{"FilePath":"/Fire/Fire_Big_2.simg","Hash":4822774},{"FilePath":"/Fire/Fire_Big_3.simg","Hash":4804987},{"FilePath":"/Fire/Fire_Medium_0.simg","Hash":3977996},{"FilePath":"/Fire/Fire_Medium_1.simg","Hash":3980141},{"FilePath":"/Fire/Fire_Medium_2.simg","Hash":3986290},{"FilePath":"/Fire/Fire_Medium_3.simg","Hash":3975279},{"FilePath":"/Fire/Fire_Small_0.simg","Hash":3138366},{"FilePath":"/Fire/Fire_Small_1.simg","Hash":3139191},{"FilePath":"/Fire/Fire_Small_2.simg","Hash":3143756},{"FilePath":"/Fire/Fire_Small_3.simg","Hash":3137321},{"FilePath":"/Floor/Floor_Stone_V1.simg","Hash":2849297},{"FilePath":"/Floor/Floor_Stone_V2.simg","Hash":2851959},{"FilePath":"/Floor/Floor_Stone_V3.simg","Hash":2849286},{"FilePath":"/Furniture/Furniture_Chair_Left.simg","Hash":3324035},{"FilePath":"/Furniture/Furniture_Chair_Right.simg","Hash":3324002},{"FilePath":"/Furniture/Furniture_Chest.simg","Hash":4677134},{"FilePath":"/Furniture/Furniture_Chest_Golden.simg","Hash":4663142},{"FilePath":"/Furniture/Furniture_Crate.simg","Hash":4024515},{"FilePath":"/Furniture/Furniture_Table.simg","Hash":3934392},{"FilePath":"/ItemsOnGround/ItemsOnGround_Armor_Chest.simg","Hash":3018048},{"FilePath":"/ItemsOnGround/ItemsOnGround_Armor_Helmet.simg","Hash":2814372},{"FilePath":"/ItemsOnGround/ItemsOnGround_Armor_Leggings.simg","Hash":2814306},{"FilePath":"/ItemsOnGround/ItemsOnGround_Food_Apple.simg","Hash":2697827},{"FilePath":"/ItemsOnGround/ItemsOnGround_Food_Meat.simg","Hash":2715658},{"FilePath":"/ItemsOnGround/ItemsOnGround_Other.simg","Hash":2611279},{"FilePath":"/ItemsOnGround/ItemsOnGround_Potion.simg","Hash":2713337},{"FilePath":"/ItemsOnGround/ItemsOnGround_Resource_Wood.simg","Hash":2713612},{"FilePath":"/ItemsOnGround/ItemsOnGround_Scroll.simg","Hash":2715361},{"FilePath":"/ItemsOnGround/ItemsOnGround_Shield_Big.simg","Hash":2800391},{"FilePath":"/ItemsOnGround/ItemsOnGround_Shield_Medium.simg","Hash":2800644},{"FilePath":"/ItemsOnGround/ItemsOnGround_Shield_Small.simg","Hash":2698190},{"FilePath":"/ItemsOnGround/ItemsOnGround_SpellBook.simg","Hash":2704515},{"FilePath":"/ItemsOnGround/ItemsOnGround_Torch.simg","Hash":2710059},{"FilePath":"/ItemsOnGround/ItemsOnGround_Weapon_Axe.simg","Hash":2816033},{"FilePath":"/ItemsOnGround/ItemsOnGround_Weapon_Dagger.simg","Hash":2711599},{"FilePath":"/ItemsOnGround/ItemsOnGround_Weapon_Mace.simg","Hash":2813437},{"FilePath":"/ItemsOnGround/ItemsOnGround_Weapon_Staff.simg","Hash":2708255},{"FilePath":"/ItemsOnGround/ItemsOnGround_Weapon_Sword.simg","Hash":2812645},{"FilePath":"/ItemsOnPlayer/ItemOnPlayer_Armor_Chest_Leather.simg","Hash":2811523},{"FilePath":"/ItemsOnPlayer/ItemOnPlayer_Armor_Chest_Mail.simg","Hash":2916364},{"FilePath":"/ItemsOnPlayer/ItemOnPlayer_Armor_Chest_Plate.simg","Hash":3020941},{"FilePath":"/ItemsOnPlayer/ItemOnPlayer_Armor_Chest_ScaleMail.simg","Hash":2916672},{"FilePath":"/ItemsOnPlayer/ItemOnPlayer_Armor_Helmet.simg","Hash":2913845},{"FilePath":"/ItemsOnPlayer/ItemOnPlayer_Armor_Leggings_Leather.simg","Hash":2813173},{"FilePath":"/ItemsOnPlayer/ItemOnPlayer_Armor_Leggings_Mail.simg","Hash":2814460},{"FilePath":"/ItemsOnPlayer/ItemOnPlayer_Armor_Leggings_Plate.simg","Hash":2814669},{"FilePath":"/ItemsOnPlayer/ItemOnPlayer_Armor_Leggings_ScaleMail.simg","Hash":2814768},{"FilePath":"/Player/Player_Body.simg","Hash":3441328},{"FilePath":"/Player/Player_Body_LeftWeapon.simg","Hash":2715064},{"FilePath":"/Player/Player_Body_RightWeapon.simg","Hash":2715053},{"FilePath":"/Player/Player_Down_Usable.simg","Hash":2714833},{"FilePath":"/Player/Player_Left_Usable.simg","Hash":2714877},{"FilePath":"/Player/Player_Right_Usable.simg","Hash":2714767},{"FilePath":"/Player/Player_Up_Usable.simg","Hash":2714723},{"FilePath":"/Spell/Spell_HighMana_0.simg","Hash":2603590},{"FilePath":"/Spell/Spell_HighMana_1.simg","Hash":3015320},{"FilePath":"/Spell/Spell_LowMana_0.simg","Hash":2609530},{"FilePath":"/Spell/Spell_LowMana_1.simg","Hash":3021260},{"FilePath":"/Spell/Spell_MediumMana_0.simg","Hash":2603645},{"FilePath":"/Spell/Spell_MediumMana_1.simg","Hash":3015375},{"FilePath":"/Statuses/Status_Blind.simg","Hash":2609354},{"FilePath":"/Statuses/Status_Frozen.simg","Hash":2611664},{"FilePath":"/Statuses/Status_ManaDisturbed.simg","Hash":2712776},{"FilePath":"/Statuses/Status_Oily.simg","Hash":2700555},{"FilePath":"/Statuses/Status_OnFire.simg","Hash":2716945},{"FilePath":"/Statuses/Status_Overweight.simg","Hash":2712776},{"FilePath":"/Statuses/Status_Paralyzed.simg","Hash":2608584},{"FilePath":"/Statuses/Status_Wet.simg","Hash":2707793},{"FilePath":"/Traps/Trap_SpikedFloor.simg","Hash":4843839},{"FilePath":"/Creatures/BlackKnight/Monster_BlackKnight.simg","Hash":3819123},{"FilePath":"/Creatures/Goblin/Monster_GoblinWeak.simg","Hash":3427512},{"FilePath":"/Creatures/Goblin/Monster_Hobgoblin.simg","Hash":3533772},{"FilePath":"/Creatures/Goblin/Monster_HobgoblinKnight.simg","Hash":3640582},{"FilePath":"/Creatures/Skeleton/Monster_SkeletonArmored.simg","Hash":3538095},{"FilePath":"/Creatures/Skeleton/Monster_SkeletonKnight.simg","Hash":3838989},{"FilePath":"/Creatures/Skeleton/Monster_SkeletonWeak.simg","Hash":3226179},{"FilePath":"/Creatures/Slime/Monster_Slime_Blue.simg","Hash":3241425},{"FilePath":"/Creatures/Slime/Monster_Slime_BlueBig.simg","Hash":4288801},{"FilePath":"/Creatures/Slime/Monster_Slime_Green.simg","Hash":3222109},{"FilePath":"/Creatures/Slime/Monster_Slime_GreenBig.simg","Hash":4238751},{"FilePath":"/Creatures/Slime/Monster_Slime_Orange.simg","Hash":3237476},{"FilePath":"/Creatures/Slime/Monster_Slime_OrangeBig.simg","Hash":4279176},{"FilePath":"/Decoratives/Blood/Remains_Blood_Big.simg","Hash":2573956},{"FilePath":"/Decoratives/Blood/Remains_Blood_Medium.simg","Hash":2579687},{"FilePath":"/Decoratives/Blood/Remains_Blood_Small.simg","Hash":2586188},{"FilePath":"/Decoratives/Blood/Remains_GreenBlood_Big.simg","Hash":2568412},{"FilePath":"/Decoratives/Blood/Remains_GreenBlood_Medium.simg","Hash":2576057},{"FilePath":"/Decoratives/Blood/Remains_GreenBlood_Small.simg","Hash":2582756},{"FilePath":"/Decoratives/Bones/Remains_Bones_Medium.simg","Hash":2913174},{"FilePath":"/Decoratives/Bones/Remains_Bones_Small.simg","Hash":2703327},{"FilePath":"/Decoratives/Stones/Decoratives_Stones_Small.simg","Hash":2698498},{"FilePath":"/Decoratives/TorchPost/Decoratives_TorchPost.simg","Hash":706585},{"FilePath":"/Decoratives/TorchPost/Decoratives_TorchPost_0.simg","Hash":706585},{"FilePath":"/Decoratives/TorchPost/Decoratives_TorchPost_1.simg","Hash":706629},{"FilePath":"/Decoratives/TorchPost/Decoratives_TorchPost_2.simg","Hash":706618},{"FilePath":"/Furniture/Shelf/Furniture_Shelf_Down.simg","Hash":3630671},{"FilePath":"/Furniture/Shelf/Furniture_Shelf_Left.simg","Hash":3630902},{"FilePath":"/Furniture/Shelf/Furniture_Shelf_Right.simg","Hash":3630209},{"FilePath":"/Furniture/Shelf/Furniture_Shelf_Up.simg","Hash":3630671},{"FilePath":"/Ice/Acid/Ice_Acid_Big.simg","Hash":2733456},{"FilePath":"/Ice/Acid/Ice_Acid_Medium.simg","Hash":2645478},{"FilePath":"/Ice/Acid/Ice_Acid_Small.simg","Hash":2742157},{"FilePath":"/Ice/Water/Ice_Water_Big.simg","Hash":2732378},{"FilePath":"/Ice/Water/Ice_Water_Medium.simg","Hash":2644444},{"FilePath":"/Ice/Water/Ice_Water_Small.simg","Hash":2741805},{"FilePath":"/Items/Food/Food_Apple.simg","Hash":1686003},{"FilePath":"/Items/Food/Food_Cheese.simg","Hash":3343670},{"FilePath":"/Items/Food/Food_Fish_Template.simg","Hash":3855753},{"FilePath":"/Items/Food/Food_Fruit_Template.simg","Hash":1686421},{"FilePath":"/Items/Food/Food_Kebab_Template.simg","Hash":2869130},{"FilePath":"/Items/Food/Food_Meat.simg","Hash":4462997},{"FilePath":"/Items/Food/Food_Meat_Template.simg","Hash":4426708},{"FilePath":"/Items/Food/Food_Mushroom_Template.simg","Hash":1918389},{"FilePath":"/Items/Food/Food_Pie_Template.simg","Hash":7217375},{"FilePath":"/Items/Resources/Item_Resource_Stone.simg","Hash":3014341},{"FilePath":"/Items/Resources/Item_Resource_Wood.simg","Hash":1973829},{"FilePath":"/Items/Scroll/Item_Scroll_Empty.simg","Hash":7638862},{"FilePath":"/Items/Scroll/Item_Scroll_Empty_Old.simg","Hash":7597810},{"FilePath":"/Items/SpellBook/SpellBook_Template.simg","Hash":3948692},{"FilePath":"/Items/Usable/Item_Potion.simg","Hash":1455652},{"FilePath":"/Items/Usable/Item_Potion_Big.simg","Hash":1662683},{"FilePath":"/Items/Usable/Item_Potion_Small.simg","Hash":1453738},{"FilePath":"/Items/Weapon/Weapon_Torch.simg","Hash":6520547},{"FilePath":"/ItemsOnPlayer/Shield/ItemOnPlayer_Shield_Left_Big.simg","Hash":2901822},{"FilePath":"/ItemsOnPlayer/Shield/ItemOnPlayer_Shield_Left_Medium.simg","Hash":2800644},{"FilePath":"/ItemsOnPlayer/Shield/ItemOnPlayer_Shield_Left_Small.simg","Hash":2698190},{"FilePath":"/ItemsOnPlayer/Shield/ItemOnPlayer_Shield_Right_Big.simg","Hash":2901822},{"FilePath":"/ItemsOnPlayer/Shield/ItemOnPlayer_Shield_Right_Medium.simg","Hash":2800644},{"FilePath":"/ItemsOnPlayer/Shield/ItemOnPlayer_Shield_Right_Small.simg","Hash":2698190},{"FilePath":"/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Left_Axe.simg","Hash":2915814},{"FilePath":"/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Left_Dagger.simg","Hash":2711577},{"FilePath":"/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Left_Mace.simg","Hash":2813503},{"FilePath":"/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Left_Staff.simg","Hash":2708233},{"FilePath":"/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Left_Sword.simg","Hash":2812623},{"FilePath":"/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Right_Axe.simg","Hash":2915770},{"FilePath":"/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Right_Dagger.simg","Hash":2711577},{"FilePath":"/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Right_Mace.simg","Hash":2813547},{"FilePath":"/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Right_Staff.simg","Hash":2708233},{"FilePath":"/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Right_Sword.simg","Hash":2812623},{"FilePath":"/Liquid/Acid/Acid_Big.simg","Hash":7739237},{"FilePath":"/Liquid/Acid/Acid_Medium.simg","Hash":3937054},{"FilePath":"/Liquid/Acid/Acid_Small.simg","Hash":3229336},{"FilePath":"/Liquid/Oil/Oil_Big.simg","Hash":7565140},{"FilePath":"/Liquid/Oil/Oil_Medium.simg","Hash":3919663},{"FilePath":"/Liquid/Oil/Oil_Small.simg","Hash":3103936},{"FilePath":"/Liquid/Water/Water_Big.simg","Hash":7738698},{"FilePath":"/Liquid/Water/Water_Medium.simg","Hash":4185313},{"FilePath":"/Liquid/Water/Water_Small.simg","Hash":3239192},{"FilePath":"/Steam/Acid/Acid_Steam_Big_0.simg","Hash":5637544},{"FilePath":"/Steam/Acid/Acid_Steam_Big_1.simg","Hash":5637544},{"FilePath":"/Steam/Acid/Acid_Steam_Big_2.simg","Hash":5637544},{"FilePath":"/Steam/Acid/Acid_Steam_Big_3.simg","Hash":5637544},{"FilePath":"/Steam/Acid/Acid_Steam_Medium_0.simg","Hash":4176546},{"FilePath":"/Steam/Acid/Acid_Steam_Medium_1.simg","Hash":4176546},{"FilePath":"/Steam/Acid/Acid_Steam_Medium_2.simg","Hash":4280903},{"FilePath":"/Steam/Acid/Acid_Steam_Medium_3.simg","Hash":4176546},{"FilePath":"/Steam/Acid/Acid_Steam_Small_0.simg","Hash":3132976},{"FilePath":"/Steam/Acid/Acid_Steam_Small_1.simg","Hash":3132976},{"FilePath":"/Steam/Acid/Acid_Steam_Small_2.simg","Hash":3132976},{"FilePath":"/Steam/Acid/Acid_Steam_Small_3.simg","Hash":3132976},{"FilePath":"/Steam/Acid/Acid_Steam_Small_4.simg","Hash":3132976},{"FilePath":"/Steam/Acid/Acid_Steam_Small_5.simg","Hash":3132976},{"FilePath":"/Steam/Water/Water_Steam_Big_0.simg","Hash":5637544},{"FilePath":"/Steam/Water/Water_Steam_Big_1.simg","Hash":5637544},{"FilePath":"/Steam/Water/Water_Steam_Big_2.simg","Hash":5637544},{"FilePath":"/Steam/Water/Water_Steam_Big_3.simg","Hash":5637544},{"FilePath":"/Steam/Water/Water_Steam_Medium_0.simg","Hash":4176546},{"FilePath":"/Steam/Water/Water_Steam_Medium_1.simg","Hash":4176546},{"FilePath":"/Steam/Water/Water_Steam_Medium_2.simg","Hash":4280903},{"FilePath":"/Steam/Water/Water_Steam_Medium_3.simg","Hash":4176546},{"FilePath":"/Steam/Water/Water_Steam_Small_0.simg","Hash":3132976},{"FilePath":"/Steam/Water/Water_Steam_Small_1.simg","Hash":3132976},{"FilePath":"/Steam/Water/Water_Steam_Small_2.simg","Hash":3132976},{"FilePath":"/Steam/Water/Water_Steam_Small_3.simg","Hash":3132976},{"FilePath":"/Steam/Water/Water_Steam_Small_4.simg","Hash":3132976},{"FilePath":"/Steam/Water/Water_Steam_Small_5.simg","Hash":3132976},{"FilePath":"/Wall/Cave/Wall_Cave.simg","Hash":1340020},{"FilePath":"/Wall/Cave/Wall_Cave_Bottom.simg","Hash":1336753},{"FilePath":"/Wall/Cave/Wall_Cave_Bottom_Right.simg","Hash":1246113},{"FilePath":"/Wall/Cave/Wall_Cave_Corner.simg","Hash":1250469},{"FilePath":"/Wall/Cave/Wall_Cave_Right.simg","Hash":1336753},{"FilePath":"/Wall/Dungeon/Wall_Dungeon.simg","Hash":7712287},{"FilePath":"/Wall/Dungeon/Wall_Dungeon_Bottom.simg","Hash":7692421},{"FilePath":"/Wall/Dungeon/Wall_Dungeon_Bottom_Right.simg","Hash":7276137},{"FilePath":"/Wall/Dungeon/Wall_Dungeon_Corner.simg","Hash":7298841},{"FilePath":"/Wall/Dungeon/Wall_Dungeon_Right.simg","Hash":7692421},{"FilePath":"/Wall/DungeonDoor/Door_Dungeon_Closed_Horizontal.simg","Hash":6302428},{"FilePath":"/Wall/DungeonDoor/Door_Dungeon_Closed_Vertical.simg","Hash":6302472},{"FilePath":"/Wall/DungeonDoor/Door_Dungeon_Opened_Horizontal.simg","Hash":4514092},{"FilePath":"/Wall/DungeonDoor/Door_Dungeon_Opened_Vertical.simg","Hash":4514268},{"FilePath":"/Wall/Energy/EnergyWall_HighEnergy.simg","Hash":5864551},{"FilePath":"/Wall/Energy/EnergyWall_LowEnergy.simg","Hash":5903755},{"FilePath":"/Wall/Energy/EnergyWall_MediumEnergy.simg","Hash":5864914},{"FilePath":"/Wall/Spiked/Wall_Spiked.simg","Hash":2682339},{"FilePath":"/Wall/Spiked/Wall_Spiked_Bottom.simg","Hash":4830969},{"FilePath":"/Wall/Spiked/Wall_Spiked_Bottom_Right.simg","Hash":5747940},{"FilePath":"/Wall/Spiked/Wall_Spiked_Corner.simg","Hash":3294324},{"FilePath":"/Wall/Spiked/Wall_Spiked_Right.simg","Hash":4830705},{"FilePath":"/Wall/Stairs/Stairs_Up.simg","Hash":3835271},{"FilePath":"/Items/Scroll/New/Item_Scroll_New_V1.simg","Hash":5193914},{"FilePath":"/Items/Scroll/New/Item_Scroll_New_V2.simg","Hash":5175709},{"FilePath":"/Items/Scroll/New/Item_Scroll_New_V3.simg","Hash":5209798},{"FilePath":"/Items/Scroll/Old/Item_Scroll_Old_V1.simg","Hash":5678926},{"FilePath":"/Items/Scroll/Old/Item_Scroll_Old_V2.simg","Hash":5672722},{"FilePath":"/Items/Scroll/Old/Item_Scroll_Old_V3.simg","Hash":5527984},{"FilePath":"/Items/Shield/Big/Item_Shield_Big_Base.simg","Hash":8912343},{"FilePath":"/Items/Shield/Big/Item_Shield_Big_Damage_V1.simg","Hash":5150629},{"FilePath":"/Items/Shield/Big/Item_Shield_Big_Damage_V2.simg","Hash":5059758},{"FilePath":"/Items/Shield/Big/Item_Shield_Big_Image_V1.simg","Hash":8756935},{"FilePath":"/Items/Shield/Big/Item_Shield_Big_Image_V2.simg","Hash":7738291},{"FilePath":"/Items/Shield/Big/Item_Shield_Big_Image_V3.simg","Hash":6879444},{"FilePath":"/Items/Shield/Big/Item_Shield_Big_Image_V4.simg","Hash":8710603},{"FilePath":"/Items/Shield/Big/Item_Shield_Big_Image_V5.simg","Hash":8322105},{"FilePath":"/Items/Shield/Big/Item_Shield_Big_Image_V6.simg","Hash":6722881},{"FilePath":"/Items/Shield/Medium/Item_Shield_Medium_Base.simg","Hash":7187477},{"FilePath":"/Items/Shield/Medium/Item_Shield_Medium_Damage_V1.simg","Hash":4217323},{"FilePath":"/Items/Shield/Medium/Item_Shield_Medium_Damage_V2.simg","Hash":4308205},{"FilePath":"/Items/Shield/Medium/Item_Shield_Medium_Image_V1.simg","Hash":7506257},{"FilePath":"/Items/Shield/Medium/Item_Shield_Medium_Image_V2.simg","Hash":5268703},{"FilePath":"/Items/Shield/Medium/Item_Shield_Medium_Image_V3.simg","Hash":5571346},{"FilePath":"/Items/Shield/Medium/Item_Shield_Medium_Image_V4.simg","Hash":6692037},{"FilePath":"/Items/Shield/Small/Item_Shield_Small_Base.simg","Hash":5871052},{"FilePath":"/Items/Shield/Small/Item_Shield_Small_Damage_V1.simg","Hash":3383820},{"FilePath":"/Items/Shield/Small/Item_Shield_Small_Damage_V2.simg","Hash":3478552},{"FilePath":"/Items/Shield/Small/Item_Shield_Small_Image_V1.simg","Hash":6255150},{"FilePath":"/Items/Shield/Small/Item_Shield_Small_Image_V2.simg","Hash":3905836},{"FilePath":"/Items/Shield/Small/Item_Shield_Small_Image_V3.simg","Hash":4630054},{"FilePath":"/Items/Shield/Small/Item_Shield_Small_Image_V4.simg","Hash":5826876},{"FilePath":"/Items/SpellBook/Pictures/SpellBook_Picture_V1.simg","Hash":2315324},{"FilePath":"/Items/SpellBook/Pictures/SpellBook_Picture_V2.simg","Hash":1967394},{"FilePath":"/Items/SpellBook/Pictures/SpellBook_Picture_V3.simg","Hash":1910502},{"FilePath":"/Items/SpellBook/Pictures/SpellBook_Picture_V4.simg","Hash":2107864},{"FilePath":"/Items/SpellBook/Pictures/SpellBook_Picture_V5.simg","Hash":2745996},{"FilePath":"/Items/Weapon/Custom/Weapon_BanHammer.simg","Hash":8816269},{"FilePath":"/Items/Weapon/Parts/Weapon_Empty.simg","Hash":7379427},{"FilePath":"/ItemsOnPlayer/Weapon/Torch/ItemOnPlayer_Weapon_Left_Torch_0.simg","Hash":2817639},{"FilePath":"/ItemsOnPlayer/Weapon/Torch/ItemOnPlayer_Weapon_Left_Torch_1.simg","Hash":2818310},{"FilePath":"/ItemsOnPlayer/Weapon/Torch/ItemOnPlayer_Weapon_Left_Torch_2.simg","Hash":2818321},{"FilePath":"/ItemsOnPlayer/Weapon/Torch/ItemOnPlayer_Weapon_Right_Torch_0.simg","Hash":2817639},{"FilePath":"/ItemsOnPlayer/Weapon/Torch/ItemOnPlayer_Weapon_Right_Torch_1.simg","Hash":2818310},{"FilePath":"/ItemsOnPlayer/Weapon/Torch/ItemOnPlayer_Weapon_Right_Torch_2.simg","Hash":2818321},{"FilePath":"/Wall/Dungeon/Torch/Wall_Dungeon_Bottom_Right_Torch_0.simg","Hash":7284079},{"FilePath":"/Wall/Dungeon/Torch/Wall_Dungeon_Bottom_Right_Torch_1.simg","Hash":7285443},{"FilePath":"/Wall/Dungeon/Torch/Wall_Dungeon_Bottom_Right_Torch_2.simg","Hash":7285421},{"FilePath":"/Wall/Dungeon/Torch/Wall_Dungeon_Bottom_Torch_0.simg","Hash":7696403},{"FilePath":"/Wall/Dungeon/Torch/Wall_Dungeon_Bottom_Torch_1.simg","Hash":7697085},{"FilePath":"/Wall/Dungeon/Torch/Wall_Dungeon_Bottom_Torch_2.simg","Hash":7697085},{"FilePath":"/Wall/Dungeon/Torch/Wall_Dungeon_Right_Torch_0.simg","Hash":7696381},{"FilePath":"/Wall/Dungeon/Torch/Wall_Dungeon_Right_Torch_1.simg","Hash":7697063},{"FilePath":"/Wall/Dungeon/Torch/Wall_Dungeon_Right_Torch_2.simg","Hash":7697052},{"FilePath":"/Items/Armor/Chest/Leather/Armor_Leather_Chest_V1.simg","Hash":8878452},{"FilePath":"/Items/Armor/Chest/Leather/Armor_Leather_Chest_V2.simg","Hash":8858740},{"FilePath":"/Items/Armor/Chest/Leather/Armor_Leather_Chest_V3.simg","Hash":10222751},{"FilePath":"/Items/Armor/Chest/Mail/Armor_Mail_Chest_V1.simg","Hash":17831396},{"FilePath":"/Items/Armor/Chest/Mail/Armor_Mail_Chest_V2.simg","Hash":18035358},{"FilePath":"/Items/Armor/Chest/Mail/Armor_Mail_Chest_V3.simg","Hash":16607624},{"FilePath":"/Items/Armor/Chest/Plate/Armor_Plate_Chest_V1.simg","Hash":10920217},{"FilePath":"/Items/Armor/Chest/Plate/Armor_Plate_Chest_V2.simg","Hash":11532103},{"FilePath":"/Items/Armor/Chest/Plate/Armor_Plate_Chest_V3.simg","Hash":11323037},{"FilePath":"/Items/Armor/Chest/Plate/Armor_Plate_Chest_V4.simg","Hash":12741883},{"FilePath":"/Items/Armor/Chest/Plate/Armor_Plate_Chest_V5.simg","Hash":13353769},{"FilePath":"/Items/Armor/Chest/Plate/Armor_Plate_Chest_V6.simg","Hash":11725802},{"FilePath":"/Items/Armor/Chest/ScaleMail/Armor_ScaleMail_Chest_V1.simg","Hash":17885252},{"FilePath":"/Items/Armor/Chest/ScaleMail/Armor_ScaleMail_Chest_V2.simg","Hash":18093966},{"FilePath":"/Items/Armor/Chest/ScaleMail/Armor_ScaleMail_Chest_V3.simg","Hash":16651976},{"FilePath":"/Items/Armor/Helmet/Leather/Armor_Leather_Helmet_V1.simg","Hash":3613819},{"FilePath":"/Items/Armor/Helmet/Mail/Armor_Mail_Helmet_V1.simg","Hash":6254600},{"FilePath":"/Items/Armor/Helmet/Mail/Armor_Mail_Helmet_V2.simg","Hash":6662524},{"FilePath":"/Items/Armor/Helmet/Plate/Armor_Plate_Helmet_V1.simg","Hash":3819618},{"FilePath":"/Items/Armor/Helmet/Plate/Armor_Plate_Helmet_V2.simg","Hash":3821532},{"FilePath":"/Items/Armor/Helmet/Plate/Armor_Plate_Helmet_V3.simg","Hash":4009577},{"FilePath":"/Items/Armor/Helmet/Plate/Armor_Plate_Helmet_V4.simg","Hash":4226871},{"FilePath":"/Items/Armor/Helmet/Plate/Armor_Plate_Helmet_V5.simg","Hash":4023283},{"FilePath":"/Items/Armor/Helmet/Plate/Armor_Plate_Helmet_V6.simg","Hash":4023591},{"FilePath":"/Items/Armor/Helmet/ScaleMail/Armor_ScaleMail_Helmet_V1.simg","Hash":6473027},{"FilePath":"/Items/Armor/Helmet/ScaleMail/Armor_ScaleMail_Helmet_V2.simg","Hash":6884119},{"FilePath":"/Items/Armor/Leggings/Leather/Armor_Leather_Leggings_V1.simg","Hash":8875350},{"FilePath":"/Items/Armor/Leggings/Leather/Armor_Leather_Leggings_V2.simg","Hash":8855550},{"FilePath":"/Items/Armor/Leggings/Leather/Armor_Leather_Leggings_V3.simg","Hash":8857310},{"FilePath":"/Items/Armor/Leggings/Leather/Armor_Leather_Leggings_V4.simg","Hash":8858300},{"FilePath":"/Items/Armor/Leggings/Mail/Armor_Mail_Leggings_V1.simg","Hash":16811586},{"FilePath":"/Items/Armor/Leggings/Plate/Armor_Plate_Leggings_V1.simg","Hash":14169298},{"FilePath":"/Items/Armor/Leggings/Plate/Armor_Plate_Leggings_V2.simg","Hash":14368948},{"FilePath":"/Items/Armor/Leggings/Plate/Armor_Plate_Leggings_V3.simg","Hash":12542706},{"FilePath":"/Items/Armor/Leggings/ScaleMail/Armor_ScaleMail_Leggings_V1.simg","Hash":16844850},{"FilePath":"/Items/Weapon/Parts/Axe/Head/Axe_Head_V1.simg","Hash":7589373},{"FilePath":"/Items/Weapon/Parts/Axe/Head/Axe_Head_V2.simg","Hash":7583697},{"FilePath":"/Items/Weapon/Parts/Axe/Head/Axe_Head_V3.simg","Hash":7691717},{"FilePath":"/Items/Weapon/Parts/Axe/Head/Axe_Head_V4.simg","Hash":7686041},{"FilePath":"/Items/Weapon/Parts/Axe/Head/Axe_Head_V5.simg","Hash":8205472},{"FilePath":"/Items/Weapon/Parts/Axe/Head/Axe_Head_V6.simg","Hash":8196958},{"FilePath":"/Items/Weapon/Parts/Dagger/Blade/Dagger_Blade_V1.simg","Hash":7368933},{"FilePath":"/Items/Weapon/Parts/Dagger/Blade/Dagger_Blade_V2.simg","Hash":7993755},{"FilePath":"/Items/Weapon/Parts/Dagger/Blade/Dagger_Blade_V3.simg","Hash":7923795},{"FilePath":"/Items/Weapon/Parts/Dagger/Blade/Dagger_Blade_V4.simg","Hash":7360958},{"FilePath":"/Items/Weapon/Parts/Dagger/Blade/Dagger_Blade_V5.simg","Hash":7453490},{"FilePath":"/Items/Weapon/Parts/Dagger/Guard/Dagger_Guard_V1.simg","Hash":7481001},{"FilePath":"/Items/Weapon/Parts/Dagger/Guard/Dagger_Guard_V2.simg","Hash":7379746},{"FilePath":"/Items/Weapon/Parts/Dagger/Guard/Dagger_Guard_V3.simg","Hash":7376908},{"FilePath":"/Items/Weapon/Parts/Dagger/Guard/Dagger_Guard_V4.simg","Hash":7377304},{"FilePath":"/Items/Weapon/Parts/Dagger/Guard/Dagger_Guard_V5.simg","Hash":7376325},{"FilePath":"/Items/Weapon/Parts/Dagger/Guard/Dagger_Guard_V6.simg","Hash":7376402},{"FilePath":"/Items/Weapon/Parts/Mace/Head/Mace_Head_V1.simg","Hash":7793390},{"FilePath":"/Items/Weapon/Parts/Mace/Head/Mace_Head_V10.simg","Hash":8204130},{"FilePath":"/Items/Weapon/Parts/Mace/Head/Mace_Head_V11.simg","Hash":8189940},{"FilePath":"/Items/Weapon/Parts/Mace/Head/Mace_Head_V12.simg","Hash":8191766},{"FilePath":"/Items/Weapon/Parts/Mace/Head/Mace_Head_V13.simg","Hash":8177576},{"FilePath":"/Items/Weapon/Parts/Mace/Head/Mace_Head_V2.simg","Hash":7383574},{"FilePath":"/Items/Weapon/Parts/Mace/Head/Mace_Head_V3.simg","Hash":7474247},{"FilePath":"/Items/Weapon/Parts/Mace/Head/Mace_Head_V4.simg","Hash":8177906},{"FilePath":"/Items/Weapon/Parts/Mace/Head/Mace_Head_V5.simg","Hash":7485599},{"FilePath":"/Items/Weapon/Parts/Mace/Head/Mace_Head_V6.simg","Hash":7779200},{"FilePath":"/Items/Weapon/Parts/Mace/Head/Mace_Head_V7.simg","Hash":7369384},{"FilePath":"/Items/Weapon/Parts/Mace/Head/Mace_Head_V8.simg","Hash":8200214},{"FilePath":"/Items/Weapon/Parts/Mace/Head/Mace_Head_V9.simg","Hash":8186024},{"FilePath":"/Items/Weapon/Parts/Mace/Shaft/Mace_Shaft_V1.simg","Hash":7311007},{"FilePath":"/Items/Weapon/Parts/Mace/Shaft/Mace_Shaft_V2.simg","Hash":7344447},{"FilePath":"/Items/Weapon/Parts/Mace/Shaft/Mace_Shaft_V3.simg","Hash":9404747},{"FilePath":"/Items/Weapon/Parts/Staff/Head/Staff_Head_V1.simg","Hash":8088740},{"FilePath":"/Items/Weapon/Parts/Staff/Head/Staff_Head_V2.simg","Hash":8281119},{"FilePath":"/Items/Weapon/Parts/Staff/Head/Staff_Head_V3.simg","Hash":8385135},{"FilePath":"/Items/Weapon/Parts/Staff/Head/Staff_Head_V4.simg","Hash":8494068},{"FilePath":"/Items/Weapon/Parts/Staff/Head/Staff_Head_V5.simg","Hash":8184583},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V1.simg","Hash":8992390},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V10.simg","Hash":8992896},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V11.simg","Hash":7460871},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V12.simg","Hash":9006096},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V13.simg","Hash":9007218},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V14.simg","Hash":8994898},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V15.simg","Hash":7565008},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V16.simg","Hash":8889452},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V17.simg","Hash":7459562},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V18.simg","Hash":8901772},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V19.simg","Hash":9095768},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V2.simg","Hash":7460365},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V20.simg","Hash":7563743},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V21.simg","Hash":9108968},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V22.simg","Hash":9097770},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V23.simg","Hash":7667880},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V24.simg","Hash":8992324},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V25.simg","Hash":7562434},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V26.simg","Hash":9004644},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V3.simg","Hash":9005590},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V4.simg","Hash":9006712},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V5.simg","Hash":8994392},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V6.simg","Hash":7564502},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V7.simg","Hash":8888946},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V8.simg","Hash":7459056},{"FilePath":"/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V9.simg","Hash":8901266},{"FilePath":"/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V1.simg","Hash":7683555},{"FilePath":"/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V10.simg","Hash":7579913},{"FilePath":"/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V11.simg","Hash":7580111},{"FilePath":"/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V2.simg","Hash":7582300},{"FilePath":"/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V3.simg","Hash":7584544},{"FilePath":"/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V4.simg","Hash":7581706},{"FilePath":"/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V5.simg","Hash":7579462},{"FilePath":"/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V6.simg","Hash":7582685},{"FilePath":"/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V7.simg","Hash":7578956},{"FilePath":"/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V8.simg","Hash":7561202},{"FilePath":"/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V9.simg","Hash":7558364},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V1.simg","Hash":7373652},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V10.simg","Hash":7683533},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V11.simg","Hash":7578769},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V12.simg","Hash":7578626},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V13.simg","Hash":7683379},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V14.simg","Hash":7578681},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V15.simg","Hash":7588273},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V16.simg","Hash":7588427},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V2.simg","Hash":7578604},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V3.simg","Hash":7683225},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V4.simg","Hash":7684457},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V5.simg","Hash":7369164},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V6.simg","Hash":7370121},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V7.simg","Hash":7578857},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V8.simg","Hash":7578615},{"FilePath":"/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V9.simg","Hash":7580034}]
+[
+  {
+    "FilePath": "/Logo.simg",
+    "Hash": 2730046
+  },
+  {
+    "FilePath": "/Creatures/Creature_Down.simg",
+    "Hash": 2713645
+  },
+  {
+    "FilePath": "/Creatures/Creature_Left.simg",
+    "Hash": 2713689
+  },
+  {
+    "FilePath": "/Creatures/Creature_Right.simg",
+    "Hash": 2713579
+  },
+  {
+    "FilePath": "/Creatures/Creature_Up.simg",
+    "Hash": 2713535
+  },
+  {
+    "FilePath": "/DamagedEquipment/DamagedEquipment_Chest.simg",
+    "Hash": 1551000
+  },
+  {
+    "FilePath": "/DamagedEquipment/DamagedEquipment_Helmet.simg",
+    "Hash": 1150644
+  },
+  {
+    "FilePath": "/DamagedEquipment/DamagedEquipment_Leggings.simg",
+    "Hash": 1347258
+  },
+  {
+    "FilePath": "/DamagedEquipment/DamagedEquipment_Weapon_Left.simg",
+    "Hash": 1345597
+  },
+  {
+    "FilePath": "/DamagedEquipment/DamagedEquipment_Weapon_Right.simg",
+    "Hash": 1345597
+  },
+  {
+    "FilePath": "/Decoratives/Decoratives_TrapDoor.simg",
+    "Hash": 3535686
+  },
+  {
+    "FilePath": "/Effects/Effect_SpellCast.simg",
+    "Hash": 2606879
+  },
+  {
+    "FilePath": "/Fire/Fire_Big_0.simg",
+    "Hash": 4800125
+  },
+  {
+    "FilePath": "/Fire/Fire_Big_1.simg",
+    "Hash": 4812181
+  },
+  {
+    "FilePath": "/Fire/Fire_Big_2.simg",
+    "Hash": 4822774
+  },
+  {
+    "FilePath": "/Fire/Fire_Big_3.simg",
+    "Hash": 4804987
+  },
+  {
+    "FilePath": "/Fire/Fire_Medium_0.simg",
+    "Hash": 3977996
+  },
+  {
+    "FilePath": "/Fire/Fire_Medium_1.simg",
+    "Hash": 3980141
+  },
+  {
+    "FilePath": "/Fire/Fire_Medium_2.simg",
+    "Hash": 3986290
+  },
+  {
+    "FilePath": "/Fire/Fire_Medium_3.simg",
+    "Hash": 3975279
+  },
+  {
+    "FilePath": "/Fire/Fire_Small_0.simg",
+    "Hash": 3138366
+  },
+  {
+    "FilePath": "/Fire/Fire_Small_1.simg",
+    "Hash": 3139191
+  },
+  {
+    "FilePath": "/Fire/Fire_Small_2.simg",
+    "Hash": 3143756
+  },
+  {
+    "FilePath": "/Fire/Fire_Small_3.simg",
+    "Hash": 3137321
+  },
+  {
+    "FilePath": "/Floor/Floor_Stone_V1.simg",
+    "Hash": 2849297
+  },
+  {
+    "FilePath": "/Floor/Floor_Stone_V2.simg",
+    "Hash": 2851959
+  },
+  {
+    "FilePath": "/Floor/Floor_Stone_V3.simg",
+    "Hash": 2849286
+  },
+  {
+    "FilePath": "/Furniture/Furniture_Chair_Left.simg",
+    "Hash": 3324035
+  },
+  {
+    "FilePath": "/Furniture/Furniture_Chair_Right.simg",
+    "Hash": 3324002
+  },
+  {
+    "FilePath": "/Furniture/Furniture_Chest.simg",
+    "Hash": 4677134
+  },
+  {
+    "FilePath": "/Furniture/Furniture_Chest_Golden.simg",
+    "Hash": 4663142
+  },
+  {
+    "FilePath": "/Furniture/Furniture_Crate.simg",
+    "Hash": 4024515
+  },
+  {
+    "FilePath": "/Furniture/Furniture_Table.simg",
+    "Hash": 3934392
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Armor_Chest.simg",
+    "Hash": 3018048
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Armor_Helmet.simg",
+    "Hash": 2814372
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Armor_Leggings.simg",
+    "Hash": 2814306
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Food_Apple.simg",
+    "Hash": 2697827
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Food_Meat.simg",
+    "Hash": 2715658
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Other.simg",
+    "Hash": 2611279
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Potion.simg",
+    "Hash": 2713337
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Resource_Wood.simg",
+    "Hash": 2713612
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Scroll.simg",
+    "Hash": 2715361
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Shield_Big.simg",
+    "Hash": 2800391
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Shield_Medium.simg",
+    "Hash": 2800644
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Shield_Small.simg",
+    "Hash": 2698190
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_SpellBook.simg",
+    "Hash": 2704515
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Torch.simg",
+    "Hash": 2710059
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Weapon_Axe.simg",
+    "Hash": 2816033
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Weapon_Dagger.simg",
+    "Hash": 2711599
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Weapon_Mace.simg",
+    "Hash": 2813437
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Weapon_Staff.simg",
+    "Hash": 2708255
+  },
+  {
+    "FilePath": "/ItemsOnGround/ItemsOnGround_Weapon_Sword.simg",
+    "Hash": 2812645
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/ItemOnPlayer_Armor_Chest_Leather.simg",
+    "Hash": 2811523
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/ItemOnPlayer_Armor_Chest_Mail.simg",
+    "Hash": 2916364
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/ItemOnPlayer_Armor_Chest_Plate.simg",
+    "Hash": 3020941
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/ItemOnPlayer_Armor_Chest_ScaleMail.simg",
+    "Hash": 2916672
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/ItemOnPlayer_Armor_Helmet.simg",
+    "Hash": 2913845
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/ItemOnPlayer_Armor_Leggings_Leather.simg",
+    "Hash": 2813173
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/ItemOnPlayer_Armor_Leggings_Mail.simg",
+    "Hash": 2814460
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/ItemOnPlayer_Armor_Leggings_Plate.simg",
+    "Hash": 2814669
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/ItemOnPlayer_Armor_Leggings_ScaleMail.simg",
+    "Hash": 2814768
+  },
+  {
+    "FilePath": "/Player/Player_Body.simg",
+    "Hash": 3441328
+  },
+  {
+    "FilePath": "/Player/Player_Body_LeftWeapon.simg",
+    "Hash": 2715064
+  },
+  {
+    "FilePath": "/Player/Player_Body_RightWeapon.simg",
+    "Hash": 2715053
+  },
+  {
+    "FilePath": "/Player/Player_Down_Usable.simg",
+    "Hash": 2714833
+  },
+  {
+    "FilePath": "/Player/Player_Left_Usable.simg",
+    "Hash": 2714877
+  },
+  {
+    "FilePath": "/Player/Player_Right_Usable.simg",
+    "Hash": 2714767
+  },
+  {
+    "FilePath": "/Player/Player_Up_Usable.simg",
+    "Hash": 2714723
+  },
+  {
+    "FilePath": "/Spell/Spell_HighMana_0.simg",
+    "Hash": 2603590
+  },
+  {
+    "FilePath": "/Spell/Spell_HighMana_1.simg",
+    "Hash": 3015320
+  },
+  {
+    "FilePath": "/Spell/Spell_LowMana_0.simg",
+    "Hash": 2609530
+  },
+  {
+    "FilePath": "/Spell/Spell_LowMana_1.simg",
+    "Hash": 3021260
+  },
+  {
+    "FilePath": "/Spell/Spell_MediumMana_0.simg",
+    "Hash": 2603645
+  },
+  {
+    "FilePath": "/Spell/Spell_MediumMana_1.simg",
+    "Hash": 3015375
+  },
+  {
+    "FilePath": "/Statuses/Status_Blind.simg",
+    "Hash": 2609354
+  },
+  {
+    "FilePath": "/Statuses/Status_Frozen.simg",
+    "Hash": 2611664
+  },
+  {
+    "FilePath": "/Statuses/Status_ManaDisturbed.simg",
+    "Hash": 2712776
+  },
+  {
+    "FilePath": "/Statuses/Status_Oily.simg",
+    "Hash": 2700555
+  },
+  {
+    "FilePath": "/Statuses/Status_OnFire.simg",
+    "Hash": 2716945
+  },
+  {
+    "FilePath": "/Statuses/Status_Overweight.simg",
+    "Hash": 2712776
+  },
+  {
+    "FilePath": "/Statuses/Status_Paralyzed.simg",
+    "Hash": 2608584
+  },
+  {
+    "FilePath": "/Statuses/Status_Wet.simg",
+    "Hash": 2707793
+  },
+  {
+    "FilePath": "/Traps/Trap_SpikedFloor.simg",
+    "Hash": 4843839
+  },
+  {
+    "FilePath": "/Creatures/BlackKnight/Monster_BlackKnight.simg",
+    "Hash": 3819123
+  },
+  {
+    "FilePath": "/Creatures/Goblin/Monster_GoblinWeak.simg",
+    "Hash": 3427512
+  },
+  {
+    "FilePath": "/Creatures/Goblin/Monster_Hobgoblin.simg",
+    "Hash": 3533772
+  },
+  {
+    "FilePath": "/Creatures/Goblin/Monster_HobgoblinKnight.simg",
+    "Hash": 3640582
+  },
+  {
+    "FilePath": "/Creatures/Skeleton/Monster_SkeletonArmored.simg",
+    "Hash": 3538095
+  },
+  {
+    "FilePath": "/Creatures/Skeleton/Monster_SkeletonKnight.simg",
+    "Hash": 3838989
+  },
+  {
+    "FilePath": "/Creatures/Skeleton/Monster_SkeletonWeak.simg",
+    "Hash": 3226179
+  },
+  {
+    "FilePath": "/Creatures/Slime/Monster_Slime_Blue.simg",
+    "Hash": 3241425
+  },
+  {
+    "FilePath": "/Creatures/Slime/Monster_Slime_BlueBig.simg",
+    "Hash": 4288801
+  },
+  {
+    "FilePath": "/Creatures/Slime/Monster_Slime_Green.simg",
+    "Hash": 3222109
+  },
+  {
+    "FilePath": "/Creatures/Slime/Monster_Slime_GreenBig.simg",
+    "Hash": 4238751
+  },
+  {
+    "FilePath": "/Creatures/Slime/Monster_Slime_Orange.simg",
+    "Hash": 3237476
+  },
+  {
+    "FilePath": "/Creatures/Slime/Monster_Slime_OrangeBig.simg",
+    "Hash": 4279176
+  },
+  {
+    "FilePath": "/Decoratives/Blood/Remains_Blood_Big.simg",
+    "Hash": 2573956
+  },
+  {
+    "FilePath": "/Decoratives/Blood/Remains_Blood_Medium.simg",
+    "Hash": 2579687
+  },
+  {
+    "FilePath": "/Decoratives/Blood/Remains_Blood_Small.simg",
+    "Hash": 2586188
+  },
+  {
+    "FilePath": "/Decoratives/Blood/Remains_GreenBlood_Big.simg",
+    "Hash": 2568412
+  },
+  {
+    "FilePath": "/Decoratives/Blood/Remains_GreenBlood_Medium.simg",
+    "Hash": 2576057
+  },
+  {
+    "FilePath": "/Decoratives/Blood/Remains_GreenBlood_Small.simg",
+    "Hash": 2582756
+  },
+  {
+    "FilePath": "/Decoratives/Bones/Remains_Bones_Medium.simg",
+    "Hash": 2913174
+  },
+  {
+    "FilePath": "/Decoratives/Bones/Remains_Bones_Small.simg",
+    "Hash": 2703327
+  },
+  {
+    "FilePath": "/Decoratives/Stones/Decoratives_Stones_Small.simg",
+    "Hash": 2698498
+  },
+  {
+    "FilePath": "/Decoratives/TorchPost/Decoratives_TorchPost.simg",
+    "Hash": 706585
+  },
+  {
+    "FilePath": "/Decoratives/TorchPost/Decoratives_TorchPost_0.simg",
+    "Hash": 706585
+  },
+  {
+    "FilePath": "/Decoratives/TorchPost/Decoratives_TorchPost_1.simg",
+    "Hash": 706629
+  },
+  {
+    "FilePath": "/Decoratives/TorchPost/Decoratives_TorchPost_2.simg",
+    "Hash": 706618
+  },
+  {
+    "FilePath": "/Furniture/Shelf/Furniture_Shelf_Down.simg",
+    "Hash": 3630671
+  },
+  {
+    "FilePath": "/Furniture/Shelf/Furniture_Shelf_Left.simg",
+    "Hash": 3630902
+  },
+  {
+    "FilePath": "/Furniture/Shelf/Furniture_Shelf_Right.simg",
+    "Hash": 3630209
+  },
+  {
+    "FilePath": "/Furniture/Shelf/Furniture_Shelf_Up.simg",
+    "Hash": 3630671
+  },
+  {
+    "FilePath": "/Ice/Acid/Ice_Acid_Big.simg",
+    "Hash": 2733456
+  },
+  {
+    "FilePath": "/Ice/Acid/Ice_Acid_Medium.simg",
+    "Hash": 2645478
+  },
+  {
+    "FilePath": "/Ice/Acid/Ice_Acid_Small.simg",
+    "Hash": 2742157
+  },
+  {
+    "FilePath": "/Ice/Water/Ice_Water_Big.simg",
+    "Hash": 2732378
+  },
+  {
+    "FilePath": "/Ice/Water/Ice_Water_Medium.simg",
+    "Hash": 2644444
+  },
+  {
+    "FilePath": "/Ice/Water/Ice_Water_Small.simg",
+    "Hash": 2741805
+  },
+  {
+    "FilePath": "/Items/Food/Food_Apple.simg",
+    "Hash": 1686003
+  },
+  {
+    "FilePath": "/Items/Food/Food_Cheese.simg",
+    "Hash": 3343670
+  },
+  {
+    "FilePath": "/Items/Food/Food_Fish_Template.simg",
+    "Hash": 3855753
+  },
+  {
+    "FilePath": "/Items/Food/Food_Fruit_Template.simg",
+    "Hash": 1686421
+  },
+  {
+    "FilePath": "/Items/Food/Food_Kebab_Template.simg",
+    "Hash": 2869130
+  },
+  {
+    "FilePath": "/Items/Food/Food_Meat.simg",
+    "Hash": 4462997
+  },
+  {
+    "FilePath": "/Items/Food/Food_Meat_Template.simg",
+    "Hash": 4426708
+  },
+  {
+    "FilePath": "/Items/Food/Food_Mushroom_Template.simg",
+    "Hash": 1918389
+  },
+  {
+    "FilePath": "/Items/Food/Food_Pie_Template.simg",
+    "Hash": 7217375
+  },
+  {
+    "FilePath": "/Items/Resources/Item_Resource_Stone.simg",
+    "Hash": 3014341
+  },
+  {
+    "FilePath": "/Items/Resources/Item_Resource_Wood.simg",
+    "Hash": 1973829
+  },
+  {
+    "FilePath": "/Items/Scroll/Item_Scroll_Empty.simg",
+    "Hash": 7638862
+  },
+  {
+    "FilePath": "/Items/Scroll/Item_Scroll_Empty_Old.simg",
+    "Hash": 7597810
+  },
+  {
+    "FilePath": "/Items/SpellBook/SpellBook_Template.simg",
+    "Hash": 3948692
+  },
+  {
+    "FilePath": "/Items/Usable/Item_Potion.simg",
+    "Hash": 1455652
+  },
+  {
+    "FilePath": "/Items/Usable/Item_Potion_Big.simg",
+    "Hash": 1662683
+  },
+  {
+    "FilePath": "/Items/Usable/Item_Potion_Small.simg",
+    "Hash": 1453738
+  },
+  {
+    "FilePath": "/Items/Weapon/Weapon_Torch.simg",
+    "Hash": 6520547
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Shield/ItemOnPlayer_Shield_Left_Big.simg",
+    "Hash": 2901822
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Shield/ItemOnPlayer_Shield_Left_Medium.simg",
+    "Hash": 2800644
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Shield/ItemOnPlayer_Shield_Left_Small.simg",
+    "Hash": 2698190
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Shield/ItemOnPlayer_Shield_Right_Big.simg",
+    "Hash": 2901822
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Shield/ItemOnPlayer_Shield_Right_Medium.simg",
+    "Hash": 2800644
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Shield/ItemOnPlayer_Shield_Right_Small.simg",
+    "Hash": 2698190
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Left_Axe.simg",
+    "Hash": 2915814
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Left_Dagger.simg",
+    "Hash": 2711577
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Left_Mace.simg",
+    "Hash": 2813503
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Left_Staff.simg",
+    "Hash": 2708233
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Left_Sword.simg",
+    "Hash": 2812623
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Right_Axe.simg",
+    "Hash": 2915770
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Right_Dagger.simg",
+    "Hash": 2711577
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Right_Mace.simg",
+    "Hash": 2813547
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Right_Staff.simg",
+    "Hash": 2708233
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/ItemOnPlayer_Weapon_Right_Sword.simg",
+    "Hash": 2812623
+  },
+  {
+    "FilePath": "/Liquid/Acid/Acid_Big.simg",
+    "Hash": 7739237
+  },
+  {
+    "FilePath": "/Liquid/Acid/Acid_Medium.simg",
+    "Hash": 3937054
+  },
+  {
+    "FilePath": "/Liquid/Acid/Acid_Small.simg",
+    "Hash": 3229336
+  },
+  {
+    "FilePath": "/Liquid/Oil/Oil_Big.simg",
+    "Hash": 7565140
+  },
+  {
+    "FilePath": "/Liquid/Oil/Oil_Medium.simg",
+    "Hash": 3919663
+  },
+  {
+    "FilePath": "/Liquid/Oil/Oil_Small.simg",
+    "Hash": 3103936
+  },
+  {
+    "FilePath": "/Liquid/Water/Water_Big.simg",
+    "Hash": 7738698
+  },
+  {
+    "FilePath": "/Liquid/Water/Water_Medium.simg",
+    "Hash": 4185313
+  },
+  {
+    "FilePath": "/Liquid/Water/Water_Small.simg",
+    "Hash": 3239192
+  },
+  {
+    "FilePath": "/Steam/Acid/Acid_Steam_Big_0.simg",
+    "Hash": 5637544
+  },
+  {
+    "FilePath": "/Steam/Acid/Acid_Steam_Big_1.simg",
+    "Hash": 5637544
+  },
+  {
+    "FilePath": "/Steam/Acid/Acid_Steam_Big_2.simg",
+    "Hash": 5637544
+  },
+  {
+    "FilePath": "/Steam/Acid/Acid_Steam_Big_3.simg",
+    "Hash": 5637544
+  },
+  {
+    "FilePath": "/Steam/Acid/Acid_Steam_Medium_0.simg",
+    "Hash": 4176546
+  },
+  {
+    "FilePath": "/Steam/Acid/Acid_Steam_Medium_1.simg",
+    "Hash": 4176546
+  },
+  {
+    "FilePath": "/Steam/Acid/Acid_Steam_Medium_2.simg",
+    "Hash": 4280903
+  },
+  {
+    "FilePath": "/Steam/Acid/Acid_Steam_Medium_3.simg",
+    "Hash": 4176546
+  },
+  {
+    "FilePath": "/Steam/Acid/Acid_Steam_Small_0.simg",
+    "Hash": 3132976
+  },
+  {
+    "FilePath": "/Steam/Acid/Acid_Steam_Small_1.simg",
+    "Hash": 3132976
+  },
+  {
+    "FilePath": "/Steam/Acid/Acid_Steam_Small_2.simg",
+    "Hash": 3132976
+  },
+  {
+    "FilePath": "/Steam/Acid/Acid_Steam_Small_3.simg",
+    "Hash": 3132976
+  },
+  {
+    "FilePath": "/Steam/Acid/Acid_Steam_Small_4.simg",
+    "Hash": 3132976
+  },
+  {
+    "FilePath": "/Steam/Acid/Acid_Steam_Small_5.simg",
+    "Hash": 3132976
+  },
+  {
+    "FilePath": "/Steam/Water/Water_Steam_Big_0.simg",
+    "Hash": 5637544
+  },
+  {
+    "FilePath": "/Steam/Water/Water_Steam_Big_1.simg",
+    "Hash": 5637544
+  },
+  {
+    "FilePath": "/Steam/Water/Water_Steam_Big_2.simg",
+    "Hash": 5637544
+  },
+  {
+    "FilePath": "/Steam/Water/Water_Steam_Big_3.simg",
+    "Hash": 5637544
+  },
+  {
+    "FilePath": "/Steam/Water/Water_Steam_Medium_0.simg",
+    "Hash": 4176546
+  },
+  {
+    "FilePath": "/Steam/Water/Water_Steam_Medium_1.simg",
+    "Hash": 4176546
+  },
+  {
+    "FilePath": "/Steam/Water/Water_Steam_Medium_2.simg",
+    "Hash": 4280903
+  },
+  {
+    "FilePath": "/Steam/Water/Water_Steam_Medium_3.simg",
+    "Hash": 4176546
+  },
+  {
+    "FilePath": "/Steam/Water/Water_Steam_Small_0.simg",
+    "Hash": 3132976
+  },
+  {
+    "FilePath": "/Steam/Water/Water_Steam_Small_1.simg",
+    "Hash": 3132976
+  },
+  {
+    "FilePath": "/Steam/Water/Water_Steam_Small_2.simg",
+    "Hash": 3132976
+  },
+  {
+    "FilePath": "/Steam/Water/Water_Steam_Small_3.simg",
+    "Hash": 3132976
+  },
+  {
+    "FilePath": "/Steam/Water/Water_Steam_Small_4.simg",
+    "Hash": 3132976
+  },
+  {
+    "FilePath": "/Steam/Water/Water_Steam_Small_5.simg",
+    "Hash": 3132976
+  },
+  {
+    "FilePath": "/Wall/Cave/Wall_Cave.simg",
+    "Hash": 1340020
+  },
+  {
+    "FilePath": "/Wall/Cave/Wall_Cave_Bottom.simg",
+    "Hash": 1336753
+  },
+  {
+    "FilePath": "/Wall/Cave/Wall_Cave_Bottom_Right.simg",
+    "Hash": 1246113
+  },
+  {
+    "FilePath": "/Wall/Cave/Wall_Cave_Corner.simg",
+    "Hash": 1250469
+  },
+  {
+    "FilePath": "/Wall/Cave/Wall_Cave_Right.simg",
+    "Hash": 1336753
+  },
+  {
+    "FilePath": "/Wall/Dungeon/Wall_Dungeon.simg",
+    "Hash": 7712287
+  },
+  {
+    "FilePath": "/Wall/Dungeon/Wall_Dungeon_Bottom.simg",
+    "Hash": 7692421
+  },
+  {
+    "FilePath": "/Wall/Dungeon/Wall_Dungeon_Bottom_Right.simg",
+    "Hash": 7276137
+  },
+  {
+    "FilePath": "/Wall/Dungeon/Wall_Dungeon_Corner.simg",
+    "Hash": 7298841
+  },
+  {
+    "FilePath": "/Wall/Dungeon/Wall_Dungeon_Right.simg",
+    "Hash": 7692421
+  },
+  {
+    "FilePath": "/Wall/DungeonDoor/Door_Dungeon_Closed_Horizontal.simg",
+    "Hash": 6302428
+  },
+  {
+    "FilePath": "/Wall/DungeonDoor/Door_Dungeon_Closed_Vertical.simg",
+    "Hash": 6302472
+  },
+  {
+    "FilePath": "/Wall/DungeonDoor/Door_Dungeon_Opened_Horizontal.simg",
+    "Hash": 4514092
+  },
+  {
+    "FilePath": "/Wall/DungeonDoor/Door_Dungeon_Opened_Vertical.simg",
+    "Hash": 4514268
+  },
+  {
+    "FilePath": "/Wall/Energy/EnergyWall_HighEnergy.simg",
+    "Hash": 5864551
+  },
+  {
+    "FilePath": "/Wall/Energy/EnergyWall_LowEnergy.simg",
+    "Hash": 5903755
+  },
+  {
+    "FilePath": "/Wall/Energy/EnergyWall_MediumEnergy.simg",
+    "Hash": 5864914
+  },
+  {
+    "FilePath": "/Wall/Spiked/Wall_Spiked.simg",
+    "Hash": 2682339
+  },
+  {
+    "FilePath": "/Wall/Spiked/Wall_Spiked_Bottom.simg",
+    "Hash": 4830969
+  },
+  {
+    "FilePath": "/Wall/Spiked/Wall_Spiked_Bottom_Right.simg",
+    "Hash": 5747940
+  },
+  {
+    "FilePath": "/Wall/Spiked/Wall_Spiked_Corner.simg",
+    "Hash": 3294324
+  },
+  {
+    "FilePath": "/Wall/Spiked/Wall_Spiked_Right.simg",
+    "Hash": 4830705
+  },
+  {
+    "FilePath": "/Wall/Stairs/Stairs_Up.simg",
+    "Hash": 3835271
+  },
+  {
+    "FilePath": "/Items/Scroll/New/Item_Scroll_New_V1.simg",
+    "Hash": 5193914
+  },
+  {
+    "FilePath": "/Items/Scroll/New/Item_Scroll_New_V2.simg",
+    "Hash": 5175709
+  },
+  {
+    "FilePath": "/Items/Scroll/New/Item_Scroll_New_V3.simg",
+    "Hash": 5209798
+  },
+  {
+    "FilePath": "/Items/Scroll/Old/Item_Scroll_Old_V1.simg",
+    "Hash": 5678926
+  },
+  {
+    "FilePath": "/Items/Scroll/Old/Item_Scroll_Old_V2.simg",
+    "Hash": 5672722
+  },
+  {
+    "FilePath": "/Items/Scroll/Old/Item_Scroll_Old_V3.simg",
+    "Hash": 5527984
+  },
+  {
+    "FilePath": "/Items/Shield/Big/Item_Shield_Big_Base.simg",
+    "Hash": 8912343
+  },
+  {
+    "FilePath": "/Items/Shield/Big/Item_Shield_Big_Damage_V1.simg",
+    "Hash": 5150629
+  },
+  {
+    "FilePath": "/Items/Shield/Big/Item_Shield_Big_Damage_V2.simg",
+    "Hash": 5059758
+  },
+  {
+    "FilePath": "/Items/Shield/Big/Item_Shield_Big_Image_V1.simg",
+    "Hash": 8756935
+  },
+  {
+    "FilePath": "/Items/Shield/Big/Item_Shield_Big_Image_V2.simg",
+    "Hash": 7738291
+  },
+  {
+    "FilePath": "/Items/Shield/Big/Item_Shield_Big_Image_V3.simg",
+    "Hash": 6879444
+  },
+  {
+    "FilePath": "/Items/Shield/Big/Item_Shield_Big_Image_V4.simg",
+    "Hash": 8710603
+  },
+  {
+    "FilePath": "/Items/Shield/Big/Item_Shield_Big_Image_V5.simg",
+    "Hash": 8322105
+  },
+  {
+    "FilePath": "/Items/Shield/Big/Item_Shield_Big_Image_V6.simg",
+    "Hash": 6722881
+  },
+  {
+    "FilePath": "/Items/Shield/Medium/Item_Shield_Medium_Base.simg",
+    "Hash": 7187477
+  },
+  {
+    "FilePath": "/Items/Shield/Medium/Item_Shield_Medium_Damage_V1.simg",
+    "Hash": 4217323
+  },
+  {
+    "FilePath": "/Items/Shield/Medium/Item_Shield_Medium_Damage_V2.simg",
+    "Hash": 4308205
+  },
+  {
+    "FilePath": "/Items/Shield/Medium/Item_Shield_Medium_Image_V1.simg",
+    "Hash": 7506257
+  },
+  {
+    "FilePath": "/Items/Shield/Medium/Item_Shield_Medium_Image_V2.simg",
+    "Hash": 5268703
+  },
+  {
+    "FilePath": "/Items/Shield/Medium/Item_Shield_Medium_Image_V3.simg",
+    "Hash": 5571346
+  },
+  {
+    "FilePath": "/Items/Shield/Medium/Item_Shield_Medium_Image_V4.simg",
+    "Hash": 6692037
+  },
+  {
+    "FilePath": "/Items/Shield/Small/Item_Shield_Small_Base.simg",
+    "Hash": 5871052
+  },
+  {
+    "FilePath": "/Items/Shield/Small/Item_Shield_Small_Damage_V1.simg",
+    "Hash": 3383820
+  },
+  {
+    "FilePath": "/Items/Shield/Small/Item_Shield_Small_Damage_V2.simg",
+    "Hash": 3478552
+  },
+  {
+    "FilePath": "/Items/Shield/Small/Item_Shield_Small_Image_V1.simg",
+    "Hash": 6255150
+  },
+  {
+    "FilePath": "/Items/Shield/Small/Item_Shield_Small_Image_V2.simg",
+    "Hash": 3905836
+  },
+  {
+    "FilePath": "/Items/Shield/Small/Item_Shield_Small_Image_V3.simg",
+    "Hash": 4630054
+  },
+  {
+    "FilePath": "/Items/Shield/Small/Item_Shield_Small_Image_V4.simg",
+    "Hash": 5826876
+  },
+  {
+    "FilePath": "/Items/SpellBook/Pictures/SpellBook_Picture_V1.simg",
+    "Hash": 2315324
+  },
+  {
+    "FilePath": "/Items/SpellBook/Pictures/SpellBook_Picture_V2.simg",
+    "Hash": 1967394
+  },
+  {
+    "FilePath": "/Items/SpellBook/Pictures/SpellBook_Picture_V3.simg",
+    "Hash": 1910502
+  },
+  {
+    "FilePath": "/Items/SpellBook/Pictures/SpellBook_Picture_V4.simg",
+    "Hash": 2107864
+  },
+  {
+    "FilePath": "/Items/SpellBook/Pictures/SpellBook_Picture_V5.simg",
+    "Hash": 2745996
+  },
+  {
+    "FilePath": "/Items/Weapon/Custom/Weapon_BanHammer.simg",
+    "Hash": 8816269
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Weapon_Empty.simg",
+    "Hash": 7379427
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/Torch/ItemOnPlayer_Weapon_Left_Torch_0.simg",
+    "Hash": 2817639
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/Torch/ItemOnPlayer_Weapon_Left_Torch_1.simg",
+    "Hash": 2818310
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/Torch/ItemOnPlayer_Weapon_Left_Torch_2.simg",
+    "Hash": 2818321
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/Torch/ItemOnPlayer_Weapon_Right_Torch_0.simg",
+    "Hash": 2817639
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/Torch/ItemOnPlayer_Weapon_Right_Torch_1.simg",
+    "Hash": 2818310
+  },
+  {
+    "FilePath": "/ItemsOnPlayer/Weapon/Torch/ItemOnPlayer_Weapon_Right_Torch_2.simg",
+    "Hash": 2818321
+  },
+  {
+    "FilePath": "/Wall/Dungeon/Torch/Wall_Dungeon_Bottom_Right_Torch_0.simg",
+    "Hash": 7284079
+  },
+  {
+    "FilePath": "/Wall/Dungeon/Torch/Wall_Dungeon_Bottom_Right_Torch_1.simg",
+    "Hash": 7285443
+  },
+  {
+    "FilePath": "/Wall/Dungeon/Torch/Wall_Dungeon_Bottom_Right_Torch_2.simg",
+    "Hash": 7285421
+  },
+  {
+    "FilePath": "/Wall/Dungeon/Torch/Wall_Dungeon_Bottom_Torch_0.simg",
+    "Hash": 7696403
+  },
+  {
+    "FilePath": "/Wall/Dungeon/Torch/Wall_Dungeon_Bottom_Torch_1.simg",
+    "Hash": 7697085
+  },
+  {
+    "FilePath": "/Wall/Dungeon/Torch/Wall_Dungeon_Bottom_Torch_2.simg",
+    "Hash": 7697085
+  },
+  {
+    "FilePath": "/Wall/Dungeon/Torch/Wall_Dungeon_Right_Torch_0.simg",
+    "Hash": 7696381
+  },
+  {
+    "FilePath": "/Wall/Dungeon/Torch/Wall_Dungeon_Right_Torch_1.simg",
+    "Hash": 7697063
+  },
+  {
+    "FilePath": "/Wall/Dungeon/Torch/Wall_Dungeon_Right_Torch_2.simg",
+    "Hash": 7697052
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/Leather/Armor_Leather_Chest_V1.simg",
+    "Hash": 8878452
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/Leather/Armor_Leather_Chest_V2.simg",
+    "Hash": 8858740
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/Leather/Armor_Leather_Chest_V3.simg",
+    "Hash": 10222751
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/Mail/Armor_Mail_Chest_V1.simg",
+    "Hash": 17831396
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/Mail/Armor_Mail_Chest_V2.simg",
+    "Hash": 18035358
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/Mail/Armor_Mail_Chest_V3.simg",
+    "Hash": 16607624
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/Plate/Armor_Plate_Chest_V1.simg",
+    "Hash": 10920217
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/Plate/Armor_Plate_Chest_V2.simg",
+    "Hash": 11532103
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/Plate/Armor_Plate_Chest_V3.simg",
+    "Hash": 11323037
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/Plate/Armor_Plate_Chest_V4.simg",
+    "Hash": 12741883
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/Plate/Armor_Plate_Chest_V5.simg",
+    "Hash": 13353769
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/Plate/Armor_Plate_Chest_V6.simg",
+    "Hash": 11725802
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/ScaleMail/Armor_ScaleMail_Chest_V1.simg",
+    "Hash": 17885252
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/ScaleMail/Armor_ScaleMail_Chest_V2.simg",
+    "Hash": 18093966
+  },
+  {
+    "FilePath": "/Items/Armor/Chest/ScaleMail/Armor_ScaleMail_Chest_V3.simg",
+    "Hash": 16651976
+  },
+  {
+    "FilePath": "/Items/Armor/Helmet/Leather/Armor_Leather_Helmet_V1.simg",
+    "Hash": 3613819
+  },
+  {
+    "FilePath": "/Items/Armor/Helmet/Mail/Armor_Mail_Helmet_V1.simg",
+    "Hash": 6254600
+  },
+  {
+    "FilePath": "/Items/Armor/Helmet/Mail/Armor_Mail_Helmet_V2.simg",
+    "Hash": 6662524
+  },
+  {
+    "FilePath": "/Items/Armor/Helmet/Plate/Armor_Plate_Helmet_V1.simg",
+    "Hash": 3819618
+  },
+  {
+    "FilePath": "/Items/Armor/Helmet/Plate/Armor_Plate_Helmet_V2.simg",
+    "Hash": 3821532
+  },
+  {
+    "FilePath": "/Items/Armor/Helmet/Plate/Armor_Plate_Helmet_V3.simg",
+    "Hash": 4009577
+  },
+  {
+    "FilePath": "/Items/Armor/Helmet/Plate/Armor_Plate_Helmet_V4.simg",
+    "Hash": 4226871
+  },
+  {
+    "FilePath": "/Items/Armor/Helmet/Plate/Armor_Plate_Helmet_V5.simg",
+    "Hash": 4023283
+  },
+  {
+    "FilePath": "/Items/Armor/Helmet/Plate/Armor_Plate_Helmet_V6.simg",
+    "Hash": 4023591
+  },
+  {
+    "FilePath": "/Items/Armor/Helmet/ScaleMail/Armor_ScaleMail_Helmet_V1.simg",
+    "Hash": 6473027
+  },
+  {
+    "FilePath": "/Items/Armor/Helmet/ScaleMail/Armor_ScaleMail_Helmet_V2.simg",
+    "Hash": 6884119
+  },
+  {
+    "FilePath": "/Items/Armor/Leggings/Leather/Armor_Leather_Leggings_V1.simg",
+    "Hash": 8875350
+  },
+  {
+    "FilePath": "/Items/Armor/Leggings/Leather/Armor_Leather_Leggings_V2.simg",
+    "Hash": 8855550
+  },
+  {
+    "FilePath": "/Items/Armor/Leggings/Leather/Armor_Leather_Leggings_V3.simg",
+    "Hash": 8857310
+  },
+  {
+    "FilePath": "/Items/Armor/Leggings/Leather/Armor_Leather_Leggings_V4.simg",
+    "Hash": 8858300
+  },
+  {
+    "FilePath": "/Items/Armor/Leggings/Mail/Armor_Mail_Leggings_V1.simg",
+    "Hash": 16811586
+  },
+  {
+    "FilePath": "/Items/Armor/Leggings/Plate/Armor_Plate_Leggings_V1.simg",
+    "Hash": 14169298
+  },
+  {
+    "FilePath": "/Items/Armor/Leggings/Plate/Armor_Plate_Leggings_V2.simg",
+    "Hash": 14368948
+  },
+  {
+    "FilePath": "/Items/Armor/Leggings/Plate/Armor_Plate_Leggings_V3.simg",
+    "Hash": 12542706
+  },
+  {
+    "FilePath": "/Items/Armor/Leggings/ScaleMail/Armor_ScaleMail_Leggings_V1.simg",
+    "Hash": 16844850
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Axe/Head/Axe_Head_V1.simg",
+    "Hash": 7589373
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Axe/Head/Axe_Head_V2.simg",
+    "Hash": 7583697
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Axe/Head/Axe_Head_V3.simg",
+    "Hash": 7691717
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Axe/Head/Axe_Head_V4.simg",
+    "Hash": 7686041
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Axe/Head/Axe_Head_V5.simg",
+    "Hash": 8205472
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Axe/Head/Axe_Head_V6.simg",
+    "Hash": 8196958
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Dagger/Blade/Dagger_Blade_V1.simg",
+    "Hash": 7368933
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Dagger/Blade/Dagger_Blade_V2.simg",
+    "Hash": 7993755
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Dagger/Blade/Dagger_Blade_V3.simg",
+    "Hash": 7923795
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Dagger/Blade/Dagger_Blade_V4.simg",
+    "Hash": 7360958
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Dagger/Blade/Dagger_Blade_V5.simg",
+    "Hash": 7453490
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Dagger/Guard/Dagger_Guard_V1.simg",
+    "Hash": 7481001
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Dagger/Guard/Dagger_Guard_V2.simg",
+    "Hash": 7379746
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Dagger/Guard/Dagger_Guard_V3.simg",
+    "Hash": 7376908
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Dagger/Guard/Dagger_Guard_V4.simg",
+    "Hash": 7377304
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Dagger/Guard/Dagger_Guard_V5.simg",
+    "Hash": 7376325
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Dagger/Guard/Dagger_Guard_V6.simg",
+    "Hash": 7376402
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Head/Mace_Head_V1.simg",
+    "Hash": 7793390
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Head/Mace_Head_V10.simg",
+    "Hash": 8204130
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Head/Mace_Head_V11.simg",
+    "Hash": 8189940
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Head/Mace_Head_V12.simg",
+    "Hash": 8191766
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Head/Mace_Head_V13.simg",
+    "Hash": 8177576
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Head/Mace_Head_V2.simg",
+    "Hash": 7383574
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Head/Mace_Head_V3.simg",
+    "Hash": 7474247
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Head/Mace_Head_V4.simg",
+    "Hash": 8177906
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Head/Mace_Head_V5.simg",
+    "Hash": 7485599
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Head/Mace_Head_V6.simg",
+    "Hash": 7779200
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Head/Mace_Head_V7.simg",
+    "Hash": 7369384
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Head/Mace_Head_V8.simg",
+    "Hash": 8200214
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Head/Mace_Head_V9.simg",
+    "Hash": 8186024
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Shaft/Mace_Shaft_V1.simg",
+    "Hash": 7311007
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Shaft/Mace_Shaft_V2.simg",
+    "Hash": 7344447
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Mace/Shaft/Mace_Shaft_V3.simg",
+    "Hash": 9404747
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Staff/Head/Staff_Head_V1.simg",
+    "Hash": 8088740
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Staff/Head/Staff_Head_V2.simg",
+    "Hash": 8281119
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Staff/Head/Staff_Head_V3.simg",
+    "Hash": 8385135
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Staff/Head/Staff_Head_V4.simg",
+    "Hash": 8494068
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Staff/Head/Staff_Head_V5.simg",
+    "Hash": 8184583
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V1.simg",
+    "Hash": 8992390
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V10.simg",
+    "Hash": 8992896
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V11.simg",
+    "Hash": 7460871
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V12.simg",
+    "Hash": 9006096
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V13.simg",
+    "Hash": 9007218
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V14.simg",
+    "Hash": 8994898
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V15.simg",
+    "Hash": 7565008
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V16.simg",
+    "Hash": 8889452
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V17.simg",
+    "Hash": 7459562
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V18.simg",
+    "Hash": 8901772
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V19.simg",
+    "Hash": 9095768
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V2.simg",
+    "Hash": 7460365
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V20.simg",
+    "Hash": 7563743
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V21.simg",
+    "Hash": 9108968
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V22.simg",
+    "Hash": 9097770
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V23.simg",
+    "Hash": 7667880
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V24.simg",
+    "Hash": 8992324
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V25.simg",
+    "Hash": 7562434
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V26.simg",
+    "Hash": 9004644
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V3.simg",
+    "Hash": 9005590
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V4.simg",
+    "Hash": 9006712
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V5.simg",
+    "Hash": 8994392
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V6.simg",
+    "Hash": 7564502
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V7.simg",
+    "Hash": 8888946
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V8.simg",
+    "Hash": 7459056
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Blade/Sword_Blade_V9.simg",
+    "Hash": 8901266
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V1.simg",
+    "Hash": 7683555
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V10.simg",
+    "Hash": 7579913
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V11.simg",
+    "Hash": 7580111
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V2.simg",
+    "Hash": 7582300
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V3.simg",
+    "Hash": 7584544
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V4.simg",
+    "Hash": 7581706
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V5.simg",
+    "Hash": 7579462
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V6.simg",
+    "Hash": 7582685
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V7.simg",
+    "Hash": 7578956
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V8.simg",
+    "Hash": 7561202
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Guard/Sword_Guard_V9.simg",
+    "Hash": 7558364
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V1.simg",
+    "Hash": 7373652
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V10.simg",
+    "Hash": 7683533
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V11.simg",
+    "Hash": 7578769
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V12.simg",
+    "Hash": 7578626
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V13.simg",
+    "Hash": 7683379
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V14.simg",
+    "Hash": 7578681
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V15.simg",
+    "Hash": 7588273
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V16.simg",
+    "Hash": 7588427
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V2.simg",
+    "Hash": 7578604
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V3.simg",
+    "Hash": 7683225
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V4.simg",
+    "Hash": 7684457
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V5.simg",
+    "Hash": 7369164
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V6.simg",
+    "Hash": 7370121
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V7.simg",
+    "Hash": 7578857
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V8.simg",
+    "Hash": 7578615
+  },
+  {
+    "FilePath": "/Items/Weapon/Parts/Sword/Handle/Sword_Handle_V9.simg",
+    "Hash": 7580034
+  }
+]

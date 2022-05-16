@@ -29,7 +29,19 @@
 		}
 	}
 
+	[Parameter]
+	public Color? BackgroundColor
+	{
+		get => _backgroundColor;
+		set
+		{
+			_backgroundColor = value;
+			StateHasChanged();
+		}
+	}
+
 	private ISymbolsImage? _model;
+	private Color? _backgroundColor;
 
 	private string GetColor(SymbolsImage.Pixel? pixel)
 	{
@@ -38,7 +50,7 @@
 
 	private string GetBackgroundColor(SymbolsImage.Pixel? pixel)
 	{
-		return (pixel?.BackgroundColor).ToStyleString();
+		return pixel?.BackgroundColor == null ? BackgroundColor.ToStyleString() : (pixel?.BackgroundColor).ToStyleString();
 	}
 
 	private string GetSymbol(SymbolsImage.Pixel? pixel)
