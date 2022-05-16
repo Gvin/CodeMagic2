@@ -6,40 +6,11 @@
 
 @implements IDisposable
 
-@inject IJSRuntime JsRuntime;
 @inject IWindowService WindowService;
 
 <div class="index-page">
 	<div class="game-frame">
-		<div class="wrapper">
-			<div id="index-page-frame" class="frame">
-				<p>╔═════════════════════════════════════════════════════════════════════════╗</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>║                                                                         ║</p>
-				<p>╚═════════════════════════════════════════════════════════════════════════╝</p>					
-			</div>
-			
-			<p id="size-check-element">&nbsp;</p>
-
-			<div id="index-page-content" class="page-content-wrapper">
+		<div id="index-page-content" class="page-content-wrapper">
 				<div>
 					<ErrorBoundary>
 						<ChildContent>
@@ -52,6 +23,12 @@
 										break;
 									case SettingsModel model:
 										<Settings Model="model"/>
+										break;
+									case WaitMessageModel model:
+										<WaitMessage Model="model"/>
+										break;
+									case GameViewModel model:
+										<GameView Model="model"/>
 										break;
 									default:
 										throw new Exception($"Unknown window model: {CurrentWindowModel.GetType().Name}");
@@ -67,10 +44,8 @@
 						</ErrorContent>
 					</ErrorBoundary>
 				</div>
-			</div>
 		</div>
 	</div>
-
 </div>
 
 @code {
@@ -87,12 +62,6 @@
 	}
 
 	private IWindowModel? CurrentWindowModel => WindowService.GetCurrentWindow();
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		await JsRuntime.InvokeVoidAsync("setContentSize");
-		await base.OnAfterRenderAsync(firstRender);
-	}
 
 	public void Dispose()
 	{

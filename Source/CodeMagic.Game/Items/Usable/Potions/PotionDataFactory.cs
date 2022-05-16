@@ -3,12 +3,12 @@ using CodeMagic.Core.Items;
 
 namespace CodeMagic.Game.Items.Usable.Potions
 {
-    public interface IPotionDataFactory
+    public interface IPotionDataService
     {
         PotionData GetPotionData(PotionType type, PotionSize size);
     }
 
-    public class PotionDataFactory : IPotionDataFactory
+    public class PotionDataService : IPotionDataService
     {
         public PotionData GetPotionData(PotionType type, PotionSize size)
         {

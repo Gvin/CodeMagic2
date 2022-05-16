@@ -2,7 +2,6 @@
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
 using CodeMagic.Game;
-using CodeMagic.Game.Objects.Creatures;
 using CodeMagic.UI.Presenters;
 
 namespace CodeMagic.UI
@@ -18,7 +17,7 @@ namespace CodeMagic.UI
 
         public void OpenInventoryDialog(string inventoryName, IInventory inventory)
         {
-            _controller.CreatePresenter<CustomInventoryPresenter>().Run((IGameCore)CurrentGame.Game, inventoryName, inventory);
+            _controller.CreatePresenter<CustomInventoryPresenter>().Run(CurrentGame.Game, inventoryName, inventory);
         }
 
         public void OpenWaitDialog(string message, Action waitAction)

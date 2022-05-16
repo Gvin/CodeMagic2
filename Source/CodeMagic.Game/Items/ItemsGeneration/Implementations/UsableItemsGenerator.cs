@@ -19,13 +19,13 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations
 
         public UsableItemsGenerator(
             IImagesStorageService imagesStorage,
-            IAncientSpellsProvider spellsProvider,
-            IPotionDataFactory potionDataFactory)
+            IAncientSpellsService spellsService,
+            IPotionDataService potionDataService)
         {
             _generators = new Dictionary<UsableItemType, IUsableItemTypeGenerator>
             {
-                {UsableItemType.Potion, new PotionsGenerator(potionDataFactory)},
-                {UsableItemType.Scroll, new ScrollsGenerator(spellsProvider)}
+                {UsableItemType.Potion, new PotionsGenerator(potionDataService)},
+                {UsableItemType.Scroll, new ScrollsGenerator(spellsService)}
             };
         }
 

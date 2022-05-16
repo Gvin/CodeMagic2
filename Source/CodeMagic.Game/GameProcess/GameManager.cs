@@ -28,6 +28,7 @@ namespace CodeMagic.Game.GameProcess
         private readonly int _savingInterval;
         private readonly IDungeonMapGenerator _dungeonMapGenerator;
         private readonly ILoggerFactory _loggerFactory;
+        private readonly ILogger<GameManager> _logger;
 
         public GameManager(ISaveService saveService, int savingInterval, ILoggerFactory loggerFactory, IDungeonMapGenerator dungeonMapGenerator)
         {
@@ -35,41 +36,46 @@ namespace CodeMagic.Game.GameProcess
             _dungeonMapGenerator = dungeonMapGenerator;
             _saveService = saveService;
             _savingInterval = savingInterval;
+            _logger = loggerFactory.CreateLogger<GameManager>();
         }
 
         public GameCore StartGame()
         {
-            if (CurrentGame.Game is GameCore oldGame)
+            _logger.LogDebug("Starting new game");
+
+            try
             {
-                oldGame.TurnEnded -= game_TurnEnded;
+                if (CurrentGame.Game is GameCore oldGame)
+                {
+                    oldGame.TurnEnded -= game_TurnEnded;
+                }
+
+                GameData.Initialize(new GameData());
+
+                var player = CreatePlayer();
+
+                var (startMap, playerPosition) = _dungeonMapGenerator.GenerateNewMap(1);
+                CurrentGame.Initialize(startMap, player, playerPosition, _loggerFactory);
+                var game = (GameCore)CurrentGame.Game;
+                startMap.Refresh();
+
+                player.Inventory.ItemAdded += (_, args) => { game.Journal.Write(new ItemReceivedMessage(args.Item)); };
+                player.Inventory.ItemRemoved += (_, args) => { game.Journal.Write(new ItemLostMessage(args.Item)); };
+
+                game.Journal.Write(new StartGameMessage());
+
+                game.TurnEnded += game_TurnEnded;
+                _saveService.SaveGame();
+
+                _turnsSinceLastSaving = 0;
+
+                return game;
             }
-
-            GameData.Initialize(new GameData());
-
-            var player = CreatePlayer();
-
-            var (startMap, playerPosition) = _dungeonMapGenerator.GenerateNewMap(1);
-            CurrentGame.Initialize(startMap, player, playerPosition, _loggerFactory);
-            var game = (GameCore) CurrentGame.Game;
-            startMap.Refresh();
-
-            player.Inventory.ItemAdded += (_, args) =>
+            catch (Exception ex)
             {
-                game.Journal.Write(new ItemReceivedMessage(args.Item));
-            };
-            player.Inventory.ItemRemoved += (_, args) =>
-            {
-                game.Journal.Write(new ItemLostMessage(args.Item));
-            };
-
-            game.Journal.Write(new StartGameMessage());
-
-            game.TurnEnded += game_TurnEnded;
-            _saveService.SaveGame();
-
-            _turnsSinceLastSaving = 0;
-
-            return game;
+                _logger.LogCritical(ex, "Error while starting new game");
+                throw;
+            }
         }
 
         public void LoadGame()

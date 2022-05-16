@@ -1,6 +1,7 @@
 ﻿using System;
 using CodeMagic.Core.Game;
 using CodeMagic.Game.GameProcess;
+using Microsoft.Extensions.Logging;
 
 namespace CodeMagic.UI.Presenters
 {
@@ -22,15 +23,18 @@ namespace CodeMagic.UI.Presenters
         private readonly IMainMenuView _view;
         private readonly IApplicationController _controller;
         private readonly IGameManager _gameManager;
+        private readonly ILogger<MainMenuPresenter> _logger;
 
         public MainMenuPresenter(
             IMainMenuView view, 
             IApplicationController controller,
-            IGameManager gameManager)
+            IGameManager gameManager,
+            ILogger<MainMenuPresenter> logger)
         {
             _view = view;
             _controller = controller;
             _gameManager = gameManager;
+            _logger = logger;
 
             _view.SetContinueOptionState(CurrentGame.Game != null);
 

@@ -27,12 +27,12 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Usable
 
         private const int ScrollWeight = 300;
 
-        private readonly IAncientSpellsProvider _spellsProvider;
+        private readonly IAncientSpellsService _spellsService;
         private readonly Dictionary<BookSpell, string> _spellNamesCache;
 
-        public ScrollsGenerator(IAncientSpellsProvider spellsProvider)
+        public ScrollsGenerator(IAncientSpellsService spellsService)
         {
-            _spellsProvider = spellsProvider;
+            _spellsService = spellsService;
             _spellNamesCache = new Dictionary<BookSpell, string>();
         }
 
@@ -44,9 +44,9 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Usable
                 case ItemRareness.Common:
                     return null;
                 case ItemRareness.Uncommon:
-                    return GenerateScroll(rareness, _spellsProvider.GetUncommonSpells(), UncommonMinDamage, UncommonMaxDamage);
+                    return GenerateScroll(rareness, _spellsService.GetUncommonSpells(), UncommonMinDamage, UncommonMaxDamage);
                 case ItemRareness.Rare:
-                    return GenerateScroll(rareness, _spellsProvider.GetRareSpells(), RareMinDamage, RareMaxDamage);
+                    return GenerateScroll(rareness, _spellsService.GetRareSpells(), RareMinDamage, RareMaxDamage);
                 case ItemRareness.Epic:
                     throw new ArgumentException("Scrolls generator cannot generate scroll with Epic rareness.");
                 default:

@@ -60,6 +60,11 @@ public class Player : CreatureObject, IPlayer, ILightObject, IWorldImageProvider
         Inventory = new Inventory();
         KnownPotions = new List<PotionType>();
         Stats = new Dictionary<PlayerStats, int>();
+
+        foreach (var playerStat in Enum.GetValues<PlayerStats>())
+        {
+            Stats.Add(playerStat, DefaultStatValue);
+        }
     }
 
     public int ManaValue { get; set; }
@@ -148,9 +153,9 @@ public class Player : CreatureObject, IPlayer, ILightObject, IWorldImageProvider
 
         Inventory.ItemRemoved += Inventory_ItemRemoved;
 
-        foreach (var playerStat in Enum.GetValues(typeof(PlayerStats)).Cast<PlayerStats>())
+        foreach (var playerStat in Enum.GetValues<PlayerStats>())
         {
-            Stats.Add(playerStat, DefaultStatValue);
+            Stats[playerStat] = DefaultStatValue;
         }
     }
 

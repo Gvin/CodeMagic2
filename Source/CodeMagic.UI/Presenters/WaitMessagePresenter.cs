@@ -1,32 +1,31 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace CodeMagic.UI.Presenters
+namespace CodeMagic.UI.Presenters;
+
+public interface IWaitMessageView : IView
 {
-    public interface IWaitMessageView : IView
+    string Message { set; }
+}
+
+public class WaitMessagePresenter : IPresenter
+{
+    private readonly IWaitMessageView _view;
+
+    public WaitMessagePresenter(IWaitMessageView view)
     {
-        string Message { set; }
+        _view = view;
     }
 
-    public class WaitMessagePresenter : IPresenter
+    public void Run(string message, Action waitAction)
     {
-        private readonly IWaitMessageView view;
+        _view.Message = message;
+        _view.Show();
 
-        public WaitMessagePresenter(IWaitMessageView view)
+        Task.Run(() =>
         {
-            this.view = view;
-        }
-
-        public void Run(string message, Action waitAction)
-        {
-            view.Message = message;
-            view.Show();
-
-            Task.Run(() =>
-            {
-                waitAction();
-                view.Close();
-            });
-        }
+            waitAction();
+            _view.Close();
+        });
     }
 }

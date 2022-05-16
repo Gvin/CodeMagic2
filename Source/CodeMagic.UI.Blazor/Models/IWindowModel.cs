@@ -1,6 +1,6 @@
 ﻿namespace CodeMagic.UI.Blazor.Models
 {
-	public interface IWindowModel
+	public interface IWindowModel : IView
 	{
 	}
 }

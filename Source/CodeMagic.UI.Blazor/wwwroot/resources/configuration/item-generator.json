@@ -1,0 +1,137 @@
+{
+  // Weight coefficients (to iron):
+  // Wood: x0.7
+  // Iron/Steel: x1
+  // Silver: x1.3
+  // ElvesMetal: x0.7
+  // Dwarfs Metal: x2
+  // Mythril: x0.3
+    // TODO: Set images by regex
+    "WeaponsConfiguration": {
+        "SwordsConfiguration": {
+            "Images": {
+                "Sprites": [
+                    {
+                        "Index": 0,
+                        "Images": [
+                            "Sword_Blade_V1",
+                            "Sword_Blade_V2",
+                            "Sword_Blade_V3",
+                            "Sword_Blade_V4",
+                            "Sword_Blade_V5",
+                            "Sword_Blade_V6",
+                            "Sword_Blade_V7",
+                            "Sword_Blade_V8",
+                            "Sword_Blade_V9",
+                            "Sword_Blade_V10",
+                            "Sword_Blade_V11",
+                            "Sword_Blade_V12",
+                            "Sword_Blade_V13",
+                            "Sword_Blade_V14",
+                            "Sword_Blade_V15",
+                            "Sword_Blade_V16",
+                            "Sword_Blade_V17",
+                            "Sword_Blade_V18",
+                            "Sword_Blade_V19",
+                            "Sword_Blade_V20",
+                            "Sword_Blade_V21",
+                            "Sword_Blade_V22",
+                            "Sword_Blade_V23",
+                            "Sword_Blade_V24",
+                            "Sword_Blade_V25",
+                            "Sword_Blade_V26"
+                        ]
+                    },
+                    {
+                        "Index": 1,
+                        "Images": [
+                            "Sword_Handle_V1",
+                            "Sword_Handle_V2",
+                            "Sword_Handle_V3",
+                            "Sword_Handle_V4",
+                            "Sword_Handle_V5",
+                            "Sword_Handle_V6",
+                            "Sword_Handle_V7",
+                            "Sword_Handle_V8",
+                            "Sword_Handle_V9",
+                            "Sword_Handle_V10",
+                            "Sword_Handle_V11",
+                            "Sword_Handle_V12",
+                            "Sword_Handle_V13",
+                            "Sword_Handle_V14",
+                            "Sword_Handle_V15",
+                            "Sword_Handle_V16"
+                        ]
+                    },
+                    {
+                        "Index": 2,
+                        "Images": [
+                            "Sword_Guard_V1",
+                            "Sword_Guard_V2",
+                            "Sword_Guard_V3",
+                            "Sword_Guard_V4",
+                            "Sword_Guard_V5",
+                            "Sword_Guard_V6",
+                            "Sword_Guard_V7",
+                            "Sword_Guard_V8",
+                            "Sword_Guard_V9",
+                            "Sword_Guard_V10",
+                            "Sword_Guard_V11"
+                        ]
+                    }
+                ]
+            },
+            "EquippedImageRight": "ItemOnPlayer_Weapon_Right_Sword",
+            "EquippedImageLeft": "ItemOnPlayer_Weapon_Left_Sword",
+            "Weight": [
+                {
+                    "Material": "Wood",
+                    "Weight": 1200,
+                    "Durability": 20
+                },
+                {
+                    "Material": "Iron",
+                    "Weight": 1600,
+                    "Durability": 40
+                },
+                {
+                    "Material": "Steel",
+                    "Weight": 1600,
+                    "Durability": 60
+                },
+                {
+                    "Material": "Silver",
+                    "Weight": 2200,
+                    "Durability": 40
+                },
+                {
+                    "Material": "ElvesMetal",
+                    "Weight": 1000,
+                    "Durability": 50
+                },
+                {
+                    "Material": "DwarfsMetal",
+                    "Weight": 3200,
+                    "Durability": 100
+                },
+                {
+                    "Material": "Mythril",
+                    "Weight": 500,
+                    "Durability": 200
+                }
+            ],
+            "RarenessConfiguration": [
+                {
+                    "Rareness": "Trash",
+                    "Damage": [
+                        {
+                            "Element": "Slashing",
+                            "MinValue": 3,
+                            "MaxValue":  5 
+                        }
+                    ] 
+                }
+            ] 
+        } 
+    }
+}

@@ -1,0 +1,17 @@
+﻿@using CodeMagic.UI.Blazor.Models
+
+<div class="wait-message">
+	@if (Model != null)
+	{
+		<div class="message-wrapper">
+			<p>@Text</p>
+		</div>
+	}
+</div>
+
+@code {
+	[Parameter]
+	public WaitMessageModel? Model { get; set; }
+
+	private string? Text => Model?.Message;
+}

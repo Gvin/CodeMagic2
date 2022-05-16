@@ -2,7 +2,7 @@
 
 namespace CodeMagic.Game.Items.ItemsGeneration
 {
-    public interface IAncientSpellsProvider
+    public interface IAncientSpellsService
     {
         BookSpell[] GetUncommonSpells();
 

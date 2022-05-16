@@ -7,11 +7,11 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Usable
 {
     public class PotionsGenerator : IUsableItemTypeGenerator
     {
-        private readonly IPotionDataFactory _dataFactory;
+        private readonly IPotionDataService _dataService;
 
-        public PotionsGenerator(IPotionDataFactory dataFactory)
+        public PotionsGenerator(IPotionDataService dataService)
         {
-            _dataFactory = dataFactory;
+            _dataService = dataService;
         }
 
         public IItem Generate(ItemRareness rareness)
@@ -26,7 +26,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration.Implementations.Usable
                 PotionType = type,
                 PotionSize = size,
                 Weight = GetWeight(size),
-                PotionData = _dataFactory.GetPotionData(type, size),
+                PotionData = _dataService.GetPotionData(type, size),
                 Key = GetKey(color)
             };
         }
