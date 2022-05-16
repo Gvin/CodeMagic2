@@ -1,4 +1,5 @@
-﻿using CodeMagic.Game;
+﻿using System.Text.RegularExpressions;
+using CodeMagic.Game;
 using CodeMagic.Game.Images;
 using CodeMagic.UI.Blazor.Exceptions;
 
@@ -8,25 +9,40 @@ public class ImagesStorageService : IImagesStorageService
 {
     private const string ImagesListFile = "images-list.json";
     private const string ImagesFolder = "images";
+    private const string BatchesRegex = "(.*)(?:_\\d*)$";
+
+    private const string ImageInStorageKeyPrefix = "ImagesStorageService_Image_";
 
     private readonly IFilesLoadService _filesLoadService;
+    private readonly ILocalStorageService _localStorageService;
     private readonly ILogger<ImagesStorageService> _logger;
 
     private readonly Dictionary<string, ISymbolsImage> _imagesCache;
-    private readonly Dictionary<string, ISymbolsImage[]> _animationsCache;
+    private readonly Dictionary<string, List<ISymbolsImage>> _animationsCache;
 
-    public ImagesStorageService(IFilesLoadService filesLoadService, ILogger<ImagesStorageService> logger)
+    public ImagesStorageService(
+        IFilesLoadService filesLoadService,
+        ILocalStorageService localStorageService,
+        ILogger<ImagesStorageService> logger)
     {
         _filesLoadService = filesLoadService;
         _logger = logger;
+        _localStorageService = localStorageService;
 
         _imagesCache = new Dictionary<string, ISymbolsImage>();
-        _animationsCache = new Dictionary<string, ISymbolsImage[]>();
+        _animationsCache = new Dictionary<string, List<ISymbolsImage>>();
+    }
+
+    private static string GetImageName(string imagePath)
+    {
+        var noExtension = imagePath.Replace(".simg", "");
+        var lastSlashIndex = noExtension.LastIndexOf('/');
+        return noExtension.Substring(lastSlashIndex + 1);
     }
 
     public async Task Initialize()
     {
-        var imagesList = await _filesLoadService.LoadFileAsync<ImagesList>(ImagesListFile);
+        var imagesList = await _filesLoadService.LoadFileAsync<ImageRecord[]>(ImagesListFile);
         if (imagesList == null)
         {
             throw new Exception("Images list not found or empty");
@@ -34,63 +50,11 @@ public class ImagesStorageService : IImagesStorageService
 
         _logger.LogDebug("Loading Images");
 
-        foreach (var imagePath in imagesList.Images ?? Array.Empty<string>())
-        {
-            var imageName = GetImageName(imagePath);
+        var batchRegex = new Regex(BatchesRegex);
 
-            var path = $"{ImagesFolder}/{imagePath}";
+        var loadImageTasks = imagesList.Select(imageRecord => LoadImageRecord(imageRecord, batchRegex)).ToArray();
 
-            _logger.LogDebug("Loading image \"{ImageName}\" from path \"{ImagePath}\"", imageName, path);
-
-            var image = await _filesLoadService.LoadFileAsync<SymbolsImage>(path);
-
-            _imagesCache[imageName] = image ?? throw new FileNotFoundException("Image file not found.", path);
-        }
-
-        _logger.LogDebug("Loading Animations");
-
-        foreach (var animation in imagesList.Animations ?? Array.Empty<Animation>())
-        {
-            if (string.IsNullOrWhiteSpace(animation.Name) || animation.Frames == null || animation.Frames.Length == 0)
-            {
-                throw new Exception($"Invalid config for animation \"{animation.Name}\"");
-            }
-
-            _logger.LogDebug(
-                "Loading animation \"{AnimationName}\" containing {FramesCount} frames",
-                animation.Name,
-                animation.Frames.Length);
-
-            var frames = await LoadAnimationFrames(animation.Frames);
-            _animationsCache[animation.Name] = frames;
-        }
-    }
-
-    private async Task<ISymbolsImage[]> LoadAnimationFrames(string[] frames)
-    {
-        var result = new List<ISymbolsImage>();
-
-        foreach (var framePath in frames)
-        {
-            var path = $"{ImagesFolder}/{framePath}";
-            var image = await _filesLoadService.LoadFileAsync<SymbolsImage>(path);
-
-            if (image == null)
-            {
-                throw new FileNotFoundException("Animation frame not found.", path);
-            }
-
-            result.Add(image);
-        }
-
-        return result.ToArray();
-    }
-
-    private string GetImageName(string imagePath)
-    {
-        var noExtension = imagePath.Replace(".simg", "");
-        var lastSlashIndex = noExtension.LastIndexOf('/');
-        return noExtension.Substring(lastSlashIndex + 1);
+        await Task.WhenAll(loadImageTasks);
     }
 
     public ISymbolsImage GetImage(string name)
@@ -110,22 +74,99 @@ public class ImagesStorageService : IImagesStorageService
             throw new AnimationNotFoundException(name);
         }
 
-        return _animationsCache[name];
+        return _animationsCache[name].ToArray();
     }
 
-    [Serializable]
-    public class ImagesList
+    private async Task LoadImageRecord(ImageRecord imageRecord, Regex batchRegex)
     {
-        public string[]? Images { get; set; }
+        if (string.IsNullOrEmpty(imageRecord.FilePath))
+        {
+            throw new ApplicationLoadException("Empty file path for image record.");
+        }
 
-        public Animation[]? Animations { get; set; }
+        var imageDataRecord = await LoadImage(imageRecord.FilePath, imageRecord.Hash);
+
+        var match = batchRegex.Match(imageDataRecord.Name!);
+
+        if (!match.Success)
+        {
+            _imagesCache[imageDataRecord.Name!] = imageDataRecord.Image!;
+            return;
+        }
+
+        var batchName = match.Groups[1].Value.ToLower();
+        if (!_animationsCache.ContainsKey(batchName))
+        {
+            _animationsCache.Add(batchName, new List<ISymbolsImage>());
+        }
+        _animationsCache[batchName].Add(imageDataRecord.Image!);
+    }
+
+    private async Task<ImageDataRecord> LoadImage(string filePath, int hash)
+    {
+        var imageName = GetImageName(filePath);
+
+        var imageFromStorage = await LoadImageFromStorage(imageName);
+
+        if (imageFromStorage != null && imageFromStorage.Hash == hash)
+        {
+            _logger.LogDebug("Image {ImageName} has no difference with cached. Taking from storage.", imageName);
+            return imageFromStorage;
+        }
+
+        var path = $"{ImagesFolder}/{filePath}";
+
+        _logger.LogDebug("Loading image \"{ImageName}\" from path \"{ImagePath}\"", imageName, path);
+
+        var image = await _filesLoadService.LoadFileAsync<SymbolsImage>(path);
+
+        _logger.LogDebug("Image {ImageName} loaded.", imageName);
+
+        if (image == null)
+        {
+            throw new FileNotFoundException("Image file not found.", path);
+        }
+
+        var imageDataRecord = new ImageDataRecord
+        {
+            Name = imageName,
+            Image = image,
+            Hash = hash
+        };
+
+        _logger.LogDebug("Caching image {ImageName}", imageName);
+        var key = GetImageStorageKey(imageName);
+        await _localStorageService.SetAsync(key, imageDataRecord);
+
+        return imageDataRecord;
+    }
+
+    private Task<ImageDataRecord?> LoadImageFromStorage(string name)
+    {
+        var key = GetImageStorageKey(name);
+        return _localStorageService.GetAsync<ImageDataRecord>(key);
+    }
+
+    private static string GetImageStorageKey(string name)
+    {
+        return $"{ImageInStorageKeyPrefix}{name}";
     }
 
     [Serializable]
-    public class Animation
+    public class ImageRecord
+    {
+        public string? FilePath { get; set; }
+
+        public int Hash { get; set; }
+    }
+
+    [Serializable]
+    public class ImageDataRecord
     {
         public string? Name { get; set; }
 
-        public string[]? Frames { get; set; }
+        public SymbolsImage? Image { get; set; }
+
+        public int Hash { get; set; }
     }
 }

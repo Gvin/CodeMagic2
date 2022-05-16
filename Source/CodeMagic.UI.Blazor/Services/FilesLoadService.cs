@@ -12,25 +12,47 @@ public interface IFilesLoadService
 public class FilesLoadService : IFilesLoadService
 {
     private readonly HttpClient _httpClient;
+    private readonly ILogger<FilesLoadService> _logger;
 
-    public FilesLoadService(HttpClient httpClient)
+    public FilesLoadService(HttpClient httpClient, ILogger<FilesLoadService> logger)
     {
         _httpClient = httpClient;
+        _logger = logger;
     }
 
     public Task<string> LoadFileAsStringAsync(string filePath)
     {
-        return _httpClient.GetStringAsync(filePath);
+        _logger.LogDebug("Loading file path as string: {FilePath}", filePath);
+
+        try
+        {
+            return _httpClient.GetStringAsync(filePath);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error while loading file path: {FilePath}", filePath);
+            throw;
+        }
     }
 
     public async Task<T?> LoadFileAsync<T>(string filePath, JsonSerializerSettings? serializerSettings = null)
     {
-        var stringData = await _httpClient.GetStringAsync(filePath);
-        if (string.IsNullOrEmpty(stringData))
-        {
-            return default;
-        }
+        _logger.LogDebug("Loading file path: {FilePath}", filePath);
 
-        return JsonConvert.DeserializeObject<T>(stringData, serializerSettings);
+        try
+        {
+            var stringData = await _httpClient.GetStringAsync(filePath);
+            if (string.IsNullOrEmpty(stringData))
+            {
+                return default;
+            }
+
+            return JsonConvert.DeserializeObject<T>(stringData, serializerSettings);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error while loading file path: {FilePath}", filePath);
+            throw;
+        }
     }
 }
