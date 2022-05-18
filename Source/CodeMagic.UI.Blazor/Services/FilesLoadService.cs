@@ -7,6 +7,8 @@ public interface IFilesLoadService
     Task<string> LoadFileAsStringAsync(string filePath);
 
     Task<T?> LoadFileAsync<T>(string filePath, JsonSerializerSettings? serializerSettings = null);
+
+    Task<Stream> OpenFileStream(string filePath);
 }
 
 public class FilesLoadService : IFilesLoadService
@@ -31,6 +33,21 @@ public class FilesLoadService : IFilesLoadService
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error while loading file path: {FilePath}", filePath);
+            throw;
+        }
+    }
+
+    public Task<Stream> OpenFileStream(string filePath)
+    {
+        _logger.LogDebug("Opening file stream: {FilePath}", filePath);
+
+        try
+        {
+            return _httpClient.GetStreamAsync(filePath);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error while opening file stream: {FilePath}", filePath);
             throw;
         }
     }

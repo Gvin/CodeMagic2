@@ -1,8 +1,10 @@
 ﻿using CodeMagic.Core.Items;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration.Bonuses;
+using CodeMagic.UI.Blazor.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
-namespace CodeMagic.UI.Blazor.Configuration.ItemGenerator;
+namespace CodeMagic.Configuration.Json.ItemGenerator;
 
 [Serializable]
 public class BonusesConfiguration : IBonusesConfiguration
@@ -25,6 +27,7 @@ public class ItemGroupBonusesConfiguration : IItemGroupBonusesConfiguration
 [Serializable]
 public class BonusRarenessConfiguration : IBonusRarenessConfiguration
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public ItemRareness Rareness { get; set; }
 
     [JsonConverter(typeof(FixedJsonTypeConverter<BonusConfiguration[]>))]

@@ -1,8 +1,10 @@
 ﻿using CodeMagic.Core.Items;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration.SpellBook;
+using CodeMagic.UI.Blazor.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
-namespace CodeMagic.UI.Blazor.Configuration.ItemGenerator;
+namespace CodeMagic.Configuration.Json.ItemGenerator;
 
 [Serializable]
 public class SpellBooksConfiguration : ISpellBooksConfiguration
@@ -20,6 +22,7 @@ public class SpellBooksConfiguration : ISpellBooksConfiguration
 [Serializable]
 public class SpellBookRarenessConfiguration : ISpellBookRarenessConfiguration
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public ItemRareness Rareness { get; set; }
 
     public int MinBonuses { get; set; }

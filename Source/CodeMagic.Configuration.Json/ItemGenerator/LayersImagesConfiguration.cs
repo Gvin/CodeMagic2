@@ -1,12 +1,13 @@
 ﻿using CodeMagic.Game.Items.ItemsGeneration.Configuration;
+using CodeMagic.UI.Blazor.Configuration;
 using Newtonsoft.Json;
 
-namespace CodeMagic.UI.Blazor.Configuration.ItemGenerator;
+namespace CodeMagic.Configuration.Json.ItemGenerator;
 
 [Serializable]
 public class LayersImagesConfiguration : ILayersImagesConfiguration
 {
-    [JsonConverter(typeof(FixedJsonTypeConverter<LayersImageSpriteConfiguration>))]
+    [JsonConverter(typeof(FixedJsonTypeConverter<LayersImageSpriteConfiguration[]>))]
     public ILayersImageSpriteConfiguration[]? Sprites { get; set; }
 }
 

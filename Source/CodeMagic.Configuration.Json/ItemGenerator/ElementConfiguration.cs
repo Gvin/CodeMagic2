@@ -1,11 +1,14 @@
 ﻿using CodeMagic.Core.Game;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
-namespace CodeMagic.UI.Blazor.Configuration.ItemGenerator;
+namespace CodeMagic.Configuration.Json.ItemGenerator;
 
 [Serializable]
 public class ElementConfiguration : IElementConfiguration
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public Element Element { get; set; }
 
     public int MinValue { get; set; }

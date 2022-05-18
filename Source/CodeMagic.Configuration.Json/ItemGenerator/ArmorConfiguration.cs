@@ -1,12 +1,15 @@
-﻿using CodeMagic.Core.Items;
+﻿using System.ComponentModel.DataAnnotations;
+using CodeMagic.Core.Items;
 using CodeMagic.Game.Items;
 using CodeMagic.Game.Items.ItemsGeneration;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration.Armor;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration.Description;
+using CodeMagic.UI.Blazor.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
-namespace CodeMagic.UI.Blazor.Configuration.ItemGenerator;
+namespace CodeMagic.Configuration.Json.ItemGenerator;
 
 [Serializable]
 public class ArmorConfiguration : IArmorConfiguration
@@ -15,6 +18,7 @@ public class ArmorConfiguration : IArmorConfiguration
     public IArmorPieceConfiguration[]? ChestConfiguration { get; set; }
 
     [JsonConverter(typeof(FixedJsonTypeConverter<ArmorPieceConfiguration[]>))]
+    [Required]
     public IArmorPieceConfiguration[]? LeggingsConfiguration { get; set; }
 
     [JsonConverter(typeof(FixedJsonTypeConverter<ArmorPieceConfiguration[]>))]
@@ -27,8 +31,10 @@ public class ArmorConfiguration : IArmorConfiguration
 [Serializable]
 public class ArmorPieceConfiguration : IArmorPieceConfiguration
 {
+    [JsonProperty(Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
     public string? TypeName { get; set; }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public ArmorClass Class { get; set; }
 
     public string[]? Images { get; set; }
@@ -45,6 +51,7 @@ public class ArmorPieceConfiguration : IArmorPieceConfiguration
 [Serializable]
 public class ArmorRarenessConfiguration : IArmorRarenessConfiguration
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public ItemRareness Rareness { get; set; }
 
     [JsonConverter(typeof(FixedJsonTypeConverter<ElementConfiguration[]>))]
@@ -54,5 +61,6 @@ public class ArmorRarenessConfiguration : IArmorRarenessConfiguration
 
     public int MaxBonuses { get; set; }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public ItemMaterial[]? Materials { get; set; }
 }

@@ -1,9 +1,11 @@
 ﻿using CodeMagic.Core.Items;
 using CodeMagic.Game.Items.ItemsGeneration;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration.Description;
+using CodeMagic.UI.Blazor.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
-namespace CodeMagic.UI.Blazor.Configuration.ItemGenerator;
+namespace CodeMagic.Configuration.Json.ItemGenerator;
 
 [Serializable]
 public class DescriptionConfiguration : IDescriptionConfiguration
@@ -18,6 +20,7 @@ public class DescriptionConfiguration : IDescriptionConfiguration
 [Serializable]
 public class RarenessDescriptionConfiguration : IRarenessDescriptionConfiguration
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public ItemRareness Rareness { get; set; }
 
     public string[]? Text { get; set; }
@@ -26,6 +29,7 @@ public class RarenessDescriptionConfiguration : IRarenessDescriptionConfiguratio
 [Serializable]
 public class MaterialDescriptionConfiguration : IMaterialDescriptionConfiguration
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public ItemMaterial Material { get; set; }
 
     public string[]? Text { get; set; }

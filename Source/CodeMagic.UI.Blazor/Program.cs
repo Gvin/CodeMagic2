@@ -14,6 +14,8 @@ using CodeMagic.Game.Items.ItemsGeneration.Implementations;
 using CodeMagic.Game.Items.Usable.Potions;
 using CodeMagic.Game.MapGeneration.Dungeon;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Schema;
+using Newtonsoft.Json.Schema.Generation;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

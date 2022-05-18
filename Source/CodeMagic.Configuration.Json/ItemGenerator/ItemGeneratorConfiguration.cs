@@ -4,9 +4,10 @@ using CodeMagic.Game.Items.ItemsGeneration.Configuration.Bonuses;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration.Shield;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration.SpellBook;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration.Weapon;
+using CodeMagic.UI.Blazor.Configuration;
 using Newtonsoft.Json;
 
-namespace CodeMagic.UI.Blazor.Configuration.ItemGenerator;
+namespace CodeMagic.Configuration.Json.ItemGenerator;
 
 [Serializable]
 public class ItemGeneratorConfiguration : IItemGeneratorConfiguration

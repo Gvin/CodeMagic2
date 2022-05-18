@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.UI", "CodeMagic.U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.UI.Blazor", "CodeMagic.UI.Blazor\CodeMagic.UI.Blazor.csproj", "{C715D481-4128-475D-85CD-B8EAD47BF582}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMagic.Configuration.Json", "CodeMagic.Configuration.Json\CodeMagic.Configuration.Json.csproj", "{7603DFC7-47B7-4FF4-A269-38B3B0FD7093}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMagic.Configuration.Json.SchemaGenerator", "CodeMagic.Configuration.Json.SchemaGenerator\CodeMagic.Configuration.Json.SchemaGenerator.csproj", "{A0D8BDD8-62BA-457B-B263-286D75F05F71}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,14 @@ Global
 		{C715D481-4128-475D-85CD-B8EAD47BF582}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C715D481-4128-475D-85CD-B8EAD47BF582}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C715D481-4128-475D-85CD-B8EAD47BF582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7603DFC7-47B7-4FF4-A269-38B3B0FD7093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7603DFC7-47B7-4FF4-A269-38B3B0FD7093}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7603DFC7-47B7-4FF4-A269-38B3B0FD7093}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7603DFC7-47B7-4FF4-A269-38B3B0FD7093}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0D8BDD8-62BA-457B-B263-286D75F05F71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0D8BDD8-62BA-457B-B263-286D75F05F71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0D8BDD8-62BA-457B-B263-286D75F05F71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0D8BDD8-62BA-457B-B263-286D75F05F71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

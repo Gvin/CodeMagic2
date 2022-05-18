@@ -1,12 +1,15 @@
 {
-  // Weight coefficients (to iron):
-  // Wood: x0.7
-  // Iron/Steel: x1
-  // Silver: x1.3
-  // ElvesMetal: x0.7
-  // Dwarfs Metal: x2
-  // Mythril: x0.3
+    "$schema": "ItemGeneratorConfiguration.Schema.json",
+    // Weight coefficients (to iron):
+    // Wood: x0.7
+    // Iron/Steel: x1
+    // Silver: x1.3
+    // ElvesMetal: x0.7
+    // Dwarfs Metal: x2
+    // Mythril: x0.3
     // TODO: Set images by regex
+    // TODO: Extract common parts to common config
+    // TODO: Separate this config
     "WeaponsConfiguration": {
         "SwordsConfiguration": {
             "Images": {
@@ -127,11 +130,3309 @@
                         {
                             "Element": "Slashing",
                             "MinValue": 3,
-                            "MaxValue":  5 
+                            "MaxValue": 5
                         }
-                    ] 
+                    ],
+                    "MinMaxDamageDifference": 1,
+                    "Materials": [
+                        "Wood",
+                        "Iron"
+                    ],
+                    "MaxBonuses": 0,
+                    "MinBonuses": 0,
+                    "MaxHitChance": 60,
+                    "MinHitChance": 75
+                },
+                {
+                    "Rareness": "Common",
+                    "Damage": [
+                        {
+                            "Element": "Slashing",
+                            "MinValue": 7,
+                            "MaxValue": 10
+                        }
+                    ],
+                    "MinMaxDamageDifference": 2,
+                    "Materials": [
+                        "Iron",
+                        "Steel",
+                        "Silver"
+                    ],
+                    "MaxBonuses": 1,
+                    "MinBonuses": 0,
+                    "MaxHitChance": 80,
+                    "MinHitChance": 65
+                },
+                {
+                    "Rareness": "Uncommon",
+                    "Damage": [
+                        {
+                            "Element": "Slashing",
+                            "MinValue": 10,
+                            "MaxValue": 15
+                        }
+                    ],
+                    "MinMaxDamageDifference": 2,
+                    "Materials": [
+                        "Steel",
+                        "Silver",
+                        "ElvesMetal",
+                        "DwarfsMetal"
+                    ],
+                    "MaxBonuses": 2,
+                    "MinBonuses": 1,
+                    "MaxHitChance": 85,
+                    "MinHitChance": 70
+                },
+                {
+                    "Rareness": "Rare",
+                    "Damage": [
+                        {
+                            "Element": "Slashing",
+                            "MinValue": 20,
+                            "MaxValue": 25
+                        }
+                    ],
+                    "MinMaxDamageDifference": 3,
+                    "Materials": [
+                        "ElvesMetal",
+                        "DwarfsMetal",
+                        "Mythril"
+                    ],
+                    "MaxBonuses": 3,
+                    "MinBonuses": 2,
+                    "MaxHitChance": 85,
+                    "MinHitChance": 75
                 }
-            ] 
-        } 
+            ]
+        },
+
+        "DaggersConfiguration": {
+            "Images": {
+                "Sprites": [
+                    {
+                        "Index": 0,
+                        "Images": [
+                            "Dagger_Blade_V1",
+                            "Dagger_Blade_V2",
+                            "Dagger_Blade_V3",
+                            "Dagger_Blade_V4",
+                            "Dagger_Blade_V5"
+                        ]
+                    },
+                    {
+                        "Index": 1,
+                        "Images": [
+                            "Sword_Handle_V1",
+                            "Sword_Handle_V2",
+                            "Sword_Handle_V3",
+                            "Sword_Handle_V4",
+                            "Sword_Handle_V5",
+                            "Sword_Handle_V6",
+                            "Sword_Handle_V7",
+                            "Sword_Handle_V8",
+                            "Sword_Handle_V9",
+                            "Sword_Handle_V10",
+                            "Sword_Handle_V11",
+                            "Sword_Handle_V12",
+                            "Sword_Handle_V13",
+                            "Sword_Handle_V14",
+                            "Sword_Handle_V15",
+                            "Sword_Handle_V16"
+                        ]
+                    },
+                    {
+                        "Index": 2,
+                        "Images": [
+                            "Dagger_Guard_V1",
+                            "Dagger_Guard_V2",
+                            "Dagger_Guard_V3",
+                            "Dagger_Guard_V4",
+                            "Dagger_Guard_V5",
+                            "Dagger_Guard_V6"
+                        ]
+                    }
+                ]
+            },
+            "EquippedImageLeft": "ItemOnPlayer_Weapon_Left_Dagger",
+            "EquippedImageRight": "ItemOnPlayer_Weapon_Right_Dagger",
+            "Weight": [
+                {
+                    "Material": "Wood",
+                    "Weight": 300,
+                    "Durability": 15
+                },
+                {
+                    "Material": "Iron",
+                    "Weight": 500,
+                    "Durability": 30
+                },
+                {
+                    "Material": "Steel",
+                    "Weight": 500,
+                    "Durability": 45
+                },
+                {
+                    "Material": "Silver",
+                    "Weight": 750,
+                    "Durability": 30
+                },
+                {
+                    "Material": "ElvesMetal",
+                    "Weight": 250,
+                    "Durability": 35
+                },
+                {
+                    "Material": "DwarfsMetal",
+                    "Weight": 1000,
+                    "Durability": 60
+                },
+                {
+                    "Material": "Mythril",
+                    "Weight": 150,
+                    "Durability": 120
+                }
+            ],
+            "RarenessConfiguration": [
+                {
+                    "Rareness": "Trash",
+                    "Damage": [
+                        {
+                            "Element": "Piercing",
+                            "MinValue": 2,
+                            "MaxValue": 3
+                        }
+                    ],
+                    "MinMaxDamageDifference": 1,
+                    "Materials": [
+                        "Wood",
+                        "Iron"
+                    ],
+                    "MaxBonuses": 0,
+                    "MinBonuses": 0,
+                    "MaxHitChance": 90,
+                    "MinHitChance": 80
+                },
+                {
+                    "Rareness": "Common",
+                    "Damage": [
+                        {
+                            "Element": "Piercing",
+                            "MinValue": 4,
+                            "MaxValue": 6
+                        }
+                    ],
+                    "MinMaxDamageDifference": 1,
+                    "Materials": [
+                        "Iron",
+                        "Steel",
+                        "Silver"
+                    ],
+                    "MaxBonuses": 1,
+                    "MinBonuses": 0,
+                    "MaxHitChance": 90,
+                    "MinHitChance": 85
+                },
+                {
+                    "Rareness": "Uncommon",
+                    "Damage": [
+                        {
+                            "Element": "Piercing",
+                            "MinValue": 8,
+                            "MaxValue": 10
+                        }
+                    ],
+                    "MinMaxDamageDifference": 2,
+                    "Materials": [
+                        "Steel",
+                        "Silver",
+                        "ElvesMetal",
+                        "DwarfsMetal"
+                    ],
+                    "MaxBonuses": 2,
+                    "MinBonuses": 1,
+                    "MaxHitChance": 90,
+                    "MinHitChance": 85
+                },
+                {
+                    "Rareness": "Rare",
+                    "Damage": [
+                        {
+                            "Element": "Piercing",
+                            "MinValue": 12,
+                            "MaxValue": 15
+                        }
+                    ],
+                    "MinMaxDamageDifference": 2,
+                    "Materials": [
+                        "ElvesMetal",
+                        "DwarfsMetal",
+                        "Mythril"
+                    ],
+                    "MaxBonuses": 3,
+                    "MinBonuses": 2,
+                    "MaxHitChance": 100,
+                    "MinHitChance": 90
+                }
+            ]
+        },
+
+        "MacesConfiguration": {
+            "Images": {
+                "Sprites": [
+                    {
+                        "Index": 0,
+                        "Images": [
+                            "Mace_Shaft_V1",
+                            "Mace_Shaft_V2",
+                            "Mace_Shaft_V3"
+                        ]
+                    },
+                    {
+                        "Index": 1,
+                        "Images": [
+                            "Mace_Head_V1",
+                            "Mace_Head_V2",
+                            "Mace_Head_V3",
+                            "Mace_Head_V4",
+                            "Mace_Head_V5",
+                            "Mace_Head_V6",
+                            "Mace_Head_V7",
+                            "Mace_Head_V8",
+                            "Mace_Head_V9",
+                            "Mace_Head_V10",
+                            "Mace_Head_V11",
+                            "Mace_Head_V12",
+                            "Mace_Head_V13"
+                        ]
+                    },
+                    {
+                        "Index": 2,
+                        "Images": [
+                            "Sword_Handle_V1",
+                            "Sword_Handle_V2",
+                            "Sword_Handle_V3",
+                            "Sword_Handle_V4",
+                            "Sword_Handle_V5",
+                            "Sword_Handle_V6",
+                            "Sword_Handle_V7",
+                            "Sword_Handle_V8",
+                            "Sword_Handle_V9",
+                            "Sword_Handle_V10",
+                            "Sword_Handle_V11",
+                            "Sword_Handle_V12",
+                            "Sword_Handle_V13",
+                            "Sword_Handle_V14",
+                            "Sword_Handle_V15",
+                            "Sword_Handle_V16"
+                        ]
+                    }
+                ]
+            },
+            "EquippedImageLeft": "ItemOnPlayer_Weapon_Left_Mace",
+            "EquippedImageRight": "ItemOnPlayer_Weapon_Right_Mace",
+            "Weight": [
+                {
+                    "Material": "Wood",
+                    "Weight": 6500,
+                    "Durability": 30
+                },
+                {
+                    "Material": "Iron",
+                    "Weight": 8000,
+                    "Durability": 80
+                },
+                {
+                    "Material": "Steel",
+                    "Weight": 8000,
+                    "Durability": 120
+                },
+                {
+                    "Material": "Silver",
+                    "Weight": 12000,
+                    "Durability": 80
+                },
+                {
+                    "Material": "ElvesMetal",
+                    "Weight": 6000,
+                    "Durability": 100
+                },
+                {
+                    "Material": "DwarfsMetal",
+                    "Weight": 16000,
+                    "Durability": 200
+                },
+                {
+                    "Material": "Mythril",
+                    "Weight": 2500,
+                    "Durability": 350
+                }
+            ],
+            "RarenessConfiguration": [
+                {
+                    "Rareness": "Trash",
+                    "Damage": [
+                        {
+                            "Element": "Blunt",
+                            "MinValue": 10,
+                            "MaxValue": 15
+                        }
+                    ],
+                    "MinMaxDamageDifference": 5,
+                    "Materials": [
+                        "Wood",
+                        "Iron"
+                    ],
+                    "MaxBonuses": 0,
+                    "MinBonuses": 0,
+                    "MaxHitChance": 60,
+                    "MinHitChance": 30
+                },
+                {
+                    "Rareness": "Common",
+                    "Damage": [
+                        {
+                            "Element": "Blunt",
+                            "MinValue": 15,
+                            "MaxValue": 25
+                        }
+                    ],
+                    "MinMaxDamageDifference": 5,
+                    "Materials": [
+                        "Iron",
+                        "Steel",
+                        "Silver"
+                    ],
+                    "MaxBonuses": 1,
+                    "MinBonuses": 0,
+                    "MaxHitChance": 65,
+                    "MinHitChance": 35
+                },
+                {
+                    "Rareness": "Uncommon",
+                    "Damage": [
+                        {
+                            "Element": "Blunt",
+                            "MinValue": 25,
+                            "MaxValue": 35
+                        }
+                    ],
+                    "MinMaxDamageDifference": 10,
+                    "Materials": [
+                        "Steel",
+                        "Silver",
+                        "DwarfsMetal",
+                        "ElvesMetal"
+                    ],
+                    "MaxBonuses": 2,
+                    "MinBonuses": 1,
+                    "MaxHitChance": 70,
+                    "MinHitChance": 40
+                },
+                {
+                    "Rareness": "Rare",
+                    "Damage": [
+                        {
+                            "Element": "Blunt",
+                            "MinValue": 35,
+                            "MaxValue": 55
+                        }
+                    ],
+                    "MinMaxDamageDifference": 10,
+                    "Materials": [
+                        "ElvesMetal",
+                        "DwarfsMetal",
+                        "Mythril"
+                    ],
+                    "MaxBonuses": 3,
+                    "MinBonuses": 2,
+                    "MaxHitChance": 70,
+                    "MinHitChance": 45
+                }
+            ]
+        },
+
+        "AxesConfiguration": {
+            "Images": {
+                "Sprites": [
+                    {
+                        "Index": 0,
+                        "Images": [
+                            "Mace_Shaft_V1",
+                            "Mace_Shaft_V2",
+                            "Mace_Shaft_V3"
+                        ]
+                    },
+                    {
+                        "Index": 1,
+                        "Images": [
+                            "Axe_Head_V1",
+                            "Axe_Head_V2",
+                            "Axe_Head_V3",
+                            "Axe_Head_V4",
+                            "Axe_Head_V5",
+                            "Axe_Head_V6"
+                        ]
+                    },
+                    {
+                        "Index": 2,
+                        "Images": [
+                            "Sword_Handle_V1",
+                            "Sword_Handle_V2",
+                            "Sword_Handle_V3",
+                            "Sword_Handle_V4",
+                            "Sword_Handle_V5",
+                            "Sword_Handle_V6",
+                            "Sword_Handle_V7",
+                            "Sword_Handle_V8",
+                            "Sword_Handle_V9",
+                            "Sword_Handle_V10",
+                            "Sword_Handle_V11",
+                            "Sword_Handle_V12",
+                            "Sword_Handle_V13",
+                            "Sword_Handle_V14",
+                            "Sword_Handle_V15",
+                            "Sword_Handle_V16"
+                        ]
+                    }
+                ]
+            },
+            "EquippedImageLeft": "ItemOnPlayer_Weapon_Left_Axe",
+            "EquippedImageRight": "ItemOnPlayer_Weapon_Right_Axe",
+            "Weight": [
+                {
+                    "Material": "Wood",
+                    "Weight": 1500,
+                    "Durability": 20
+                },
+                {
+                    "Material": "Iron",
+                    "Weight": 2000,
+                    "Durability": 40
+                },
+                {
+                    "Material": "Steel",
+                    "Weight": 2000,
+                    "Durability": 60
+                },
+                {
+                    "Material": "Silver",
+                    "Weight": 2600,
+                    "Durability": 40
+                },
+                {
+                    "Material": "ElvesMetal",
+                    "Weight": 1500,
+                    "Durability": 50
+                },
+                {
+                    "Material": "DwarfsMetal",
+                    "Weight": 4000,
+                    "Durability": 100
+                },
+                {
+                    "Material": "Mythril",
+                    "Weight": 700,
+                    "Durability": 200
+                }
+            ],
+            "RarenessConfiguration": [
+                {
+                    "Rareness": "Trash",
+                    "Damage": [
+                        {
+                            "Element": "Slashing",
+                            "MinValue": 5,
+                            "MaxValue": 7
+                        }
+                    ],
+                    "MinMaxDamageDifference": 5,
+                    "Materials": [
+                        "Wood",
+                        "Iron"
+                    ],
+                    "MaxBonuses": 0,
+                    "MinBonuses": 0,
+                    "MaxHitChance": 65,
+                    "MinHitChance": 50
+                },
+                {
+                    "Rareness": "Common",
+                    "Damage": [
+                        {
+                            "Element": "Slashing",
+                            "MinValue": 10,
+                            "MaxValue": 15
+                        }
+                    ],
+                    "MinMaxDamageDifference": 8,
+                    "Materials": [
+                        "Iron",
+                        "Steel",
+                        "Silver"
+                    ],
+                    "MaxBonuses": 1,
+                    "MinBonuses": 0,
+                    "MaxHitChance": 70,
+                    "MinHitChance": 55
+                },
+                {
+                    "Rareness": "Uncommon",
+                    "Damage": [
+                        {
+                            "Element": "Slashing",
+                            "MinValue": 13,
+                            "MaxValue": 20
+                        }
+                    ],
+                    "MinMaxDamageDifference": 10,
+                    "Materials": [
+                        "Steel",
+                        "Silver",
+                        "ElvesMetal",
+                        "DwarfsMetal"
+                    ],
+                    "MaxBonuses": 2,
+                    "MinBonuses": 1,
+                    "MaxHitChance": 75,
+                    "MinHitChance": 60
+                },
+                {
+                    "Rareness": "Rare",
+                    "Damage": [
+                        {
+                            "Element": "Slashing",
+                            "MinValue": 17,
+                            "MaxValue": 30
+                        }
+                    ],
+                    "MinMaxDamageDifference": 15,
+                    "Materials": [
+                        "ElvesMetal",
+                        "DwarfsMetal",
+                        "Mythril"
+                    ],
+                    "MaxBonuses": 3,
+                    "MinBonuses": 2,
+                    "MaxHitChance": 80,
+                    "MinHitChance": 65
+                }
+            ]
+        },
+
+        "StaffsConfiguration": {
+            "Images": {
+                "Sprites": [
+                    {
+                        "Index": 0,
+                        "Images": [
+                            "Mace_Shaft_V1",
+                            "Mace_Shaft_V2",
+                            "Mace_Shaft_V3"
+                        ]
+                    },
+                    {
+                        "Index": 1,
+                        "Images": [
+                            "Staff_Head_V1",
+                            "Staff_Head_V2",
+                            "Staff_Head_V3",
+                            "Staff_Head_V4",
+                            "Staff_Head_V5"
+                        ]
+                    }
+                ]
+            },
+            "EquippedImageLeft": "ItemOnPlayer_Weapon_Left_Staff",
+            "EquippedImageRight": "ItemOnPlayer_Weapon_Right_Staff",
+            "Weight": [
+                {
+                    "Material": "Wood",
+                    "Weight": 2000,
+                    "Durability": 15
+                },
+                {
+                    "Material": "Iron",
+                    "Weight": 2500,
+                    "Durability": 30
+                },
+                {
+                    "Material": "Steel",
+                    "Weight": 2500,
+                    "Durability": 45
+                },
+                {
+                    "Material": "Silver",
+                    "Weight": 3200,
+                    "Durability": 30
+                },
+                {
+                    "Material": "ElvesMetal",
+                    "Weight": 1800,
+                    "Durability": 35
+                },
+                {
+                    "Material": "DwarfsMetal",
+                    "Weight": 5000,
+                    "Durability": 60
+                },
+                {
+                    "Material": "Mythril",
+                    "Weight": 700,
+                    "Durability": 120
+                }
+            ],
+            "RarenessConfiguration": [
+                {
+                    "Rareness": "Trash",
+                    "Damage": [
+                        {
+                            "Element": "Blunt",
+                            "MinValue": 2,
+                            "MaxValue": 4
+                        }
+                    ],
+                    "MinMaxDamageDifference": 1,
+                    "Materials": [
+                        "Wood",
+                        "Iron"
+                    ],
+                    "MaxBonuses": 1,
+                    "MinBonuses": 0,
+                    "MaxHitChance": 75,
+                    "MinHitChance": 60
+                },
+                {
+                    "Rareness": "Common",
+                    "Damage": [
+                        {
+                            "Element": "Blunt",
+                            "MinValue": 5,
+                            "MaxValue": 8
+                        }
+                    ],
+                    "MinMaxDamageDifference": 2,
+                    "Materials": [
+                        "Iron",
+                        "Steel",
+                        "Silver"
+                    ],
+                    "MaxBonuses": 2,
+                    "MinBonuses": 1,
+                    "MaxHitChance": 80,
+                    "MinHitChance": 65
+                },
+                {
+                    "Rareness": "Uncommon",
+                    "Damage": [
+                        {
+                            "Element": "Blunt",
+                            "MinValue": 8,
+                            "MaxValue": 12
+                        }
+                    ],
+                    "MinMaxDamageDifference": 2,
+                    "Materials": [
+                        "Steel",
+                        "Silver",
+                        "ElvesMetal",
+                        "DwarfsMetal"
+                    ],
+                    "MaxBonuses": 3,
+                    "MinBonuses": 2,
+                    "MaxHitChance": 85,
+                    "MinHitChance": 70
+                },
+                {
+                    "Rareness": "Rare",
+                    "Damage": [
+                        {
+                            "Element": "Blunt",
+                            "MinValue": 12,
+                            "MaxValue": 20
+                        }
+                    ],
+                    "MinMaxDamageDifference": 3,
+                    "Materials": [
+                        "ElvesMetal",
+                        "DwarfsMetal",
+                        "Mythril"
+                    ],
+                    "MaxBonuses": 4,
+                    "MinBonuses": 3,
+                    "MaxHitChance": 85,
+                    "MinHitChance": 75
+                }
+            ]
+        },
+
+        "DescriptionConfiguration": {
+            "MaterialDescription": [
+                {
+                    "Material": "Wood",
+                    "Text": [
+                        "It is made from wood, bad idea for weapon.",
+                        "It is made from wood. Hope it won't break.",
+                        "It looks like some processed branch."
+                    ]
+                },
+                {
+                    "Material": "Iron",
+                    "Text": [
+                        "It is made from iron, cheap weapon material.",
+                        "There is some rust on it."
+                    ]
+                },
+                {
+                    "Material": "Steel",
+                    "Text": [
+                        "It is made from steel, a strong material.",
+                        "It should not break easily."
+                    ]
+                },
+                {
+                    "Material": "Silver",
+                    "Text": [
+                        "It is made from silver. Shiny but heavy.",
+                        "Not so hard as steel. But it is still metal.",
+                        "It shines a bit in light."
+                    ]
+                },
+                {
+                    "Material": "ElvesMetal",
+                    "Text": [
+                        "It is made from strange green metal.",
+                        "It's material is very light.",
+                        "It smells like grass."
+                    ]
+                },
+                {
+                    "Material": "DwarfsMetal",
+                    "Text": [
+                        "It is made from strange yellow metal.",
+                        "It is extraordinary heavy.",
+                        "The material is super hard and super heavy."
+                    ]
+                },
+                {
+                    "Material": "Mythril",
+                    "Text": [
+                        "It is made from unknown metal.",
+                        "It's material is extraordinary light.",
+                        "I can barely feel it's weight."
+                    ]
+                }
+            ],
+            "RarenessDescription": [
+                {
+                    "Rareness": "Trash",
+                    "Text": [
+                        "It's quality is poor.",
+                        "It is almost falling apart.",
+                        "It can barely be used.",
+                        "Using it may be dangerous to you."
+                    ]
+                },
+                {
+                    "Rareness": "Common",
+                    "Text": [
+                        "It's quality is common.",
+                        "It is just normal.",
+                        "There is nothing special in it."
+                    ]
+                },
+                {
+                    "Rareness": "Uncommon",
+                    "Text": [
+                        "It's quality is quite good.",
+                        "It was definitely created by a master."
+                    ]
+                },
+                {
+                    "Rareness": "Rare",
+                    "Text": [
+                        "It's quality is great.",
+                        "You can use it easily.",
+                        "It is definitely a masterpiece."
+                    ]
+                }
+            ]
+        }
+    },
+
+    "ArmorConfiguration": {
+        "ChestConfiguration": [
+            {
+                "Class": "Leather",
+                "TypeName": null,
+                "Images": [
+                    "Armor_Leather_Chest_V1",
+                    "Armor_Leather_Chest_V2",
+                    "Armor_Leather_Chest_V3"
+                ],
+                "EquippedImage": "ItemOnPlayer_Armor_Chest_Leather",
+                "RarenessConfigurations": [
+                    {
+                        "Rareness": "Trash",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Acid",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            }
+                        ],
+                        "Materials": [
+                            "Leather"
+                        ],
+                        "MaxBonuses": 0,
+                        "MinBonuses": 0
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Acid",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            }
+                        ],
+                        "Materials": [
+                            "Leather"
+                        ],
+                        "MaxBonuses": 1,
+                        "MinBonuses": 0
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 12,
+                                "MaxValue": 17
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 12,
+                                "MaxValue": 17
+                            },
+                            {
+                                "Element": "Acid",
+                                "MinValue": 12,
+                                "MaxValue": 17
+                            }
+                        ],
+                        "Materials": [
+                            "Leather"
+                        ],
+                        "MaxBonuses": 2,
+                        "MinBonuses": 1
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Acid",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            }
+                        ],
+                        "Materials": [
+                            "Leather"
+                        ],
+                        "MaxBonuses": 3,
+                        "MinBonuses": 2
+                    }
+                ],
+                "Weight": [
+                    {
+                        "Material": "Leather",
+                        "Weight": 4000,
+                        "Durability": 50
+                    }
+                ]
+            },
+            {
+                "Class": "Mail",
+                "TypeName": "Mail",
+                "Images": [
+                    "Armor_Mail_Chest_V1",
+                    "Armor_Mail_Chest_V2",
+                    "Armor_Mail_Chest_V3"
+                ],
+                "EquippedImage": "ItemOnPlayer_Armor_Chest_Mail",
+                "RarenessConfigurations": [
+                    {
+                        "Rareness": "Trash",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -15,
+                                "MaxValue": -10
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -30,
+                                "MaxValue": -20
+                            }
+                        ],
+                        "MaxBonuses": 0,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron"
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -15,
+                                "MaxValue": -10
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -30,
+                                "MaxValue": -20
+                            }
+                        ],
+                        "MaxBonuses": 1,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron",
+                            "Steel"
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -15,
+                                "MaxValue": -10
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -30,
+                                "MaxValue": -20
+                            }
+                        ],
+                        "MaxBonuses": 2,
+                        "MinBonuses": 1,
+                        "Materials": [
+                            "Steel",
+                            "Silver",
+                            "ElvesMetal",
+                            "DwarfsMetal"
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -15,
+                                "MaxValue": -10
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -30,
+                                "MaxValue": -20
+                            }
+                        ],
+                        "MaxBonuses": 3,
+                        "MinBonuses": 2,
+                        "Materials": [
+                            "ElvesMetal",
+                            "DwarfsMetal",
+                            "Mythril"
+                        ]
+                    }
+                ],
+                "Weight": [
+                    {
+                        "Material": "Iron",
+                        "Weight": 7000,
+                        "Durability": 50
+                    },
+                    {
+                        "Material": "Steel",
+                        "Weight": 7000,
+                        "Durability": 60
+                    },
+                    {
+                        "Material": "Silver",
+                        "Weight": 10500,
+                        "Durability": 40
+                    },
+                    {
+                        "Material": "ElvesMetal",
+                        "Weight": 5000,
+                        "Durability": 55
+                    },
+                    {
+                        "Material": "DwarfsMetal",
+                        "Weight": 14000,
+                        "Durability": 70
+                    },
+                    {
+                        "Material": "Mythril",
+                        "Weight": 2100,
+                        "Durability": 90
+                    }
+                ]
+            },
+            {
+                "Class": "ScaleMail",
+                "TypeName": "Scale Mail",
+                "Images": [
+                    "Armor_ScaleMail_Chest_V1",
+                    "Armor_ScaleMail_Chest_V2",
+                    "Armor_ScaleMail_Chest_V3"
+                ],
+                "EquippedImage": "ItemOnPlayer_Armor_Chest_ScaleMail",
+                "RarenessConfigurations": [
+                    {
+                        "Rareness": "Trash",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 2,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 0,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron"
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 2,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 1,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron",
+                            "Steel"
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 20,
+                                "MaxValue": 25
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 2,
+                        "MinBonuses": 1,
+                        "Materials": [
+                            "Steel",
+                            "Silver",
+                            "ElvesMetal",
+                            "DwarfsMetal"
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 20,
+                                "MaxValue": 25
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 3,
+                        "MinBonuses": 2,
+                        "Materials": [
+                            "ElvesMetal",
+                            "DwarfsMetal",
+                            "Mythril"
+                        ]
+                    }
+                ],
+                "Weight": [
+                    {
+                        "Material": "Iron",
+                        "Weight": 8000,
+                        "Durability": 60
+                    },
+                    {
+                        "Material": "Steel",
+                        "Weight": 8000,
+                        "Durability": 70
+                    },
+                    {
+                        "Material": "Silver",
+                        "Weight": 12000,
+                        "Durability": 60
+                    },
+                    {
+                        "Material": "ElvesMetal",
+                        "Weight": 6000,
+                        "Durability": 70
+                    },
+                    {
+                        "Material": "DwarfsMetal",
+                        "Weight": 16000,
+                        "Durability": 80
+                    },
+                    {
+                        "Material": "Mythril",
+                        "Weight": 2400,
+                        "Durability": 100
+                    }
+                ]
+            },
+            {
+                "Class": "Plate",
+                "TypeName": "Plate",
+                "Images": [
+                    "Armor_Plate_Chest_V1",
+                    "Armor_Plate_Chest_V2",
+                    "Armor_Plate_Chest_V3",
+                    "Armor_Plate_Chest_V4",
+                    "Armor_Plate_Chest_V5",
+                    "Armor_Plate_Chest_V6"
+                ],
+                "EquippedImage": "ItemOnPlayer_Armor_Chest_Plate",
+                "RarenessConfigurations": [
+                    {
+                        "Rareness": "Trash",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 25,
+                                "MaxValue": 30
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 25,
+                                "MaxValue": 30
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -10,
+                                "MaxValue": -5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 0,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron"
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 25,
+                                "MaxValue": 30
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 25,
+                                "MaxValue": 30
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -10,
+                                "MaxValue": -5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 1,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron",
+                            "Steel"
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 30,
+                                "MaxValue": 35
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 30,
+                                "MaxValue": 35
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -10,
+                                "MaxValue": -5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 2,
+                        "MinBonuses": 1,
+                        "Materials": [
+                            "Steel",
+                            "Silver",
+                            "ElvesMetal",
+                            "DwarfsMetal"
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 15,
+                                "MaxValue": 29
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 30,
+                                "MaxValue": 35
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 30,
+                                "MaxValue": 35
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -10,
+                                "MaxValue": -5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 3,
+                        "MinBonuses": 2,
+                        "Materials": [
+                            "ElvesMetal",
+                            "DwarfsMetal",
+                            "Mythril"
+                        ]
+                    }
+                ],
+                "Weight": [
+                    {
+                        "Material": "Iron",
+                        "Weight": 12000,
+                        "Durability": 75
+                    },
+                    {
+                        "Material": "Steel",
+                        "Weight": 12000,
+                        "Durability": 90
+                    },
+                    {
+                        "Material": "Silver",
+                        "Weight": 18000,
+                        "Durability": 70
+                    },
+                    {
+                        "Material": "ElvesMetal",
+                        "Weight": 10000,
+                        "Durability": 80
+                    },
+                    {
+                        "Material": "DwarfsMetal",
+                        "Weight": 24000,
+                        "Durability": 100
+                    },
+                    {
+                        "Material": "Mythril",
+                        "Weight": 3600,
+                        "Durability": 150
+                    }
+                ]
+            }
+        ],
+
+        "HelmetConfiguration": [
+            {
+                "Class": "Leather",
+                "TypeName": null,
+                "Images": [
+                    "Armor_Leather_Helmet_V1"
+                ],
+                "EquippedImage": "ItemOnPlayer_Armor_Helmet",
+                "RarenessConfigurations": [
+                    {
+                        "Rareness": "Trash",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Acid",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            }
+                        ],
+                        "MaxBonuses": 0,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Leather"
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Acid",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            }
+                        ],
+                        "MaxBonuses": 1,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Leather"
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 5,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Acid",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            }
+                        ],
+                        "MaxBonuses": 2,
+                        "MinBonuses": 1,
+                        "Materials": [
+                            "Leather"
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 7,
+                                "MaxValue": 12
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 4,
+                                "MaxValue": 8
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Acid",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            }
+                        ],
+                        "MaxBonuses": 3,
+                        "MinBonuses": 2,
+                        "Materials": [
+                            "Leather"
+                        ]
+                    }
+                ],
+                "Weight": [
+                    {
+                        "Material": "Leather",
+                        "Weight": 1000,
+                        "Durability": 30
+                    }
+                ]
+            },
+            {
+                "Class": "Mail",
+                "TypeName": "Mail",
+                "Images": [
+                    "Armor_Mail_Helmet_V1",
+                    "Armor_Mail_Helmet_V2"
+                ],
+                "EquippedImage": "ItemOnPlayer_Armor_Helmet",
+                "RarenessConfigurations": [
+                    {
+                        "Rareness": "Trash",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -7,
+                                "MaxValue": -5
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -10,
+                                "MaxValue": -5
+                            }
+                        ],
+                        "MaxBonuses": 0,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron"
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -7,
+                                "MaxValue": -5
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -10,
+                                "MaxValue": -5
+                            }
+                        ],
+                        "MaxBonuses": 1,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron",
+                            "Steel"
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 7,
+                                "MaxValue": 12
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 2,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -7,
+                                "MaxValue": -5
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -10,
+                                "MaxValue": -5
+                            }
+                        ],
+                        "MaxBonuses": 2,
+                        "MinBonuses": 1,
+                        "Materials": [
+                            "Steel",
+                            "Silver",
+                            "ElvesMetal",
+                            "DwarfsMetal"
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 8,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 3,
+                                "MaxValue": 8
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -7,
+                                "MaxValue": -5
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -10,
+                                "MaxValue": -5
+                            }
+                        ],
+                        "MaxBonuses": 3,
+                        "MinBonuses": 2,
+                        "Materials": [
+                            "ElvesMetal",
+                            "DwarfsMetal",
+                            "Mythril"
+                        ]
+                    }
+                ],
+                "Weight": [
+                    {
+                        "Material": "Iron",
+                        "Weight": 2000,
+                        "Durability": 30
+                    },
+                    {
+                        "Material": "Steel",
+                        "Weight": 2000,
+                        "Durability": 40
+                    },
+                    {
+                        "Material": "Silver",
+                        "Weight": 3000,
+                        "Durability": 25
+                    },
+                    {
+                        "Material": "ElvesMetal",
+                        "Weight": 1500,
+                        "Durability": 45
+                    },
+                    {
+                        "Material": "DwarfsMetal",
+                        "Weight": 4000,
+                        "Durability": 50
+                    },
+                    {
+                        "Material": "Mythril",
+                        "Weight": 600,
+                        "Durability": 70
+                    }
+                ]
+            },
+            {
+                "Class": "ScaleMail",
+                "TypeName": "Scale Mail",
+                "Images": [
+                    "Armor_ScaleMail_Helmet_V1",
+                    "Armor_ScaleMail_Helmet_V2"
+                ],
+                "EquippedImage": "ItemOnPlayer_Armor_Helmet",
+                "RarenessConfigurations": [
+                    {
+                        "Rareness": "Trash",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 2,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 3,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -12,
+                                "MaxValue": -7
+                            }
+                        ],
+                        "MaxBonuses": 0,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron"
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 2,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 3,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -12,
+                                "MaxValue": -7
+                            }
+                        ],
+                        "MaxBonuses": 1,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron",
+                            "Steel"
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 2,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 5,
+                                "MaxValue": 12
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 3,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -12,
+                                "MaxValue": -7
+                            }
+                        ],
+                        "MaxBonuses": 2,
+                        "MinBonuses": 1,
+                        "Materials": [
+                            "Steel",
+                            "Silver",
+                            "ElvesMetal",
+                            "DwarfsMetal"
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 4,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 5,
+                                "MaxValue": 12
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 3,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -12,
+                                "MaxValue": -7
+                            }
+                        ],
+                        "MaxBonuses": 3,
+                        "MinBonuses": 2,
+                        "Materials": [
+                            "ElvesMetal",
+                            "DwarfsMetal",
+                            "Mythril"
+                        ]
+                    }
+                ],
+                "Weight": [
+                    {
+                        "Material": "Iron",
+                        "Weight": 2000,
+                        "Durability": 40
+                    },
+                    {
+                        "Material": "Steel",
+                        "Weight": 2000,
+                        "Durability": 50
+                    },
+                    {
+                        "Material": "Silver",
+                        "Weight": 3000,
+                        "Durability": 40
+                    },
+                    {
+                        "Material": "ElvesMetal",
+                        "Weight": 1500,
+                        "Durability": 50
+                    },
+                    {
+                        "Material": "DwarfsMetal",
+                        "Weight": 4000,
+                        "Durability": 60
+                    },
+                    {
+                        "Material": "Mythril",
+                        "Weight": 600,
+                        "Durability": 80
+                    }
+                ]
+            },
+            {
+                "Class": "Plate",
+                "TypeName": "Plate",
+                "Images": [
+                    "Armor_Plate_Helmet_V1",
+                    "Armor_Plate_Helmet_V2",
+                    "Armor_Plate_Helmet_V3",
+                    "Armor_Plate_Helmet_V4",
+                    "Armor_Plate_Helmet_V5",
+                    "Armor_Plate_Helmet_V6"
+                ],
+                "EquippedImage": "ItemOnPlayer_Armor_Helmet",
+                "RarenessConfigurations": [
+                    {
+                        "Rareness": "Trash",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 2,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 7,
+                                "MaxValue": 12
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 7,
+                                "MaxValue": 12
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -5,
+                                "MaxValue": -3
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -15,
+                                "MaxValue": -10
+                            }
+                        ],
+                        "MaxBonuses": 0,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron"
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 2,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 7,
+                                "MaxValue": 12
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 7,
+                                "MaxValue": 12
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -5,
+                                "MaxValue": -3
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -15,
+                                "MaxValue": -10
+                            }
+                        ],
+                        "MaxBonuses": 1,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron",
+                            "Steel"
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -5,
+                                "MaxValue": -3
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -15,
+                                "MaxValue": -10
+                            }
+                        ],
+                        "MaxBonuses": 2,
+                        "MinBonuses": 1,
+                        "Materials": [
+                            "Steel",
+                            "Silver",
+                            "ElvesMetal",
+                            "DwarfsMetal"
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -5,
+                                "MaxValue": -3
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -15,
+                                "MaxValue": -10
+                            }
+                        ],
+                        "MaxBonuses": 3,
+                        "MinBonuses": 2,
+                        "Materials": [
+                            "ElvesMetal",
+                            "DwarfsMetal",
+                            "Mythril"
+                        ]
+                    }
+                ],
+                "Weight": [
+                    {
+                        "Material": "Iron",
+                        "Weight": 4000,
+                        "Durability": 55
+                    },
+                    {
+                        "Material": "Steel",
+                        "Weight": 4000,
+                        "Durability": 70
+                    },
+                    {
+                        "Material": "Silver",
+                        "Weight": 6000,
+                        "Durability": 50
+                    },
+                    {
+                        "Material": "ElvesMetal",
+                        "Weight": 3000,
+                        "Durability": 60
+                    },
+                    {
+                        "Material": "DwarfsMetal",
+                        "Weight": 8000,
+                        "Durability": 85
+                    },
+                    {
+                        "Material": "Mythril",
+                        "Weight": 1200,
+                        "Durability": 110
+                    }
+                ]
+            }
+        ],
+
+        "LeggingsConfiguration": [
+            {
+                "Class": "Leather",
+                "TypeName": null,
+                "Images": [
+                    "Armor_Leather_Leggings_V1",
+                    "Armor_Leather_Leggings_V2",
+                    "Armor_Leather_Leggings_V3",
+                    "Armor_Leather_Leggings_V4"
+                ],
+                "EquippedImage": "ItemOnPlayer_Armor_Leggings_Leather",
+                "RarenessConfigurations": [
+                    {
+                        "Rareness": "Trash",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Acid",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            }
+                        ],
+                        "MaxBonuses": 0,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Leather"
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Acid",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            }
+                        ],
+                        "MaxBonuses": 1,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Leather"
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Acid",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            }
+                        ],
+                        "MaxBonuses": 2,
+                        "MinBonuses": 1,
+                        "Materials": [
+                            "Leather"
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Acid",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            }
+                        ],
+                        "MaxBonuses": 3,
+                        "MinBonuses": 2,
+                        "Materials": [
+                            "Leather"
+                        ]
+                    }
+                ],
+                "Weight": [
+                    {
+                        "Material": "Leather",
+                        "Weight": 2000,
+                        "Durability": 50
+                    }
+                ]
+            },
+            {
+                "Class": "Mail",
+                "TypeName": "Mail",
+                "Images": [
+                    "Armor_Mail_Leggings_V1"
+                ],
+                "EquippedImage": "ItemOnPlayer_Armor_Leggings_Mail",
+                "RarenessConfigurations": [
+                    {
+                        "Rareness": "Trash",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -15,
+                                "MaxValue": -10
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -30,
+                                "MaxValue": -20
+                            }
+                        ],
+                        "MaxBonuses": 0,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron"
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -15,
+                                "MaxValue": -10
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -30,
+                                "MaxValue": -20
+                            }
+                        ],
+                        "MaxBonuses": 1,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron",
+                            "Steel"
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 0,
+                                "MaxValue": 5
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -15,
+                                "MaxValue": -10
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -30,
+                                "MaxValue": -20
+                            }
+                        ],
+                        "MaxBonuses": 2,
+                        "MinBonuses": 1,
+                        "Materials": [
+                            "Steel",
+                            "Silver",
+                            "ElvesMetal",
+                            "DwarfsMetal"
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -15,
+                                "MaxValue": -10
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -30,
+                                "MaxValue": -20
+                            }
+                        ],
+                        "MaxBonuses": 3,
+                        "MinBonuses": 2,
+                        "Materials": [
+                            "ElvesMetal",
+                            "DwarfsMetal",
+                            "Mythril"
+                        ]
+                    }
+                ],
+                "Weight": [
+                    {
+                        "Material": "Iron",
+                        "Weight": 5000,
+                        "Durability": 50
+                    },
+                    {
+                        "Material": "Steel",
+                        "Weight": 5000,
+                        "Durability": 60
+                    },
+                    {
+                        "Material": "Silver",
+                        "Weight": 7000,
+                        "Durability": 40
+                    },
+                    {
+                        "Material": "ElvesMetal",
+                        "Weight": 3500,
+                        "Durability": 55
+                    },
+                    {
+                        "Material": "DwarfsMetal",
+                        "Weight": 10000,
+                        "Durability": 70
+                    },
+                    {
+                        "Material": "Mythril",
+                        "Weight": 1500,
+                        "Durability": 90
+                    }
+                ]
+            },
+            {
+                "Class": "ScaleMail",
+                "TypeName": "Scale Mail",
+                "Images": [
+                    "Armor_ScaleMail_Leggings_V1"
+                ],
+                "EquippedImage": "ItemOnPlayer_Armor_Leggings_ScaleMail",
+                "RarenessConfigurations": [
+                    {
+                        "Rareness": "Trash",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 2,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 0,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron"
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 2,
+                                "MaxValue": 7
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 1,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron",
+                            "Steel"
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 20,
+                                "MaxValue": 25
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 2,
+                        "MinBonuses": 1,
+                        "Materials": [
+                            "Steel",
+                            "Silver",
+                            "ElvesMetal",
+                            "DwarfsMetal"
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 20,
+                                "MaxValue": 25
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": 5,
+                                "MaxValue": 10
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 3,
+                        "MinBonuses": 2,
+                        "Materials": [
+                            "ElvesMetal",
+                            "DwarfsMetal",
+                            "Mythril"
+                        ]
+                    }
+                ],
+                "Weight": [
+                    {
+                        "Material": "Iron",
+                        "Weight": 7000,
+                        "Durability": 60
+                    },
+                    {
+                        "Material": "Steel",
+                        "Weight": 7000,
+                        "Durability": 70
+                    },
+                    {
+                        "Material": "Silver",
+                        "Weight": 10500,
+                        "Durability": 60
+                    },
+                    {
+                        "Material": "ElvesMetal",
+                        "Weight": 5500,
+                        "Durability": 70
+                    },
+                    {
+                        "Material": "DwarfsMetal",
+                        "Weight": 14000,
+                        "Durability": 80
+                    },
+                    {
+                        "Material": "Mythril",
+                        "Weight": 2100,
+                        "Durability": 100
+                    }
+                ]
+            },
+            {
+                "Class": "Plate",
+                "TypeName": "Plate",
+                "Images": [
+                    "Armor_Plate_Leggings_V1",
+                    "Armor_Plate_Leggings_V2",
+                    "Armor_Plate_Leggings_V3"
+                ],
+                "EquippedImage": "ItemOnPlayer_Armor_Leggings_Plate",
+                "RarenessConfigurations": [
+                    {
+                        "Rareness": "Trash",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 25,
+                                "MaxValue": 30
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 25,
+                                "MaxValue": 30
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -10,
+                                "MaxValue": -5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 0,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron"
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 10,
+                                "MaxValue": 15
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 25,
+                                "MaxValue": 30
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 25,
+                                "MaxValue": 30
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -10,
+                                "MaxValue": -5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 1,
+                        "MinBonuses": 0,
+                        "Materials": [
+                            "Iron",
+                            "Steel"
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 30,
+                                "MaxValue": 35
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 30,
+                                "MaxValue": 35
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -10,
+                                "MaxValue": -5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 2,
+                        "MinBonuses": 1,
+                        "Materials": [
+                            "Steel",
+                            "Silver",
+                            "ElvesMetal",
+                            "DwarfsMetal"
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Protection": [
+                            {
+                                "Element": "Blunt",
+                                "MinValue": 15,
+                                "MaxValue": 29
+                            },
+                            {
+                                "Element": "Slashing",
+                                "MinValue": 30,
+                                "MaxValue": 35
+                            },
+                            {
+                                "Element": "Piercing",
+                                "MinValue": 30,
+                                "MaxValue": 35
+                            },
+                            {
+                                "Element": "Frost",
+                                "MinValue": -10,
+                                "MaxValue": -5
+                            },
+                            {
+                                "Element": "Fire",
+                                "MinValue": 15,
+                                "MaxValue": 20
+                            },
+                            {
+                                "Element": "Electricity",
+                                "MinValue": -40,
+                                "MaxValue": -30
+                            }
+                        ],
+                        "MaxBonuses": 3,
+                        "MinBonuses": 2,
+                        "Materials": [
+                            "ElvesMetal",
+                            "DwarfsMetal",
+                            "Mythril"
+                        ]
+                    }
+                ],
+                "Weight": [
+                    {
+                        "Material": "Iron",
+                        "Weight": 9000,
+                        "Durability": 75
+                    },
+                    {
+                        "Material": "Steel",
+                        "Weight": 9000,
+                        "Durability": 90
+                    },
+                    {
+                        "Material": "Silver",
+                        "Weight": 13500,
+                        "Durability": 70
+                    },
+                    {
+                        "Material": "ElvesMetal",
+                        "Weight": 7200,
+                        "Durability": 80
+                    },
+                    {
+                        "Material": "DwarfsMetal",
+                        "Weight": 18000,
+                        "Durability": 100
+                    },
+                    {
+                        "Material": "Mythril",
+                        "Weight": 2700,
+                        "Durability": 150
+                    }
+                ]
+            }
+        ],
+
+        "DescriptionConfiguration": {
+            "MaterialDescription": [
+                {
+                    "Material": "Leather",
+                    "Text": [
+                        "It is made from leather, light but strong.",
+                        "It is made from leather. Just like some good jacket."
+                    ]
+                },
+                {
+                    "Material": "Iron",
+                    "Text": [
+                        "It is made from iron, standard armor material.",
+                        "There is some rust on it."
+                    ]
+                },
+                {
+                    "Material": "Steel",
+                    "Text": [
+                        "It is made from steel, a strong material.",
+                        "It should not break easily."
+                    ]
+                },
+                {
+                    "Material": "Silver",
+                    "Text": [
+                        "It is made from silver. Shiny and heavy.",
+                        "Not so hard as steel. But it is still metal.",
+                        "It shines a bit in light."
+                    ]
+                },
+                {
+                    "Material": "ElvesMetal",
+                    "Text": [
+                        "It is made from strange green metal.",
+                        "It's material is very light.",
+                        "It smells like grass."
+                    ]
+                },
+                {
+                    "Material": "DwarfsMetal",
+                    "Text": [
+                        "It is made from strange yellow metal.",
+                        "It is extraordinary heavy.",
+                        "The material is super hard and super heavy."
+                    ]
+                },
+                {
+                    "Material": "Mythril",
+                    "Text": [
+                        "It is made from unknown metal.",
+                        "It's material is extraordinary light.",
+                        "I can barely feel it's weight."
+                    ]
+                }
+            ],
+            "RarenessDescription": [
+                {
+                    "Rareness": "Trash",
+                    "Text": [
+                        "It's quality is poor.",
+                        "It is almost falling apart.",
+                        "It can barely be used.",
+                        "This doesn't provide good protection."
+                    ]
+                },
+                {
+                    "Rareness": "Common",
+                    "Text": [
+                        "It's quality is common.",
+                        "It is just normal.",
+                        "There is nothing special in it.",
+                        "It should protect from some damage."
+                    ]
+                },
+                {
+                    "Rareness": "Uncommon",
+                    "Text": [
+                        "It's quality is quite good.",
+                        "It was definitely created by a master.",
+                        "This thing can withstand some damage."
+                    ]
+                },
+                {
+                    "Rareness": "Rare",
+                    "Text": [
+                        "It's quality is great.",
+                        "You can use it easily.",
+                        "Such armor can save live.",
+                        "It is a real masterpiece."
+                    ]
+                }
+            ]
+        }
+    },
+
+    "ShieldsConfiguration": {
+
     }
 }

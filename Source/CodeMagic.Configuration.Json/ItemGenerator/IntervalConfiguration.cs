@@ -1,6 +1,6 @@
 ﻿using CodeMagic.Game.Items.ItemsGeneration.Configuration;
 
-namespace CodeMagic.UI.Blazor.Configuration.ItemGenerator;
+namespace CodeMagic.Configuration.Json.ItemGenerator;
 
 [Serializable]
 public class IntervalConfiguration : IIntervalConfiguration

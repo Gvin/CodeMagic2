@@ -3,9 +3,11 @@ using CodeMagic.Game.Items.ItemsGeneration;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration.Description;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration.Shield;
+using CodeMagic.UI.Blazor.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
-namespace CodeMagic.UI.Blazor.Configuration.ItemGenerator;
+namespace CodeMagic.Configuration.Json.ItemGenerator;
 
 [Serializable]
 public class ShieldsConfiguration : IShieldsConfiguration
@@ -61,5 +63,6 @@ public class ShieldRarenessConfiguration : IShieldRarenessConfiguration
     [JsonConverter(typeof(FixedJsonTypeConverter<IntervalConfiguration>))]
     public IIntervalConfiguration? Bonuses { get; set; }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public ItemMaterial[]? Materials { get; set; }
 }
