@@ -39,8 +39,6 @@ public class JsonConfigurationLoader : IJsonConfigurationLoader
             Schema = schemaGenerator.Generate(typeof(T))
         };
 
-        _logger.LogInformation("{Schema}", validatingReader.Schema.ToString());
-
         IList<string> messages = new List<string>();
         validatingReader.ValidationEventHandler += (_, arg) => messages.Add(arg.Message);
 

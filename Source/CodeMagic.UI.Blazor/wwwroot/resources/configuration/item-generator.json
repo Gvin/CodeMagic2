@@ -3433,6 +3433,1132 @@
     },
 
     "ShieldsConfiguration": {
+        "SmallShieldConfiguration": {
+            "Name": "Buckler",
+            "WorldImage": "ItemsOnGround_Shield_Small",
+            "Images": {
+                "Sprites": [
+                    {
+                        "Index": 0,
+                        "Images": [
+                            "Item_Shield_Small_Base"
+                        ]
+                    },
+                    {
+                        "Index": 1,
+                        "Images": [
+                            "Item_Shield_Small_Damage_V1",
+                            "Item_Shield_Small_Damage_V2"
+                        ]
+                    },
+                    {
+                        "Index": 2,
+                        "Images": [
+                            "Item_Shield_Small_Image_V1",
+                            "Item_Shield_Small_Image_V2",
+                            "Item_Shield_Small_Image_V3",
+                            "Item_Shield_Small_Image_V4"
+                        ]
+                    }
+                ]
+            },
+            "EquippedImageLeft": "ItemOnPlayer_Shield_Left_Small",
+            "EquippedImageRight": "ItemOnPlayer_Shield_Right_Small",
+            "Weight": [
+                {
+                    "Material": "Wood",
+                    "Weight": 1200,
+                    "Durability": 15
+                },
+                {
+                    "Material": "Iron",
+                    "Weight": 1700,
+                    "Durability": 30
+                },
+                {
+                    "Material": "Steel",
+                    "Weight": 1700,
+                    "Durability": 45
+                },
+                {
+                    "Material": "Silver",
+                    "Weight": 2200,
+                    "Durability": 30
+                },
+                {
+                    "Material": "ElvesMetal",
+                    "Weight": 1200,
+                    "Durability": 35
+                },
+                {
+                    "Material": "DwarfsMetal",
+                    "Weight": 3400,
+                    "Durability": 60
+                },
+                {
+                    "Material": "Mythril",
+                    "Weight": 500,
+                    "Durability": 120
+                }
+            ],
+            "RarenessConfiguration": [
+                {
+                    "Rareness": "Trash",
+                    "BlocksDamage": {
+                        "Min": 3,
+                        "Max": 5
+                    },
+                    "ProtectChance": {
+                        "Min": 10,
+                        "Max": 20
+                    },
+                    "HitChancePenalty": {
+                        "Min": 10,
+                        "Max": 15
+                    },
+                    "Bonuses": {
+                        "Min": 0,
+                        "Max": 0
+                    },
+                    "Materials": [
+                        "Wood",
+                        "Iron"
+                    ]
+                },
+                {
+                    "Rareness": "Common",
+                    "BlocksDamage": {
+                        "Min": 4,
+                        "Max": 7
+                    },
+                    "ProtectChance": {
+                        "Min": 15,
+                        "Max": 25
+                    },
+                    "HitChancePenalty": {
+                        "Min": 7,
+                        "Max": 12
+                    },
+                    "Bonuses": {
+                        "Min": 0,
+                        "Max": 1
+                    },
+                    "Materials": [
+                        "Iron",
+                        "Steel",
+                        "Silver"
+                    ]
+                },
+                {
+                    "Rareness": "Uncommon",
+                    "BlocksDamage": {
+                        "Min": 6,
+                        "Max": 10
+                    },
+                    "ProtectChance": {
+                        "Min": 20,
+                        "Max": 30
+                    },
+                    "HitChancePenalty": {
+                        "Min": 5,
+                        "Max": 10
+                    },
+                    "Bonuses": {
+                        "Min": 1,
+                        "Max": 2
+                    },
+                    "Materials": [
+                        "Steel",
+                        "Silver",
+                        "ElvesMetal",
+                        "DwarfsMetal"
+                    ]
+                },
+                {
+                    "Rareness": "Rare",
+                    "BlocksDamage": {
+                        "Min": 8,
+                        "Max": 12
+                    },
+                    "ProtectChance": {
+                        "Min": 25,
+                        "Max": 30
+                    },
+                    "HitChancePenalty": {
+                        "Min": 5,
+                        "Max": 7
+                    },
+                    "Bonuses": {
+                        "Min": 2,
+                        "Max": 3
+                    },
+                    "Materials": [
+                        "ElvesMetal",
+                        "DwarfsMetal",
+                        "Mythril"
+                    ]
+                }
+            ]
+        },
 
+        "MediumShieldConfiguration": {
+            "Name": "Heater Shield",
+            "WorldImage": "ItemsOnGround_Shield_Medium",
+            "Images": {
+                "Sprites": [
+                    {
+                        "Index": 0,
+                        "Images": [
+                            "Item_Shield_Medium_Base"
+                        ]
+                    },
+                    {
+                        "Index": 1,
+                        "Images": [
+                            "Item_Shield_Medium_Damage_V1",
+                            "Item_Shield_Medium_Damage_V2"
+                        ]
+                    },
+                    {
+                        "Index": 2,
+                        "Images": [
+                            "Item_Shield_Medium_Image_V1",
+                            "Item_Shield_Medium_Image_V2",
+                            "Item_Shield_Medium_Image_V3",
+                            "Item_Shield_Medium_Image_V4"
+                        ]
+                    }
+                ]
+            },
+            "EquippedImageLeft": "ItemOnPlayer_Shield_Left_Medium",
+            "EquippedImageRight": "ItemOnPlayer_Shield_Right_Medium",
+            "Weight": [
+                {
+                    "Material": "Wood",
+                    "Weight": 2800,
+                    "Durability": 20
+                },
+                {
+                    "Material": "Iron",
+                    "Weight": 4000,
+                    "Durability": 40
+                },
+                {
+                    "Material": "Steel",
+                    "Weight": 4000,
+                    "Durability": 60
+                },
+                {
+                    "Material": "Silver",
+                    "Weight": 5200,
+                    "Durability": 40
+                },
+                {
+                    "Material": "ElvesMetal",
+                    "Weight": 2800,
+                    "Durability": 50
+                },
+                {
+                    "Material": "DwarfsMetal",
+                    "Weight": 8000,
+                    "Durability": 100
+                },
+                {
+                    "Material": "Mythril",
+                    "Weight": 1200,
+                    "Durability": 200
+                }
+            ],
+            "RarenessConfiguration": [
+                {
+                    "Rareness": "Trash",
+                    "BlocksDamage": {
+                        "Min": 4,
+                        "Max": 6
+                    },
+                    "ProtectChance": {
+                        "Min": 20,
+                        "Max": 30
+                    },
+                    "HitChancePenalty": {
+                        "Min": 10,
+                        "Max": 15
+                    },
+                    "Bonuses": {
+                        "Min": 0,
+                        "Max": 0
+                    },
+                    "Materials": [
+                        "Wood",
+                        "Iron"
+                    ]
+                },
+                {
+                    "Rareness": "Common",
+                    "BlocksDamage": {
+                        "Min": 6,
+                        "Max": 9
+                    },
+                    "ProtectChance": {
+                        "Min": 25,
+                        "Max": 35
+                    },
+                    "HitChancePenalty": {
+                        "Min": 7,
+                        "Max": 12
+                    },
+                    "Bonuses": {
+                        "Min": 0,
+                        "Max": 1
+                    },
+                    "Materials": [
+                        "Iron",
+                        "Steel",
+                        "Silver"
+                    ]
+                },
+                {
+                    "Rareness": "Uncommon",
+                    "BlocksDamage": {
+                        "Min": 8,
+                        "Max": 12
+                    },
+                    "ProtectChance": {
+                        "Min": 30,
+                        "Max": 40
+                    },
+                    "HitChancePenalty": {
+                        "Min": 5,
+                        "Max": 10
+                    },
+                    "Bonuses": {
+                        "Min": 1,
+                        "Max": 2
+                    },
+                    "Materials": [
+                        "Steel",
+                        "Silver",
+                        "ElvesMetal",
+                        "DwarfsMetal"
+                    ]
+                },
+                {
+                    "Rareness": "Rare",
+                    "BlocksDamage": {
+                        "Min": 10,
+                        "Max": 15
+                    },
+                    "ProtectChance": {
+                        "Min": 35,
+                        "Max": 45
+                    },
+                    "HitChancePenalty": {
+                        "Min": 5,
+                        "Max": 7
+                    },
+                    "Bonuses": {
+                        "Min": 2,
+                        "Max": 3
+                    },
+                    "Materials": [
+                        "ElvesMetal",
+                        "DwarfsMetal",
+                        "Mythril"
+                    ]
+                }
+            ]
+        },
+
+        "BigShieldConfiguration": {
+            "Name": "Scutum Shield",
+            "WorldImage": "ItemsOnGround_Shield_Big",
+            "Images": {
+                "Sprites": [
+                    {
+                        "Index": 0,
+                        "Images": [
+                            "Item_Shield_Big_Base"
+                        ]
+                    },
+                    {
+                        "Index": 1,
+                        "Images": [
+                            "Item_Shield_Big_Damage_V1",
+                            "Item_Shield_Big_Damage_V2"
+                        ]
+                    },
+                    {
+                        "Index": 2,
+                        "Images": [
+                            "Item_Shield_Big_Image_V1",
+                            "Item_Shield_Big_Image_V2",
+                            "Item_Shield_Big_Image_V3",
+                            "Item_Shield_Big_Image_V4",
+                            "Item_Shield_Big_Image_V5",
+                            "Item_Shield_Big_Image_V6"
+                        ]
+                    }
+                ]
+            },
+            "EquippedImageLeft": "ItemOnPlayer_Shield_Left_Big",
+            "EquippedImageRight": "ItemOnPlayer_Shield_Right_Big",
+            "Weight": [
+                {
+                    "Material": "Wood",
+                    "Weight": 4700,
+                    "Durability": 30
+                },
+                {
+                    "Material": "Iron",
+                    "Weight": 6800,
+                    "Durability": 80
+                },
+                {
+                    "Material": "Steel",
+                    "Weight": 6800,
+                    "Durability": 120
+                },
+                {
+                    "Material": "Silver",
+                    "Weight": 8800,
+                    "Durability": 80
+                },
+                {
+                    "Material": "ElvesMetal",
+                    "Weight": 4700,
+                    "Durability": 100
+                },
+                {
+                    "Material": "DwarfsMetal",
+                    "Weight": 13600,
+                    "Durability": 200
+                },
+                {
+                    "Material": "Mythril",
+                    "Weight": 2000,
+                    "Durability": 350
+                }
+            ],
+            "RarenessConfiguration": [
+                {
+                    "Rareness": "Trash",
+                    "BlocksDamage": {
+                        "Min": 6,
+                        "Max": 8
+                    },
+                    "ProtectChance": {
+                        "Min": 30,
+                        "Max": 40
+                    },
+                    "HitChancePenalty": {
+                        "Min": 10,
+                        "Max": 15
+                    },
+                    "Bonuses": {
+                        "Min": 0,
+                        "Max": 0
+                    },
+                    "Materials": [
+                        "Wood",
+                        "Iron"
+                    ]
+                },
+                {
+                    "Rareness": "Common",
+                    "BlocksDamage": {
+                        "Min": 8,
+                        "Max": 11
+                    },
+                    "ProtectChance": {
+                        "Min": 35,
+                        "Max": 45
+                    },
+                    "HitChancePenalty": {
+                        "Min": 7,
+                        "Max": 12
+                    },
+                    "Bonuses": {
+                        "Min": 0,
+                        "Max": 1
+                    },
+                    "Materials": [
+                        "Iron",
+                        "Steel",
+                        "Silver"
+                    ]
+                },
+                {
+                    "Rareness": "Uncommon",
+                    "BlocksDamage": {
+                        "Min": 10,
+                        "Max": 14
+                    },
+                    "ProtectChance": {
+                        "Min": 40,
+                        "Max": 50
+                    },
+                    "HitChancePenalty": {
+                        "Min": 5,
+                        "Max": 10
+                    },
+                    "Bonuses": {
+                        "Min": 1,
+                        "Max": 2
+                    },
+                    "Materials": [
+                        "Steel",
+                        "Silver",
+                        "ElvesMetal",
+                        "DwarfsMetal"
+                    ]
+                },
+                {
+                    "Rareness": "Rare",
+                    "BlocksDamage": {
+                        "Min": 12,
+                        "Max": 17
+                    },
+                    "ProtectChance": {
+                        "Min": 45,
+                        "Max": 55
+                    },
+                    "HitChancePenalty": {
+                        "Min": 5,
+                        "Max": 7
+                    },
+                    "Bonuses": {
+                        "Min": 2,
+                        "Max": 3
+                    },
+                    "Materials": [
+                        "ElvesMetal",
+                        "DwarfsMetal",
+                        "Mythril"
+                    ]
+                }
+            ]
+        },
+
+        "DescriptionConfiguration": {
+            "MaterialDescription": [
+                {
+                    "Material": "Wood",
+                    "Text": [
+                        "It is made from wood and will not last long.",
+                        "It is made from wood. Hope it won't break from attack.",
+                        "It consists of several wooden planks."
+                    ]
+                },
+                {
+                    "Material": "Iron",
+                    "Text": [
+                        "It is made from iron, strong enough for a shield.",
+                        "There is some rust on it."
+                    ]
+                },
+                {
+                    "Material": "Steel",
+                    "Text": [
+                        "It is made from steel, a durable material.",
+                        "It should not break easily."
+                    ]
+                },
+                {
+                    "Material": "Silver",
+                    "Text": [
+                        "It is made from silver. Shiny and heavy.",
+                        "Not so hard as steel. But it is still metal.",
+                        "It shines a bit in light."
+                    ]
+                },
+                {
+                    "Material": "ElvesMetal",
+                    "Text": [
+                        "It is made from strange green metal.",
+                        "It's material is very light.",
+                        "It smells like grass."
+                    ]
+                },
+                {
+                    "Material": "DwarfsMetal",
+                    "Text": [
+                        "It is made from strange yellow metal.",
+                        "It is extraordinary heavy.",
+                        "The material is super hard and super heavy."
+                    ]
+                },
+                {
+                    "Material": "Mythril",
+                    "Text": [
+                        "It is made from unknown metal.",
+                        "It's material is extraordinary light.",
+                        "I can barely feel it's weight.",
+                        "It is super durable but super light."
+                    ]
+                }
+            ],
+
+            "RarenessDescription": [
+                {
+                    "Rareness": "Trash",
+                    "Text": [
+                        "It's quality is poor.",
+                        "It is almost falling apart.",
+                        "It can barely be used.",
+                        "I bet it won't stop any attack."
+                    ]
+                },
+                {
+                    "Rareness": "Common",
+                    "Text": [
+                        "It's quality is common.",
+                        "This item has normal quality.",
+                        "Not good, not bad, just normal."
+                    ]
+                },
+                {
+                    "Rareness": "Uncommon",
+                    "Text": [
+                        "It's quality is quite good.",
+                        "It was definitely created by a master."
+                    ]
+                },
+                {
+                    "Rareness": "Rare",
+                    "Text": [
+                        "It's quality is great.",
+                        "It is a true masterpiece."
+                    ]
+                }
+            ]
+        }
+    },
+
+    "SpellBooksConfiguration": {
+        "Template": "SpellBook_Template",
+        "SymbolImages": [
+            "SpellBook_Picture_V1",
+            "SpellBook_Picture_V2",
+            "SpellBook_Picture_V3",
+            "SpellBook_Picture_V4",
+            "SpellBook_Picture_V5"
+        ],
+        "Weight": 3000,
+        "Configuration": [
+            {
+                "Rareness": "Trash",
+                "MinBonuses": 0,
+                "MaxBonuses": 0,
+                "MinSpells": 3,
+                "MaxSpells": 5,
+                "Description": [
+                    "It's quality is very poor.",
+                    "I hope it's pages won't fall over.",
+                    "It is very worn up.",
+                    "There are only several pages in it.",
+                    "There are some dirty stains on it's pages.'"
+                ]
+            },
+            {
+                "Rareness": "Common",
+                "MinBonuses": 0,
+                "MaxBonuses": 1,
+                "MinSpells": 5,
+                "MaxSpells": 7,
+                "Description": [
+                    "It's condition is quite good.",
+                    "It is just some normal book with strange symbols.",
+                    "Relatively normal looking book."
+                ]
+            },
+            {
+                "Rareness": "Uncommon",
+                "MinBonuses": 1,
+                "MaxBonuses": 2,
+                "MinSpells": 7,
+                "MaxSpells": 10,
+                "Description": [
+                    "It looks like a high-quality item.",
+                    "It's cover is smooth and beautiful.",
+                    "Material of it's pages is pleasant for touch.'"
+                ]
+            },
+            {
+                "Rareness": "Rare",
+                "MinBonuses": 2,
+                "MaxBonuses": 3,
+                "MinSpells": 10,
+                "MaxSpells": 15,
+                "Description": [
+                    "It's quality is excellent.",
+                    "There are a lot of pages in it.",
+                    "It looks like new."
+                ]
+            }
+        ]
+    },
+
+    "BonusesConfiguration": {
+        "Groups": [
+            {
+                "Type": "All",
+                "InheritFrom": null,
+                "Configuration": [
+                    {
+                        "Rareness": "Trash",
+                        "Bonuses": [
+                            {
+                                "Type": "WeightBonus",
+                                "Values": {
+                                    "WeightDecrease": "10"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Bonuses": [
+                            {
+                                "Type": "WeightBonus",
+                                "Values": {
+                                    "WeightDecrease": "30"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Bonuses": [
+                            {
+                                "Type": "WeightBonus",
+                                "Values": {
+                                    "WeightDecrease": "50"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Bonuses": [
+                            {
+                                "Type": "WeightBonus",
+                                "Values": {
+                                    "WeightDecrease": "80"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            {
+                "Type": "Equipable",
+                "InheritFrom": "All",
+                "Configuration": [
+                    {
+                        "Rareness": "Trash",
+                        "Bonuses": [
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "Health",
+                                    "Min": "2",
+                                    "Max": "5"
+                                }
+                            },
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "Mana",
+                                    "Min": "10",
+                                    "Max": "30"
+                                }
+                            },
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "Stamina",
+                                    "Min": "10",
+                                    "Max": "20"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Bonuses": [
+                            {
+                                "Type": "PlayerStatBonus",
+                                "Values": {
+                                    "Min": "1",
+                                    "Max": "2"
+                                }
+                            },
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "Health",
+                                    "Min": "5",
+                                    "Max": "10"
+                                }
+                            },
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "Mana",
+                                    "Min": "30",
+                                    "Max": "60"
+                                }
+                            },
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "Stamina",
+                                    "Min": "10",
+                                    "Max": "30"
+                                }
+                            },
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "ManaRegeneration",
+                                    "Min": "1",
+                                    "Max": "2"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Bonuses": [
+                            {
+                                "Type": "PlayerStatBonus",
+                                "Values": {
+                                    "Min": "2",
+                                    "Max": "3"
+                                }
+                            },
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "Health",
+                                    "Min": "10",
+                                    "Max": "15"
+                                }
+                            },
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "Mana",
+                                    "Min": "60",
+                                    "Max": "150"
+                                }
+                            },
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "Stamina",
+                                    "Min": "20",
+                                    "Max": "40"
+                                }
+                            },
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "ManaRegeneration",
+                                    "Min": "2",
+                                    "Max": "4"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Bonuses": [
+                            {
+                                "Type": "PlayerStatBonus",
+                                "Values": {
+                                    "Min": "3",
+                                    "Max": "4"
+                                }
+                            },
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "Health",
+                                    "Min": "15",
+                                    "Max": "20"
+                                }
+                            },
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "Mana",
+                                    "Min": "150",
+                                    "Max": "200"
+                                }
+                            },
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "Stamina",
+                                    "Min": "30",
+                                    "Max": "50"
+                                }
+                            },
+                            {
+                                "Type": "EquipmentBonus",
+                                "Values": {
+                                    "BonusType": "ManaRegeneration",
+                                    "Min": "4",
+                                    "Max": "6"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            {
+                "Type": "Durable",
+                "InheritFrom": "Equipable",
+                "Configuration": [
+                    {
+                        "Rareness": "Trash",
+                        "Bonuses": [
+                            {
+                                "Type": "DurabilityBonus",
+                                "Values": {
+                                    "Min": "10",
+                                    "Max": "20"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Bonuses": [
+                            {
+                                "Type": "DurabilityBonus",
+                                "Values": {
+                                    "Min": "20",
+                                    "Max": "30"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Bonuses": [
+                            {
+                                "Type": "DurabilityBonus",
+                                "Values": {
+                                    "Min": "30",
+                                    "Max": "40"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Bonuses": [
+                            {
+                                "Type": "DurabilityBonus",
+                                "Values": {
+                                    "Min": "40",
+                                    "Max": "50"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            {
+                "Type": "Holdable",
+                "InheritFrom": "Durable",
+                "Configuration": [
+                    {
+                        "Rareness": "Trash",
+                        "Bonuses": [
+                            {
+                                "Type": "LightBonus",
+                                "Values": {
+                                    "Power": "Dusk1"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Bonuses": [
+                            {
+                                "Type": "LightBonus",
+                                "Values": {
+                                    "Power": "Dusk1,Dusk2"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Bonuses": [
+                            {
+                                "Type": "LightBonus",
+                                "Values": {
+                                    "Power": "Dim1,Dim2"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Bonuses": [
+                            {
+                                "Type": "LightBonus",
+                                "Values": {
+                                    "Power": "Dim2,Medium"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            {
+                "Type": "Weapon",
+                "InheritFrom": "Holdable",
+                "Configuration": [
+                    {
+                        "Rareness": "Trash",
+                        "Bonuses": [
+                            {
+                                "Type": "DamageBonus",
+                                "Values": {
+                                    "Min": "0",
+                                    "Max": "1",
+                                    "Difference": "1"
+                                }
+                            },
+                            {
+                                "Type": "AccuracyBonus",
+                                "Values": {
+                                    "Min": "3",
+                                    "Max": "5"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Common",
+                        "Bonuses": [
+                            {
+                                "Type": "DamageBonus",
+                                "Values": {
+                                    "Min": "1",
+                                    "Max": "3",
+                                    "Difference": "1"
+                                }
+                            },
+                            {
+                                "Type": "AccuracyBonus",
+                                "Values": {
+                                    "Min": "5",
+                                    "Max": "8"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Bonuses": [
+                            {
+                                "Type": "DamageBonus",
+                                "Values": {
+                                    "Min": "3",
+                                    "Max": "5",
+                                    "Difference": "2"
+                                }
+                            },
+                            {
+                                "Type": "AccuracyBonus",
+                                "Values": {
+                                    "Min": "8",
+                                    "Max": "12"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Bonuses": [
+                            {
+                                "Type": "DamageBonus",
+                                "Values": {
+                                    "Min": "5",
+                                    "Max": "10",
+                                    "Difference": "3"
+                                }
+                            },
+                            {
+                                "Type": "AccuracyBonus",
+                                "Values": {
+                                    "Min": "12",
+                                    "Max": "15"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            {
+                "Type": "Shield",
+                "InheritFrom": "Holdable",
+                "Configuration": []
+            },
+            {
+                "Type": "Armor",
+                "InheritFrom": "Durable",
+                "Configuration": [
+                    {
+                        "Rareness": "Common",
+                        "Bonuses": [
+                            {
+                                "Type": "ProtectionBonus",
+                                "Values": {
+                                    "Min": "3",
+                                    "Max": "6"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Uncommon",
+                        "Bonuses": [
+                            {
+                                "Type": "ProtectionBonus",
+                                "Values": {
+                                    "Min": "6",
+                                    "Max": "10"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "Rareness": "Rare",
+                        "Bonuses": [
+                            {
+                                "Type": "ProtectionBonus",
+                                "Values": {
+                                    "Min": "10",
+                                    "Max": "15"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

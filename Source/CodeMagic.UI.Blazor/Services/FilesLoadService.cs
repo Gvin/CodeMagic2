@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Net;
+using Newtonsoft.Json;
 
 namespace CodeMagic.UI.Blazor.Services;
 
@@ -22,13 +23,23 @@ public class FilesLoadService : IFilesLoadService
         _logger = logger;
     }
 
-    public Task<string> LoadFileAsStringAsync(string filePath)
+    public async Task<string> LoadFileAsStringAsync(string filePath)
     {
         _logger.LogDebug("Loading file path as string: {FilePath}", filePath);
 
         try
         {
-            return _httpClient.GetStringAsync(filePath);
+            return await _httpClient.GetStringAsync(filePath);
+        }
+        catch (HttpRequestException ex)
+        {
+            if (ex.StatusCode == HttpStatusCode.NotFound)
+            {
+                throw new FileNotFoundException("File not found", filePath);
+            }
+
+            _logger.LogError(ex, "Error while loading file path: {FilePath}", filePath);
+            throw;
         }
         catch (Exception ex)
         {
@@ -44,6 +55,16 @@ public class FilesLoadService : IFilesLoadService
         try
         {
             return _httpClient.GetStreamAsync(filePath);
+        }
+        catch (HttpRequestException ex)
+        {
+            if (ex.StatusCode == HttpStatusCode.NotFound)
+            {
+                throw new FileNotFoundException("File not found", filePath);
+            }
+
+            _logger.LogError(ex, "Error while loading file path: {FilePath}", filePath);
+            throw;
         }
         catch (Exception ex)
         {
@@ -65,6 +86,16 @@ public class FilesLoadService : IFilesLoadService
             }
 
             return JsonConvert.DeserializeObject<T>(stringData, serializerSettings);
+        }
+        catch (HttpRequestException ex)
+        {
+            if (ex.StatusCode == HttpStatusCode.NotFound)
+            {
+                throw new FileNotFoundException("File not found", filePath);
+            }
+
+            _logger.LogError(ex, "Error while loading file path: {FilePath}", filePath);
+            throw;
         }
         catch (Exception ex)
         {

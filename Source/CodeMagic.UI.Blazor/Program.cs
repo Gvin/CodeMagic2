@@ -1,3 +1,4 @@
+using CodeMagic.Configuration.Json;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using CodeMagic.UI.Blazor;
@@ -14,8 +15,6 @@ using CodeMagic.Game.Items.ItemsGeneration.Implementations;
 using CodeMagic.Game.Items.Usable.Potions;
 using CodeMagic.Game.MapGeneration.Dungeon;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Schema;
-using Newtonsoft.Json.Schema.Generation;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -52,6 +51,7 @@ builder.Services.AddSingleton<IItemsGenerator, ItemsGenerator>();
 builder.Services.AddSingleton<IAncientSpellsService, AncientSpellsService>();
 builder.Services.AddSingleton<ConfigurationProviderService>();
 
+builder.Services.AddTransient<IJsonConfigurationLoader, JsonConfigurationLoader>();
 builder.Services.AddTransient(provider =>
     provider.GetRequiredService<ConfigurationProviderService>().GetItemGeneratorConfiguration());
 
@@ -80,7 +80,7 @@ await application.Services.GetRequiredService<ConfigurationProviderService>().In
 
 ItemsGeneratorManager.Initialize(application.Services.GetRequiredService<IItemsGenerator>());
 
-await application.Services.GetRequiredService<AncientSpellsService>().Initialize();
+await application.Services.GetRequiredService<IAncientSpellsService>().Initialize();
 
 await application.Services.GetRequiredService<IImagesStorageService>().Initialize();
 

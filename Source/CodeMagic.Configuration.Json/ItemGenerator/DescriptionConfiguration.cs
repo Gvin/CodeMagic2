@@ -10,10 +10,10 @@ namespace CodeMagic.Configuration.Json.ItemGenerator;
 [Serializable]
 public class DescriptionConfiguration : IDescriptionConfiguration
 {
-    [JsonConverter(typeof(FixedJsonTypeConverter<RarenessDescriptionConfiguration>))]
+    [JsonConverter(typeof(FixedJsonTypeConverter<RarenessDescriptionConfiguration[]>))]
     public IRarenessDescriptionConfiguration[]? RarenessDescription { get; set; }
 
-    [JsonConverter(typeof(FixedJsonTypeConverter<MaterialDescriptionConfiguration>))]
+    [JsonConverter(typeof(FixedJsonTypeConverter<MaterialDescriptionConfiguration[]>))]
     public IMaterialDescriptionConfiguration[]? MaterialDescription { get; set; }
 }
 

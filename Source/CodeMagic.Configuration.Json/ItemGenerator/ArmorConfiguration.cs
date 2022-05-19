@@ -61,6 +61,6 @@ public class ArmorRarenessConfiguration : IArmorRarenessConfiguration
 
     public int MaxBonuses { get; set; }
 
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonProperty(Required = Required.Always, ItemConverterType = typeof(StringEnumConverter))]
     public ItemMaterial[]? Materials { get; set; }
 }

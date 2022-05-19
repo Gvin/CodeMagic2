@@ -1,4 +1,5 @@
-﻿using CodeMagic.Game.Spells;
+﻿using System.Threading.Tasks;
+using CodeMagic.Game.Spells;
 
 namespace CodeMagic.Game.Items.ItemsGeneration
 {
@@ -7,5 +8,7 @@ namespace CodeMagic.Game.Items.ItemsGeneration
         BookSpell[] GetUncommonSpells();
 
         BookSpell[] GetRareSpells();
+
+        Task Initialize();
     }
 }

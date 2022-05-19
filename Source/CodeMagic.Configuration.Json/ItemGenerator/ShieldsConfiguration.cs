@@ -63,6 +63,6 @@ public class ShieldRarenessConfiguration : IShieldRarenessConfiguration
     [JsonConverter(typeof(FixedJsonTypeConverter<IntervalConfiguration>))]
     public IIntervalConfiguration? Bonuses { get; set; }
 
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonProperty(Required = Required.Always, ItemConverterType = typeof(StringEnumConverter))]
     public ItemMaterial[]? Materials { get; set; }
 }
