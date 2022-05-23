@@ -1,0 +1,112 @@
+{
+    "$schema": "LiquidsConfiguration.Schema.json",
+
+    "LiquidsConfigurations": [
+        {
+            "Type": "WaterLiquid",
+            "FreezingPoint": 0,
+            "BoilingPoint": 100,
+            "MinVolumeForEffect": 30,
+            "MaxVolumeBeforeSpread": 50,
+            "MaxSpreadVolume": 3,
+            "EvaporationMultiplier": 10,
+            "FreezingTemperatureMultiplier": 1,
+            "MeltingTemperatureMultiplier": 1,
+            "EvaporationTemperatureMultiplier": 0.3,
+            "CondensationTemperatureMultiplier": 3,
+            "Steam": {
+                "PressureMultiplier": 3,
+                "ThicknessMultiplier": 0.05,
+                "MaxVolumeBeforeSpread": 200,
+                "MaxSpreadVolume": 50
+            },
+            "CustomValues": [
+                {
+                    "Key": "WetStatus.LifeTime",
+                    "Value": "5"
+                },
+                {
+                    "Key": "WetStatus.CatchFireChanceModifier",
+                    "Value": "-30"
+                },
+                {
+                    "Key": "WetStatus.SelfExtinguishChanceModifier",
+                    "Value": "30"
+                }
+            ]
+        },
+        {
+            "Type": "AcidLiquid",
+            "FreezingPoint": -10,
+            "BoilingPoint": 337,
+            "MinVolumeForEffect": 30,
+            "MaxVolumeBeforeSpread": 50,
+            "MaxSpreadVolume": 3,
+            "EvaporationMultiplier": 10,
+            "FreezingTemperatureMultiplier": 1,
+            "MeltingTemperatureMultiplier": 1,
+            "EvaporationTemperatureMultiplier": 0.3,
+            "CondensationTemperatureMultiplier": 3,
+            "Steam": {
+                "PressureMultiplier": 3,
+                "ThicknessMultiplier": 0.05,
+                "MaxVolumeBeforeSpread": 200,
+                "MaxSpreadVolume": 50
+            },
+            "CustomValues": [
+                {
+                    "Key": "DamageToVolumeMultiplier",
+                    "Value": "0.3"
+                },
+                {
+                    "Key": "SteamDamageToVolumeMultiplier",
+                    "Value": "0.1"
+                }
+            ]
+        },
+        {
+            "Type": "OilLiquid",
+            "BoilingPoint": 0,
+            "FreezingPoint": 0,
+            "EvaporationMultiplier": 0,
+            "CondensationTemperatureMultiplier": 0,
+            "EvaporationTemperatureMultiplier": 0,
+            "FreezingTemperatureMultiplier": 0,
+            "MeltingTemperatureMultiplier": 0,
+            "MinVolumeForEffect": 30,
+            "MaxVolumeBeforeSpread": 50,
+            "MaxSpreadVolume": 1,
+            "Steam": null,
+            "CustomValues": [
+                {
+                    "Key": "IgnitionTemperature",
+                    "Value": "230"
+                },
+                {
+                    "Key": "BurningTemperature",
+                    "Value": "950"
+                },
+                {
+                    "Key": "BurningRate",
+                    "Value": "0.2"
+                },
+                {
+                    "Key": "HeatSpeed",
+                    "Value": "300"
+                },
+                {
+                    "Key": "OilyStatus.LifeTime",
+                    "Value": "8"
+                },
+                {
+                    "Key": "OilyStatus.CatchFireChanceModifier",
+                    "Value": "50"
+                },
+                {
+                    "Key": "OilyStatus.SelfExtinguishChanceModifier",
+                    "Value": "-30"
+                }
+            ]
+        }
+    ]
+}

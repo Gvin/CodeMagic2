@@ -1,11 +1,10 @@
 ﻿using System;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 
 namespace CodeMagic.Core.Area
 {
-    public interface IAreaMap : ISaveable
+    public interface IAreaMap
     {
         int Level { get; }
 

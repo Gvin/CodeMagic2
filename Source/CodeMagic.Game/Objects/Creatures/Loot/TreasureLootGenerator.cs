@@ -13,7 +13,7 @@ namespace CodeMagic.Game.Objects.Creatures.Loot
 
         private static ILootConfiguration GetConfiguration(int level, string containerType)
         {
-            var levelConfig = ConfigurationManager.Current.Treasure.Levels
+            var levelConfig = GameConfigurationManager.Current.Treasure.Levels
                 .FirstOrDefault(range =>
                 level >= range.StartLevel && level <= range.EndLevel);
 

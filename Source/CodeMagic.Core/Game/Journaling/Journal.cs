@@ -1,33 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CodeMagic.Core.Objects;
 
 namespace CodeMagic.Core.Game.Journaling
 {
+    [Serializable]
     public class Journal : IJournal
     {
-        private readonly List<JournalMessageData> messages;
-
         public Journal()
         {
-            messages = new List<JournalMessageData>();
+            Messages = new List<JournalMessageData>();
         }
+
+        public List<JournalMessageData> Messages { get; set; }
 
         public void Write(IJournalMessage message)
         {
-            lock (messages)
+            lock (Messages)
             {
-                messages.Add(new JournalMessageData(message, CurrentGame.Game.CurrentTurn));
+                Messages.Add(new JournalMessageData(message, CurrentGame.Game.CurrentTurn));
             }
         }
 
         public void Write(IJournalMessage message, IMapObject source)
         {
-            lock (messages)
+            lock (Messages)
             {
                 if (IsObjectVisible(source))
                 {
-                    messages.Add(new JournalMessageData(message, CurrentGame.Game.CurrentTurn));
+                    Messages.Add(new JournalMessageData(message, CurrentGame.Game.CurrentTurn));
                 }
             }
         }
@@ -47,28 +49,15 @@ namespace CodeMagic.Core.Game.Journaling
             return false;
         }
 
-        public JournalMessageData[] Messages
+        IJournalMessageData[] IJournal.Messages
         {
             get
             {
-                lock (messages)
+                lock (Messages)
                 {
-                    return messages.ToArray();
+                    return Messages.ToArray<IJournalMessageData>();
                 }
             }
         }
-    }
-
-    public class JournalMessageData
-    {
-        public JournalMessageData(IJournalMessage message, int turn)
-        {
-            Message = message;
-            Turn = turn;
-        }
-
-        public IJournalMessage Message { get; }
-
-        public int Turn { get; }
     }
 }

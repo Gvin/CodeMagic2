@@ -30,7 +30,7 @@ namespace CodeMagic.Game.MapGeneration.Dungeon.MonstersGenerators
 
             var squadsCount = GetSquadsCount(map);
 
-            var possibleMonsters = ConfigurationManager.Current.Monsters.Monsters
+            var possibleMonsters = GameConfigurationManager.Current.Monsters.Monsters
                 .Where(monster => map.Level >= monster.SpawnConfiguration.MinLevel).ToArray();
             var possibleGroups = possibleMonsters.Select(monster => monster.SpawnConfiguration.Group).Distinct()
                 .ToArray();

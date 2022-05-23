@@ -1,74 +1,63 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Configuration;
 using CodeMagic.Game.Configuration.Physics;
 
 namespace CodeMagic.Game.Area.EnvironmentData
 {
     [DebuggerDisplay("{" + nameof(Value) + "} kPa")]
-    public class Pressure : ISaveable
+    [Serializable]
+    public class Pressure
     {
-        private const string SaveKeyValue = "Value";
-        private const string SaveKeyOldValue = "OldValue";
+        private int _value;
 
-        private int value;
-        private int oldValue;
-
-        private readonly IPressureConfiguration configuration;
-
-        public Pressure(SaveData data)
-        {
-            configuration = ConfigurationManager.Current.Physics.PressureConfiguration;
-
-            value = data.GetIntValue(SaveKeyValue);
-            oldValue = data.GetIntValue(SaveKeyOldValue);
-        }
+        private readonly IPressureConfiguration _configuration;
 
         public Pressure()
         {
-            configuration = ConfigurationManager.Current.Physics.PressureConfiguration;
+            _configuration = GameConfigurationManager.Current.Physics.PressureConfiguration;
 
-            value = configuration.NormalValue;
-            oldValue = configuration.NormalValue;
+            _value = _configuration.NormalValue;
+            OldValue = _configuration.NormalValue;
         }
 
         public int Value
         {
-            get => value;
+            get => _value;
             set
             {
-                if (value < configuration.MinValue)
+                if (value < _configuration.MinValue)
                 {
-                    this.value = configuration.MinValue;
+                    this._value = _configuration.MinValue;
                     return;
                 }
 
-                if (value > configuration.MaxValue)
+                if (value > _configuration.MaxValue)
                 {
-                    this.value = configuration.MaxValue;
+                    this._value = _configuration.MaxValue;
                     return;
                 }
 
-                this.value = value;
+                this._value = value;
             }
         }
 
+        public int OldValue { get; set; }
+
         public void Normalize()
         {
-            if (Value == configuration.NormalValue)
+            if (Value == _configuration.NormalValue)
                 return;
 
-            var difference = Math.Abs(configuration.NormalValue - Value);
-            difference = Math.Min(difference, configuration.NormalizeSpeed);
+            var difference = Math.Abs(_configuration.NormalValue - Value);
+            difference = Math.Min(difference, _configuration.NormalizeSpeed);
 
-            if (Value > configuration.NormalValue)
+            if (Value > _configuration.NormalValue)
             {
                 Value -= difference;
             }
 
-            if (Value < configuration.NormalValue)
+            if (Value < _configuration.NormalValue)
             {
                 Value += difference;
             }
@@ -89,46 +78,37 @@ namespace CodeMagic.Game.Area.EnvironmentData
             var pureDamage = GetPurePressureDamage();
             var pressureChangeDamage = GetPressureChangeDamage();
 
-            oldValue = Value;
+            OldValue = Value;
 
             return pureDamage + pressureChangeDamage;
         }
 
         private int GetPressureChangeDamage()
         {
-            var difference = Math.Abs(Value - oldValue);
+            var difference = Math.Abs(Value - OldValue);
 
-            if (difference < configuration.ChangePressureDamageConfiguration.PressureLevel)
+            if (difference < _configuration.ChangePressureDamageConfiguration.PressureLevel)
                 return 0;
 
-            var differenceValue = configuration.ChangePressureDamageConfiguration.PressureLevel - difference;
-            return (int) Math.Round(differenceValue * configuration.ChangePressureDamageConfiguration.DamageMultiplier);
+            var differenceValue = _configuration.ChangePressureDamageConfiguration.PressureLevel - difference;
+            return (int) Math.Round(differenceValue * _configuration.ChangePressureDamageConfiguration.DamageMultiplier);
         }
 
         private int GetPurePressureDamage()
         {
-            if (value < configuration.LowPressureDamageConfiguration.PressureLevel)
+            if (_value < _configuration.LowPressureDamageConfiguration.PressureLevel)
             {
-                var diff = configuration.LowPressureDamageConfiguration.PressureLevel - value;
-                return (int)Math.Round(diff * configuration.LowPressureDamageConfiguration.DamageMultiplier);
+                var diff = _configuration.LowPressureDamageConfiguration.PressureLevel - _value;
+                return (int)Math.Round(diff * _configuration.LowPressureDamageConfiguration.DamageMultiplier);
             }
 
-            if (value > configuration.HighPressureDamageConfiguration.PressureLevel)
+            if (_value > _configuration.HighPressureDamageConfiguration.PressureLevel)
             {
-                var diff = value - configuration.HighPressureDamageConfiguration.PressureLevel;
-                return (int)Math.Round(diff * configuration.HighPressureDamageConfiguration.DamageMultiplier);
+                var diff = _value - _configuration.HighPressureDamageConfiguration.PressureLevel;
+                return (int)Math.Round(diff * _configuration.HighPressureDamageConfiguration.DamageMultiplier);
             }
 
             return 0;
-        }
-
-        public SaveDataBuilder GetSaveData()
-        {
-            return new SaveDataBuilder(GetType(), new Dictionary<string, object>
-            {
-                {SaveKeyValue, value},
-                {SaveKeyOldValue, oldValue}
-            });
         }
     }
 }

@@ -140,8 +140,8 @@
                     ],
                     "MaxBonuses": 0,
                     "MinBonuses": 0,
-                    "MaxHitChance": 60,
-                    "MinHitChance": 75
+                    "MaxHitChance": 75,
+                    "MinHitChance": 60
                 },
                 {
                     "Rareness": "Common",

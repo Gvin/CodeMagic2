@@ -30,7 +30,7 @@ namespace CodeMagic.Game.Objects.SteamObjects
                     throw new InvalidOperationException("Liquid type not initialized");
                 }
 
-                return _configuration ??= ConfigurationManager.GetLiquidConfiguration(LiquidType);
+                return _configuration ??= GameConfigurationManager.GetLiquidConfiguration(LiquidType);
             }
         }
 
@@ -93,6 +93,7 @@ namespace CodeMagic.Game.Objects.SteamObjects
         private void ProcessCondensation(Point position, IAreaMapCell cell)
         {
             var missingTemperature = Configuration.BoilingPoint - cell.Temperature();
+            
             var volumeToRaiseTemp = (int)Math.Floor(missingTemperature * Configuration.CondensationTemperatureMultiplier);
             var volumeToCondense = Math.Min(volumeToRaiseTemp, Volume);
             var heatGain = (int)Math.Floor(volumeToCondense / Configuration.CondensationTemperatureMultiplier);

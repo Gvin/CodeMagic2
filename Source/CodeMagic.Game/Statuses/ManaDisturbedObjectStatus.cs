@@ -1,19 +1,16 @@
-﻿using CodeMagic.Core.Saving;
+﻿using System;
 using CodeMagic.Core.Statuses;
 
 namespace CodeMagic.Game.Statuses
 {
+    [Serializable]
     public class ManaDisturbedObjectStatus : PassiveObjectStatusBase
     {
         public const string StatusType = "mana_disturbed";
-        private const int TimeToLive = 4;
-
-        public ManaDisturbedObjectStatus(SaveData data) : base(data)
-        {
-        }
+        private const int StartTimeToLive = 4;
 
         public ManaDisturbedObjectStatus() 
-            : base(TimeToLive)
+            : base(StartTimeToLive)
         {
         }
 

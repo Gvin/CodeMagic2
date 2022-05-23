@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Common;
@@ -30,7 +31,7 @@ namespace CodeMagic.Game.Objects.IceObjects
                     throw new InvalidOperationException("Liquid type not initialized");
                 }
 
-                return _configuration ??= ConfigurationManager.GetLiquidConfiguration(LiquidType);
+                return _configuration ??= GameConfigurationManager.GetLiquidConfiguration(LiquidType);
             }
         }
 
@@ -71,6 +72,7 @@ namespace CodeMagic.Game.Objects.IceObjects
         private void ProcessMelting(IAreaMap map, Point position, IAreaMapCell cell)
         {
             var excessTemperature = cell.Temperature() - Configuration.FreezingPoint;
+
             var volumeToLowerTemp = (int)Math.Floor(excessTemperature * Configuration.MeltingTemperatureMultiplier);
             var volumeToMelt = Math.Min(volumeToLowerTemp, Volume);
             var heatLoss = (int)Math.Floor(volumeToMelt * Configuration.MeltingTemperatureMultiplier);

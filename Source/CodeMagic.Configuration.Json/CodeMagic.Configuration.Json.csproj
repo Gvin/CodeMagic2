@@ -16,4 +16,12 @@
     <ProjectReference Include="..\CodeMagic.Game\CodeMagic.Game.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Liquids\" />
+    <Folder Include="Monsters\" />
+    <Folder Include="Levels\" />
+    <Folder Include="Treasure\" />
+    <Folder Include="Physics\" />
+  </ItemGroup>
+
 </Project>

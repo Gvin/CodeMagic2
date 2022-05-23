@@ -1,9 +1,8 @@
 ﻿using CodeMagic.Core.Game;
-using CodeMagic.Core.Saving;
 
 namespace CodeMagic.Core.Statuses
 {
-    public interface IObjectStatusesCollection : ISaveable
+    public interface IObjectStatusesCollection
     {
         void Add(IObjectStatus status);
 

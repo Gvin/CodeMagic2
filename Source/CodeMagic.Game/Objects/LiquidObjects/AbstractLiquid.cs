@@ -25,7 +25,7 @@ namespace CodeMagic.Game.Objects.LiquidObjects
                     throw new InvalidOperationException("Liquid type not initialized");
                 }
 
-                return _configuration ??= ConfigurationManager.GetLiquidConfiguration(Type);
+                return _configuration ??= GameConfigurationManager.GetLiquidConfiguration(Type);
             }
         }
 
@@ -94,6 +94,7 @@ namespace CodeMagic.Game.Objects.LiquidObjects
         private void ProcessFreezing(Point position, IAreaMapCell cell)
         {
             var missingTemperature = Configuration.FreezingPoint - cell.Temperature();
+            
             var volumeToRaiseTemp = (int)Math.Floor(missingTemperature * Configuration.FreezingTemperatureMultiplier);
             var volumeToFreeze = Math.Min(volumeToRaiseTemp, Volume);
             var heatGain = (int)Math.Floor(volumeToFreeze / Configuration.FreezingTemperatureMultiplier);

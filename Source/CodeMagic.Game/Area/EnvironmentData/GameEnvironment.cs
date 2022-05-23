@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.JournalMessages;
 using CodeMagic.Game.Objects.DecorativeObjects;
 
@@ -13,10 +11,6 @@ namespace CodeMagic.Game.Area.EnvironmentData
     [Serializable]
     public class GameEnvironment : IGameEnvironment
     {
-        private const string SaveKeyTemperature = "Temperature";
-        private const string SaveKeyPressure = "Pressure";
-        private const string SaveKeyMagicEnergy = "MagicEnergy";
-
         private const double TemperatureToPressureMultiplier = 0.6d;
 
         public GameEnvironment()
@@ -31,16 +25,6 @@ namespace CodeMagic.Game.Area.EnvironmentData
         public Pressure Pressure { get; set; }
 
         public MagicEnergy MagicEnergy { get; set; }
-
-        public SaveDataBuilder GetSaveData()
-        {
-            return new SaveDataBuilder(GetType(), new Dictionary<string, object>
-            {
-                {SaveKeyTemperature, Temperature},
-                {SaveKeyPressure, Pressure},
-                {SaveKeyMagicEnergy, MagicEnergy}
-            });
-        }
 
         int IGameEnvironment.Temperature
         {

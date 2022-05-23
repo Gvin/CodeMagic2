@@ -10,10 +10,12 @@ using CodeMagic.UI.Services;
 using CodeMagic.Game.GameProcess;
 using CodeMagic.Core.Common;
 using CodeMagic.Game;
+using CodeMagic.Game.Configuration;
 using CodeMagic.Game.Items.ItemsGeneration;
 using CodeMagic.Game.Items.ItemsGeneration.Implementations;
 using CodeMagic.Game.Items.Usable.Potions;
 using CodeMagic.Game.MapGeneration.Dungeon;
+using CodeMagic.UI.Blazor.Drawing;
 using Microsoft.Extensions.Options;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -49,11 +51,12 @@ builder.Services.AddSingleton<IDownloadFileService, DownloadFileService>();
 builder.Services.AddSingleton<IFilesLoadService, FilesLoadService>();
 builder.Services.AddSingleton<IItemsGenerator, ItemsGenerator>();
 builder.Services.AddSingleton<IAncientSpellsService, AncientSpellsService>();
-builder.Services.AddSingleton<ConfigurationProviderService>();
+builder.Services.AddSingleton<GameConfigurationProviderService>();
+builder.Services.AddSingleton<ICellImageService, CellImageService>();
 
-builder.Services.AddTransient<IJsonConfigurationLoader, JsonConfigurationLoader>();
+builder.Services.AddTransient<IConfigurationLoader, JsonConfigurationLoader>();
 builder.Services.AddTransient(provider =>
-    provider.GetRequiredService<ConfigurationProviderService>().GetItemGeneratorConfiguration());
+    provider.GetRequiredService<GameConfigurationProviderService>().GetItemGeneratorConfiguration());
 
 // Windows
 builder.Services.AddTransient<IMainMenuView, MainMenuModel>();
@@ -76,7 +79,9 @@ var application = builder.Build();
 
 StaticLoggerFactory.Initialize(application.Services.GetRequiredService<ILoggerFactory>());
 
-await application.Services.GetRequiredService<ConfigurationProviderService>().Initialize();
+var configurationProviderService = application.Services.GetRequiredService<GameConfigurationProviderService>();
+await configurationProviderService.Load();
+GameConfigurationManager.InitializeConfiguration(configurationProviderService);
 
 ItemsGeneratorManager.Initialize(application.Services.GetRequiredService<IItemsGenerator>());
 

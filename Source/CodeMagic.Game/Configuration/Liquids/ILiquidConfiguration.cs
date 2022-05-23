@@ -33,8 +33,6 @@
     {
         int PressureMultiplier { get; }
 
-        int VolumeMultiplier { get; }
-
         double ThicknessMultiplier { get; }
 
         int MaxVolumeBeforeSpread { get; }

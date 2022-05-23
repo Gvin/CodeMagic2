@@ -8,7 +8,7 @@ namespace CodeMagic.UI.Blazor.Services
 	{
 		public void DeleteSave()
 		{
-			throw new NotImplementedException();
+            // TODO: Implement
 		}
 
 		public (IGameCore?, IGameData?) LoadGame()
@@ -18,12 +18,13 @@ namespace CodeMagic.UI.Blazor.Services
 
 		public void SaveGame()
 		{
-			throw new NotImplementedException();
+			// TODO: Implement
 		}
 
 		public Task SaveGameAsync()
 		{
-			throw new NotImplementedException();
+            // TODO: Implement
+			return Task.CompletedTask;
 		}
 	}
 }

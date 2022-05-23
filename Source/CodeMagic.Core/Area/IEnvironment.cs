@@ -1,9 +1,8 @@
 ﻿using CodeMagic.Core.Game;
-using CodeMagic.Core.Saving;
 
 namespace CodeMagic.Core.Area
 {
-    public interface IEnvironment : ISaveable
+    public interface IEnvironment
     {
         void Update(Point position, IAreaMapCell cell);
 

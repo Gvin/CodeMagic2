@@ -3,11 +3,11 @@ using CodeMagic.Core.Area;
 using CodeMagic.Core.Game.Journaling;
 using CodeMagic.Core.Game.PlayerActions;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
+using Microsoft.Extensions.Logging;
 
 namespace CodeMagic.Core.Game
 {
-    public interface IGameCore : IDisposable, ISaveable
+    public interface IGameCore : IDisposable
     {
         event EventHandler TurnEnded;
 
@@ -28,5 +28,7 @@ namespace CodeMagic.Core.Game
         AreaMapFragment GetVisibleArea();
 
         void PerformPlayerAction(IPlayerAction action);
+
+        void Initialize(ILogger<IGameCore> logger);
     }
 }

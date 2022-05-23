@@ -1,6 +1,4 @@
-﻿using CodeMagic.Core.Saving;
-
-namespace CodeMagic.Core.Objects
+﻿namespace CodeMagic.Core.Objects
 {
     public interface IMapObject
     {

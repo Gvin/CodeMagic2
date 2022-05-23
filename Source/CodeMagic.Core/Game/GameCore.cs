@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Game.Journaling;
 using CodeMagic.Core.Game.PlayerActions;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.Core.Statuses;
 using Microsoft.Extensions.Logging;
 
@@ -50,32 +49,21 @@ namespace CodeMagic.Core.Game
             Game = new GameCore(map, player, playerPosition, loggerFactory.CreateLogger<GameCore>());
         }
 
-        public static void Load(IGameCore loadedGame)
+        public static void Load(IGameCore loadedGame, ILoggerFactory loggerFactory)
         {
             Game = loadedGame;
+            Game?.Initialize(loggerFactory.CreateLogger<IGameCore>());
         }
     }
 
+    [Serializable]
     public class GameCore : IGameCore, ITurnProvider
     {
-        private readonly ILogger<GameCore> _logger;
-
-        private const string SaveKeyMap = "Map";
-        private const string SaveKeyPlayer = "Player";
-        private const string SaveKeyPlayerPosition = "PlayerPosition";
-        private const string SaveKeyJournal = "Journal";
-        private const string SaveKeyCurrentTurn = "CurrentTurn";
-
+        private ILogger<IGameCore> _logger;
         private AreaMapFragment _cachedVisibleArea;
 
-        public GameCore(SaveData dataBuilder, ILogger<GameCore> logger)
+        public GameCore()
         {
-            _logger = logger;
-            Map = dataBuilder.GetObject<AreaMap>(SaveKeyMap);
-            PlayerPosition = dataBuilder.GetObject<Point>(SaveKeyPlayerPosition);
-            Player = Map.GetCell(PlayerPosition).Objects.OfType<IPlayer>().Single();
-            Journal = new Journal();
-            CurrentTurn = dataBuilder.GetIntValue(SaveKeyCurrentTurn);
             _cachedVisibleArea = null;
         }
 
@@ -98,15 +86,23 @@ namespace CodeMagic.Core.Game
         public event EventHandler TurnEnded;
         public event EventHandler MapUpdated;
 
-        public int CurrentTurn { get; private set; }
+        public int CurrentTurn { get; set; }
 
-        public IAreaMap Map { get; private set; }
+        public IAreaMap Map { get; set; }
 
-        public IPlayer Player { get; }
+        [JsonIgnore]
+        public IPlayer Player { get; private set; }
 
-        public Journal Journal { get; }
+        public Journal Journal { get; set; }
 
-        public Point PlayerPosition { get; private set; }
+        public Point PlayerPosition { get; set; }
+
+        public void Initialize(ILogger<IGameCore> logger)
+        {
+            _logger = logger;
+
+            Player = Map.GetCell(PlayerPosition).Objects.OfType<IPlayer>().Single();
+        }
 
         public void ChangeMap(IAreaMap newMap, Point playerPosition)
         {
@@ -191,19 +187,6 @@ namespace CodeMagic.Core.Game
 
         public void Dispose()
         {
-        }
-
-        public SaveDataBuilder GetSaveData()
-        {
-            var data = new Dictionary<string, object>
-                {
-                    {SaveKeyMap, Map},
-                    {SaveKeyPlayer, Player},
-                    {SaveKeyPlayerPosition, PlayerPosition},
-                    {SaveKeyJournal, Journal},
-                    {SaveKeyCurrentTurn, CurrentTurn}
-                };
-            return new SaveDataBuilder(GetType(), data);
         }
     }
 }

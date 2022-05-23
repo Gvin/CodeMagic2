@@ -1,66 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using CodeMagic.Core.Game;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Configuration;
 using CodeMagic.Game.Configuration.Physics;
 
 namespace CodeMagic.Game.Area.EnvironmentData
 {
     [DebuggerDisplay("{" + nameof(Value) + "} C")]
-    public class Temperature : ISaveable
+    [Serializable]
+    public class Temperature
     {
-        private const string SaveKeyValue = "Value";
+        private int _value;
 
-        private int value;
-
-        private readonly ITemperatureConfiguration configuration;
-
-        public Temperature(SaveData data)
-        {
-            configuration = ConfigurationManager.Current.Physics.TemperatureConfiguration;
-            value = data.GetIntValue(SaveKeyValue);
-        }
+        private readonly ITemperatureConfiguration _configuration;
 
         public Temperature()
         {
-            configuration = ConfigurationManager.Current.Physics.TemperatureConfiguration;
-            value = configuration.NormalValue;
+            _configuration = GameConfigurationManager.Current.Physics.TemperatureConfiguration;
+            _value = _configuration.NormalValue;
         }
 
         public int Value
         {
-            get => value;
+            get => _value;
             set
             {
-                if (value < configuration.MinValue)
+                if (value < _configuration.MinValue)
                 {
-                    this.value = configuration.MinValue;
+                    _value = _configuration.MinValue;
                     return;
                 }
 
-                if (value > configuration.MaxValue)
+                if (value > _configuration.MaxValue)
                 {
-                    this.value = configuration.MaxValue;
+                    _value = _configuration.MaxValue;
                     return;
                 }
 
-                this.value = value;
+                _value = value;
             }
         }
 
         public void Normalize()
         {
-            var difference = Math.Abs(configuration.NormalValue - Value);
-            difference = Math.Min(difference, configuration.NormalizeSpeedInside);
+            var difference = Math.Abs(_configuration.NormalValue - Value);
+            difference = Math.Min(difference, _configuration.NormalizeSpeedInside);
 
-            if (Value > configuration.NormalValue)
+            if (Value > _configuration.NormalValue)
             {
                 Value -= difference;
             }
 
-            if (Value < configuration.NormalValue)
+            if (Value < _configuration.NormalValue)
             {
                 Value += difference;
             }
@@ -89,13 +80,13 @@ namespace CodeMagic.Game.Area.EnvironmentData
 
         private int GetTemperatureTransferValue(int difference)
         {
-            var result = (int)Math.Round(difference * configuration.TransferValueToDifferenceMultiplier);
-            return Math.Min(result, configuration.MaxTransferValue);
+            var result = (int)Math.Round(difference * _configuration.TransferValueToDifferenceMultiplier);
+            return Math.Min(result, _configuration.MaxTransferValue);
         }
 
         public int GetTemperatureDamage(out Element? damageElement)
         {
-            return GetTemperatureDamage(configuration, value, out damageElement);
+            return GetTemperatureDamage(_configuration, _value, out damageElement);
         }
 
         public static int GetTemperatureDamage(ITemperatureConfiguration configuration, int temperature, out Element? damageElement)
@@ -118,14 +109,6 @@ namespace CodeMagic.Game.Area.EnvironmentData
 
             damageElement = null;
             return 0;
-        }
-
-        public SaveDataBuilder GetSaveData()
-        {
-            return new SaveDataBuilder(GetType(), new Dictionary<string, object>
-            {
-                {SaveKeyValue, value}
-            });
         }
     }
 }

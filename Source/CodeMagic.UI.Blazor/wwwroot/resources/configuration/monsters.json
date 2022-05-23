@@ -1,0 +1,1080 @@
+{
+    "$schema": "MonstersConfiguration.Schema.json",
+
+    "Monsters": [
+        // Skeleton
+        {
+            "Id": "skeleton_weak",
+            "Name": "Skeleton",
+            "SpawnConfiguration": {
+                "Group": "skeleton",
+                "MinLevel": 1,
+                "Force": 1
+            },
+            "LogicPattern": "SimplePatrollingChaser",
+            "Experience": {
+                "Min": 2,
+                "Max": 5
+            },
+            "Image": "Monster_SkeletonWeak",
+            "Stats": {
+                "MinHealth": 5,
+                "MaxHealth": 10,
+                "Speed": 1,
+                "CatchFireChanceMultiplier": 1,
+                "SelfExtinguishChanceMultiplier": 30,
+                "VisibilityRange": 2,
+                "Accuracy": 50,
+                "DodgeChance": 10,
+                "ShieldBlockChance": 0,
+                "ShieldBlocksDamage": 0,
+                "Protection": [
+                    {
+                        "Element": "Piercing",
+                        "Value": 30
+                    },
+                    {
+                        "Element": "Blunt",
+                        "Value": -30
+                    },
+                    {
+                        "Element": "Electricity",
+                        "Value": 30
+                    }
+                ],
+                "StatusesImmunity": [
+                    "blind",
+                    "hungry",
+                    "overweight",
+                    "paralyzed"
+                ],
+                "Damage": [
+                    {
+                        "Element": "Blunt",
+                        "MinValue": 1,
+                        "MaxValue": 4
+                    }
+                ]
+            },
+            "Size": "Medium",
+            "RemainsType": "BonesWhiteMedium",
+            "DamageMarkType": "BonesWhiteSmall",
+            "Loot": {
+                "Weapon": {
+                    "Count": [
+                        {
+                            "Value": 1,
+                            "Chance": 50
+                        },
+                        {
+                            "Value": 0,
+                            "Chance": 50
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 70
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 30
+                        }
+                    ]
+                },
+                "Armor": {
+                    "Count": [
+                        {
+                            "Value": 1,
+                            "Chance": 20
+                        },
+                        {
+                            "Value": 0,
+                            "Chance": 80
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 70
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 30
+                        }
+                    ],
+                    "Class": [
+                        {
+                            "Value": "Leather",
+                            "Chance": 90
+                        },
+                        {
+                            "Value": "Mail",
+                            "Chance": 10
+                        }
+                    ]
+                },
+                "Food": null,
+                "Resource": null,
+                "Shield": null,
+                "SpellBook": null,
+                "Usable": null
+            }
+        },
+        {
+            "Id": "skeleton_armored",
+            "Name": "Armored Skeleton",
+            "SpawnConfiguration": {
+                "Group": "skeleton",
+                "MinLevel": 2,
+                "Force": 3
+            },
+            "LogicPattern": "SimplePatrollingChaser",
+            "Experience": {
+                "Min": 4,
+                "Max": 8
+            },
+            "Image": "Monster_SkeletonArmored",
+            "Stats": {
+                "MinHealth": 10,
+                "MaxHealth": 15,
+                "Speed": 1,
+                "CatchFireChanceMultiplier": 1,
+                "SelfExtinguishChanceMultiplier": 30,
+                "VisibilityRange": 2,
+                "Accuracy": 50,
+                "DodgeChance": 10,
+                "ShieldBlockChance": 0,
+                "ShieldBlocksDamage": 0,
+                "Protection": [
+                    {
+                        "Element": "Slashing",
+                        "Value": 30
+                    },
+                    {
+                        "Element": "Piercing",
+                        "Value": 40
+                    },
+                    {
+                        "Element": "Blunt",
+                        "Value": 20
+                    },
+                    {
+                        "Element": "Electricity",
+                        "Value": 30
+                    }
+                ],
+                "StatusesImmunity": [
+                    "blind",
+                    "hungry",
+                    "overweight",
+                    "paralyzed"
+                ],
+                "Damage": [
+                    {
+                        "Element": "Slashing",
+                        "MinValue": 5,
+                        "MaxValue": 8
+                    }
+                ]
+            },
+            "Size": "Medium",
+            "RemainsType": "BonesWhiteMedium",
+            "DamageMarkType": "BonesWhiteSmall",
+            "Loot": {
+                "Weapon": {
+                    "Count": [
+                        {
+                            "Value": 1,
+                            "Chance": 50
+                        },
+                        {
+                            "Value": 0,
+                            "Chance": 50
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 10
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 70
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 20
+                        }
+                    ]
+                },
+                "Armor": {
+                    "Count": [
+                        {
+                            "Value": 1,
+                            "Chance": 40
+                        },
+                        {
+                            "Value": 0,
+                            "Chance": 60
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 10
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 70
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 20
+                        }
+                    ],
+                    "Class": [
+                        {
+                            "Value": "Mail",
+                            "Chance": 60
+                        },
+                        {
+                            "Value": "ScaleMail",
+                            "Chance": 30
+                        },
+                        {
+                            "Value": "Plate",
+                            "Chance": 10
+                        }
+                    ]
+                },
+                "Food": null,
+                "Resource": null,
+                "Shield": null,
+                "SpellBook": null,
+                "Usable": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 70
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 30
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Common",
+                            "Chance": 70
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 30
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "Id": "skeleton_knight",
+            "Name": "Skeleton Knight",
+            "SpawnConfiguration": {
+                "Group": "skeleton",
+                "MinLevel": 4,
+                "Force": 5
+            },
+            "LogicPattern": "SimplePatrollingChaser",
+            "Experience": {
+                "Min": 8,
+                "Max": 15
+            },
+            "Image": "Monster_SkeletonKnight",
+            "Stats": {
+                "MinHealth": 15,
+                "MaxHealth": 25,
+                "Speed": 1,
+                "CatchFireChanceMultiplier": 1,
+                "SelfExtinguishChanceMultiplier": 30,
+                "VisibilityRange": 2,
+                "Accuracy": 50,
+                "DodgeChance": 10,
+                "ShieldBlockChance": 20,
+                "ShieldBlocksDamage": 5,
+                "Protection": [
+                    {
+                        "Element": "Slashing",
+                        "Value": 50
+                    },
+                    {
+                        "Element": "Piercing",
+                        "Value": 50
+                    },
+                    {
+                        "Element": "Blunt",
+                        "Value": 30
+                    },
+                    {
+                        "Element": "Electricity",
+                        "Value": 30
+                    }
+                ],
+                "StatusesImmunity": [
+                    "blind",
+                    "hungry",
+                    "overweight",
+                    "paralyzed"
+                ],
+                "Damage": [
+                    {
+                        "Element": "Slashing",
+                        "MinValue": 8,
+                        "MaxValue": 15
+                    }
+                ]
+            },
+            "Size": "Medium",
+            "RemainsType": "BonesWhiteMedium",
+            "DamageMarkType": "BonesWhiteSmall",
+            "Loot": {
+                "Weapon": {
+                    "Count": [
+                        {
+                            "Value": 1,
+                            "Chance": 50
+                        },
+                        {
+                            "Value": 0,
+                            "Chance": 50
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 5
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 65
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 30
+                        }
+                    ]
+                },
+                "Armor": {
+                    "Count": [
+                        {
+                            "Value": 1,
+                            "Chance": 40
+                        },
+                        {
+                            "Value": 0,
+                            "Chance": 60
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 5
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 65
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 30
+                        }
+                    ],
+                    "Class": [
+                        {
+                            "Value": "Mail",
+                            "Chance": 50
+                        },
+                        {
+                            "Value": "ScaleMail",
+                            "Chance": 30
+                        },
+                        {
+                            "Value": "Plate",
+                            "Chance": 20
+                        }
+                    ]
+                },
+                "Food": null,
+                "Resource": null,
+                "Shield": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 50
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 50
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 5
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 65
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 30
+                        }
+                    ]
+                },
+                "SpellBook": null,
+                "Usable": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 70
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 30
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Common",
+                            "Chance": 60
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 40
+                        }
+                    ]
+                }
+            }
+        },
+        // Goblins
+        {
+            "Id": "goblin_weak",
+            "Name": "Goblin",
+            "SpawnConfiguration": {
+                "Group": "goblin",
+                "MinLevel": 2,
+                "Force": 3
+            },
+            "LogicPattern": "SimpleWonderingChaser",
+            "Experience": {
+                "Min": 5,
+                "Max": 7
+            },
+            "Image": "Monster_GoblinWeak",
+            "Stats": {
+                "MinHealth": 15,
+                "MaxHealth": 25,
+                "Speed": 1,
+                "CatchFireChanceMultiplier": 2,
+                "SelfExtinguishChanceMultiplier": 15,
+                "VisibilityRange": 3,
+                "Accuracy": 60,
+                "DodgeChance": 15,
+                "ShieldBlockChance": 0,
+                "ShieldBlocksDamage": 0,
+                "StatusesImmunity": null,
+                "Protection": null,
+                "Damage": [
+                    {
+                        "Element": "Piercing",
+                        "MinValue": 3,
+                        "MaxValue": 6
+                    }
+                ]
+            },
+            "Size": "Medium",
+            "RemainsType": "BloodGreenMedium",
+            "DamageMarkType": "BloodGreenSmall",
+            "Loot": {
+                "Weapon": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 50
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 50
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 70
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 30
+                        }
+                    ]
+                },
+                "Armor": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 60
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 40
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 70
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 30
+                        }
+                    ],
+                    "Class": [
+                        {
+                            "Value": "Leather",
+                            "Chance": 80
+                        },
+                        {
+                            "Value": "Mail",
+                            "Chance": 20
+                        }
+                    ]
+                },
+                "Usable": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 70
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 30
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Common",
+                            "Chance": 100
+                        }
+                    ]
+                },
+                "Food": null,
+                "Resource": null,
+                "Shield": null,
+                "SpellBook": null
+            }
+        },
+        {
+            "Id": "hobgoblin",
+            "Name": "Hobgoblin",
+            "SpawnConfiguration": {
+                "Group": "goblin",
+                "MinLevel": 3,
+                "Force": 5
+            },
+            "LogicPattern": "SimpleWonderingChaser",
+            "Experience": {
+                "Min": 8,
+                "Max": 10
+            },
+            "Image": "Monster_Hobgoblin",
+            "Stats": {
+                "MinHealth": 25,
+                "MaxHealth": 35,
+                "Speed": 1,
+                "CatchFireChanceMultiplier": 2,
+                "SelfExtinguishChanceMultiplier": 15,
+                "VisibilityRange": 3,
+                "Accuracy": 65,
+                "DodgeChance": 15,
+                "ShieldBlockChance": 0,
+                "ShieldBlocksDamage": 0,
+                "StatusesImmunity": null,
+                "Protection": [
+                    {
+                        "Element": "Piercing",
+                        "Value": 15
+                    },
+                    {
+                        "Element": "Slashing",
+                        "Value": 30
+                    },
+                    {
+                        "Element": "Blunt",
+                        "Value": 15
+                    },
+                    {
+                        "Element": "Fire",
+                        "Value": 30
+                    },
+                    {
+                        "Element": "Frost",
+                        "Value": 30
+                    },
+                    {
+                        "Element": "Acid",
+                        "Value": 10
+                    }
+                ],
+                "Damage": [
+                    {
+                        "Element": "Piercing",
+                        "MinValue": 5,
+                        "MaxValue": 8
+                    }
+                ]
+            },
+            "Size": "Medium",
+            "RemainsType": "BloodGreenMedium",
+            "DamageMarkType": "BloodGreenSmall",
+            "Loot": {
+                "Weapon": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 50
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 50
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 10
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 70
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 20
+                        }
+                    ]
+                },
+                "Armor": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 60
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 40
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 10
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 70
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 20
+                        }
+                    ],
+                    "Class": [
+                        {
+                            "Value": "Leather",
+                            "Chance": 80
+                        },
+                        {
+                            "Value": "Mail",
+                            "Chance": 20
+                        }
+                    ]
+                },
+                "Usable": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 70
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 30
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Common",
+                            "Chance": 70
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 30
+                        }
+                    ]
+                },
+                "Food": null,
+                "Resource": null,
+                "Shield": null,
+                "SpellBook": null
+            }
+        },
+        {
+            "Id": "hobgoblin_knight",
+            "Name": "Hobgoblin Knight",
+            "SpawnConfiguration": {
+                "Group": "goblin",
+                "MinLevel": 5,
+                "Force": 10
+            },
+            "LogicPattern": "SimpleWonderingChaser",
+            "Experience": {
+                "Min": 15,
+                "Max": 20
+            },
+            "Image": "Monster_HobgoblinKnight",
+            "Stats": {
+                "MinHealth": 35,
+                "MaxHealth": 45,
+                "Speed": 1,
+                "CatchFireChanceMultiplier": 2,
+                "SelfExtinguishChanceMultiplier": 15,
+                "VisibilityRange": 3,
+                "Accuracy": 65,
+                "DodgeChance": 15,
+                "ShieldBlockChance": 15,
+                "ShieldBlocksDamage": 5,
+                "StatusesImmunity": null,
+                "Protection": [
+                    {
+                        "Element": "Piercing",
+                        "Value": 25
+                    },
+                    {
+                        "Element": "Slashing",
+                        "Value": 50
+                    },
+                    {
+                        "Element": "Blunt",
+                        "Value": 25
+                    },
+                    {
+                        "Element": "Fire",
+                        "Value": 30
+                    },
+                    {
+                        "Element": "Frost",
+                        "Value": 30
+                    },
+                    {
+                        "Element": "Acid",
+                        "Value": 10
+                    }
+                ],
+                "Damage": [
+                    {
+                        "Element": "Piercing",
+                        "MinValue": 5,
+                        "MaxValue": 8
+                    }
+                ]
+            },
+            "Size": "Medium",
+            "RemainsType": "BloodGreenMedium",
+            "DamageMarkType": "BloodGreenSmall",
+            "Loot": {
+                "Weapon": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 50
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 50
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 5
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 65
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 30
+                        }
+                    ]
+                },
+                "Armor": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 60
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 40
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 5
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 65
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 30
+                        }
+                    ],
+                    "Class": [
+                        {
+                            "Value": "Leather",
+                            "Chance": 80
+                        },
+                        {
+                            "Value": "Mail",
+                            "Chance": 20
+                        }
+                    ]
+                },
+                "Usable": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 70
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 30
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Common",
+                            "Chance": 60
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 40
+                        }
+                    ]
+                },
+                "Food": null,
+                "Resource": null,
+                "Shield": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 50
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 50
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 5
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 65
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 30
+                        }
+                    ]
+                },
+                "SpellBook": null
+            }
+        },
+        // Slime
+        {
+            "Id": "slime_green",
+            "Name": "Green Slime",
+            "SpawnConfiguration": {
+                "Group": "slime",
+                "MinLevel": 3,
+                "Force": 10
+            },
+            "LogicPattern": "SimpleWonderingChaser",
+            "Experience": {
+                "Min": 10,
+                "Max": 15
+            },
+            "Image": "Monster_Slime_Green",
+            "Stats": {
+                "MinHealth": 50,
+                "MaxHealth": 70,
+                "Speed": 0.5,
+                "CatchFireChanceMultiplier": 3,
+                "SelfExtinguishChanceMultiplier": 5,
+                "VisibilityRange": 2,
+                "Accuracy": 50,
+                "DodgeChance": 0,
+                "Damage": [
+                    {
+                        "Element": "Acid",
+                        "MinValue": 5,
+                        "MaxValue": 8
+                    }
+                ],
+                "Protection": [
+                    {
+                        "Element": "Piercing",
+                        "Value": 30
+                    },
+                    {
+                        "Element": "Slashing",
+                        "Value": 30
+                    },
+                    {
+                        "Element": "Blunt",
+                        "Value": 30
+                    },
+                    {
+                        "Element": "Acid",
+                        "Value": 100
+                    },
+                    {
+                        "Element": "Fire",
+                        "Value": -30
+                    },
+                    {
+                        "Element": "Electricity",
+                        "Value": -30
+                    },
+                    {
+                        "Element": "Frost",
+                        "Value": -100
+                    }
+                ],
+                "StatusesImmunity": [
+                    "blind",
+                    "hungry",
+                    "overweight",
+                    "paralyzed",
+                    "on_fire"
+                ],
+                "ShieldBlockChance": 0,
+                "ShieldBlocksDamage": 0
+            },
+            "Size": "Huge",
+            "RemainsType": "BloodGreenBig",
+            "DamageMarkType": "BloodGreenMedium",
+            "Loot": {
+                "Weapon": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 50
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 50
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 20
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 60
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 20
+                        }
+                    ]
+                },
+                "Armor": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 60
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 40
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Trash",
+                            "Chance": 20
+                        },
+                        {
+                            "Value": "Common",
+                            "Chance": 60
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 20
+                        }
+                    ],
+                    "Class": [
+                        {
+                            "Value": "Leather",
+                            "Chance": 70
+                        },
+                        {
+                            "Value": "Mail",
+                            "Chance": 20
+                        },
+                        {
+                            "Value": "ScaleMail",
+                            "Chance": 10
+                        }
+                    ]
+                },
+                "Usable": {
+                    "Count": [
+                        {
+                            "Value": 0,
+                            "Chance": 40
+                        },
+                        {
+                            "Value": 1,
+                            "Chance": 60
+                        }
+                    ],
+                    "Rareness": [
+                        {
+                            "Value": "Common",
+                            "Chance": 70
+                        },
+                        {
+                            "Value": "Uncommon",
+                            "Chance": 30
+                        }
+                    ]
+                },
+                "Food": null,
+                "Resource": null,
+                "Shield": null,
+                "SpellBook": null
+            }
+        }
+    ]
+}

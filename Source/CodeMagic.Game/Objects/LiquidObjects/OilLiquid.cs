@@ -40,7 +40,7 @@ public class OilLiquid : MapObjectBase, ILiquid, IFireSpreadingObject, IDynamicO
 
     public OilLiquid()
     {
-        _configuration = ConfigurationManager.GetLiquidConfiguration(LiquidType);
+        _configuration = GameConfigurationManager.GetLiquidConfiguration(LiquidType);
 
         _ignitionTemperature = GetCustomInt(CustomValueIgnitionTemperature);
         BurningTemperature = GetCustomInt(CustomValueBurningTemperature);

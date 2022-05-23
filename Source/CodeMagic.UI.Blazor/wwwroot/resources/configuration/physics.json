@@ -1,0 +1,49 @@
+{
+    "$schema": "PhysicsConfiguration.Schema.json",
+
+    "TemperatureConfiguration": {
+        "MinValue": -200,
+        "MaxValue": 4000,
+        "NormalValue": 25,
+        "MaxTransferValue": 50,
+        "TransferValueToDifferenceMultiplier": 0.07,
+        "NormalizeSpeedInside": 3,
+        "NormalizeSpeedOutside": 20,
+        "ColdDamageConfiguration": {
+            "TemperatureLevel": -70,
+            "DamageMultiplier": 0.2
+        },
+        "HeatDamageConfiguration": {
+            "TemperatureLevel": 100,
+            "DamageMultiplier": 0.3
+        }
+    },
+
+    "PressureConfiguration": {
+        "MinValue": 0,
+        "MaxValue": 4000,
+        "NormalValue": 100,
+        "NormalizeSpeed": 50,
+        "LowPressureDamageConfiguration": {
+            "PressureLevel": 50,
+            "DamageMultiplier": 0.1
+        },
+        "HighPressureDamageConfiguration": {
+            "PressureLevel": 500,
+            "DamageMultiplier": 0.01
+        },
+        "ChangePressureDamageConfiguration": {
+            "PressureLevel": 100,
+            "DamageMultiplier": 0.1
+        }
+    },
+
+    "MagicEnergyConfiguration": {
+        "MaxValue": 100,
+        "MaxTransferValue": 2,
+        "RegenerationValue": 1,
+        "DisturbanceStartLevel": 20,
+        "DisturbanceDamageStartLevel": 20,
+        "DisturbanceIncrement": 1
+    }
+}

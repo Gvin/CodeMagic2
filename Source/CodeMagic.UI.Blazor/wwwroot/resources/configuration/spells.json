@@ -1,0 +1,87 @@
+{
+    "$schema": "SpellsConfiguration.Schema.json",
+
+    "Spells": [
+        {
+            "SpellType": "heat_area",
+            "ManaCostMultiplier": 0.03,
+            "ManaCostPower": 2,
+            "CustomValues": null
+        },
+        {
+            "SpellType": "build_wall",
+            "ManaCostMultiplier": 1,
+            "ManaCostPower": 2,
+            "CustomValues": null
+        },
+        {
+            "SpellType": "compress",
+            "ManaCostMultiplier": 0.03,
+            "ManaCostPower": 2,
+            "CustomValues": null
+        },
+        {
+            "SpellType": "cool_area",
+            "ManaCostMultiplier": 0.2,
+            "ManaCostPower": 2,
+            "CustomValues": null
+        },
+        {
+            "SpellType": "create_water",
+            "ManaCostMultiplier": 0.1,
+            "ManaCostPower": 2,
+            "CustomValues": null
+        },
+        {
+            "SpellType": "decompress",
+            "ManaCostMultiplier": 0.03,
+            "ManaCostPower": 2,
+            "CustomValues": null
+        },
+        {
+            "SpellType": "move",
+            "ManaCostMultiplier": 1,
+            "ManaCostPower": 2,
+            "CustomValues": null
+        },
+        {
+            "SpellType": "push",
+            "ManaCostMultiplier": 3,
+            "ManaCostPower": 2,
+            "CustomValues": null
+        },
+        {
+            "SpellType": "long_cast",
+            "ManaCostMultiplier": 2,
+            "ManaCostPower": 1,
+            "CustomValues": null
+        },
+        {
+            "SpellType": "transform_water",
+            "ManaCostMultiplier": 0.2,
+            "ManaCostPower": 2,
+            "CustomValues": null
+        },
+        {
+            "SpellType": "shock",
+            "ManaCostMultiplier": 1,
+            "ManaCostPower": 2,
+            "CustomValues": [
+                {
+                    "Key": "WaterTransferMultiplier",
+                    "Value": "0.8"
+                },
+                {
+                    "Key": "HeatMultiplier",
+                    "Value": "5"
+                }
+            ]
+        },
+        {
+            "SpellType": "emit_light",
+            "ManaCostMultiplier": 0.5,
+            "ManaCostPower": 1,
+            "CustomValues": null
+        }
+    ]
+}

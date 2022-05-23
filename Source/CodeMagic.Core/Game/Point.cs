@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using CodeMagic.Core.Common;
-using CodeMagic.Core.Saving;
 
 namespace CodeMagic.Core.Game
 {
     [DebuggerDisplay("[{X}:{Y}]")]
-    public class Point : ISaveable
+    [Serializable]
+    public class Point
     {
         public Point()
         {
@@ -20,12 +19,6 @@ namespace CodeMagic.Core.Game
         {
             X = x;
             Y = y;
-        }
-
-        public Point(SaveData data)
-        {
-            X = data.GetIntValue("X");
-            Y = data.GetIntValue("Y");
         }
 
         public int X { get; set; }
@@ -87,15 +80,6 @@ namespace CodeMagic.Core.Game
             return Math.Sqrt(
                 Math.Pow(point2.X - point1.X, 2) +
                 Math.Pow(point2.Y - point1.Y, 2));
-        }
-
-        public SaveDataBuilder GetSaveData()
-        {
-            return new SaveDataBuilder(GetType(), new Dictionary<string, object>
-            {
-                {"X", X},
-                {"Y", Y}
-            });
         }
     }
 }

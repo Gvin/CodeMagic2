@@ -1,72 +1,61 @@
 ﻿using System;
-using System.Collections.Generic;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 using CodeMagic.Game.Configuration;
 using CodeMagic.Game.Configuration.Physics;
 using CodeMagic.Game.Statuses;
 
 namespace CodeMagic.Game.Area.EnvironmentData
 {
-    public class MagicEnergy : ISaveable
+    [Serializable]
+    public class MagicEnergy
     {
-        private const string SaveKeyEnergy = "Energy";
-        private const string SaveKeyDisturbance = "Disturbance";
-
-        private int energy;
-        private readonly IMagicEnergyConfiguration configuration;
-        private int disturbance;
-
-        public MagicEnergy(SaveData data)
-        {
-            configuration = ConfigurationManager.Current.Physics.MagicEnergyConfiguration;
-
-            energy = data.GetIntValue(SaveKeyEnergy);
-            disturbance = data.GetIntValue(SaveKeyDisturbance);
-        }
+        
+        private readonly IMagicEnergyConfiguration _configuration;
+        private int _disturbance;
+        private int _energy;
 
         public MagicEnergy()
         {
-            configuration = ConfigurationManager.Current.Physics.MagicEnergyConfiguration;
+            _configuration = GameConfigurationManager.Current.Physics.MagicEnergyConfiguration;
 
-            energy = configuration.MaxValue;
-            disturbance = 0;
+            _energy = _configuration.MaxValue;
+            _disturbance = 0;
         }
 
-        public int MaxEnergy => configuration.MaxValue;
+        public int MaxEnergy => _configuration.MaxValue;
 
         public int Energy
         {
-            get => energy;
+            get => _energy;
             set
             {
                 var clearValue = Math.Max(0, value);
-                energy = Math.Min(CurrentMaxEnergy, clearValue);
+                _energy = Math.Min(CurrentMaxEnergy, clearValue);
             }
         }
 
         public int Disturbance
         {
-            get => disturbance;
+            get => _disturbance;
             set
             {
                 value = Math.Max(0, value);
-                disturbance = Math.Min(configuration.MaxValue, value);
+                _disturbance = Math.Min(_configuration.MaxValue, value);
             }
         }
 
-        private int CurrentMaxEnergy => configuration.MaxValue - Disturbance;
+        private int CurrentMaxEnergy => _configuration.MaxValue - Disturbance;
 
         public void Normalize()
         {
-            if (Energy > configuration.DisturbanceStartLevel)
+            if (Energy > _configuration.DisturbanceStartLevel)
             {
-                Energy = Energy + configuration.RegenerationValue;
+                Energy = Energy + _configuration.RegenerationValue;
                 return;
             }
 
-            Disturbance = Math.Min(MaxEnergy, Disturbance + configuration.DisturbanceIncrement);
+            Disturbance = Math.Min(MaxEnergy, Disturbance + _configuration.DisturbanceIncrement);
             Energy = Energy; // Refresh energy value.
         }
 
@@ -81,7 +70,7 @@ namespace CodeMagic.Game.Area.EnvironmentData
             if (thisDiff >= otherDiff)
             {
                 var maxTransferValue = Math.Min(thisDiff, other.Energy);
-                var transferValue = Math.Min(configuration.MaxTransferValue, maxTransferValue);
+                var transferValue = Math.Min(_configuration.MaxTransferValue, maxTransferValue);
 
                 Energy += transferValue;
                 other.Energy -= transferValue;
@@ -90,7 +79,7 @@ namespace CodeMagic.Game.Area.EnvironmentData
 
             {
                 var maxTransferValue = Math.Min(otherDiff, Energy);
-                var transferValue = Math.Min(configuration.MaxTransferValue, maxTransferValue);
+                var transferValue = Math.Min(_configuration.MaxTransferValue, maxTransferValue);
                 Energy -= transferValue;
                 other.Energy += transferValue;
             }
@@ -98,19 +87,10 @@ namespace CodeMagic.Game.Area.EnvironmentData
 
         public void ApplyMagicEnvironment(IDestroyableObject destroyable, Point position)
         {
-            if (Disturbance > configuration.DisturbanceDamageStartLevel)
+            if (Disturbance > _configuration.DisturbanceDamageStartLevel)
             {
                 destroyable.Statuses.Add(new ManaDisturbedObjectStatus());
             }
-        }
-
-        public SaveDataBuilder GetSaveData()
-        {
-            return new SaveDataBuilder(GetType(), new Dictionary<string, object>
-            {
-                {SaveKeyEnergy, energy},
-                {SaveKeyDisturbance, disturbance}
-            });
         }
     }
 }

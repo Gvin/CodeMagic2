@@ -1,33 +1,48 @@
 ﻿using CodeMagic.Configuration.Json.Exceptions;
 using CodeMagic.Configuration.Json.ItemGenerator;
+using CodeMagic.Configuration.Json.Liquids;
+using CodeMagic.Configuration.Json.Monsters;
+using CodeMagic.Configuration.Json.Physics;
+using CodeMagic.Configuration.Json.Spells;
+using CodeMagic.Game.Configuration.Liquids;
+using CodeMagic.Game.Configuration.Monsters;
+using CodeMagic.Game.Configuration.Physics;
+using CodeMagic.Game.Configuration.Spells;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Schema.Generation;
 
 namespace CodeMagic.Configuration.Json;
 
-public interface IJsonConfigurationLoader
+public class JsonConfigurationLoader : IConfigurationLoader
 {
-    IItemGeneratorConfiguration? LoadItemGeneratorConfiguration(Stream stream);
-}
-
-public class JsonConfigurationLoader : IJsonConfigurationLoader
-{
-    private readonly ILogger<JsonConfigurationLoader> _logger;
-
-    public JsonConfigurationLoader(ILogger<JsonConfigurationLoader> logger)
-    {
-        _logger = logger;
-    }
-
     public IItemGeneratorConfiguration? LoadItemGeneratorConfiguration(Stream stream)
     {
         return LoadConfigurationFile<ItemGeneratorConfiguration>(stream);
     }
 
-    private  T? LoadConfigurationFile<T>(Stream fileStream)
+    public IPhysicsConfiguration? LoadPhysicsConfiguration(Stream stream)
+    {
+        return LoadConfigurationFile<PhysicsConfiguration>(stream);
+    }
+
+    public ILiquidsConfiguration? LoadLiquidsConfiguration(Stream stream)
+    {
+        return LoadConfigurationFile<LiquidsConfiguration>(stream);
+    }
+
+    public ISpellsConfiguration? LoadSpellsConfiguration(Stream stream)
+    {
+        return LoadConfigurationFile<SpellsConfiguration>(stream);
+    }
+
+    public IMonstersConfiguration? LoadMonstersConfiguration(Stream stream)
+    {
+        return LoadConfigurationFile<MonstersConfiguration>(stream);
+    }
+
+    private static T? LoadConfigurationFile<T>(Stream fileStream)
     {
         var reader = new JsonTextReader(new StreamReader(fileStream));
 

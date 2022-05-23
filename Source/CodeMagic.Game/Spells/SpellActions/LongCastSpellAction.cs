@@ -73,7 +73,7 @@ namespace CodeMagic.Game.Spells.SpellActions
 
         private static ISpellConfiguration GetConfiguration()
         {
-            var configuration = ConfigurationManager.GetSpellConfiguration(ActionType);
+            var configuration = GameConfigurationManager.GetSpellConfiguration(ActionType);
             if (configuration == null)
                 throw new ApplicationException($"Configuration for spell {ActionType} not found.");
             return configuration;

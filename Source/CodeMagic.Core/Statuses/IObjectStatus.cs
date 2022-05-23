@@ -1,10 +1,9 @@
 ﻿using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 
 namespace CodeMagic.Core.Statuses
 {
-    public interface IObjectStatus : ISaveable
+    public interface IObjectStatus
     {
         bool Update(IDestroyableObject owner, Point position);
 

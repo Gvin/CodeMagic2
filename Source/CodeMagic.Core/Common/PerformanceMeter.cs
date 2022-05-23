@@ -11,6 +11,13 @@ namespace CodeMagic.Core.Common
 
     public class PerformanceMeter : IPerformanceMeter
     {
+        public static IPerformanceMeter Instance { get; private set; }
+
+        public static void Initialize(IPerformanceMeter instance)
+        {
+            Instance = instance;
+        }
+
         private readonly ILogger<PerformanceMeter> _logger;
 
         public PerformanceMeter(ILogger<PerformanceMeter> logger)

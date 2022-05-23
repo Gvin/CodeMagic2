@@ -2,6 +2,6 @@
 {
     public interface ISpellsConfiguration
     {
-        ISpellConfiguration[] SpellsConfiguration { get; }
+        ISpellConfiguration[] Spells { get; }
     }
 }

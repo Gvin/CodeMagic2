@@ -9,18 +9,18 @@ using CodeMagic.Game.Configuration.Treasure;
 
 namespace CodeMagic.Game.Configuration
 {
-    public static class ConfigurationManager
+    public static class GameConfigurationManager
     {
-        public static void InitializeConfiguration(IConfigurationProvider newProvider)
+        public static void InitializeConfiguration(IGameConfigurationProvider newProvider)
         {
             Current = newProvider;
         }
 
-        public static IConfigurationProvider Current { get; private set; }
+        public static IGameConfigurationProvider Current { get; private set; }
 
         public static ISpellConfiguration GetSpellConfiguration(string type)
         {
-            var result = Current.Spells.SpellsConfiguration.FirstOrDefault(
+            var result = Current.Spells.Spells.FirstOrDefault(
                 config => string.Equals(config.SpellType.ToLower(), type.ToLower()));
             if (result == null)
                 throw new ApplicationException($"Configuration for spell action \"{type}\" not found.");
@@ -39,7 +39,7 @@ namespace CodeMagic.Game.Configuration
         }
     }
 
-    public interface IConfigurationProvider
+    public interface IGameConfigurationProvider
     {
         IPhysicsConfiguration Physics { get; }
 

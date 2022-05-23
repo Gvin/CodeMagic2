@@ -195,7 +195,7 @@ public class Player : CreatureObject, IPlayer, ILightObject, IWorldImageProvider
 
     public int GetXpToLevelUp()
     {
-        var config = ConfigurationManager.Current.Levels;
+        var config = GameConfigurationManager.Current.Levels;
         return (int)Math.Pow(Level, config.PlayerLevels.XpLevelPower) * config.PlayerLevels.XpMultiplier;
     }
 

@@ -32,4 +32,6 @@
     <Exec Command="dotnet run --project ../../ImagesListBuilder/ImagesListBuilder/ImagesListBuilder.csproj &quot;./wwwroot/images&quot; &quot;./wwwroot/images-list.json&quot;&#xD;&#xA;dotnet run --project ../CodeMagic.Configuration.Json.SchemaGenerator/CodeMagic.Configuration.Json.SchemaGenerator.csproj $(ProjectDir)/wwwroot/resources/configuration" />
   </Target>
 
+  <ProjectExtensions><VisualStudio><UserProperties wwwroot_4resources_4configuration_4physics_1json__JsonSchema="PhysicsConfiguration.Schema.json" wwwroot_4resources_4configuration_4spells_1json__JsonSchema="SpellsConfiguration.Schema.json" /></VisualStudio></ProjectExtensions>
+
 </Project>

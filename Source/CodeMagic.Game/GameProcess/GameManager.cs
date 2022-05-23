@@ -83,7 +83,7 @@ namespace CodeMagic.Game.GameProcess
             var (game, data) = _saveService.LoadGame();
 
             GameData.Initialize(data);
-            CurrentGame.Load(game);
+            CurrentGame.Load(game, _loggerFactory);
 
             if (game == null)
                 return;
@@ -117,7 +117,7 @@ namespace CodeMagic.Game.GameProcess
             {
                 _saveGameTask?.Wait();
                 ((GameCore)CurrentGame.Game).TurnEnded -= game_TurnEnded;
-                CurrentGame.Load(null);
+                CurrentGame.Load(null, null);
                 _saveService.DeleteSave();
             }
         }

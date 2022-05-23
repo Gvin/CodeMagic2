@@ -4,102 +4,65 @@ using System.Linq;
 using CodeMagic.Core.Common;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Core.Saving;
 
 namespace CodeMagic.Core.Area
 {
+    [Serializable]
     public class AreaMap : IAreaMap
     {
-        private const string SaveKeyLevel = "Level";
-        private const string SaveKeyWidth = "Width";
-        private const string SaveKeyHeight = "Height";
-        private const string SaveKeyCells = "Cells";
-
         private readonly Dictionary<Type, Point> _objectPositionCache;
-        private readonly IAreaMapCellInternal[][] _cells;
-        private readonly Dictionary<string, IDestroyableObject> _destroyableObjects;
         private readonly IMapLightLevelProcessor _mapLightLevelProcessor;
         private readonly IPerformanceMeter _performanceMeter;
 
-        public AreaMap(SaveData dataBuilder, IPerformanceMeter performanceMeter)
+        public AreaMap()
         {
-            _performanceMeter = performanceMeter;
+            _performanceMeter = PerformanceMeter.Instance;
             _mapLightLevelProcessor = new MapLightLevelProcessor();
-
-            _objectPositionCache = new Dictionary<Type, Point>();
-            _destroyableObjects = new Dictionary<string, IDestroyableObject>();
-
-            Level = dataBuilder.GetIntValue(SaveKeyLevel);
-            Width = dataBuilder.GetIntValue(SaveKeyWidth);
-            Height = dataBuilder.GetIntValue(SaveKeyHeight);
-
-            _cells = dataBuilder.GetObject<GridSaveable>(SaveKeyCells).Rows.Select(row => row.Cast<IAreaMapCellInternal>().ToArray()).ToArray();
-
-            for (var y = 0; y < Height; y++)
-            {
-                for (var x = 0; x < Width; x++)
-                {
-                    var cell = _cells[y][x];
-                    foreach (var destroyable in cell.ObjectsCollection.OfType<IDestroyableObject>())
-                    {
-                        _destroyableObjects.Add(destroyable.Id, destroyable);
-                    }
-                }
-            }
         }
 
         public AreaMap(
             int level, 
             Func<IAreaMapCellInternal> cellFactory, 
             int width, 
-            int height, IPerformanceMeter performanceMeter, IMapLightLevelProcessor mapLightLevelProcessor = null)
+            int height)
         {
-            this._mapLightLevelProcessor = mapLightLevelProcessor ?? new MapLightLevelProcessor();
+            _mapLightLevelProcessor = new MapLightLevelProcessor();
 
             _objectPositionCache = new Dictionary<Type, Point>();
-            _destroyableObjects = new Dictionary<string, IDestroyableObject>();
+            DestroyableObjects = new Dictionary<string, IDestroyableObject>();
 
             Level = level;
             Width = width;
             Height = height;
-            _performanceMeter = performanceMeter;
+            _performanceMeter = PerformanceMeter.Instance;
 
-            _cells = new IAreaMapCellInternal[height][];
+            Cells = new IAreaMapCellInternal[height][];
             for (var y = 0; y < height; y++)
             {
-                _cells[y] = new IAreaMapCellInternal[width];
+                Cells[y] = new IAreaMapCellInternal[width];
                 for (var x = 0; x < width; x++)
                 {
-                    _cells[y][x] = cellFactory();
+                    Cells[y][x] = cellFactory();
                 }
             }
         }
-
-        public SaveDataBuilder GetSaveData()
-        {
-            var grid = new GridSaveable(_cells.Cast<object[]>().ToArray());
-            return new SaveDataBuilder(GetType(), new Dictionary<string, object>
-            {
-                {SaveKeyLevel, Level},
-                {SaveKeyWidth, Width},
-                {SaveKeyHeight, Height},
-                {SaveKeyCells, grid}
-            });
-        }
-
         public IDestroyableObject GetDestroyableObject(string id)
         {
-            if (_destroyableObjects.ContainsKey(id))
-                return _destroyableObjects[id];
+            if (DestroyableObjects.ContainsKey(id))
+                return DestroyableObjects[id];
 
             return null;
         }
 
-        public int Level { get; }
+        public int Level { get; set; }
 
-        public int Width { get; }
+        public int Width { get; set; }
 
-        public int Height { get; }
+        public int Height { get; set; }
+
+        public IAreaMapCellInternal[][] Cells { get; set; }
+
+        public Dictionary<string, IDestroyableObject> DestroyableObjects { get; set; }
 
         public IAreaMapCell GetCell(int x, int y)
         {
@@ -108,7 +71,7 @@ namespace CodeMagic.Core.Area
             if (y < 0 || y >= Height)
                 throw new ArgumentOutOfRangeException(nameof(y), y, $"Coordinate Y value is {y} which doesn't match map size {Height}");
 
-            return _cells[y][x];
+            return Cells[y][x];
         }
 
         public IAreaMapCell TryGetCell(Point position)
@@ -133,7 +96,7 @@ namespace CodeMagic.Core.Area
         {
             if (@object is IDestroyableObject destroyableObject)
             {
-                _destroyableObjects.Add(destroyableObject.Id, destroyableObject);
+                DestroyableObjects.Add(destroyableObject.Id, destroyableObject);
             }
 
             GetOriginalCell(position.X, position.Y).ObjectsCollection.Add(@object);
@@ -148,7 +111,7 @@ namespace CodeMagic.Core.Area
         {
             if (@object is IDestroyableObject destroyableObject)
             {
-                _destroyableObjects.Remove(destroyableObject.Id);
+                DestroyableObjects.Remove(destroyableObject.Id);
             }
 
             GetOriginalCell(position.X, position.Y).ObjectsCollection.Remove(@object);
@@ -167,9 +130,9 @@ namespace CodeMagic.Core.Area
 
         public Point GetObjectPosition(Func<IMapObject, bool> selector)
         {
-            for (var y = 0; y < _cells.Length; y++)
+            for (var y = 0; y < Cells.Length; y++)
             {
-                var row = _cells[y];
+                var row = Cells[y];
                 for (var x = 0; x < row.Length; x++)
                 {
                     var cell = row[x];
@@ -283,7 +246,7 @@ namespace CodeMagic.Core.Area
         {
             for (var y = 0; y < Height; y++)
             {
-                var row = _cells[y];
+                var row = Cells[y];
                 for (var x = 0; x < Width; x++)
                 {
                     var cell = row[x];
@@ -299,9 +262,9 @@ namespace CodeMagic.Core.Area
         private void PostUpdateCells()
         {
             var mergedCells = new CellPairsStorage(Width, Height);
-            for (var y = 0; y < _cells.Length; y++)
+            for (var y = 0; y < Cells.Length; y++)
             {
-                for (var x = 0; x < _cells[y].Length; x++)
+                for (var x = 0; x < Cells[y].Length; x++)
                 {
                     var position = new Point(x, y);
                     var cell = GetOriginalCell(x, y);
@@ -349,31 +312,31 @@ namespace CodeMagic.Core.Area
 
         private class CellPairsStorage
         {
-            private readonly List<Direction>[,] pairs;
+            private readonly List<Direction>[,] _pairs;
 
             public CellPairsStorage(int width, int height)
             {
-                pairs = new List<Direction>[width, height];
+                _pairs = new List<Direction>[width, height];
                 for (int y = 0; y < height; y++)
                 {
                     for (int x = 0; x < width; x++)
                     {
-                        pairs[x, y] = new List<Direction>();
+                        _pairs[x, y] = new List<Direction>();
                     }
                 }
             }
 
             public void RegisterPair(Point initialCell, Direction direction)
             {
-                pairs[initialCell.X, initialCell.Y].Add(direction);
+                _pairs[initialCell.X, initialCell.Y].Add(direction);
                 var targetCell = Point.GetPointInDirection(initialCell, direction);
                 var invertedDirection = DirectionHelper.InvertDirection(direction);
-                pairs[targetCell.X, targetCell.Y].Add(invertedDirection);
+                _pairs[targetCell.X, targetCell.Y].Add(invertedDirection);
             }
 
             public bool ContainsPair(Point initialCell, Direction direction)
             {
-                return pairs[initialCell.X, initialCell.Y].Contains(direction);
+                return _pairs[initialCell.X, initialCell.Y].Contains(direction);
             }
         }
     }

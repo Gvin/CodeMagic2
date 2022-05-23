@@ -17,7 +17,7 @@ namespace CodeMagic.Game.Spells.SpellActions
         protected SpellActionBase(string actionType)
         {
             this.actionType = actionType;
-            configuration = ConfigurationManager.GetSpellConfiguration(actionType);
+            configuration = GameConfigurationManager.GetSpellConfiguration(actionType);
             if (configuration == null)
                 throw new ApplicationException($"Configuration for spell action \"{actionType}\" not found.");
 
@@ -42,7 +42,7 @@ namespace CodeMagic.Game.Spells.SpellActions
 
         protected static int GetManaCost(string actionType, int value)
         {
-            var configuration = ConfigurationManager.GetSpellConfiguration(actionType);
+            var configuration = GameConfigurationManager.GetSpellConfiguration(actionType);
             if (configuration == null)
                 throw new ApplicationException($"Configuration for spell action \"{actionType}\" not found.");
 

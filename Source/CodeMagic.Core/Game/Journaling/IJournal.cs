@@ -7,5 +7,7 @@ namespace CodeMagic.Core.Game.Journaling
         void Write(IJournalMessage message);
 
         void Write(IJournalMessage message, IMapObject source);
+
+        IJournalMessageData[] Messages { get; }
     }
 }
