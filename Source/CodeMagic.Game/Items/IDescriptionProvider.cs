@@ -1,9 +1,9 @@
-﻿using CodeMagic.Game.Objects.Creatures;
+﻿using CodeMagic.Core.Objects;
 
 namespace CodeMagic.Game.Items
 {
     public interface IDescriptionProvider
     {
-        StyledLine[] GetDescription(Player player);
+        StyledLine[] GetDescription(IPlayer player);
     }
 }

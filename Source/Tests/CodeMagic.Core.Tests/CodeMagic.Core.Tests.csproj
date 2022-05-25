@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CodeMagic.Core\CodeMagic.Core.csproj" />
+    <ProjectReference Include="..\..\CodeMagic.Core\CodeMagic.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,9 +5,9 @@ namespace CodeMagic.UI.Blazor.Services
 {
     public interface ILocalStorageService
     {
-        ValueTask SetAsync<T>(string key, T value);
+        ValueTask SetAsync<T>(string key, T value) where T : class;
 
-        Task<T?> GetAsync<T>(string key);
+        Task<T?> GetAsync<T>(string key) where T : class;
     }
 
     public class LocalStorageService : ILocalStorageService
@@ -21,14 +21,14 @@ namespace CodeMagic.UI.Blazor.Services
             _logger = logger;
         }
 
-        public async Task<T?> GetAsync<T>(string key)
+        public async Task<T?> GetAsync<T>(string key) where T : class
         {
             try
             {
                 var value = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", key);
                 if (string.IsNullOrEmpty(value))
 				{
-                    return default(T);
+                    return null;
 				}
 
                 return JsonConvert.DeserializeObject<T>(value);
@@ -40,7 +40,7 @@ namespace CodeMagic.UI.Blazor.Services
             }
         }
 
-        public async ValueTask SetAsync<T>(string key, T value)
+        public async ValueTask SetAsync<T>(string key, T value) where T : class
         {
             try
             {

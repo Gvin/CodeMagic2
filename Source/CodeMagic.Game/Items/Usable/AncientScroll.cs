@@ -2,9 +2,8 @@
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
 using CodeMagic.Game.Area.EnvironmentData;
-using CodeMagic.Game.Images;
+using CodeMagic.Game.Drawing;
 using CodeMagic.Game.JournalMessages;
-using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.Game.Items.Usable;
 
@@ -56,7 +55,7 @@ public class AncientScroll : ScrollBase
         return storage.GetImage(InventoryImageName);
     }
 
-    public override StyledLine[] GetDescription(Player player)
+    public override StyledLine[] GetDescription(IPlayer player)
     {
         return new[]
         {

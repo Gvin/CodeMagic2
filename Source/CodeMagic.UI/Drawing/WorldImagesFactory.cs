@@ -1,12 +1,17 @@
 ﻿using CodeMagic.Core.Objects;
 using CodeMagic.Core.Statuses;
 using CodeMagic.Game;
-using CodeMagic.Game.Images;
+using CodeMagic.Game.Drawing;
 using CodeMagic.Game.Statuses;
 
-namespace CodeMagic.UI.Blazor.Drawing;
+namespace CodeMagic.UI.Drawing;
 
-public class WorldImagesFactory
+public interface IWorldImagesFactory
+{
+    ISymbolsImage GetImage(object objectToDraw);
+}
+
+public class WorldImagesFactory : IWorldImagesFactory
 {
     private const string ImageStatusOnFire = "Status_OnFire";
     private const string ImageStatusOily = "Status_Oily";
@@ -24,7 +29,7 @@ public class WorldImagesFactory
         _imagesStorage = imagesStorage;
     }
 
-    public ISymbolsImage? GetImage(object objectToDraw)
+    public ISymbolsImage GetImage(object objectToDraw)
     {
         var objectImage = GetObjectImage(objectToDraw);
         if (objectImage == null)
@@ -89,7 +94,7 @@ public class WorldImagesFactory
         return SymbolsImage.Combine(initialImage, statusImage);
     }
 
-    private ISymbolsImage? GetObjectImage(object objectToDraw)
+    private ISymbolsImage GetObjectImage(object objectToDraw)
     {
         if (objectToDraw is IWorldImageProvider selfProvider)
         {

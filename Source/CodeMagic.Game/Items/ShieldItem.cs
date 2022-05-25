@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CodeMagic.Game.Objects.Creatures;
+using CodeMagic.Core.Objects;
 
 namespace CodeMagic.Game.Items
 {
@@ -23,7 +23,7 @@ namespace CodeMagic.Game.Items
 
         public int HitChancePenalty { get; set; }
 
-        public override StyledLine[] GetDescription(Player player)
+        public override StyledLine[] GetDescription(IPlayer player)
         {
             var result = GetCharacteristicsDescription(player).ToList();
 
@@ -33,7 +33,7 @@ namespace CodeMagic.Game.Items
             return result.ToArray();
         }
 
-        private StyledLine[] GetCharacteristicsDescription(Player player)
+        private StyledLine[] GetCharacteristicsDescription(IPlayer player)
         {
             var rightHandShield = player.Inventory.GetItemById(player.Equipment.RightHandItemId) as IShieldItem;
             var leftHandShield = player.Inventory.GetItemById(player.Equipment.LeftHandItemId) as IShieldItem;

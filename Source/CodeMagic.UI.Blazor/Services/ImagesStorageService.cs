@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using CodeMagic.Game;
-using CodeMagic.Game.Images;
+using CodeMagic.Game.Drawing;
 using CodeMagic.UI.Blazor.Exceptions;
 
 namespace CodeMagic.UI.Blazor.Services;
@@ -69,12 +69,13 @@ public class ImagesStorageService : IImagesStorageService
 
     public ISymbolsImage[] GetAnimation(string name)
     {
-        if (!_animationsCache.ContainsKey(name))
+        var key = name.ToLower();
+        if (!_animationsCache.ContainsKey(key))
         {
             throw new AnimationNotFoundException(name);
         }
 
-        return _animationsCache[name].ToArray();
+        return _animationsCache[key].ToArray();
     }
 
     private async Task LoadImageRecord(ImageRecord imageRecord, Regex batchRegex)

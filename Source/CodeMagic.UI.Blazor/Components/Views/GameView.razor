@@ -1,26 +1,10 @@
 ﻿@using CodeMagic.UI.Blazor.Models
 @using CodeMagic.Core.Area
-@using CodeMagic.Game.Images
 @using System.Drawing
-@using CodeMagic.UI.Blazor.Drawing
-
-@inject ICellImageService CellImageService;
 
 <div class="game-view">
-	<div class="content">
-		@if (Model?.Game != null)
-		{
-			<div class="visible-area">
-				@{ var visibleArea = GetVisibleArea(); }
-				@for (var y = 0; y < visibleArea.Height; y++)
-				{
-					for (var x = 0; x < visibleArea.Width; x++)
-					{
-						<SymbolsImageDisplay Model="GetCellImage(visibleArea.GetCell(x, y))" BackgroundColor="Color.Black"/>
-					}
-				}
-			</div>
-		}
+	<div class="visible-area">
+		<GameArea Model="Model?.Game"/>
 	</div>
 </div>
 
@@ -32,36 +16,29 @@
 		get => _model;
 		set
 		{
-			UnsubscribeFromTurnEnded();
+			UnsubscribeFromModelEvents();
 			_model = value;
-			SubscribeToTurnEnded();
+			SubscribeToModelEvents();
 		}
 	}
 
-	private AreaMapFragment GetVisibleArea() => Model?.Game?.GetVisibleArea()!;
-
-	private ISymbolsImage GetCellImage(IAreaMapCell cell)
+	private void SubscribeToModelEvents()
 	{
-		return CellImageService.GetCellImage(cell);
-	}
-
-	private void SubscribeToTurnEnded()
-	{
-		if (Model?.Game != null)
+		if (Model != null)
 		{
-			Model.Game.TurnEnded += GameOnTurnEnded;
+			Model.OnInitialized += OnInitialized;
 		}
 	}
 
-	private void UnsubscribeFromTurnEnded()
+	private void UnsubscribeFromModelEvents()
 	{
-		if (Model?.Game != null)
+		if (Model != null)
 		{
-			Model.Game.TurnEnded -= GameOnTurnEnded;
+			Model.OnInitialized -= OnInitialized;
 		}
 	}
 
-	private void GameOnTurnEnded(object? sender, EventArgs e)
+	private void OnInitialized(object? sender, EventArgs args)
 	{
 		StateHasChanged();
 	}

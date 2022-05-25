@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using CodeMagic.Game.Images;
+using CodeMagic.Game.Drawing;
 
 namespace CodeMagic.Game;
 

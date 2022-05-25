@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using CodeMagic.Game.Images;
-using CodeMagic.Game.Objects.Creatures;
+using CodeMagic.Core.Objects;
+using CodeMagic.Game.Drawing;
 
 namespace CodeMagic.Game.Items.Usable;
 
@@ -54,7 +54,7 @@ public class Scroll : ScrollBase
         return storage.GetImage(InventoryImageName);
     }
 
-    public override StyledLine[] GetDescription(Player player)
+    public override StyledLine[] GetDescription(IPlayer player)
     {
         return new[]
         {

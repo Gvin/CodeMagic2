@@ -5,7 +5,7 @@ using CodeMagic.Core.Common;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
 using CodeMagic.Game.Configuration.Monsters;
-using CodeMagic.Game.Images;
+using CodeMagic.Game.Drawing;
 
 namespace CodeMagic.Game.Objects.Creatures.NonPlayable;
 

@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
-using CodeMagic.Game.Images;
+using CodeMagic.Core.Objects;
+using CodeMagic.Game.Drawing;
 using CodeMagic.Game.JournalMessages;
-using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.Game.Items.Usable.Food;
 
@@ -11,6 +12,7 @@ public interface IFoodItem : IUsableItem
 {
 }
 
+[Serializable]
 public class FoodItem : Item, IFoodItem, IWorldImageProvider, IInventoryImageProvider, IDescriptionProvider
 {
     public int HungerDecrease { get; set; }
@@ -40,7 +42,7 @@ public class FoodItem : Item, IFoodItem, IWorldImageProvider, IInventoryImagePro
         return storage.GetImage(InventoryImageName);
     }
 
-    public StyledLine[] GetDescription(Player player)
+    public StyledLine[] GetDescription(IPlayer player)
     {
         var result = new List<StyledLine>
         {

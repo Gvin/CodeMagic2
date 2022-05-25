@@ -1,4 +1,6 @@
-﻿namespace CodeMagic.UI.Services
+﻿using System.Threading.Tasks;
+
+namespace CodeMagic.UI.Services
 {
     public interface ISettingsService
     {
@@ -19,6 +21,8 @@
         bool DebugWriteMapToFile { get; }
 
         void Save();
+
+        Task LoadAsync();
     }
 
     public enum FontSizeMultiplier

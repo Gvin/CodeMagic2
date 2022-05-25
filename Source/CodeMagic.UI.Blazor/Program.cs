@@ -15,7 +15,7 @@ using CodeMagic.Game.Items.ItemsGeneration;
 using CodeMagic.Game.Items.ItemsGeneration.Implementations;
 using CodeMagic.Game.Items.Usable.Potions;
 using CodeMagic.Game.MapGeneration.Dungeon;
-using CodeMagic.UI.Blazor.Drawing;
+using CodeMagic.UI.Drawing;
 using Microsoft.Extensions.Options;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -25,11 +25,22 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 // Logging
-builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
 builder.Services.AddLogging();
 
 // Configuration
-builder.Services.AddOptions<SettingsConfiguration>(SettingsConfiguration.ConfigSection);
+builder.Services.Configure<SettingsConfiguration>(config =>
+{
+    config.Brightness = 0.2F;
+    config.SavingInterval = 10;
+    config.MinActionsInterval = 200;
+    config.FontSize = FontSizeMultiplier.X1;
+
+    config.DebugDrawTemperature = false;
+    config.DebugDrawLightLevel = true;
+    config.DebugDrawMagicEnergy = false;
+    config.DebugWriteMapToFile = false;
+});
 
 // Services
 builder.Services.AddSingleton<IWindowService, WindowService>();
@@ -53,6 +64,8 @@ builder.Services.AddSingleton<IItemsGenerator, ItemsGenerator>();
 builder.Services.AddSingleton<IAncientSpellsService, AncientSpellsService>();
 builder.Services.AddSingleton<GameConfigurationProviderService>();
 builder.Services.AddSingleton<ICellImageService, CellImageService>();
+builder.Services.AddSingleton<ILightLevelManager, LightLevelManager>();
+builder.Services.AddSingleton<IWorldImagesFactory, WorldImagesFactory>();
 
 builder.Services.AddTransient<IConfigurationLoader, JsonConfigurationLoader>();
 builder.Services.AddTransient(provider =>
@@ -78,6 +91,8 @@ builder.Services.AddTransient<GameViewPresenter>();
 var application = builder.Build();
 
 StaticLoggerFactory.Initialize(application.Services.GetRequiredService<ILoggerFactory>());
+
+await application.Services.GetRequiredService<ISettingsService>().LoadAsync();
 
 var configurationProviderService = application.Services.GetRequiredService<GameConfigurationProviderService>();
 await configurationProviderService.Load();

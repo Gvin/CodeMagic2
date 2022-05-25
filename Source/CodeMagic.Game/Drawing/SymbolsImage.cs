@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace CodeMagic.Game.Images;
+namespace CodeMagic.Game.Drawing;
 
 [Serializable]
 public class SymbolsImage : ISymbolsImage
@@ -64,7 +64,7 @@ public class SymbolsImage : ISymbolsImage
 
     public void SetDefaultColor(Color color)
     {
-        PerformForEachPixel((x, y, pixel) =>
+        PerformForEachPixel((_, _, pixel) =>
         {
             pixel.Color = color;
         });
@@ -72,7 +72,7 @@ public class SymbolsImage : ISymbolsImage
 
     public void SetDefaultBackColor(Color? color)
     {
-        PerformForEachPixel((x, y, pixel) =>
+        PerformForEachPixel((_, _, pixel) =>
         {
             pixel.BackgroundColor = color;
         });
@@ -80,7 +80,7 @@ public class SymbolsImage : ISymbolsImage
 
     public void SetDefaultValues(char symbol, Color symbolColor, Color backgroundColor)
     {
-        PerformForEachPixel((x, y, pixel) =>
+        PerformForEachPixel((_, _, pixel) =>
         {
             pixel.Symbol = symbol;
             pixel.Color = symbolColor;

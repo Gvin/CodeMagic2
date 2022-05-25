@@ -15,7 +15,7 @@ namespace CodeMagic.Game.GameProcess
 {
     public interface IGameManager
     {
-        GameCore StartGame();
+        IGameCore StartGame();
 
         void LoadGame();
     }
@@ -39,9 +39,9 @@ namespace CodeMagic.Game.GameProcess
             _logger = loggerFactory.CreateLogger<GameManager>();
         }
 
-        public GameCore StartGame()
+        public IGameCore StartGame()
         {
-            _logger.LogDebug("Starting new game");
+            _logger.LogInformation("Starting new game");
 
             try
             {
@@ -55,21 +55,21 @@ namespace CodeMagic.Game.GameProcess
                 var player = CreatePlayer();
 
                 var (startMap, playerPosition) = _dungeonMapGenerator.GenerateNewMap(1);
+                
                 CurrentGame.Initialize(startMap, player, playerPosition, _loggerFactory);
-                var game = (GameCore)CurrentGame.Game;
                 startMap.Refresh();
 
-                player.Inventory.ItemAdded += (_, args) => { game.Journal.Write(new ItemReceivedMessage(args.Item)); };
-                player.Inventory.ItemRemoved += (_, args) => { game.Journal.Write(new ItemLostMessage(args.Item)); };
+                player.Inventory.ItemAdded += (_, args) => { CurrentGame.Game.Journal.Write(new ItemReceivedMessage(args.Item)); };
+                player.Inventory.ItemRemoved += (_, args) => { CurrentGame.Game.Journal.Write(new ItemLostMessage(args.Item)); };
 
-                game.Journal.Write(new StartGameMessage());
+                CurrentGame.Game.Journal.Write(new StartGameMessage());
 
-                game.TurnEnded += game_TurnEnded;
+                CurrentGame.Game.TurnEnded += game_TurnEnded;
                 _saveService.SaveGame();
 
                 _turnsSinceLastSaving = 0;
 
-                return game;
+                return CurrentGame.Game;
             }
             catch (Exception ex)
             {

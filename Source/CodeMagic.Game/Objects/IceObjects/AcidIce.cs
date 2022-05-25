@@ -1,5 +1,5 @@
 ﻿using System;
-using CodeMagic.Game.Images;
+using CodeMagic.Game.Drawing;
 using CodeMagic.Game.Objects.LiquidObjects;
 
 namespace CodeMagic.Game.Objects.IceObjects;

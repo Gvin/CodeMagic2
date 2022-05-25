@@ -2,7 +2,7 @@
 using System.Linq;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
-using CodeMagic.Game.Images;
+using CodeMagic.Game.Drawing;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration;
 using CodeMagic.Game.Items.ItemsGeneration.Configuration.Shield;
 using CodeMagic.Game.Items.ItemsGeneration.Implementations.Bonuses;

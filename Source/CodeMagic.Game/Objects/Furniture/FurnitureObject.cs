@@ -1,7 +1,7 @@
 ﻿using System;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
-using CodeMagic.Game.Images;
+using CodeMagic.Game.Drawing;
 using CodeMagic.Game.Items.Materials;
 
 namespace CodeMagic.Game.Objects.Furniture;

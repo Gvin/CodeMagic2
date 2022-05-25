@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
-using CodeMagic.Game.Images;
-using CodeMagic.Game.Objects.Creatures;
+using CodeMagic.Core.Objects;
+using CodeMagic.Game.Drawing;
 
 namespace CodeMagic.Game.Items;
 
+[Serializable]
 public class ArmorItem : DurableItem, IArmorItem, IInventoryImageProvider, IDescriptionProvider, IWorldImageProvider, IEquippedImageProvider
 {
     public ISymbolsImage InventoryImage { get; set; }
@@ -31,7 +32,7 @@ public class ArmorItem : DurableItem, IArmorItem, IInventoryImageProvider, IDesc
         return InventoryImage;
     }
 
-    public StyledLine[] GetDescription(Player player)
+    public StyledLine[] GetDescription(IPlayer player)
     {
         var equipedArmor = player.Equipment.GetEquipedArmor(ArmorType, player.Inventory);
 
@@ -101,7 +102,7 @@ public class ArmorItem : DurableItem, IArmorItem, IInventoryImageProvider, IDesc
         return WorldImage;
     }
 
-    public ISymbolsImage GetEquippedImage(Player player, IImagesStorageService imagesStorage)
+    public ISymbolsImage GetEquippedImage(IPlayer player, IImagesStorageService imagesStorage)
     {
         return EquippedImage;
     }

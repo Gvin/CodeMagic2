@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
-using CodeMagic.Game.Images;
+using CodeMagic.Game.Drawing;
 
 namespace CodeMagic.Game.Items.Custom;
 

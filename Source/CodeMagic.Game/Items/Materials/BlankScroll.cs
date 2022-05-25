@@ -1,9 +1,11 @@
-﻿using CodeMagic.Core.Items;
-using CodeMagic.Game.Images;
-using CodeMagic.Game.Objects.Creatures;
+﻿using System;
+using CodeMagic.Core.Items;
+using CodeMagic.Core.Objects;
+using CodeMagic.Game.Drawing;
 
 namespace CodeMagic.Game.Items.Materials;
 
+[Serializable]
 public class BlankScroll : Item, IWorldImageProvider, IInventoryImageProvider, IDescriptionProvider
 {
     public const string ItemKey = "scroll_blank";
@@ -47,7 +49,7 @@ public class BlankScroll : Item, IWorldImageProvider, IInventoryImageProvider, I
         return storage.GetImage(InventoryImageName);
     }
 
-    public StyledLine[] GetDescription(Player player)
+    public StyledLine[] GetDescription(IPlayer player)
     {
         return new[]
         {

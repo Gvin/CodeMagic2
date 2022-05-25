@@ -1,8 +1,9 @@
-﻿using CodeMagic.Core.Game;
+﻿using System;
+using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
-using CodeMagic.Game.Images;
+using CodeMagic.Core.Objects;
+using CodeMagic.Game.Drawing;
 using CodeMagic.Game.Objects;
-using CodeMagic.Game.Objects.Creatures;
 
 namespace CodeMagic.Game.Items.Usable;
 
@@ -13,6 +14,7 @@ public interface IScroll : IUsableItem
     int Mana { get; }
 }
 
+[Serializable]
 public abstract class ScrollBase : Item, IScroll, IWorldImageProvider, IInventoryImageProvider, IDescriptionProvider
 {
     public string SpellName { get; set; }
@@ -37,5 +39,5 @@ public abstract class ScrollBase : Item, IScroll, IWorldImageProvider, IInventor
 
     public abstract ISymbolsImage GetInventoryImage(IImagesStorageService storage);
 
-    public abstract StyledLine[] GetDescription(Player player);
+    public abstract StyledLine[] GetDescription(IPlayer player);
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CodeMagic.Core.Area;
 
@@ -11,6 +12,7 @@ namespace CodeMagic.Core.Game
             var areaOfVisibility = CurrentGame.Map?.GetMapPart(viewerPosition, visibilityRange);
             if (areaOfVisibility == null)
                 return null;
+
             var visibilityBlockers = GetVisibilityBlockers(areaOfVisibility);
             ApplyVisibilityBlockers(areaOfVisibility, visibilityBlockers);
 

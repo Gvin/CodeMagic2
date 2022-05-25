@@ -1,0 +1,12 @@
+﻿.game-area {
+
+    .visible-area {
+        .area-row {
+            display: flex;
+
+            .area-cell {
+                display: inline-block;
+            }
+        }
+    }
+}

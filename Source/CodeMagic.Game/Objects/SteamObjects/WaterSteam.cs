@@ -1,6 +1,6 @@
 ﻿using System;
 using CodeMagic.Core.Objects;
-using CodeMagic.Game.Images;
+using CodeMagic.Game.Drawing;
 using CodeMagic.Game.Objects.LiquidObjects;
 
 namespace CodeMagic.Game.Objects.SteamObjects;

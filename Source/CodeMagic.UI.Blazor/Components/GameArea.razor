@@ -1,0 +1,78 @@
+﻿@using CodeMagic.Core.Game
+@using CodeMagic.Core.Area
+@using System.Drawing
+@using CodeMagic.Game.Drawing
+@using CodeMagic.UI.Drawing
+@using Newtonsoft.Json
+
+@inject ICellImageService CellImageService;
+@inject ILogger<GameArea> Logger;
+
+<div class="game-area">
+	@if (Model != null)
+	{
+		<div class="visible-area">
+			@{ var visibleArea = GetVisibleArea(); }
+			@for (var y = 0; y < visibleArea.Height; y++)
+			{
+				<div class="area-row">
+					@for (var x = 0; x < visibleArea.Width; x++)
+					{
+						<div class="area-cell"><SymbolsImageDisplay Model="GetCellImage(visibleArea.GetCell(x, y), x, y)" ForegroundColor="Color.White" BackgroundColor="Color.Black"/></div>
+					}
+				</div>
+			}
+		</div>
+	}
+</div>
+
+@code {
+
+	[Parameter]
+	public IGameCore? Model
+	{
+		get => _model;
+		set
+		{
+			UnsubscribeFromModelEvents();
+			_model = value;
+			_model?.Map.Refresh();
+			SubscribeToModelEvents();
+			StateHasChanged();
+		}
+	}
+
+	private AreaMapFragment GetVisibleArea()
+	{
+		Logger.LogInformation("Rendering map");
+		return Model?.GetVisibleArea() ?? throw new Exception("Model not initialized.");
+	}
+
+	private ISymbolsImage GetCellImage(IAreaMapCell? cell, int x, int y)
+	{
+		return CellImageService.GetCellImage(cell);
+	}
+
+	private void SubscribeToModelEvents()
+	{
+		if (Model != null)
+		{
+			Model.TurnEnded += GameOnTurnEnded;
+		}
+	}
+
+	private void UnsubscribeFromModelEvents()
+	{
+		if (Model != null)
+		{
+			Model.TurnEnded -= GameOnTurnEnded;
+		}
+	}
+
+	private void GameOnTurnEnded(object? sender, EventArgs e)
+	{
+		StateHasChanged();
+	}
+
+	private IGameCore? _model;
+}

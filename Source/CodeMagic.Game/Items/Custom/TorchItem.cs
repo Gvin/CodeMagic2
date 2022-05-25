@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CodeMagic.Core.Area;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
-using CodeMagic.Game.Images;
+using CodeMagic.Game.Drawing;
 using CodeMagic.Game.Objects;
 
 namespace CodeMagic.Game.Items.Custom

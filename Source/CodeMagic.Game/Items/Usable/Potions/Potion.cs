@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Items;
-using CodeMagic.Game.Images;
-using CodeMagic.Game.Objects.Creatures;
+using CodeMagic.Core.Objects;
+using CodeMagic.Game.Drawing;
 
 namespace CodeMagic.Game.Items.Usable.Potions;
 
+[Serializable]
 public sealed class Potion : Item, IUsableItem, IWorldImageProvider, IInventoryImageProvider, IDescriptionProvider
 {
     public PotionColor PotionColor { get; set; }
@@ -119,7 +120,7 @@ public sealed class Potion : Item, IUsableItem, IWorldImageProvider, IInventoryI
         }
     }
 
-    public StyledLine[] GetDescription(Player player)
+    public StyledLine[] GetDescription(IPlayer player)
     {
         var description = new List<StyledLine>
         {

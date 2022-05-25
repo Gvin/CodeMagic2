@@ -1,6 +1,6 @@
 ﻿using System;
-using CodeMagic.Game.Images;
-using CodeMagic.Game.Objects.Creatures;
+using CodeMagic.Core.Objects;
+using CodeMagic.Game.Drawing;
 
 namespace CodeMagic.Game.Items;
 
@@ -31,11 +31,11 @@ public abstract class HoldableDurableItemBase :
         return InventoryImage;
     }
 
-    public ISymbolsImage GetEquippedImage(Player player, IImagesStorageService imagesStorage)
+    public ISymbolsImage GetEquippedImage(IPlayer player, IImagesStorageService imagesStorage)
     {
-        if (Equals(player.Equipment.RightHandItemId))
+        if (string.Equals(Id, player.Equipment.RightHandItemId))
             return GetRightEquippedImage(imagesStorage);
-        if (Equals(player.Equipment.LeftHandItemId))
+        if (string.Equals(Id, player.Equipment.LeftHandItemId))
             return GetLeftEquippedImage(imagesStorage);
 
         throw new ApplicationException($"Trying to render item \"{Name}\" that not equipped on both left and right hand.");
@@ -53,5 +53,5 @@ public abstract class HoldableDurableItemBase :
 
     public int EquippedImageOrder => 999;
 
-    public abstract StyledLine[] GetDescription(Player player);
+    public abstract StyledLine[] GetDescription(IPlayer player);
 }

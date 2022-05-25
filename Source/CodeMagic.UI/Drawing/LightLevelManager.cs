@@ -1,20 +1,32 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using CodeMagic.Core.Area;
-using CodeMagic.Game.Images;
+using CodeMagic.Game.Drawing;
+using CodeMagic.UI.Services;
 
-namespace CodeMagic.UI.Blazor.Drawing;
+namespace CodeMagic.UI.Drawing;
 
-public class LightLevelManager
+public interface ILightLevelManager
 {
-    private readonly float _brightness;
+    ISymbolsImage ApplyLightLevel(ISymbolsImage image, LightLevel lightData);
+}
 
-    public LightLevelManager(float brightness)
+public class LightLevelManager : ILightLevelManager
+{
+    private readonly ISettingsService _settingsService;
+
+    public LightLevelManager(ISettingsService settingsService)
     {
-        _brightness = brightness;
+        _settingsService = settingsService;
     }
 
     public ISymbolsImage ApplyLightLevel(ISymbolsImage image, LightLevel lightData)
     {
+        if (lightData != LightLevel.Darkness)
+        {
+            var i = 0;
+        }
+
         var result = new SymbolsImage(image.Width, image.Height);
         for (int x = 0; x < image.Width; x++)
         {
@@ -53,6 +65,6 @@ public class LightLevelManager
 
     private float GetLightLevelPercent(LightLevel light)
     {
-        return (int)light * _brightness;
+        return (int)light * _settingsService.Brightness;
     }
 }

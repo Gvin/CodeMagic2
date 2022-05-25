@@ -1,6 +1,6 @@
 ﻿using System;
 using CodeMagic.Core.Game;
-using CodeMagic.Game.Images;
+using CodeMagic.Game.Drawing;
 using CodeMagic.Game.Items;
 
 namespace CodeMagic.Game.Objects.ObjectEffects;

@@ -13,6 +13,8 @@ public class GameViewModel : WindowModelBase, IGameView
     public event EventHandler? OpenGroundView;
     public event EventHandler? OpenCheats;
 
+    public event EventHandler? OnInitialized;
+
     public GameViewModel(IWindowService windowService) : base(windowService)
     {
         SpellBookEnabled = false;
@@ -27,6 +29,6 @@ public class GameViewModel : WindowModelBase, IGameView
 
     public void Initialize()
     {
-        // TODO: Implement
+        OnInitialized?.Invoke(this, EventArgs.Empty);
     }
 }

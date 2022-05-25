@@ -22,6 +22,10 @@ namespace CodeMagic.Core.Game
             {
                 lock (GameLockObject)
                 {
+                    if (_game == null)
+                    {
+                        _logger?.LogWarning("Game is null");
+                    }
                     return _game;
                 }
             }

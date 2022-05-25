@@ -1,0 +1,8 @@
+.game-area .visible-area .area-row {
+  display: flex;
+}
+.game-area .visible-area .area-row .area-cell {
+  display: inline-block;
+}
+
+/*# sourceMappingURL=GameArea.razor.css.map */

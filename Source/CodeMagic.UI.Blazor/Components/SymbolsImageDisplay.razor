@@ -1,5 +1,5 @@
 ﻿@using System.Drawing
-@using CodeMagic.Game.Images
+@using CodeMagic.Game.Drawing
 
 @if (Model != null)
 {
@@ -9,7 +9,7 @@
 			<div class="pixels-row">
 				@for (var x = 0; x < Model.Width; x++)
 				{
-					<div class="pixel"><p style="color: @GetColor(Model[x,y]); background-color: @GetBackgroundColor(Model[x,y])">@GetSymbol(Model[x, y])</p></div>
+					<div class="pixel"><p style="color: @GetForegroundColor(Model[x,y]); background-color: @GetBackgroundColor(Model[x,y])">@GetSymbol(Model[x, y])</p></div>
 				}
 			</div>
 		}
@@ -30,7 +30,7 @@
 	}
 
 	[Parameter]
-	public Color? BackgroundColor
+	public Color BackgroundColor
 	{
 		get => _backgroundColor;
 		set
@@ -40,17 +40,29 @@
 		}
 	}
 
-	private ISymbolsImage? _model;
-	private Color? _backgroundColor;
-
-	private string GetColor(SymbolsImage.Pixel? pixel)
+	[Parameter]
+	public Color ForegroundColor
 	{
-		return (pixel?.Color).ToStyleString();
+		get => _foregroundColor;
+		set
+		{
+			_foregroundColor = value;
+			StateHasChanged();
+		}
 	}
+
+	private ISymbolsImage? _model;
+	private Color _backgroundColor = Color.Black;
+	private Color _foregroundColor = Color.White;
 
 	private string GetBackgroundColor(SymbolsImage.Pixel? pixel)
 	{
-		return pixel?.BackgroundColor == null ? BackgroundColor.ToStyleString() : (pixel?.BackgroundColor).ToStyleString();
+		return pixel?.BackgroundColor == null ? BackgroundColor.ToStyleString() : (pixel.BackgroundColor).ToStyleString();
+	}
+
+	private string GetForegroundColor(SymbolsImage.Pixel? pixel)
+	{
+		return pixel?.Color == null ? ForegroundColor.ToStyleString() : (pixel.Color).ToStyleString();
 	}
 
 	private string GetSymbol(SymbolsImage.Pixel? pixel)

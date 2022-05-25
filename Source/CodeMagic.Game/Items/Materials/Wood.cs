@@ -1,7 +1,7 @@
 ﻿using System;
 using CodeMagic.Core.Items;
-using CodeMagic.Game.Images;
-using CodeMagic.Game.Objects.Creatures;
+using CodeMagic.Core.Objects;
+using CodeMagic.Game.Drawing;
 
 namespace CodeMagic.Game.Items.Materials;
 
@@ -49,7 +49,7 @@ public class Wood : Item, IWorldImageProvider, IInventoryImageProvider, IDescrip
         return storage.GetImage(InventoryImageName);
     }
 
-    public StyledLine[] GetDescription(Player player)
+    public StyledLine[] GetDescription(IPlayer player)
     {
         return new[]
         {

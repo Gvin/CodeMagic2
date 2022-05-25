@@ -1,4 +1,4 @@
-﻿using CodeMagic.Game.Images;
+﻿using CodeMagic.Game.Drawing;
 
 namespace CodeMagic.Game
 {
