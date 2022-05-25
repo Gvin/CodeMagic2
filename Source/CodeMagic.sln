@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.Core.Tests", "Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMagic.UI.Tests", "Tests\CodeMagic.UI.Tests\CodeMagic.UI.Tests.csproj", "{4DAAE52E-2994-4F55-B0B8-6DCA9A66BC55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMagic.Game.Tests", "Tests\CodeMagic.Game.Tests\CodeMagic.Game.Tests.csproj", "{62165EAD-06A5-4C13-AB57-04A439F9AC98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMagic.Tests.Common", "Tests\CodeMagic.Tests.Common\CodeMagic.Tests.Common.csproj", "{0DF2F739-18AA-443F-9C33-68161D9FA92D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +69,14 @@ Global
 		{4DAAE52E-2994-4F55-B0B8-6DCA9A66BC55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DAAE52E-2994-4F55-B0B8-6DCA9A66BC55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DAAE52E-2994-4F55-B0B8-6DCA9A66BC55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62165EAD-06A5-4C13-AB57-04A439F9AC98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62165EAD-06A5-4C13-AB57-04A439F9AC98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62165EAD-06A5-4C13-AB57-04A439F9AC98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62165EAD-06A5-4C13-AB57-04A439F9AC98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DF2F739-18AA-443F-9C33-68161D9FA92D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DF2F739-18AA-443F-9C33-68161D9FA92D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DF2F739-18AA-443F-9C33-68161D9FA92D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DF2F739-18AA-443F-9C33-68161D9FA92D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +84,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{67EFFDE3-DDE1-4FF3-892E-AD78DA811CCC} = {760CD6FD-9541-47FD-9978-7B683ED43AA0}
 		{4DAAE52E-2994-4F55-B0B8-6DCA9A66BC55} = {760CD6FD-9541-47FD-9978-7B683ED43AA0}
+		{62165EAD-06A5-4C13-AB57-04A439F9AC98} = {760CD6FD-9541-47FD-9978-7B683ED43AA0}
+		{0DF2F739-18AA-443F-9C33-68161D9FA92D} = {760CD6FD-9541-47FD-9978-7B683ED43AA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {662A9124-7E0E-492A-B405-C1C9896E2250}

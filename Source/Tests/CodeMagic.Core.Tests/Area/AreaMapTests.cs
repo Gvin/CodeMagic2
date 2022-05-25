@@ -15,6 +15,38 @@ namespace CodeMagic.Core.Tests.Area
     // TODO: Fix after refactoring
     public class AreaMapTests
     {
+        public interface ILightMapObject : ILightObject, IMapObject
+        {
+        }
+
+        [Test]
+        public void Refresh_SetsLightLevel()
+        {
+            // ARRANGE
+            var mapCellsFactory = new Func<IAreaMapCellInternal>(() => new AreaMapCell());
+            var map = new AreaMap(1, mapCellsFactory, 3, 3);
+
+            var lightSourceMock = new Mock<ILightSource>();
+            lightSourceMock.SetupGet(x => x.LightPower).Returns(LightLevel.Medium);
+            lightSourceMock.SetupGet(x => x.IsLightOn).Returns(true);
+
+            var lightObjectMock = new Mock<ILightMapObject>();
+            lightObjectMock.SetupGet(x => x.LightSources).Returns(new[] { lightSourceMock.Object });
+
+            map.AddObject(1, 1, lightObjectMock.Object);
+
+            // ACT
+            map.Refresh();
+
+            // ASSERT
+            Assert.AreEqual(LightLevel.Medium, map.GetCell(1, 1).LightLevel);
+
+            Assert.AreEqual(LightLevel.Medium, map.GetCell(1, 0).LightLevel);
+            Assert.AreEqual(LightLevel.Medium, map.GetCell(1, 2).LightLevel);
+            Assert.AreEqual(LightLevel.Medium, map.GetCell(0, 1).LightLevel);
+            Assert.AreEqual(LightLevel.Medium, map.GetCell(2, 1).LightLevel);
+        }
+
         // [Test]
         // public void ConstructorTest()
         // {

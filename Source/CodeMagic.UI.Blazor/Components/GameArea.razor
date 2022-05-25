@@ -11,7 +11,7 @@
 <div class="game-area">
 	@if (Model != null)
 	{
-		<div class="visible-area">
+		<div class="visible-area" style="font-size: @FontSizeValue">
 			@{ var visibleArea = GetVisibleArea(); }
 			@for (var y = 0; y < visibleArea.Height; y++)
 			{
@@ -36,11 +36,23 @@
 		{
 			UnsubscribeFromModelEvents();
 			_model = value;
-			_model?.Map.Refresh();
 			SubscribeToModelEvents();
 			StateHasChanged();
 		}
 	}
+
+	[Parameter]
+	public float FontSize
+	{
+		get => _fontSize;
+		set
+		{
+			_fontSize = value;
+			StateHasChanged();
+		}
+	}
+
+	private string FontSizeValue => $"{FontSize}em";
 
 	private AreaMapFragment GetVisibleArea()
 	{
@@ -75,4 +87,5 @@
 	}
 
 	private IGameCore? _model;
+	private float _fontSize = 0.7F;
 }

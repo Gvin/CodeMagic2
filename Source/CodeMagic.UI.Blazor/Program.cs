@@ -37,7 +37,7 @@ builder.Services.Configure<SettingsConfiguration>(config =>
     config.FontSize = FontSizeMultiplier.X1;
 
     config.DebugDrawTemperature = false;
-    config.DebugDrawLightLevel = true;
+    config.DebugDrawLightLevel = false;
     config.DebugDrawMagicEnergy = false;
     config.DebugWriteMapToFile = false;
 });

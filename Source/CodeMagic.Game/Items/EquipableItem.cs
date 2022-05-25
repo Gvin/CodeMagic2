@@ -22,7 +22,7 @@ namespace CodeMagic.Game.Items
 
         public string[] Description { get; set; }
 
-        public bool IsLightOn { get; set; }
+        public bool IsLightOn => LightPower > LightLevel.Darkness;
 
         public LightLevel LightPower { get; set; }
 
