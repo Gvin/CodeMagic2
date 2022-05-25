@@ -3,7 +3,6 @@
 @using System.Drawing
 @using CodeMagic.Game.Drawing
 @using CodeMagic.UI.Drawing
-@using Newtonsoft.Json
 
 @inject ICellImageService CellImageService;
 @inject ILogger<GameArea> Logger;
@@ -56,7 +55,7 @@
 
 	private AreaMapFragment GetVisibleArea()
 	{
-		Logger.LogInformation("Rendering map");
+		Logger.LogDebug("Rendering map");
 		return Model?.GetVisibleArea() ?? throw new Exception("Model not initialized.");
 	}
 
