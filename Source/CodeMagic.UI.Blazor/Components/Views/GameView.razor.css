@@ -1,7 +1,14 @@
-.game-view .content {
-  width: fit-content;
-  margin: auto;
+.game-view {
   margin-top: 20px;
+}
+.game-view .main-panel {
+  display: flex;
+}
+.game-view .main-panel div {
+  display: inline-flex;
+}
+.game-view .main-panel .control-panel {
+  display: initial;
 }
 
 /*# sourceMappingURL=GameView.razor.css.map */

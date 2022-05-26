@@ -1,7 +1,15 @@
 ﻿.game-view {
-    .content {
-        width: fit-content;
-        margin: auto;
-        margin-top: 20px;
+    margin-top: 20px;
+
+    .main-panel {
+        display: flex;
+
+        div {
+            display: inline-flex;
+        }
+
+        .control-panel {
+            display: initial;
+        }
     }
 }

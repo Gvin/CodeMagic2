@@ -15,6 +15,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CodeMagic.Core\CodeMagic.Core.csproj" />
+    <ProjectReference Include="..\CodeMagic.Game.Drawing\CodeMagic.Game.Drawing.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Drawing\" />
   </ItemGroup>
 
 </Project>

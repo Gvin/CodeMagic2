@@ -3,8 +3,21 @@
 @using System.Drawing
 
 <div class="game-view">
-	<div class="visible-area">
-		<GameArea Model="Model?.Game"/>
+	<div class="main-panel">
+		<div class="visible-area">
+			<GameArea Model="Model?.Game"/>
+		</div>
+		<div class="control-panel">
+			<div class="stats-panel">
+				Stats
+			</div>
+			<div class="actions-panel">
+				Actions
+			</div>
+		</div>
+	</div>
+	<div class="bottom-panel">
+		Journal
 	</div>
 </div>
 

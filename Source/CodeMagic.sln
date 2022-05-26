@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.Core", "CodeMagic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.Game", "CodeMagic.Game\CodeMagic.Game.csproj", "{9931C445-4660-49A4-B7BA-EE09E3FE22B9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.Configuration.Xml", "CodeMagic.Configuration.Xml\CodeMagic.Configuration.Xml.csproj", "{A0B37CE4-6C21-4911-A685-DC09E4963563}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.UI", "CodeMagic.UI\CodeMagic.UI.csproj", "{AAF2FBFC-6770-4BAE-96C1-FEC6743BB44D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.UI.Blazor", "CodeMagic.UI.Blazor\CodeMagic.UI.Blazor.csproj", "{C715D481-4128-475D-85CD-B8EAD47BF582}"
@@ -21,11 +19,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.Configuration.Jso
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.Core.Tests", "Tests\CodeMagic.Core.Tests\CodeMagic.Core.Tests.csproj", "{67EFFDE3-DDE1-4FF3-892E-AD78DA811CCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMagic.UI.Tests", "Tests\CodeMagic.UI.Tests\CodeMagic.UI.Tests.csproj", "{4DAAE52E-2994-4F55-B0B8-6DCA9A66BC55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.UI.Tests", "Tests\CodeMagic.UI.Tests\CodeMagic.UI.Tests.csproj", "{4DAAE52E-2994-4F55-B0B8-6DCA9A66BC55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMagic.Game.Tests", "Tests\CodeMagic.Game.Tests\CodeMagic.Game.Tests.csproj", "{62165EAD-06A5-4C13-AB57-04A439F9AC98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.Game.Tests", "Tests\CodeMagic.Game.Tests\CodeMagic.Game.Tests.csproj", "{62165EAD-06A5-4C13-AB57-04A439F9AC98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMagic.Tests.Common", "Tests\CodeMagic.Tests.Common\CodeMagic.Tests.Common.csproj", "{0DF2F739-18AA-443F-9C33-68161D9FA92D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic.Tests.Common", "Tests\CodeMagic.Tests.Common\CodeMagic.Tests.Common.csproj", "{0DF2F739-18AA-443F-9C33-68161D9FA92D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{1A7EC1C2-1782-48D6-AD5E-697D7907EB32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMagic.ImagesCompiler", "CodeMagic.ImagesCompiler\CodeMagic.ImagesCompiler.csproj", "{0153A9AD-6097-47CE-B364-F2AC711A7E93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMagic.Game.Drawing", "CodeMagic.Game.Drawing\CodeMagic.Game.Drawing.csproj", "{AC2F8E81-F8D8-4D5C-94BA-6F11500F7CB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +45,6 @@ Global
 		{9931C445-4660-49A4-B7BA-EE09E3FE22B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9931C445-4660-49A4-B7BA-EE09E3FE22B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9931C445-4660-49A4-B7BA-EE09E3FE22B9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0B37CE4-6C21-4911-A685-DC09E4963563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0B37CE4-6C21-4911-A685-DC09E4963563}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0B37CE4-6C21-4911-A685-DC09E4963563}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0B37CE4-6C21-4911-A685-DC09E4963563}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AAF2FBFC-6770-4BAE-96C1-FEC6743BB44D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AAF2FBFC-6770-4BAE-96C1-FEC6743BB44D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAF2FBFC-6770-4BAE-96C1-FEC6743BB44D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -77,15 +77,25 @@ Global
 		{0DF2F739-18AA-443F-9C33-68161D9FA92D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DF2F739-18AA-443F-9C33-68161D9FA92D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DF2F739-18AA-443F-9C33-68161D9FA92D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0153A9AD-6097-47CE-B364-F2AC711A7E93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0153A9AD-6097-47CE-B364-F2AC711A7E93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0153A9AD-6097-47CE-B364-F2AC711A7E93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0153A9AD-6097-47CE-B364-F2AC711A7E93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC2F8E81-F8D8-4D5C-94BA-6F11500F7CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC2F8E81-F8D8-4D5C-94BA-6F11500F7CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC2F8E81-F8D8-4D5C-94BA-6F11500F7CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC2F8E81-F8D8-4D5C-94BA-6F11500F7CB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{A0D8BDD8-62BA-457B-B263-286D75F05F71} = {1A7EC1C2-1782-48D6-AD5E-697D7907EB32}
 		{67EFFDE3-DDE1-4FF3-892E-AD78DA811CCC} = {760CD6FD-9541-47FD-9978-7B683ED43AA0}
 		{4DAAE52E-2994-4F55-B0B8-6DCA9A66BC55} = {760CD6FD-9541-47FD-9978-7B683ED43AA0}
 		{62165EAD-06A5-4C13-AB57-04A439F9AC98} = {760CD6FD-9541-47FD-9978-7B683ED43AA0}
 		{0DF2F739-18AA-443F-9C33-68161D9FA92D} = {760CD6FD-9541-47FD-9978-7B683ED43AA0}
+		{0153A9AD-6097-47CE-B364-F2AC711A7E93} = {1A7EC1C2-1782-48D6-AD5E-697D7907EB32}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {662A9124-7E0E-492A-B405-C1C9896E2250}
