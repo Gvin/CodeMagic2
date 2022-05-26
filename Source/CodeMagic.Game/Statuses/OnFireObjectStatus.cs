@@ -57,7 +57,7 @@ public class OnFireObjectStatus : IObjectStatus
         if (temperatureDiff > 0)
         {
             var cellTemperatureIncrement = Math.Min(temperatureDiff, CellTemperatureIncreaseMax);
-            cell.Environment.Cast().Temperature += cellTemperatureIncrement;
+            cell.Environment.Temperature += cellTemperatureIncrement;
         }
 
         return true;

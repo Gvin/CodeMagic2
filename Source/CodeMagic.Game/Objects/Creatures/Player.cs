@@ -320,7 +320,7 @@ public class Player : CreatureObject, IPlayer, ILightObject, IWorldImageProvider
         {
             var cell = CurrentGame.Map.GetCell(position);
             var manaToRegenerate = Math.Min(manaRegeneration, cell.MagicEnergyLevel());
-            cell.Environment.Cast().MagicEnergyLevel -= manaToRegenerate;
+            cell.Environment.MagicEnergyLevel -= manaToRegenerate;
             Mana += manaToRegenerate;
         }
     }

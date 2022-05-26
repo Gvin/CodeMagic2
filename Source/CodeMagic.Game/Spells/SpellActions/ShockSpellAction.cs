@@ -95,7 +95,7 @@ namespace CodeMagic.Game.Spells.SpellActions
         private void ApplyShockToCell(int value, IAreaMapCell cell, Point position)
         {
             var heat = value * heatMultiplier;
-            cell.Environment.Cast().Temperature += heat;
+            cell.Environment.Temperature += heat;
 
             var destroyableObjects = cell.Objects.OfType<IDestroyableObject>();
             foreach (var destroyable in destroyableObjects)

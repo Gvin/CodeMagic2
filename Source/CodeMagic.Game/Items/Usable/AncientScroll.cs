@@ -1,4 +1,5 @@
 ﻿using System;
+using CodeMagic.Core.Area;
 using CodeMagic.Core.Game;
 using CodeMagic.Core.Objects;
 using CodeMagic.Game.Area.EnvironmentData;

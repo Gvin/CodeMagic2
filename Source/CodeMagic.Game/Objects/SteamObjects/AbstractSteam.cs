@@ -98,7 +98,7 @@ namespace CodeMagic.Game.Objects.SteamObjects
             var volumeToCondense = Math.Min(volumeToRaiseTemp, Volume);
             var heatGain = (int)Math.Floor(volumeToCondense / Configuration.CondensationTemperatureMultiplier);
 
-            cell.Environment.Cast().Temperature += heatGain;
+            cell.Environment.Temperature += heatGain;
             Volume -= volumeToCondense;
 
             var liquidVolume = volumeToCondense / Configuration.EvaporationMultiplier;

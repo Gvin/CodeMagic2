@@ -80,11 +80,11 @@ namespace CodeMagic.Game.Objects.LiquidObjects
             var volumeToBecomeSteam = Math.Min(volumeToLowerTemp, Volume);
             var heatLoss = (int)Math.Floor(volumeToBecomeSteam * Configuration.EvaporationTemperatureMultiplier);
 
-            cell.Environment.Cast().Temperature -= heatLoss;
+            cell.Environment.Temperature -= heatLoss;
             Volume -= volumeToBecomeSteam;
 
             var steamVolume = volumeToBecomeSteam * Configuration.EvaporationMultiplier;
-            cell.Environment.Cast().Pressure += steamVolume * Configuration.Steam.PressureMultiplier;
+            cell.Environment.Pressure += steamVolume * Configuration.Steam.PressureMultiplier;
             
             CurrentGame.Map.AddObject(position, CreateSteam(steamVolume));
         }
@@ -99,7 +99,7 @@ namespace CodeMagic.Game.Objects.LiquidObjects
             var volumeToFreeze = Math.Min(volumeToRaiseTemp, Volume);
             var heatGain = (int)Math.Floor(volumeToFreeze / Configuration.FreezingTemperatureMultiplier);
 
-            cell.Environment.Cast().Temperature += heatGain;
+            cell.Environment.Temperature += heatGain;
             Volume -= volumeToFreeze;
 
             CurrentGame.Map.AddObject(position, CreateIce(volumeToFreeze));

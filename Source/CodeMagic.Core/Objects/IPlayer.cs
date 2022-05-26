@@ -16,6 +16,8 @@ namespace CodeMagic.Core.Objects
 
         int Stamina { get; set; }
 
+        int MaxStamina { get; }
+
         int HungerPercent { get; set; }
 
         int MaxCarryWeight { get; }

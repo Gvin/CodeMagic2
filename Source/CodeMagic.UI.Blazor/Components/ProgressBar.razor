@@ -1,0 +1,152 @@
+﻿@using System.Drawing
+
+<div class="symbol-progress-bar">
+	@for (var position = 1; position <= Width; position++)
+	{
+		var (symbol, color, backColor) = GetSymbolToDraw(position);
+		<p class="symbol" style="color: @color; background-color: @backColor">@symbol</p>
+	}
+</div>
+
+@code {
+
+	[Parameter]
+	public int MaxValue
+	{
+		get => _maxValue;
+		set
+		{
+			_maxValue = value;
+			StateHasChanged();
+		}
+	}
+
+	[Parameter]
+	public int MinValue
+	{
+		get => _minValue;
+		set
+		{
+			_minValue = value;
+			StateHasChanged();
+		}
+	}
+
+	[Parameter]
+	public int Value
+	{
+		get => _value;
+		set
+		{
+			_value = Math.Max(MinValue, Math.Min(MaxValue, value));
+			StateHasChanged();
+		}
+	}
+
+	[Parameter]
+	public int Width
+	{
+		get => _width;
+		set
+		{
+			_width = value;
+			StateHasChanged();
+		}
+	}
+
+	[Parameter]
+	public Color EmptyColor
+	{
+		get => _emptyColor;
+		set
+		{
+			_emptyColor = value;
+			StateHasChanged();
+		}
+	}
+
+	[Parameter]
+	public Color EmptyBackColor
+	{
+		get => _emptyBackColor;
+		set
+		{
+			_emptyBackColor = value;
+			StateHasChanged();
+		}
+	}
+
+	[Parameter]
+	public char EmptySymbol
+	{
+		get => _emptySymbol;
+		set
+		{
+			_emptySymbol = value;
+			StateHasChanged();
+		}
+	}
+
+	[Parameter]
+	public Color FillColor
+	{
+		get => _fillColor;
+		set
+		{
+			_fillColor = value;
+			StateHasChanged();
+		}
+	}
+
+	[Parameter]
+	public Color FillBackColor
+	{
+		get => _fillBackColor;
+		set
+		{
+			_fillBackColor = value;
+			StateHasChanged();
+		}
+	}
+
+	[Parameter]
+	public char FillSymbol
+	{
+		get => _fillSymbol;
+		set
+		{
+			_fillSymbol = value;
+			StateHasChanged();
+		}
+	}
+
+	private (char symbol, string color, string backColor) GetSymbolToDraw(int position)
+	{
+		if (GetIsFilled(position))
+		{
+			return (_fillSymbol, _fillColor.ToStyleString(), _fillBackColor.ToStyleString());
+		}
+
+		return (_emptySymbol, _emptyColor.ToStyleString(), _emptyBackColor.ToStyleString());
+	}
+
+	private bool GetIsFilled(int position)
+	{
+		var expectedPosition = (int)(Math.Floor((_value - _minValue) / (double)_maxValue) * Width);
+		return position <= expectedPosition;
+	}
+
+	private int _maxValue = 100;
+	private int _minValue;
+	private int _value;
+
+	private Color _emptyColor = Color.Red;
+	private Color _emptyBackColor = Color.Red;
+
+	private Color _fillColor = Color.Green;
+	private Color _fillBackColor = Color.Green;
+
+	private char _fillSymbol = '█';
+	private char _emptySymbol = '█';
+	private int _width = 10;
+}

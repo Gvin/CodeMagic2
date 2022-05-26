@@ -1,0 +1,13 @@
+.symbol-progress-bar {
+  width: fit-content;
+  height: fit-content;
+  line-height: normal;
+  user-select: none;
+}
+.symbol-progress-bar .symbol {
+  display: inline;
+  white-space: pre;
+  margin-bottom: 0px;
+}
+
+/*# sourceMappingURL=ProgressBar.razor.css.map */

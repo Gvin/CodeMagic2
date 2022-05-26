@@ -1,0 +1,72 @@
+﻿@using CodeMagic.Core.Objects
+@using CodeMagic.Core.Game
+@using System.Drawing
+@using CodeMagic.Core.Area
+@using CodeMagic.Game.Area.EnvironmentData
+
+@if (Model != null)
+{
+	<div class="player-stats">
+		<div>Health [@Player.Health / @Player.MaxHealth]</div>
+		<div>
+			<ProgressBar 
+				MaxValue="Player.MaxHealth" 
+				MinValue="0" 
+				Value="Player.Health" 
+				Width="30" FillColor="Color.Black" FillBackColor="Color.Red" FillSymbol="'·'" EmptyColor="Color.DarkRed" EmptyBackColor="Color.DarkRed"/>
+		</div>
+
+		<div class="space-before">Mana [@Player.Mana / @Player.MaxMana]</div>
+		<div>
+			<ProgressBar 
+				MaxValue="Player.MaxMana" 
+				MinValue="0" 
+				Value="Player.Mana" 
+				Width="30" FillColor="Color.Black" FillBackColor="Color.Blue" FillSymbol="'·'" EmptyColor="Color.DarkBlue" EmptyBackColor="Color.DarkBlue"/>
+		</div>
+
+		<div class="space-before">Stamina [@Player.Stamina / @Player.MaxStamina]</div>
+		<div>
+			<ProgressBar 
+				MaxValue="Player.MaxStamina" 
+				MinValue="0" 
+				Value="Player.Stamina" 
+				Width="30" FillColor="Color.Black" FillBackColor="Color.Yellow" FillSymbol="'·'" EmptyColor="Color.DarkGoldenrod" EmptyBackColor="Color.DarkGoldenrod"/>
+		</div>
+		
+		<div class="space-before">Hunger [@Player.HungerPercent%]</div>
+		<div>
+			<ProgressBar 
+				MaxValue="100" 
+				MinValue="0" 
+				Value="Player.HungerPercent" 
+				Width="30" FillColor="Color.LawnGreen" FillBackColor="Color.LawnGreen" EmptyColor="Color.DarkGreen" EmptyBackColor="Color.DarkGreen"/>
+		</div>
+		
+		<div class="space-before">Area Mana</div>
+		<div>
+			@{
+				// TODO: Implement
+			}
+		</div>
+	</div>
+}
+
+@code {
+	[Parameter]
+	public IGameCore? Model
+	{
+		get => _model;
+		set
+		{
+			_model = value;
+			StateHasChanged();
+		}
+	}
+
+	private IAreaMapCell Cell => Model?.Map.GetCell(Model.PlayerPosition) ?? throw new Exception("Model not initialized.");
+
+	private IPlayer Player => Model?.Player ?? throw new Exception("Model not initialized.");
+
+	private IGameCore? _model;
+}

@@ -1,27 +1,26 @@
 ﻿using CodeMagic.Core.Objects;
 
-namespace CodeMagic.Core.Area
+namespace CodeMagic.Core.Area;
+
+public interface IAreaMapCell
 {
-    public interface IAreaMapCell
-    {
-        LightLevel LightLevel { get; set; }
+    LightLevel LightLevel { get; set; }
 
-        IMapObject[] Objects { get; }
+    IMapObject[] Objects { get; }
 
-        int GetVolume<T>() where T : IVolumeObject;
+    int GetVolume<T>() where T : IVolumeObject;
 
-        void RemoveVolume<T>(int volume) where T : IVolumeObject;
+    void RemoveVolume<T>(int volume) where T : IVolumeObject;
 
-        bool BlocksMovement { get; }
+    bool BlocksMovement { get; }
 
-        bool BlocksEnvironment { get; }
+    bool BlocksEnvironment { get; }
 
-        bool BlocksVisibility { get; }
+    bool BlocksVisibility { get; }
 
-        bool BlocksProjectiles { get; }
+    bool BlocksProjectiles { get; }
 
-        IDestroyableObject GetBiggestDestroyable();
+    IDestroyableObject GetBiggestDestroyable();
 
-        IEnvironment Environment { get; }
-    }
+    IGameEnvironment Environment { get; }
 }

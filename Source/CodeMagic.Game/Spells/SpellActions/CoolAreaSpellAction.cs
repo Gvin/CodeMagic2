@@ -23,7 +23,7 @@ namespace CodeMagic.Game.Spells.SpellActions
             if (cell.BlocksEnvironment)
                 return position;
 
-            cell.Environment.Cast().Temperature -= temperature;
+            cell.Environment.Temperature -= temperature;
             return position;
         }
 

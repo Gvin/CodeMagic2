@@ -77,7 +77,7 @@ namespace CodeMagic.Game.Objects.IceObjects
             var volumeToMelt = Math.Min(volumeToLowerTemp, Volume);
             var heatLoss = (int)Math.Floor(volumeToMelt * Configuration.MeltingTemperatureMultiplier);
 
-            cell.Environment.Cast().Temperature -= heatLoss;
+            cell.Environment.Temperature -= heatLoss;
             Volume -= volumeToMelt;
 
             map.AddObject(position, CreateLiquid(volumeToMelt));

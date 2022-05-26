@@ -94,7 +94,7 @@ public class OilLiquid : MapObjectBase, ILiquid, IFireSpreadingObject, IDynamicO
         {
             var temperatureDiff = BurningTemperature - cell.Temperature();
             var temperatureChange = Math.Min(temperatureDiff, _heatSpeed);
-            cell.Environment.Cast().Temperature += temperatureChange;
+            cell.Environment.Temperature += temperatureChange;
         }
 
         var burnedVolume = (int)Math.Ceiling(cell.Temperature() * _burningRate);

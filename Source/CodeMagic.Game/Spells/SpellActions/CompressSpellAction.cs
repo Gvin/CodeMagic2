@@ -23,7 +23,7 @@ namespace CodeMagic.Game.Spells.SpellActions
             if (cell.BlocksEnvironment)
                 return position;
 
-            cell.Environment.Cast().Pressure += pressure;
+            cell.Environment.Pressure += pressure;
             return position;
         }
 
